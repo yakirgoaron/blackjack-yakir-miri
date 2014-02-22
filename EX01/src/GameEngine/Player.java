@@ -17,7 +17,15 @@ public abstract class Player {
     Double Money;
     List<Bid> Bids;
     Double TotalBid;
-
+    final Double StartMoney = 1000.0;
+    
+    
+    public Player()
+    {
+        Money = StartMoney;
+        TotalBid = 0.0;
+    }
+    
     public String getName() {
         return Name;
     }
@@ -33,7 +41,10 @@ public abstract class Player {
     public Double getTotalBid() {
         return TotalBid;
     }
+    public void GivePlayerCards(Card FirstCard,Card SecondCard)
+    {
     
+    }
     void DoubleBid(Bid bid)
     {
     }

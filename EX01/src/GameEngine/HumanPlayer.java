@@ -10,6 +10,10 @@ package GameEngine;
  *
  * @author yakir
  */
-public class HumanPlayer extends Player{
-    
+public class HumanPlayer extends Player
+{
+    public HumanPlayer(String Name)
+    {
+        this.Name = Name;
+    }
 }

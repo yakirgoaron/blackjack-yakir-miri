@@ -6,6 +6,7 @@
 
 package GameEngine;
 
+import GameEngine.Exception.RoundStartedException;
 import GameEngine.Exception.TooManyPlayersException;
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class GameEngine
     Dealer GameDealer;
     int TopDeckCard;
     int PlayerTurn;
+    Boolean IsInRound;
     final int NUMBER_PLAYERS = 6;
     
     
@@ -27,20 +29,19 @@ public class GameEngine
     {
         GamePlayers = new ArrayList<>();
         GameDealer = new Dealer();
-        NewRound();
+        IsInRound = false;
     }
+        
     
-    private void NewRound()
+    public void StartNewRound()
     {
         GameDeck = Card.newDeck();
         TopDeckCard = 0;
         PlayerTurn = 0;
-    }
-    
-    
-    public void StartNewRound()
-    {
-        NewRound();
+        for (Player player : GamePlayers)
+        {
+            player.GivePlayerCards(PullCard(), PullCard());
+        }
     }
     
     public Card PullCard()
@@ -48,23 +49,25 @@ public class GameEngine
         return GameDeck.get(TopDeckCard++);
     }
     
-    
-    public void AddPlayer(String Name) throws TooManyPlayersException
+    private void ValidateAddPlayerToGame()throws TooManyPlayersException,RoundStartedException
     {
         if(GamePlayers.size() == NUMBER_PLAYERS)
-        {
             throw new TooManyPlayersException();
-        }
-        GamePlayers.add(new HumanPlayer());
+
+        if(IsInRound)
+            throw new RoundStartedException();
     }
     
-    public void AddPlayer() throws TooManyPlayersException
+    public void AddPlayer(String Name) throws TooManyPlayersException,RoundStartedException
     {
-        if(GamePlayers.size() == NUMBER_PLAYERS)
-        {
-             throw new TooManyPlayersException();
-        }
-        GamePlayers.add(new CompPlayer());
+        ValidateAddPlayerToGame();
+        GamePlayers.add(new HumanPlayer(Name));
+    }
+    
+    public void AddPlayer() throws TooManyPlayersException,RoundStartedException
+    {
+       ValidateAddPlayerToGame();
+       GamePlayers.add(new CompPlayer());
     }
     
     public Player GetCurrentPlayer()
