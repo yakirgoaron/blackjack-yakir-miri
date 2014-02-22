@@ -7,6 +7,7 @@
 package GameEngine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -51,7 +52,9 @@ public class Card
     public static ArrayList<Card> newDeck() 
     {	
         // Return copy of prototype deck 
-        return new ArrayList<>(deck); 
+        ArrayList<Card> newDeck = new ArrayList<>(deck);
+        Collections.shuffle(newDeck);
+        return newDeck;
     }
 
     
