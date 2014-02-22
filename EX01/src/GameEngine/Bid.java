@@ -17,10 +17,19 @@ public class Bid
     Double TotalBid;
     List<Card> Cards;
     int SumCards;
+
+    public Double getTotalBid() {
+        return TotalBid;
+    }
+
+    public int getSumCards() {
+        return SumCards;
+    }
+    
     void DoubleBid()
     {
     }
-    void HitBid()
+    void HitBid(Card card)
     {
     }
     
