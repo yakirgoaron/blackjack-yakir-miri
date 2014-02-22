@@ -34,10 +34,10 @@ public abstract class Player {
         return TotalBid;
     }
     
-    void DoubleBid(Bid a)
+    void DoubleBid(Bid bid)
     {
     }
-    void HitBid(Bid a,Card c)
+    void HitBid(Bid bid,Card card)
     {
     }
     void Split()
