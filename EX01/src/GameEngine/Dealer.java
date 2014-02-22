@@ -6,10 +6,12 @@
 
 package GameEngine;
 
+import java.util.List;
+
 /**
  *
  * @author yakir
  */
 public class Dealer {
-    
+   List<Card> Cards; 
 }
