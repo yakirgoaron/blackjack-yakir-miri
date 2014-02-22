@@ -18,6 +18,14 @@ public class Bid
     List<Card> Cards;
     int SumCards;
 
+    public Bid(Double StartBid,Card FirstCard,Card SecondCard)
+    {
+        SumCards=0;
+        TotalBid = StartBid;
+        Cards.add(FirstCard);
+        Cards.add(SecondCard);
+    }
+    
     public Double getTotalBid() {
         return TotalBid;
     }
@@ -26,10 +34,10 @@ public class Bid
         return SumCards;
     }
     
-    void DoubleBid()
+    public void DoubleBid()
     {
     }
-    void HitBid(Card card)
+    public void HitBid(Card card)
     {
     }
     
