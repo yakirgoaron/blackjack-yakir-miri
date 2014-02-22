@@ -10,6 +10,6 @@ package GameEngine;
  *
  * @author yakir
  */
-public class CompPlayer {
+public class CompPlayer extends Player{
     
 }
