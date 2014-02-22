@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author yakir
+ * @author yakir & miri
  */
 public class Bid 
 {
