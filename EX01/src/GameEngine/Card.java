@@ -51,7 +51,7 @@ public class Card
     public static ArrayList<Card> newDeck() 
     {	
         // Return copy of prototype deck 
-        return new ArrayList<>(deck);
+        return new ArrayList<>(deck); 
     }
 
     
