@@ -7,7 +7,6 @@ package ConsoleApp;
 import ConsoleApp.UserOptions.MainMenu;
 import ConsoleApp.UserOptions.NewPlayer;
 import ConsoleApp.UserOptions.SecondaryMenu;
-import GameEngine.Exception.RoundStartedException;
 import GameEngine.Exception.TooManyPlayersException;
 import GameEngine.GameEngine;
 import java.util.Scanner;
@@ -91,13 +90,11 @@ public class BlackJack {
         }
         }catch(TooManyPlayersException exception){
             System.out.println("Too many players - can`t add another player");
-        }catch(RoundStartedException exception){
-            System.out.println("In the middle of the round - can`t add another player");
         }
     }
         
    
-    private void CreatePlayers()throws TooManyPlayersException, RoundStartedException{
+    private void CreatePlayers()throws TooManyPlayersException{
        
         int IntUserChoice;
         NewPlayer EnumUserChoice;
@@ -120,7 +117,7 @@ public class BlackJack {
         }                        
     }
     
-    private void AddHumanPlayer() throws TooManyPlayersException, RoundStartedException{
+    private void AddHumanPlayer() throws TooManyPlayersException{
         
         String PlayerName;
         Scanner Scanner = new Scanner(System.in);
@@ -129,7 +126,7 @@ public class BlackJack {
         GameEng.AddPlayer(PlayerName);       
     }
     
-    private void AddCompPlayer() throws TooManyPlayersException, RoundStartedException{
+    private void AddCompPlayer() throws TooManyPlayersException{
         GameEng.AddPlayer();       
     }
                
