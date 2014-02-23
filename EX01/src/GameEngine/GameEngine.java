@@ -6,7 +6,6 @@
 
 package GameEngine;
 
-import GameEngine.Exception.RoundStartedException;
 import GameEngine.Exception.TooManyPlayersException;
 import java.util.ArrayList;
 
@@ -49,22 +48,19 @@ public class GameEngine
         return GameDeck.get(TopDeckCard++);
     }
     
-    private void ValidateAddPlayerToGame()throws TooManyPlayersException,RoundStartedException
+    private void ValidateAddPlayerToGame()throws TooManyPlayersException
     {
         if(GamePlayers.size() == NUMBER_PLAYERS)
             throw new TooManyPlayersException();
-
-        if(IsInRound)
-            throw new RoundStartedException();
     }
     
-    public void AddPlayer(String Name) throws TooManyPlayersException,RoundStartedException
+    public void AddPlayer(String Name) throws TooManyPlayersException
     {
         ValidateAddPlayerToGame();
         GamePlayers.add(new HumanPlayer(Name));
     }
     
-    public void AddPlayer() throws TooManyPlayersException,RoundStartedException
+    public void AddPlayer() throws TooManyPlayersException
     {
        ValidateAddPlayerToGame();
        GamePlayers.add(new CompPlayer());
