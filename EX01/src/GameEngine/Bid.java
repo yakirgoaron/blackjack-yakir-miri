@@ -6,6 +6,7 @@
 
 package GameEngine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,13 +16,14 @@ import java.util.List;
 public class Bid 
 {
     Double TotalBid;
-    List<Card> Cards;
+    ArrayList<Card> Cards;
     int SumCards;
 
     public Bid(Card FirstCard,Card SecondCard)
     {
         SumCards=0;
         TotalBid = 50.0;
+        Cards = new ArrayList<>();
         Cards.add(FirstCard);
         Cards.add(SecondCard);
     }
