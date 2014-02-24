@@ -81,13 +81,14 @@ public class BlackJack {
         EnumUserChoice = SecondaryMenu.values()[IntUserChoice];
         
         try{
-        while (EnumUserChoice == SecondaryMenu.ADD_PLAYER) {
-            
-            CreatePlayers();
-            MenuMessages.SecondaryMenuMessage();
-            IntUserChoice = UserOptions.UserIntChoice(SecondaryMenu.getSize());
-            EnumUserChoice = SecondaryMenu.values()[IntUserChoice];            
-        }
+            while (EnumUserChoice == SecondaryMenu.ADD_PLAYER) {
+
+                CreatePlayers();
+                MenuMessages.SecondaryMenuMessage();
+                IntUserChoice = 
+                        UserOptions.UserIntChoice(SecondaryMenu.getSize());
+                EnumUserChoice = SecondaryMenu.values()[IntUserChoice];            
+            }
         }catch(TooManyPlayersException exception){
             System.out.println("Too many players - can`t add another player");
         }
