@@ -29,6 +29,7 @@ public class GameEngine
         GamePlayers = new ArrayList<>();
         GameDealer = new Dealer();
         IsInRound = false;
+        
     }
         
     
@@ -71,6 +72,15 @@ public class GameEngine
         return GamePlayers.get(PlayerTurn++);
     }
     
-    
+    public ArrayList<HumanPlayer> getHumanPlayers() 
+    {   
+        ArrayList<HumanPlayer> HumanPlayers = new ArrayList<>();
+        for (Player player : GamePlayers) 
+        {
+            if(player instanceof HumanPlayer)
+                HumanPlayers.add((HumanPlayer)player);
+        }
+        return HumanPlayers;
+    }
     
 }

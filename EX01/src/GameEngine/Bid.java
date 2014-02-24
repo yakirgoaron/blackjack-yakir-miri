@@ -18,10 +18,10 @@ public class Bid
     List<Card> Cards;
     int SumCards;
 
-    public Bid(Double StartBid,Card FirstCard,Card SecondCard)
+    public Bid(Card FirstCard,Card SecondCard)
     {
         SumCards=0;
-        TotalBid = StartBid;
+        TotalBid = 50.0;
         Cards.add(FirstCard);
         Cards.add(SecondCard);
     }

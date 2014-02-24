@@ -42,8 +42,8 @@ public abstract class Player {
         return TotalBid;
     }
     public void GivePlayerCards(Card FirstCard,Card SecondCard)
-    {
-    
+    {         
+         Bids.add(new Bid(FirstCard,SecondCard));    
     }
     void DoubleBid(Bid bid)
     {
