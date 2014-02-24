@@ -6,6 +6,7 @@
 
 package GameEngine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
 public abstract class Player {
     String Name;
     Double Money;
-    List<Bid> Bids;
+    ArrayList<Bid> Bids;
     Double TotalBid;
     final Double StartMoney = 1000.0;
     
@@ -24,6 +25,7 @@ public abstract class Player {
     {
         Money = StartMoney;
         TotalBid = 0.0;
+        Bids = new ArrayList<>();
     }
     
     public String getName() {
