@@ -26,6 +26,10 @@ public class Bid
         Cards.add(SecondCard);
     }
     
+    
+    public List<Card> getCards() {
+        return Cards;
+    }
     public Double getTotalBid() {
         return TotalBid;
     }
