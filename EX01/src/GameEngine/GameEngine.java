@@ -72,7 +72,7 @@ public class GameEngine
         return GamePlayers.get(PlayerTurn++);
     }
     
-    public ArrayList<HumanPlayer> getHumanPlayers() 
+    public ArrayList<HumanPlayer> GetHumanPlayers() 
     {   
         ArrayList<HumanPlayer> HumanPlayers = new ArrayList<>();
         for (Player player : GamePlayers) 
