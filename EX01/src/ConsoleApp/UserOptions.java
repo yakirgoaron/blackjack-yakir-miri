@@ -95,10 +95,8 @@ public class UserOptions {
         }       
     }
     
-    public static enum RoundAction{
-        
-        ADD_PLAYERS("Add players"), 
-        SAVE_GAME("Sava Game"), 
+    public static enum RoundAction{      
+        SAVE_GAME("Save and Exit game"), 
         NEW_ROUND("New Round"); 
         
         private final String Description;
