@@ -7,7 +7,12 @@
 package GameEngine;
 
 import GameEngine.Exception.TooManyPlayersException;
+import GameEngine.XmlClasses.Blackjack;
+import java.io.File;
 import java.util.ArrayList;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 /**
  *
@@ -83,4 +88,14 @@ public class GameEngine
         return HumanPlayers;
     }
     
+    public void LoadFromXml(String FileName) throws JAXBException
+    {
+        JAXBContext jc = JAXBContext.newInstance(Blackjack.class);
+        Unmarshaller u = jc.createUnmarshaller();
+        File f = new File(FileName);
+        Blackjack product = (Blackjack) u.unmarshal(f);
+        product.getPlayers();
+        product.getDiller();
+        
+    }
 }
