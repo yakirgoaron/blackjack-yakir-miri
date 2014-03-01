@@ -8,6 +8,7 @@ package GameEngine;
 
 import GameEngine.Exception.TooManyPlayersException;
 import GameEngine.XmlClasses.Blackjack;
+import GameEngine.XmlClasses.Players;
 import java.io.File;
 import java.util.ArrayList;
 import javax.xml.bind.JAXBContext;
@@ -39,14 +40,20 @@ public class GameEngine
         
     public GameEngine(String FileName) throws JAXBException
     {
-        JAXBContext jc = JAXBContext.newInstance(Blackjack.class);
-        Unmarshaller u = jc.createUnmarshaller();
-        File f = new File(FileName);
-        Blackjack product = (Blackjack) u.unmarshal(f);
-        product.getPlayers();
-        product.getDiller();
-        
+        JAXBContext JaxReader = JAXBContext.newInstance(Blackjack.class);
+        Unmarshaller XmlParser = JaxReader.createUnmarshaller();
+        File XmlFile = new File(FileName);
+        Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
+        CreatePlayers(BlackJackGame.getPlayers());
     }
+    
+    private void CreatePlayers(Players XmlPlayers)
+    {
+        for (GameEngine.XmlClasses.Player player : XmlPlayers.getPlayer()) {
+            
+        }
+    }
+    
     
     public void StartNewRound()
     {
