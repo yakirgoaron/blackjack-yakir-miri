@@ -37,9 +37,16 @@ public class XmlHandler
         
         switch (XmlPlayer.getType()){
             case HUMAN:
+            {
                NewPlayer = new HumanPlayer(Name, Money, Bids);
+               break;
+            }
             case COMPUTER:
-               NewPlayer = new CompPlayer(Name, Money, Bids);                
+            {
+               NewPlayer = new CompPlayer(Name, Money, Bids);
+               break;
+            }
+            default:           
         }
                       
         return NewPlayer;
