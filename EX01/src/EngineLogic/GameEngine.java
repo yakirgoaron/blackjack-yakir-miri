@@ -49,8 +49,20 @@ public class GameEngine
     
     private void CreatePlayers(Players XmlPlayers)
     {
-        for (EngineLogic.XmlClasses.Player player : XmlPlayers.getPlayer()) {
-            
+        for (EngineLogic.XmlClasses.Player player : XmlPlayers.getPlayer()) 
+        {
+            switch(player.getType())
+            {
+                case COMPUTER:
+                {
+                    
+                    break;
+                }
+                case HUMAN:
+                {
+                    break;
+                }
+            }
         }
     }
     
