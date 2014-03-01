@@ -18,10 +18,4 @@ public class CompPlayer extends Player
         Name = "Comp"+CompIdGen;
         CompIdGen++;
     }
-    public CompPlayer(EngineLogic.XmlClasses.Player XmlPlayer)
-    {
-        Name = XmlPlayer.getName();
-        
-    }
-    
 }

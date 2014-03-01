@@ -55,12 +55,12 @@ public class GameEngine
             {
                 case COMPUTER:
                 {
-                    GamePlayers.add(new CompPlayer(player));
+                    //GamePlayers.add(new CompPlayer(player));
                     break;
                 }
                 case HUMAN:
                 {
-                    GamePlayers.add(new HumanPlayer(player));
+                    //GamePlayers.add(new HumanPlayer(player));
                     break;
                 }
             }
