@@ -27,6 +27,14 @@ public class Bid
         Cards.add(FirstCard);
         Cards.add(SecondCard);
     }
+    
+    public Bid(ArrayList<Card> Cards,Double TotalBid)
+    {
+        this.Cards = Cards;
+        this.TotalBid = TotalBid;
+    }
+    
+    
     public Bid(Card FirstCard,Double BidWanted)
     {
         SumCards=0;
