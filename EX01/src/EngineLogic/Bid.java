@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class Bid 
 {
-    Double TotalBid;
-    ArrayList<Card> Cards;
-    int SumCards;
+    private Double TotalBid;
+    private ArrayList<Card> Cards;
+    private int SumCards;
 
     public Bid(Card FirstCard,Card SecondCard,Double BetValue)
     {
@@ -46,11 +46,14 @@ public class Bid
         return SumCards;
     }
     
-    public void DoubleBid()
+    public void DoubleBid(Card card)
     {
+        TotalBid = TotalBid *2;
+        HitBid(card);
     }
     public void HitBid(Card card)
     {
+        Cards.add(card);
     }
     
     

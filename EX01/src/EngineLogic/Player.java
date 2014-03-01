@@ -6,6 +6,8 @@
 
 package EngineLogic;
 
+import EngineLogic.Exception.RulesDosentAllowException;
+import EngineLogic.Exception.TooLowMoneyException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +16,11 @@ import java.util.List;
  * @author yakir
  */
 public abstract class Player {
-    String Name;
-    Double Money;
-    ArrayList<Bid> Bids;
-    Double TotalBid;
-    final Double StartMoney = 1000.0;
+    protected String Name;
+    protected Double Money;
+    protected ArrayList<Bid> Bids;
+    protected Double TotalBid;
+    protected final Double StartMoney = 1000.0;
     
     
     public Player()
@@ -47,34 +49,39 @@ public abstract class Player {
     {         
          Bids.add(new Bid(FirstCard,SecondCard,BetValue));    
     }
-    void DoubleBid(Bid bid)
+    
+    
+    public void DoubleBid(Bid bid,Card card) throws TooLowMoneyException
     {
+        if(bid.getTotalBid() *2 > Money)
+            throw new TooLowMoneyException();
+        bid.DoubleBid(card);
     }
-    void HitBid(Bid bid,Card card)
+    
+    public void HitBid(Bid bid,Card card)
     {
+        bid.HitBid(card);
     }
     
     
-    private Boolean CheckForSplit()
+    private void CheckForSplit() throws RulesDosentAllowException, TooLowMoneyException
     {
        if(Bids.size() != 1)
-           return false;
+           throw new RulesDosentAllowException("Split only allowed once");
        if(Bids.get(0).getCards().size() != 2)
-           return false;
+           throw new RulesDosentAllowException("Too many cards");
         if(Bids.get(0).getTotalBid()*2 > Money)
-           return false;
+           throw new TooLowMoneyException();
        Card FirstCard = Bids.get(0).getCards().get(0);
-       Card SecondCard = Bids.get(0).getCards().get(1);
-       if(FirstCard.getRank().equals(SecondCard.getRank()))
-           return false;
-      
-       return true;
+       Card SecondCard = Bids.get(0).getCards().get(1);      
+       if(FirstCard.getRank().compareTo(SecondCard.getRank()) != 0)
+           throw new RulesDosentAllowException("Cards are not the same");
     }
     
-    void Split()
+    public void Split() throws RulesDosentAllowException, TooLowMoneyException
     {
+        CheckForSplit();
         Bid BidToSplit = Bids.get(0);
-        Card FirstCard = BidToSplit.getCards().get(0);
         Card SecondCard = BidToSplit.getCards().get(1);
         BidToSplit.getCards().remove(1);
         Bid NewBid = new Bid(SecondCard,BidToSplit.getTotalBid());
