@@ -6,6 +6,8 @@
 
 package EngineLogic;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author yakir
@@ -16,5 +18,12 @@ public class HumanPlayer extends Player
     public HumanPlayer(String Name)
     {
         this.Name = Name;
+    }
+    
+    public HumanPlayer(String Name,Double Money,ArrayList<Bid> Bids)
+    {
+        this.Name = Name;
+        this.Money = Money;
+        this.Bids = Bids;
     }
 }

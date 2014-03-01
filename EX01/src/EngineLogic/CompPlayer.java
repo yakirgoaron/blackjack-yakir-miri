@@ -6,6 +6,8 @@
 
 package EngineLogic;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author yakir
@@ -17,5 +19,12 @@ public class CompPlayer extends Player
     {
         Name = "Comp"+CompIdGen;
         CompIdGen++;
+    }
+    
+    public CompPlayer(String Name,Double Money,ArrayList<Bid> Bids)
+    {
+        this.Name = Name;
+        this.Money = Money;
+        this.Bids = Bids;
     }
 }
