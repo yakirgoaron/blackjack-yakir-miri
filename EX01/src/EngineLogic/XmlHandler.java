@@ -17,5 +17,18 @@ public class XmlHandler
     
     }
     
+    public static CompPlayer LoadComputer(EngineLogic.XmlClasses.Player XmlPlayer)
+    {
+        
+        return new CompPlayer();
+    }
     
+    
+    public static HumanPlayer LoadHuman(EngineLogic.XmlClasses.Player XmlPlayer)
+    {
+        String Name = XmlPlayer.getName();
+        HumanPlayer NewPlayer = new HumanPlayer(Name);
+        
+        return NewPlayer;
+    }
 }
