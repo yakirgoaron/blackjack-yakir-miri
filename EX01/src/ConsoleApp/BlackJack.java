@@ -48,7 +48,9 @@ public class BlackJack {
       GameEng = new GameEngine();  
     }
     
-    private BlackJack(String filePathString) throws JAXBException{       
+    // C`tor for load game
+    private BlackJack(String filePathString) throws JAXBException, 
+                                                    TooManyPlayersException{       
         GameEng = new GameEngine(filePathString);
     }
      
@@ -64,6 +66,10 @@ public class BlackJack {
         catch(JAXBException exception){
             System.out.println("file not suitable to expected strcture");
         }
+        catch (TooManyPlayersException exception){
+            System.out.println("Too many players in file");
+        }
+        
         return BJGame;
     }
         

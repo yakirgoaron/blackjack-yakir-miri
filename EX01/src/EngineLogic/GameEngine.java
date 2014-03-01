@@ -38,7 +38,8 @@ public class GameEngine
         
     }
         
-    public GameEngine(String FileName) throws JAXBException
+    public GameEngine(String FileName) throws JAXBException,
+                                              TooManyPlayersException
     {
         JAXBContext JaxReader = JAXBContext.newInstance(Blackjack.class);
         Unmarshaller XmlParser = JaxReader.createUnmarshaller();
@@ -48,27 +49,15 @@ public class GameEngine
         GameDeck = Card.newDeck();
     }
     
-    private void CreatePlayers(Players XmlPlayers)
+    private void CreatePlayers(Players XmlPlayers) throws TooManyPlayersException 
     {
         for (EngineLogic.XmlClasses.Player player : XmlPlayers.getPlayer()) 
-        {
-            switch(player.getType())
-            {
-                case COMPUTER:
-                {
-                    //GamePlayers.add(new CompPlayer(player));
-                    break;
-                }
-                case HUMAN:
-                {
-                    //GamePlayers.add(new HumanPlayer(player));
-                    break;
-                }
-            }
+        {   
+            ValidateAddPlayerToGame();
+            GamePlayers.add(XmlHandler.CreatePlayer(player, this));            
         }
     }
-    
-    
+     
     public void StartNewRound()
     {
         GameDeck = Card.newDeck();
