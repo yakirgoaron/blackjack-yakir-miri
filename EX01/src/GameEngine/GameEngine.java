@@ -37,7 +37,7 @@ public class GameEngine
         
     }
         
-    public void GameEngine(String FileName) throws JAXBException
+    public GameEngine(String FileName) throws JAXBException
     {
         JAXBContext jc = JAXBContext.newInstance(Blackjack.class);
         Unmarshaller u = jc.createUnmarshaller();
@@ -61,7 +61,7 @@ public class GameEngine
     
     public Card PullCard()
     {
-        return GameDeck.get(TopDeckCard++);
+        return GameDeck.remove(0);
     }
     
     private void ValidateAddPlayerToGame()throws TooManyPlayersException
