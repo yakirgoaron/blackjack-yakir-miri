@@ -41,6 +41,7 @@ public class GameEngine
     public GameEngine(String FileName) throws JAXBException,
                                               TooManyPlayersException
     {
+        GamePlayers = new ArrayList<>();
         JAXBContext JaxReader = JAXBContext.newInstance(Blackjack.class);
         Unmarshaller XmlParser = JaxReader.createUnmarshaller();
         File XmlFile = new File(FileName);
