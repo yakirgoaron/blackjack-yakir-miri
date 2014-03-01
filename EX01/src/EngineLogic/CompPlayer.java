@@ -10,6 +10,18 @@ package EngineLogic;
  *
  * @author yakir
  */
-public class CompPlayer extends Player{
+public class CompPlayer extends Player
+{
+    static int CompIdGen=1;
+    public CompPlayer()
+    {
+        Name = "Comp"+CompIdGen;
+        CompIdGen++;
+    }
+    public CompPlayer(EngineLogic.XmlClasses.Player XmlPlayer)
+    {
+        Name = XmlPlayer.getName();
+        
+    }
     
 }

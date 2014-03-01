@@ -12,6 +12,11 @@ package EngineLogic;
  */
 public class HumanPlayer extends Player
 {
+    public HumanPlayer(EngineLogic.XmlClasses.Player XmlPlayer)
+    {
+        
+    }
+    
     public HumanPlayer(String Name)
     {
         this.Name = Name;
