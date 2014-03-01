@@ -37,6 +37,16 @@ public class GameEngine
         
     }
         
+    public void GameEngine(String FileName) throws JAXBException
+    {
+        JAXBContext jc = JAXBContext.newInstance(Blackjack.class);
+        Unmarshaller u = jc.createUnmarshaller();
+        File f = new File(FileName);
+        Blackjack product = (Blackjack) u.unmarshal(f);
+        product.getPlayers();
+        product.getDiller();
+        
+    }
     
     public void StartNewRound()
     {
@@ -88,14 +98,5 @@ public class GameEngine
         return HumanPlayers;
     }
     
-    public void LoadFromXml(String FileName) throws JAXBException
-    {
-        JAXBContext jc = JAXBContext.newInstance(Blackjack.class);
-        Unmarshaller u = jc.createUnmarshaller();
-        File f = new File(FileName);
-        Blackjack product = (Blackjack) u.unmarshal(f);
-        product.getPlayers();
-        product.getDiller();
-        
-    }
+    
 }
