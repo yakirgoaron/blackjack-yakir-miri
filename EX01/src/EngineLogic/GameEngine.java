@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-package GameEngine;
+package EngineLogic;
 
-import GameEngine.Exception.TooManyPlayersException;
-import GameEngine.XmlClasses.Blackjack;
-import GameEngine.XmlClasses.Players;
+import EngineLogic.Exception.TooManyPlayersException;
+import EngineLogic.XmlClasses.Blackjack;
+import EngineLogic.XmlClasses.Players;
 import java.io.File;
 import java.util.ArrayList;
 import javax.xml.bind.JAXBContext;
@@ -49,7 +49,7 @@ public class GameEngine
     
     private void CreatePlayers(Players XmlPlayers)
     {
-        for (GameEngine.XmlClasses.Player player : XmlPlayers.getPlayer()) {
+        for (EngineLogic.XmlClasses.Player player : XmlPlayers.getPlayer()) {
             
         }
     }

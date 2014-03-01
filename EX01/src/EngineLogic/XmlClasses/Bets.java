@@ -6,7 +6,7 @@
 //
 
 
-package GameEngine.XmlClasses;
+package EngineLogic.XmlClasses;
 
 import java.util.ArrayList;
 import java.util.List;

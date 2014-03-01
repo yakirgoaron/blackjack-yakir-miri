@@ -4,12 +4,16 @@
  * and open the template in the editor.
  */
 
-package GameEngine;
+package EngineLogic;
 
 /**
  *
  * @author yakir
  */
-public class CompPlayer extends Player{
-    
+public class HumanPlayer extends Player
+{
+    public HumanPlayer(String Name)
+    {
+        this.Name = Name;
+    }
 }

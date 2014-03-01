@@ -6,30 +6,30 @@
 //
 
 
-package GameEngine.XmlClasses;
+package EngineLogic.XmlClasses;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Java class for player complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
+ * &lt;complexType name="player">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="diller" type="{}bet"/>
- *         &lt;element name="players" type="{}players"/>
+ *         &lt;element name="bets" type="{}bets"/>
  *       &lt;/sequence>
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="type" type="{}playerType" />
+ *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="money" use="required" type="{http://www.w3.org/2001/XMLSchema}float" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -38,66 +38,66 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "diller",
-    "players"
+@XmlType(name = "player", propOrder = {
+    "bets"
 })
-@XmlRootElement(name = "blackjack")
-public class Blackjack {
+public class Player {
 
     @XmlElement(required = true)
-    protected Bet diller;
-    @XmlElement(required = true)
-    protected Players players;
-    @XmlAttribute(name = "name", required = true)
+    protected Bets bets;
+    @XmlAttribute(name = "type")
+    protected PlayerType type;
+    @XmlAttribute(name = "name")
     protected String name;
+    @XmlAttribute(name = "money", required = true)
+    protected float money;
 
     /**
-     * Gets the value of the diller property.
+     * Gets the value of the bets property.
      * 
      * @return
      *     possible object is
-     *     {@link Bet }
+     *     {@link Bets }
      *     
      */
-    public Bet getDiller() {
-        return diller;
+    public Bets getBets() {
+        return bets;
     }
 
     /**
-     * Sets the value of the diller property.
+     * Sets the value of the bets property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Bet }
+     *     {@link Bets }
      *     
      */
-    public void setDiller(Bet value) {
-        this.diller = value;
+    public void setBets(Bets value) {
+        this.bets = value;
     }
 
     /**
-     * Gets the value of the players property.
+     * Gets the value of the type property.
      * 
      * @return
      *     possible object is
-     *     {@link Players }
+     *     {@link PlayerType }
      *     
      */
-    public Players getPlayers() {
-        return players;
+    public PlayerType getType() {
+        return type;
     }
 
     /**
-     * Sets the value of the players property.
+     * Sets the value of the type property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Players }
+     *     {@link PlayerType }
      *     
      */
-    public void setPlayers(Players value) {
-        this.players = value;
+    public void setType(PlayerType value) {
+        this.type = value;
     }
 
     /**
@@ -122,6 +122,22 @@ public class Blackjack {
      */
     public void setName(String value) {
         this.name = value;
+    }
+
+    /**
+     * Gets the value of the money property.
+     * 
+     */
+    public float getMoney() {
+        return money;
+    }
+
+    /**
+     * Sets the value of the money property.
+     * 
+     */
+    public void setMoney(float value) {
+        this.money = value;
     }
 
 }

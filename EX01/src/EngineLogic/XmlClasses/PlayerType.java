@@ -6,43 +6,39 @@
 //
 
 
-package GameEngine.XmlClasses;
+package EngineLogic.XmlClasses;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Suit.
+ * <p>Java class for playerType.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="Suit">
+ * &lt;simpleType name="playerType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="CLUBS"/>
- *     &lt;enumeration value="DIAMONDS"/>
- *     &lt;enumeration value="HEARTS"/>
- *     &lt;enumeration value="SPADES"/>
+ *     &lt;enumeration value="HUMAN"/>
+ *     &lt;enumeration value="COMPUTER"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "Suit")
+@XmlType(name = "playerType")
 @XmlEnum
-public enum Suit {
+public enum PlayerType {
 
-    CLUBS,
-    DIAMONDS,
-    HEARTS,
-    SPADES;
+    HUMAN,
+    COMPUTER;
 
     public String value() {
         return name();
     }
 
-    public static Suit fromValue(String v) {
+    public static PlayerType fromValue(String v) {
         return valueOf(v);
     }
 

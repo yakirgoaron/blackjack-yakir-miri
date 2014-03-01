@@ -4,16 +4,14 @@
  * and open the template in the editor.
  */
 
-package GameEngine;
+package EngineLogic;
+
+import java.util.List;
 
 /**
  *
  * @author yakir
  */
-public class HumanPlayer extends Player
-{
-    public HumanPlayer(String Name)
-    {
-        this.Name = Name;
-    }
+public class Dealer {
+   List<Card> Cards; 
 }

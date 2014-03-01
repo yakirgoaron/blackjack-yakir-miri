@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 
-package GameEngine;
-
-import java.util.List;
+package EngineLogic;
 
 /**
  *
  * @author yakir
  */
-public class Dealer {
-   List<Card> Cards; 
+public class CompPlayer extends Player{
+    
 }
