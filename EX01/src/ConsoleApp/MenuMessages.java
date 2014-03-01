@@ -54,5 +54,19 @@ public class MenuMessages {
             System.out.println(option.ordinal() + "- " + 
                                option.getDescription()); 
     }
+    
+    public static void RoundActionMessage(){
+        
+      System.out.println("What do you wish to do?");
+        
+        for (RoundAction option: RoundAction.values())
+            System.out.println(option.ordinal() + "- " + 
+                               option.getDescription()); 
+    }
+    
+    public static void LoadGameMessage(){
+        
+        System.out.println("Enter xml file path");
+    }
   
 }

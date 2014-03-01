@@ -7,9 +7,16 @@ package ConsoleApp;
 import ConsoleApp.UserOptions.MainMenu;
 import ConsoleApp.UserOptions.NewPlayer;
 import ConsoleApp.UserOptions.SecondaryMenu;
+import GameEngine.Bid;
+import GameEngine.Card;
 import GameEngine.Exception.TooManyPlayersException;
 import GameEngine.GameEngine;
+import GameEngine.HumanPlayer;
+import GameEngine.Player;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import javax.xml.bind.JAXBException;
 
 /**
  *
@@ -40,7 +47,26 @@ public class BlackJack {
     private BlackJack() {
       GameEng = new GameEngine();  
     }
-      
+    
+    private BlackJack(String filePathString) throws JAXBException{       
+        GameEng = new GameEngine(filePathString);
+    }
+     
+    private static BlackJack LoadGame() {     
+       
+        BlackJack BJGame = null;
+        MenuMessages.LoadGameMessage();
+        String filePathString = UserOptions.FilePath();
+        
+        try{
+           BJGame = new BlackJack(filePathString);
+        }
+        catch(JAXBException exception){
+            System.out.println("file not suitable to expected strcture");
+        }
+        return BJGame;
+    }
+        
     private static BlackJack NewOrLoadGame(){
         
         int IntUserChoice;
@@ -59,7 +85,7 @@ public class BlackJack {
             }
             case LOAD_GAME:
             {
-                // TODO: xml
+                BJGame = LoadGame();
                 break;
             }          
         }         
@@ -132,7 +158,48 @@ public class BlackJack {
     }
                
     public void PlayGame(){
-        GameEng.StartNewRound();
-    }           
+
+        boolean ContinueGame = false;
+        
+        do {
+            GameEng.StartNewRound();
+            ArrayList<HumanPlayer> HumanPlayers = GameEng.GetHumanPlayers();
+
+            for (Player player : HumanPlayers){
+                //MenuMessages.PlayerActionMessage();
+               PrintPlayerCards(player);
+                //HandlePlayerChoice(player);        
+            }
+            
+            //MenuMessages.RoundActionMessage();
+            //ContinueGame = HandleRoundAction();
+        }while (ContinueGame);
+        
+    }  
+
+    private void HandlePlayerChoice(Player player) {
+        
+    }
+    
+     private boolean HandleRoundAction() {
+         return true;    
+    }
+
+    private void PrintPlayerCards(Player player) {
+        
+        List<Bid> playerBids = player.getBids();
+        
+        System.out.println("player " + player.getName() + " cards: ");
+        
+        for (Bid bid : playerBids){           
+            List<Card> playerCards = bid.getCards();
+            
+            for (Card card : playerCards){
+                System.out.println(card);
+            }
+        }
+    }
+    
+    
     
 }

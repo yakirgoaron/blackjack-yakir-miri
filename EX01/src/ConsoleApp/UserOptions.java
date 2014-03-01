@@ -4,6 +4,7 @@
  */
 package ConsoleApp;
 
+import java.io.File;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -92,7 +93,29 @@ public class UserOptions {
         public static int getSize() {
             return Size;
         }       
-    }   
+    }
+    
+    public static enum RoundAction{
+        
+        ADD_PLAYERS("Add players"), 
+        SAVE_GAME("Sava Game"), 
+        NEW_ROUND("New Round"); 
+        
+        private final String Description;
+        private static final int Size = PlayerAction.values().length;
+        
+        RoundAction(String Description){
+            this.Description = Description;
+        }
+
+        public String getDescription() {
+            return Description;
+        }
+
+        public static int getSize() {
+            return Size;
+        }       
+    }
    
     
     public static Integer UserIntChoice(int MaxValue){
@@ -115,5 +138,19 @@ public class UserOptions {
         }while ( (ValidInput == false) || (Choice > MaxValue));
         
         return Choice;
-    }    
+    }   
+    
+    public static String FilePath(){
+        
+        String filePathString;
+        File file;
+        Scanner scanner = new Scanner(System.in);
+        
+        do {      
+            filePathString =  scanner.nextLine();
+            file = new File(filePathString);
+        }while((!file.exists() || file.isDirectory()));
+        
+        return filePathString;
+    }
 }
