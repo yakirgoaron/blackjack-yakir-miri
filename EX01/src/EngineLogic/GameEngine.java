@@ -45,6 +45,7 @@ public class GameEngine
         File XmlFile = new File(FileName);
         Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
         CreatePlayers(BlackJackGame.getPlayers());
+        GameDeck = Card.newDeck();
     }
     
     private void CreatePlayers(Players XmlPlayers)
