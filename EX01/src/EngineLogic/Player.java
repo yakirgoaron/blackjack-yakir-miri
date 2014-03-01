@@ -43,9 +43,9 @@ public abstract class Player {
     public Double getTotalBid() {
         return TotalBid;
     }
-    public void GivePlayerCards(Card FirstCard,Card SecondCard)
+    public void GivePlayerCards(Card FirstCard,Card SecondCard,Double BetValue)
     {         
-         Bids.add(new Bid(FirstCard,SecondCard));    
+         Bids.add(new Bid(FirstCard,SecondCard,BetValue));    
     }
     void DoubleBid(Bid bid)
     {
@@ -53,8 +53,32 @@ public abstract class Player {
     void HitBid(Bid bid,Card card)
     {
     }
+    
+    
+    private Boolean CheckForSplit()
+    {
+       if(Bids.size() != 1)
+           return false;
+       if(Bids.get(0).getCards().size() != 2)
+           return false;
+        if(Bids.get(0).getTotalBid()*2 > Money)
+           return false;
+       Card FirstCard = Bids.get(0).getCards().get(0);
+       Card SecondCard = Bids.get(0).getCards().get(1);
+       if(FirstCard.getRank().equals(SecondCard.getRank()))
+           return false;
+      
+       return true;
+    }
+    
     void Split()
     {
+        Bid BidToSplit = Bids.get(0);
+        Card FirstCard = BidToSplit.getCards().get(0);
+        Card SecondCard = BidToSplit.getCards().get(1);
+        BidToSplit.getCards().remove(1);
+        Bid NewBid = new Bid(SecondCard,BidToSplit.getTotalBid());
+        Bids.add(NewBid);  
     }
     
     

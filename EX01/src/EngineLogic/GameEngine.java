@@ -75,7 +75,7 @@ public class GameEngine
         PlayerTurn = 0;
         for (Player player : GamePlayers)
         {
-            player.GivePlayerCards(PullCard(), PullCard());
+            player.GivePlayerCards(PullCard(), PullCard(),50.0);
         }
     }
     

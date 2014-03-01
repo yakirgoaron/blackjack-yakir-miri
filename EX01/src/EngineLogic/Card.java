@@ -56,6 +56,15 @@ public class Card
         Collections.shuffle(newDeck);
         return newDeck;
     }
-
+    
+    public Rank getRank()
+    {
+        return rank;
+    }
+    public Suit getSuit()
+    {
+        return suit;
+    }
+    
     
 }

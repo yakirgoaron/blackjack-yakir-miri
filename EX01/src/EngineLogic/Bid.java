@@ -19,15 +19,21 @@ public class Bid
     ArrayList<Card> Cards;
     int SumCards;
 
-    public Bid(Card FirstCard,Card SecondCard)
+    public Bid(Card FirstCard,Card SecondCard,Double BetValue)
+    {
+        SumCards=0;
+        TotalBid = BetValue;
+        Cards = new ArrayList<>();
+        Cards.add(FirstCard);
+        Cards.add(SecondCard);
+    }
+    public Bid(Card FirstCard,Double BidWanted)
     {
         SumCards=0;
         TotalBid = 50.0;
         Cards = new ArrayList<>();
         Cards.add(FirstCard);
-        Cards.add(SecondCard);
     }
-    
     
     public List<Card> getCards() {
         return Cards;
