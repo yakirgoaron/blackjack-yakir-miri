@@ -118,5 +118,19 @@ public class GameEngine
         return HumanPlayers;
     }
     
+    Card getCardAndRemove(Card.Rank CardRank,Card.Suit CardSuit)
+    {
+        Card RemovedCard = null;
+        for (int i = 0; i < GameDeck.size(); i++) 
+        {
+            if(GameDeck.get(i).getRank().compareTo(CardRank) == 0 &&
+               GameDeck.get(i).getSuit().compareTo(CardSuit) == 0)
+            {
+                RemovedCard = GameDeck.remove(i);
+                break;
+            }
+        }
+        return RemovedCard;
+    }
     
 }
