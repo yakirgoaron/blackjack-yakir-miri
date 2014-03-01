@@ -46,8 +46,9 @@ public class GameEngine
         Unmarshaller XmlParser = JaxReader.createUnmarshaller();
         File XmlFile = new File(FileName);
         Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
-        CreatePlayers(BlackJackGame.getPlayers());
         GameDeck = Card.newDeck();
+        CreatePlayers(BlackJackGame.getPlayers());
+        
     }
     
     private void CreatePlayers(Players XmlPlayers) throws TooManyPlayersException 
