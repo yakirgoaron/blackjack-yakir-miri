@@ -16,19 +16,48 @@ import java.util.List;
  */
 public class Card 
 {
-    public enum Rank {DEUCE {int Value(){return 2;}},
-                      THREE {int Value(){return 3;}},
-                      FOUR  {int Value(){return 4;}},
-                      FIVE  {int Value(){return 5;}},
-                      SIX   {int Value(){return 6;}},
-                      SEVEN {int Value(){return 7;}},
-                      EIGHT {int Value(){return 8;}},
-                      NINE  {int Value(){return 9;}},
-                      TEN   {int Value(){return 10;}},
-                      JACK  {int Value(){return 10;}},
-                      QUEEN {int Value(){return 10;}},
-                      KING  {int Value(){return 10;}},
-                      ACE   {int Value(){return 1;}}}
+    public enum Rank {
+        DEUCE {
+            @Override
+            int Value(){return 2;}},
+        THREE {
+            @Override
+            int Value(){return 3;}},
+         FOUR  {
+             @Override
+             int Value(){return 4;}},
+         FIVE  {
+             @Override
+             int Value(){return 5;}},
+         SIX   {
+             @Override
+             int Value(){return 6;}},
+         SEVEN {
+             @Override
+             int Value(){return 7;}},
+         EIGHT {
+             @Override
+             int Value(){return 8;}},
+         NINE  {
+             @Override
+             int Value(){return 9;}},
+         TEN   {
+             @Override
+             int Value(){return 10;}},
+         JACK  {
+             @Override
+             int Value(){return 10;}},
+         QUEEN {
+             @Override
+             int Value(){return 10;}},
+         KING  {
+             @Override
+             int Value(){return 10;}},
+         ACE  {
+             @Override
+             int Value(){return 1;}};
+         abstract int Value();
+    }
     public enum Suit {CLUBS, DIAMONDS, HEARTS2, SPADES}
     private final Rank rank;
     private final Suit suit;

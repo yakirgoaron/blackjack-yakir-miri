@@ -18,15 +18,21 @@ public class Bid
     private Double TotalBid;
     private ArrayList<Card> Cards;
     private int SumCards;
-
+    private Boolean IsHaveAce;
+    
+    
     public Bid(Card FirstCard,Card SecondCard,Double BetValue)
     {
         SumCards=0;
         TotalBid = BetValue;
+        IsHaveAce = false;
         Cards = new ArrayList<>();
-        Cards.add(FirstCard);
-        Cards.add(SecondCard);
+        AddCardsToList(FirstCard);
+        AddCardsToList(SecondCard);
+        CheckAceCard(FirstCard);
+        CheckAceCard(SecondCard);
     }
+    
     
     public Bid(ArrayList<Card> Cards,Double TotalBid)
     {
@@ -41,6 +47,7 @@ public class Bid
         TotalBid = 50.0;
         Cards = new ArrayList<>();
         Cards.add(FirstCard);
+        
     }
     
     public List<Card> getCards() {
@@ -64,6 +71,14 @@ public class Bid
         Cards.add(card);
     }
     
-    
-    
+    private void CheckAceCard(Card First)
+    {
+        IsHaveAce = !IsHaveAce && 
+                     First.getRank().compareTo(Card.Rank.ACE) == 0;
+    }
+    private void AddCardsToList(Card CardToAdd)
+    {
+        Cards.add(CardToAdd);
+        SumCards += CardToAdd.getRank().Value();
+    }
 }
