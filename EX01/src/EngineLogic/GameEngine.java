@@ -6,6 +6,7 @@
 
 package EngineLogic;
 
+import EngineLogic.Exception.RulesDosentAllowException;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.XmlClasses.Blackjack;
 import EngineLogic.XmlClasses.Players;
@@ -65,10 +66,15 @@ public class GameEngine
         GameDeck = Card.newDeck();
         TopDeckCard = 0;
         PlayerTurn = 0;
-        for (Player player : GamePlayers)
-        {
-            player.GivePlayerCards(PullCard(), PullCard(),50.0);
-        }
+        IsInRound = true;
+    }
+    
+    public void InsertBidForRound(Player Participant, Double Money) throws RulesDosentAllowException
+    {
+        if(IsInRound) 
+          Participant.GivePlayerCards(PullCard(), PullCard(),Money);
+        else
+            throw new RulesDosentAllowException("Cant Give Cards In the end");
     }
     
     public Card PullCard()
