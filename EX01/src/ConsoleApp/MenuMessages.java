@@ -55,6 +55,11 @@ public class MenuMessages {
                                option.getDescription()); 
     }
     
+    public static void PlayerBidMessage(double TotalMoney){
+        System.out.println("Yout total money is " + TotalMoney);
+        System.out.println("Please enter your bid - ");
+    }
+    
     public static void RoundActionMessage(){
         
       System.out.println("What do you wish to do?");

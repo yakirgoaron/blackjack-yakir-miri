@@ -6,6 +6,7 @@
 
 package EngineLogic;
 
+import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.XmlClasses.Bet;
 import EngineLogic.XmlClasses.Bets;
 import EngineLogic.XmlClasses.Rank;
@@ -27,7 +28,7 @@ public class XmlHandler
     
     
     public static Player CreatePlayer(EngineLogic.XmlClasses.Player XmlPlayer,
-                                      GameEngine GameEng)
+                                      GameEngine GameEng) throws DuplicateCardException
     {
         Player NewPlayer = null;
         
@@ -53,7 +54,8 @@ public class XmlHandler
     }
     
     private static ArrayList<Bid> CreatePlayerBids(Bets bets, 
-                                                   GameEngine GameEng) {
+                                                   GameEngine GameEng) throws 
+                                                   DuplicateCardException {
         
             ArrayList<Bid> Bids = new ArrayList<>();
             
@@ -68,7 +70,11 @@ public class XmlHandler
                   
                     Card.Rank rank = RankToRank(card.getRank());
                     Card.Suit suit = SuitToSuit(card.getSuit());
-                    PlayerCards.add(GameEng.getCardAndRemove(rank, suit));                     
+                    Card cardToAdd = GameEng.getCardAndRemove(rank, suit);                     
+                    
+                    if (cardToAdd == null)
+                        throw new DuplicateCardException();
+                    PlayerCards.add(cardToAdd);
                 } 
                 
                 Bids.add(new Bid(PlayerCards, TotalBid));

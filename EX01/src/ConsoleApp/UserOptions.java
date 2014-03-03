@@ -136,7 +136,28 @@ public class UserOptions {
         }while ( (ValidInput == false) || (Choice > MaxValue));
         
         return Choice;
-    }   
+    }
+    
+     public static Double UserDoubleInput(){
+        
+        Double userInput = 0.0;
+        Boolean ValidInput;
+        Scanner Scanner = new Scanner(System.in);
+        
+        do{   
+            ValidInput = true;
+        
+            try {
+		   userInput = Scanner.nextDouble();
+	    } catch (InputMismatchException exception) {
+		System.out.println("This is not a valid number!!!");
+		ValidInput = false;
+                Scanner.nextLine();
+	    }
+        }while (ValidInput == false);
+        
+        return userInput;
+    }
     
     public static String FilePath(){
         

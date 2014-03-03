@@ -9,6 +9,8 @@ import ConsoleApp.UserOptions.NewPlayer;
 import ConsoleApp.UserOptions.SecondaryMenu;
 import EngineLogic.Bid;
 import EngineLogic.Card;
+import EngineLogic.Exception.DuplicateCardException;
+import EngineLogic.Exception.RulesDosentAllowException;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.GameEngine;
 import EngineLogic.HumanPlayer;
@@ -27,7 +29,7 @@ public class BlackJack {
     GameEngine GameEng;
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RulesDosentAllowException {
     
         MenuMessages.OpeningMessage();
         BlackJack BJGame = CreateBJGame();      
@@ -35,8 +37,7 @@ public class BlackJack {
     }
     
     
-    private static BlackJack CreateBJGame()
-    {
+    private static BlackJack CreateBJGame() {
         BlackJack BJGame = NewOrLoadGame();
         BJGame.AddPlayers();
         
@@ -50,7 +51,8 @@ public class BlackJack {
     
     // C`tor for load game
     private BlackJack(String filePathString) throws JAXBException, 
-                                                    TooManyPlayersException{       
+                                                    TooManyPlayersException,       
+                                                    DuplicateCardException{       
         GameEng = new GameEngine(filePathString);
     }
      
@@ -68,6 +70,9 @@ public class BlackJack {
         }
         catch (TooManyPlayersException exception){
             System.out.println("Too many players in file");
+        }
+        catch (DuplicateCardException exception){
+            System.out.println("File contains duplicate cards");
         }
         
         return BJGame;
@@ -163,15 +168,16 @@ public class BlackJack {
         GameEng.AddPlayer();       
     }
                
-    public void PlayGame(){
+    public void PlayGame() throws RulesDosentAllowException{
 
         boolean ContinueGame = false;
         
         do {
-            GameEng.StartNewRound();
-            ArrayList<HumanPlayer> HumanPlayers = GameEng.GetHumanPlayers();
+            
+            InitRound();
+            ArrayList<HumanPlayer> HumanPlayers = GameEng.GetHumanPlayers();           
 
-            for (Player player : HumanPlayers){
+            for (Player player : HumanPlayers){              
                 //MenuMessages.PlayerActionMessage();
                PrintPlayerCards(player);
                 //HandlePlayerChoice(player);        
@@ -185,6 +191,20 @@ public class BlackJack {
 
     private void HandlePlayerChoice(Player player) {
         
+    }
+    
+    private void InitRound() throws RulesDosentAllowException{
+        GameEng.StartNewRound();
+            ArrayList<HumanPlayer> HumanPlayers = GameEng.GetHumanPlayers();
+
+        for (Player player : HumanPlayers)               
+            HandlePlayerBid(player); 
+    }
+    
+    private void HandlePlayerBid(Player player) throws RulesDosentAllowException{
+        MenuMessages.PlayerBidMessage(player.getMoney());
+        Double playerBid = UserOptions.UserDoubleInput();
+        GameEng.InsertBidForRound(player, playerBid);
     }
     
      private boolean HandleRoundAction() {
@@ -205,7 +225,5 @@ public class BlackJack {
             }
         }
     }
-    
-    
-    
+   
 }

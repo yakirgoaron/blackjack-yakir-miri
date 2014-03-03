@@ -6,6 +6,7 @@
 
 package EngineLogic;
 
+import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.Exception.RulesDosentAllowException;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.XmlClasses.Blackjack;
@@ -40,7 +41,8 @@ public class GameEngine
     }
         
     public GameEngine(String FileName) throws JAXBException,
-                                              TooManyPlayersException
+                                              TooManyPlayersException,
+                                              DuplicateCardException
     {
         GamePlayers = new ArrayList<>();
         JAXBContext JaxReader = JAXBContext.newInstance(Blackjack.class);
@@ -52,7 +54,7 @@ public class GameEngine
         
     }
     
-    private void CreatePlayers(Players XmlPlayers) throws TooManyPlayersException 
+    private void CreatePlayers(Players XmlPlayers) throws TooManyPlayersException, DuplicateCardException 
     {
         for (EngineLogic.XmlClasses.Player player : XmlPlayers.getPlayer()) 
         {   
