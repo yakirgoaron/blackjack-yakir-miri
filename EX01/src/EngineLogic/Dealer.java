@@ -6,12 +6,27 @@
 
 package EngineLogic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author yakir
  */
-public class Dealer {
-   List<Card> Cards; 
+public class Dealer 
+{
+   private List<Card> Cards; 
+   private int SumofCards;
+   
+   public Dealer()
+   {
+       SumofCards = 0;
+       Cards = new ArrayList<>();
+   }
+   
+   public void GiveCard(Card card)
+   {
+        Cards.add(card);
+   }
+   
 }

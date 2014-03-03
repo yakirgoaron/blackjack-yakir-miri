@@ -16,9 +16,20 @@ import java.util.List;
  */
 public class Card 
 {
-    public enum Rank {DEUCE, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
-                          TEN, JACK, QUEEN, KING, ACE}
-    public enum Suit {CLUBS, DIAMONDS, HEARTS, SPADES}
+    public enum Rank {DEUCE {int Value(){return 2;}},
+                      THREE {int Value(){return 3;}},
+                      FOUR  {int Value(){return 4;}},
+                      FIVE  {int Value(){return 5;}},
+                      SIX   {int Value(){return 6;}},
+                      SEVEN {int Value(){return 7;}},
+                      EIGHT {int Value(){return 8;}},
+                      NINE  {int Value(){return 9;}},
+                      TEN   {int Value(){return 10;}},
+                      JACK  {int Value(){return 10;}},
+                      QUEEN {int Value(){return 10;}},
+                      KING  {int Value(){return 10;}},
+                      ACE   {int Value(){return 1;}}}
+    public enum Suit {CLUBS, DIAMONDS, HEARTS2, SPADES}
     private final Rank rank;
     private final Suit suit;
 
