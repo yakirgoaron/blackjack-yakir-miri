@@ -58,7 +58,7 @@ public class Card
              int Value(){return 1;}};
          abstract int Value();
     }
-    public enum Suit {CLUBS, DIAMONDS, HEARTS2, SPADES}
+    public enum Suit {CLUBS, DIAMONDS, HEARTS, SPADES}
     private final Rank rank;
     private final Suit suit;
 
