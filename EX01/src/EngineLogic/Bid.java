@@ -27,37 +27,47 @@ public class Bid
         TotalBid = BetValue;
         IsHaveAce = false;
         Cards = new ArrayList<>();
-        AddCardsToList(FirstCard);
-        AddCardsToList(SecondCard);
-        CheckAceCard(FirstCard);
-        CheckAceCard(SecondCard);
+        AddCardToBid(FirstCard);
+        AddCardToBid(SecondCard);
     }
     
     
     public Bid(ArrayList<Card> Cards,Double TotalBid)
     {
-        this.Cards = Cards;
         this.TotalBid = TotalBid;
+        for (Card card : Cards) 
+        {
+            AddCardToBid(card);  
+        }
     }
     
     
     public Bid(Card FirstCard,Double BidWanted)
     {
         SumCards=0;
-        TotalBid = 50.0;
+        TotalBid = BidWanted;
         Cards = new ArrayList<>();
-        Cards.add(FirstCard);
-        
+        AddCardToBid(FirstCard);        
+    }
+    
+    private void AddCardToBid(Card FirstCard)
+    {
+        AddCardsToList(FirstCard);
+        CheckAceCard(FirstCard);
     }
     
     public List<Card> getCards() {
         return Cards;
     }
+    
     public Double getTotalBid() {
         return TotalBid;
     }
 
-    public int getSumCards() {
+    public int getSumCards() 
+    {
+        if(IsHaveAce && SumCards < 10)
+            SumCards += 10;
         return SumCards;
     }
     
