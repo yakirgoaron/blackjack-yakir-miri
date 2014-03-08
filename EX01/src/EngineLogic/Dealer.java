@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author yakir
  */
-public class Dealer 
+public class Dealer implements AIPlayer
 {
    private Hand DealerCards; 
    
@@ -50,9 +50,10 @@ public class Dealer
         return DealerCards.getCards();
     }
     
-    public PlayerAction Play(){
+   @Override
+    public PlayerAction Play(Hand hand){
         
-        if (getSumofCards() < 17)
+        if (hand.getSumCards() < 17)
             return PlayerAction.HIT;       
         return PlayerAction.STAY;       
     }
