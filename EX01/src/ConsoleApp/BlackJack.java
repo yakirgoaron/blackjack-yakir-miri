@@ -201,17 +201,17 @@ public class BlackJack {
     private void HandlePlayerChoice(Player player) 
     {
         int IntUserChoice;
-        PlayerAction EnumPlayeAction;
+        PlayerAction EnumPlayerAction;
         List<Bid> playerBids = player.getBids();
         
          for (Bid bid : playerBids)
          { 
             IntUserChoice = UserOptions.UserIntChoice(NewPlayer.getSize());
-            EnumPlayeAction = PlayerAction.values()[IntUserChoice];
+            EnumPlayerAction = PlayerAction.values()[IntUserChoice];
             
             try
             {
-                switch(EnumPlayeAction)
+                switch(EnumPlayerAction)
                 {
                     case DOUBLE:
                     {
