@@ -56,7 +56,10 @@ public interface Communicable
     
     public void PrintPlayerInfo(Player PlayerToPrint);
     
+    public void PrintBasicPlayerInfo(Player PlayerToPrint);
+    
     public RoundAction GetFinishGameAction();
     
+    public Double GetBidForPlayer();
     
 }
