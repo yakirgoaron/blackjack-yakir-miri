@@ -22,6 +22,16 @@ public class Dealer
        DealerCards = new Hand();
    }
    
+   public Dealer(ArrayList<Card> Cards)
+   {
+       this.DealerCards = new Hand();   
+       
+       for (Card card : Cards) 
+        {
+            DealerCards.AddCard(card);  
+        }
+   }
+   
    public void GiveCard(Card card)
    {
         DealerCards.AddCard(card);

@@ -26,9 +26,23 @@ public class XmlHandler
     
     }
     
+    public static Dealer CreateDealer(EngineLogic.XmlClasses.Bet XmlDealer,
+                                      GameEngine GameEng) throws DuplicateCardException
+    {
+        Dealer dealer;
+        List<EngineLogic.XmlClasses.Cards.Card> XmlCards = 
+                XmlDealer.getCards().getCard();
+        ArrayList<Card> PlayerCards = CreateHandCards(XmlCards, GameEng);
+        
+        dealer = new Dealer(PlayerCards);
+          
+        return dealer;
+    }
+    
     
     public static Player CreatePlayer(EngineLogic.XmlClasses.Player XmlPlayer,
-                                      GameEngine GameEng) throws DuplicateCardException
+                                      GameEngine GameEng) 
+                                      throws DuplicateCardException
     {
         Player NewPlayer = null;
         
@@ -60,26 +74,37 @@ public class XmlHandler
             ArrayList<Bid> Bids = new ArrayList<>();
             
             for(Bet bet: bets.getBet()){
+                
+                Double TotalBid = (double)bet.getSum();
                 List<EngineLogic.XmlClasses.Cards.Card> XmlCards = 
                         bet.getCards().getCard();
-                Double TotalBid = (double)bet.getSum();
-                
-                ArrayList<Card> PlayerCards = new ArrayList<>();
-                                      
-                for (EngineLogic.XmlClasses.Cards.Card card : XmlCards){
-                  
-                    Card.Rank rank = RankToRank(card.getRank());
-                    Card.Suit suit = SuitToSuit(card.getSuit());
-                    Card cardToAdd = GameEng.getCardAndRemove(rank, suit);                     
-                    
-                    if (cardToAdd == null)
-                        throw new DuplicateCardException();
-                    PlayerCards.add(cardToAdd);
-                } 
+     
+                ArrayList<Card> PlayerCards = 
+                        CreateHandCards(XmlCards, GameEng);
                 
                 Bids.add(new Bid(PlayerCards, TotalBid));
             }           
             return Bids;
+    }
+    
+    private static ArrayList<Card> CreateHandCards(
+            List<EngineLogic.XmlClasses.Cards.Card> XmlCards,
+            GameEngine GameEng) throws DuplicateCardException{
+        
+        ArrayList<Card> PlayerCards = new ArrayList<>();
+                                      
+        for (EngineLogic.XmlClasses.Cards.Card card : XmlCards){
+
+            Card.Rank rank = RankToRank(card.getRank());
+            Card.Suit suit = SuitToSuit(card.getSuit());
+            Card cardToAdd = GameEng.getCardAndRemove(rank, suit);                     
+
+            if (cardToAdd == null)
+                throw new DuplicateCardException();
+            PlayerCards.add(cardToAdd);
+        }
+        
+        return PlayerCards;
     }
     
     private static Card.Rank RankToRank(Rank rank) {

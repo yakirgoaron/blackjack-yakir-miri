@@ -47,6 +47,7 @@ public class GameEngine
         File XmlFile = new File(FileName);
         Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
         CreatePlayers(BlackJackGame.getPlayers());
+        GameDealer = XmlHandler.CreateDealer(BlackJackGame.getDiller(), this);
     }
     
     public GameEngine()
