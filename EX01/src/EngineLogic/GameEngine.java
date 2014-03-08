@@ -128,6 +128,10 @@ public class GameEngine
     {
         return GamePlayers.get(PlayerTurn++);
     }
+
+    public Dealer getGameDealer() {
+        return GameDealer;
+    }
     
     public ArrayList<HumanPlayer> GetHumanPlayers() 
     {   
