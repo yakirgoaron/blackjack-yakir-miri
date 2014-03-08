@@ -126,6 +126,16 @@ public class GameEngine
     
     public Player GetCurrentPlayer()
     {
+        while (GamePlayers.get(PlayerTurn) instanceof CompPlayer )
+        {
+            ((CompPlayer)GamePlayers.get(PlayerTurn)).Play();
+            PlayerTurn++;
+            if(GamePlayers.size() == PlayerTurn)
+            {
+                this.IsInRound = false;
+                return null;
+            }
+        }
         return GamePlayers.get(PlayerTurn++);
     }
 

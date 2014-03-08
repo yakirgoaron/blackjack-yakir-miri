@@ -27,4 +27,9 @@ public class CompPlayer extends Player
         this.Money = Money;
         this.Bids = Bids;
     }
+    
+    public void Play()
+    {
+        
+    }
 }
