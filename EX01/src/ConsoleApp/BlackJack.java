@@ -6,11 +6,13 @@ package ConsoleApp;
 
 import ConsoleApp.UserOptions.MainMenu;
 import ConsoleApp.UserOptions.NewPlayer;
+import ConsoleApp.UserOptions.PlayerAction;
 import ConsoleApp.UserOptions.SecondaryMenu;
 import EngineLogic.Bid;
 import EngineLogic.Card;
 import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.Exception.RulesDosentAllowException;
+import EngineLogic.Exception.TooLowMoneyException;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.GameEngine;
 import EngineLogic.HumanPlayer;
@@ -18,6 +20,8 @@ import EngineLogic.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 
 /**
@@ -177,14 +181,15 @@ public class BlackJack {
         boolean ContinueGame = false;
         
         do {
+            if(!GameEng.GetIsInRound())
+                InitRound();
             
-            InitRound();
             ArrayList<HumanPlayer> HumanPlayers = GameEng.GetHumanPlayers();           
 
             for (Player player : HumanPlayers){                              
                PrintPlayerCards(player);
-               //MenuMessages.PlayerActionMessage();
-               //HandlePlayerChoice(player);        
+               MenuMessages.PlayerActionMessage();
+               HandlePlayerChoice(player);        
             }
             
             //MenuMessages.RoundActionMessage();
@@ -193,8 +198,49 @@ public class BlackJack {
         
     }  
 
-    private void HandlePlayerChoice(Player player) {
+    private void HandlePlayerChoice(Player player) 
+    {
+        int IntUserChoice;
+        PlayerAction EnumPlayeAction;
+        List<Bid> playerBids = player.getBids();
         
+         for (Bid bid : playerBids)
+         { 
+            IntUserChoice = UserOptions.UserIntChoice(NewPlayer.getSize());
+            EnumPlayeAction = PlayerAction.values()[IntUserChoice];
+            
+            try
+            {
+                switch(EnumPlayeAction)
+                {
+                    case DOUBLE:
+                    {
+                        player.DoubleBid(bid, GameEng.PullCard());
+                        break;
+                    }
+                    case HIT:
+                    {
+                        player.HitBid(bid, GameEng.PullCard());
+                        break;
+                    }
+                    case SPLIT:
+                    {
+                        player.Split();
+                        break;
+                    }
+                    case STAY:
+                        break;
+                }
+            }
+            catch (RulesDosentAllowException ex) {
+                    Logger.getLogger(BlackJack.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            catch (TooLowMoneyException ex) {
+                Logger.getLogger(BlackJack.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+        PrintPlayerCards(player);
+       
     }
     
     private void InitRound() throws RulesDosentAllowException{
@@ -219,9 +265,10 @@ public class BlackJack {
         
         List<Bid> playerBids = player.getBids();
         
-        System.out.println("player " + player.getName() + " cards: ");
+        System.out.println("player " + player.getName() + " bids: ");
         
         for (Bid bid : playerBids){           
+            System.out.println("Bid Total " + bid.getTotalBid() + " cards: ");
             List<Card> playerCards = bid.getCards();
             
             for (Card card : playerCards){
