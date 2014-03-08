@@ -32,12 +32,28 @@ public class GameEngine
     private final int NUMBER_PLAYERS = 6;
     private final int NUMBER_OF_DECKS = 6;
     
-    public GameEngine()
+    private void IniGameEngine()
     {
         GamePlayers = new ArrayList<>();
-        GameDealer = new Dealer();
         IsInRound = false;
         CreateDeck();
+    }
+    
+    private void XMLJAXRead(String FileName)throws JAXBException,
+                                              TooManyPlayersException,
+                                              DuplicateCardException
+    {
+        JAXBContext JaxReader = JAXBContext.newInstance(Blackjack.class);
+        Unmarshaller XmlParser = JaxReader.createUnmarshaller();
+        File XmlFile = new File(FileName);
+        Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
+        CreatePlayers(BlackJackGame.getPlayers());
+    }
+    
+    public GameEngine()
+    {
+        GameDealer = new Dealer();
+        IniGameEngine();
     }
     
     
@@ -46,14 +62,8 @@ public class GameEngine
                                               TooManyPlayersException,
                                               DuplicateCardException
     {
-        GamePlayers = new ArrayList<>();
-        JAXBContext JaxReader = JAXBContext.newInstance(Blackjack.class);
-        Unmarshaller XmlParser = JaxReader.createUnmarshaller();
-        File XmlFile = new File(FileName);
-        Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
-        CreateDeck();
-        CreatePlayers(BlackJackGame.getPlayers());
-        
+        IniGameEngine();
+        XMLJAXRead(FileName);  
     }
     private void CreateDeck()
     {
