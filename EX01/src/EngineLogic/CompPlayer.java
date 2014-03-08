@@ -6,6 +6,7 @@
 
 package EngineLogic;
 
+import EngineLogic.Communicable.PlayerAction;
 import java.util.ArrayList;
 
 /**
@@ -28,8 +29,11 @@ public class CompPlayer extends Player
         this.Bids = Bids;
     }
     
-    public void Play()
-    {
+    public PlayerAction Play(Bid bid)
+    {               
+        if (bid.GetSumOfCards() < 17)
+            return PlayerAction.HIT;       
+        return PlayerAction.STAY;   
         
     }
 }
