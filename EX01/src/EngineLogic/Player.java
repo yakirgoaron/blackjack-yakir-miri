@@ -68,7 +68,7 @@ public abstract class Player {
     {
        if(Bids.size() != 1)
            throw new RulesDosentAllowException("Split only allowed once");
-       if(Bids.get(0).getCards().size() != 2)
+       if(Bids.get(0).GetNumberOfCards() != 2)
            throw new RulesDosentAllowException("Too many cards");
         if(Bids.get(0).getTotalBid()*2 > Money)
            throw new TooLowMoneyException();

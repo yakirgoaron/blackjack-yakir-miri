@@ -16,59 +16,50 @@ import java.util.List;
 public class Bid 
 {
     private Double TotalBid;
-    private ArrayList<Card> Cards;
-    private int SumCards;
-    private Boolean IsHaveAce;
+    private Hand BidCards;
+  
     
+    private void InIBid()
+    {
+        TotalBid = 0.0;
+        BidCards = new Hand();
+    }
     
     public Bid(Card FirstCard,Card SecondCard,Double BetValue)
     {
-        SumCards=0;
+        InIBid();
         TotalBid = BetValue;
-        IsHaveAce = false;
-        Cards = new ArrayList<>();
-        AddCardToBid(FirstCard);
-        AddCardToBid(SecondCard);
+        BidCards.AddCard(FirstCard);
+        BidCards.AddCard(SecondCard);
     }
     
     
     public Bid(ArrayList<Card> Cards,Double TotalBid)
     {
+        InIBid();
         this.TotalBid = TotalBid;
         for (Card card : Cards) 
         {
-            AddCardToBid(card);  
+            BidCards.AddCard(card);  
         }
     }
     
     
     public Bid(Card FirstCard,Double BidWanted)
     {
-        SumCards=0;
+        InIBid();
         TotalBid = BidWanted;
-        Cards = new ArrayList<>();
-        AddCardToBid(FirstCard);        
+        BidCards.AddCard(FirstCard);        
     }
     
-    private void AddCardToBid(Card FirstCard)
-    {
-        AddCardsToList(FirstCard);
-        CheckAceCard(FirstCard);
-    }
-    
-    public List<Card> getCards() {
-        return Cards;
-    }
-    
+      
     public Double getTotalBid() {
         return TotalBid;
     }
 
-    public int getSumCards() 
+    public int GetSumOfCards()
     {
-        if(IsHaveAce && SumCards < 10)
-            SumCards += 10;
-        return SumCards;
+        return this.BidCards.getSumCards();
     }
     
     public void DoubleBid(Card card)
@@ -76,19 +67,19 @@ public class Bid
         TotalBid = TotalBid *2;
         HitBid(card);
     }
+    
     public void HitBid(Card card)
     {
-        Cards.add(card);
+        BidCards.AddCard(card);
     }
     
-    private void CheckAceCard(Card First)
+    public int GetNumberOfCards()
     {
-        IsHaveAce = !IsHaveAce && 
-                     First.getRank().compareTo(Card.Rank.ACE) == 0;
+        return BidCards.GetNumberOfCards();
     }
-    private void AddCardsToList(Card CardToAdd)
-    {
-        Cards.add(CardToAdd);
-        SumCards += CardToAdd.getRank().Value();
+    
+    public ArrayList<Card> getCards() {
+        return BidCards.getCards();
     }
+    
 }
