@@ -32,14 +32,18 @@ public class BlackJack {
     public static void main(String[] args) throws RulesDosentAllowException {
     
         MenuMessages.OpeningMessage();
-        BlackJack BJGame = CreateBJGame();      
-        BJGame.PlayGame();
+        BlackJack BJGame = CreateBJGame();     
+        
+        if (BJGame != null)
+            BJGame.PlayGame();
     }
     
     
     private static BlackJack CreateBJGame() {
         BlackJack BJGame = NewOrLoadGame();
-        BJGame.AddPlayers();
+        
+        if (BJGame != null)
+            BJGame.AddPlayers();
         
         return BJGame;
     }
@@ -54,28 +58,6 @@ public class BlackJack {
                                                     TooManyPlayersException,       
                                                     DuplicateCardException{       
         GameEng = new GameEngine(filePathString);
-    }
-     
-    private static BlackJack LoadGame() {     
-       
-        BlackJack BJGame = null;
-        MenuMessages.LoadGameMessage();
-        String filePathString = UserOptions.FilePath();
-        
-        try{
-           BJGame = new BlackJack(filePathString);
-        }
-        catch(JAXBException exception){
-            System.out.println("file not suitable to expected strcture");
-        }
-        catch (TooManyPlayersException exception){
-            System.out.println("Too many players in file");
-        }
-        catch (DuplicateCardException exception){
-            System.out.println("File contains duplicate cards");
-        }
-        
-        return BJGame;
     }
         
     private static BlackJack NewOrLoadGame(){
@@ -106,6 +88,28 @@ public class BlackJack {
     private static BlackJack NewGame(){                        
         return new BlackJack();     
     } 
+    
+    private static BlackJack LoadGame() {     
+       
+        BlackJack BJGame = null;
+        MenuMessages.LoadGameMessage();
+        String filePathString = UserOptions.FilePath();
+        
+        try{
+           BJGame = new BlackJack(filePathString);
+        }
+        catch(JAXBException exception){
+            System.out.println("file not suitable to expected strcture");
+        }
+        catch (TooManyPlayersException exception){
+            System.out.println("Too many players in file");
+        }
+        catch (DuplicateCardException exception){
+            System.out.println("File contains duplicate cards");
+        }
+        
+        return BJGame;
+    }
     
     
     private void AddPlayers(){
@@ -177,10 +181,10 @@ public class BlackJack {
             InitRound();
             ArrayList<HumanPlayer> HumanPlayers = GameEng.GetHumanPlayers();           
 
-            for (Player player : HumanPlayers){              
-                //MenuMessages.PlayerActionMessage();
+            for (Player player : HumanPlayers){                              
                PrintPlayerCards(player);
-                //HandlePlayerChoice(player);        
+               //MenuMessages.PlayerActionMessage();
+               //HandlePlayerChoice(player);        
             }
             
             //MenuMessages.RoundActionMessage();
