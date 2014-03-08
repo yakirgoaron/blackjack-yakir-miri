@@ -184,12 +184,12 @@ public class BlackJack {
             if(!GameEng.GetIsInRound())
                 InitRound();
             
-            ArrayList<HumanPlayer> HumanPlayers = GameEng.GetHumanPlayers();           
-
-            for (Player player : HumanPlayers){                              
-               PrintPlayerCards(player);
-               MenuMessages.PlayerActionMessage();
-               HandlePlayerChoice(player);        
+            while (GameEng.GetIsInRound()){ 
+                
+                Player CurrPlayer = GameEng.GetCurrentPlayer();                              
+                PrintPlayerCards(CurrPlayer);
+                MenuMessages.PlayerActionMessage();
+                HandlePlayerChoice(CurrPlayer);        
             }
             
             //MenuMessages.RoundActionMessage();
