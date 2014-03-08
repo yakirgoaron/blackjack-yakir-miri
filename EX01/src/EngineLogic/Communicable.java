@@ -54,7 +54,7 @@ public interface Communicable
     
     public PlayerAction GetWantedAction();
     
-    public void PrintPlayerInfo();
+    public void PrintPlayerInfo(Player PlayerToPrint);
     
     public RoundAction GetFinishGameAction();
     
