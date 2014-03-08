@@ -58,7 +58,7 @@ public interface Communicable
     
     public void PrintBasicPlayerInfo(Player PlayerToPrint);
     
-    public RoundAction GetFinishGameAction();
+    public RoundAction GetFinishRoundAction();
     
     public Double GetBidForPlayer();
     
