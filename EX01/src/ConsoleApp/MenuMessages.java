@@ -5,6 +5,8 @@
 package ConsoleApp;
 
 import ConsoleApp.UserOptions.*; 
+import EngineLogic.Communicable.PlayerAction;
+import EngineLogic.Communicable.RoundAction;
 
 /**
  *
@@ -53,11 +55,6 @@ public class MenuMessages {
         for (NewPlayer option: NewPlayer.values())
             System.out.println(option.ordinal() + "- " + 
                                option.getDescription()); 
-    }
-    
-    public static void PlayerBidMessage(double TotalMoney){
-        System.out.println("Yout total money is " + TotalMoney);
-        System.out.println("Please enter your bid - ");
     }
     
     public static void RoundActionMessage(){

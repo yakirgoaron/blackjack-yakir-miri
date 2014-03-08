@@ -73,49 +73,7 @@ public class UserOptions {
             return Size;
         }     
     }
-            
-    public static enum PlayerAction{
-        
-        DOUBLE("Double"), HIT("Hit"), SPLIT("Split"), STAY("Stay"), 
-        QUIT_GAME("Quit Game");
-        
-        private final String Description;
-        private static final int Size = PlayerAction.values().length;
-        
-        PlayerAction(String Description){
-            this.Description = Description;
-        }
 
-        public String getDescription() {
-            return Description;
-        }
-
-        public static int getSize() {
-            return Size;
-        }       
-    }
-    
-    public static enum RoundAction{      
-        SAVE_GAME("Save and Exit game"), 
-        NEW_ROUND("New Round"); 
-        
-        private final String Description;
-        private static final int Size = PlayerAction.values().length;
-        
-        RoundAction(String Description){
-            this.Description = Description;
-        }
-
-        public String getDescription() {
-            return Description;
-        }
-
-        public static int getSize() {
-            return Size;
-        }       
-    }
-   
-    
     public static Integer UserIntChoice(int MaxValue){
         
         Integer Choice = 0;
