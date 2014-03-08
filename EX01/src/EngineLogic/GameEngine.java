@@ -153,43 +153,54 @@ public class GameEngine
         }
     }
     
-    private void MakePlayerMove(Communicable commInterface,Player CurrentPlayer)
+    private void MakePlayerMove(Communicable commInterface,Bid CurrentBid,Player CurrentPlayer)
     {
         PlayerAction EnumAction; 
-        for (Bid CurrBid : CurrentPlayer.getBids()) 
+        while (true)
         {
-            while (true)
+            EnumAction = commInterface.GetWantedAction();    
+            commInterface.PrintBidInfo(CurrentBid);
+            try 
             {
-                EnumAction = commInterface.GetWantedAction();    
-                commInterface.PrintBidInfo(CurrBid);
-                try 
-                {
-                    DoPlayerMove(EnumAction, CurrentPlayer, CurrBid);
-                    break;
-                } 
-                catch (RulesDosentAllowException ex) 
-                {
-                    commInterface.PrintMessage(ex.getMessage());
-                }
-                catch (TooLowMoneyException ex) 
-                {
-                    commInterface.PrintMessage(ex.getMessage());
-                }
+                DoPlayerMove(EnumAction, CurrentPlayer, CurrentBid);
+                break;
+            } 
+            catch (RulesDosentAllowException ex) 
+            {
+                commInterface.PrintMessage(ex.getMessage());
             }
-        }
-        
+            catch (TooLowMoneyException ex) 
+            {
+                commInterface.PrintMessage(ex.getMessage());
+            }
+        }        
     }
     
-    private void HandleRoundPlay(Communicable commInterface)
+    private void HandleAIPlayers(AIPlayer CurrPlayer,Hand CurrBid)
+    {
+        try
+        {
+            DoPlayerMove(CurrPlayer.Play(CurrBid),CurrPlayer,CurrBid);
+        } 
+        catch (RulesDosentAllowException ex) {
+        } catch (TooLowMoneyException ex) {
+        }
+    }
+    
+    private void HandleRoundPlay(Communicable commInterface) 
     {
         for (Player player : GamePlayers)
         {
             commInterface.PrintPlayerInfo(player);
-            if(player instanceof CompPlayer)
-                ((CompPlayer)player).Play();
-            else
-                MakePlayerMove(commInterface,player);
+            for (Bid CurrBid : player.getBids()) 
+            {     
+                if(player instanceof CompPlayer)
+                    HandleAIPlayers((CompPlayer)player,CurrBid); 
+                else
+                    MakePlayerMove(commInterface,CurrBid,player);
+            }
         }
+        HandleAIPlayers(GameDealer,GameDealer.getDealerCards());
     }
     
     public void StartGame(Communicable commInterface)
