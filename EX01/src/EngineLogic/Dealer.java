@@ -31,6 +31,10 @@ public class Dealer implements AIPlayer
             DealerCards.AddCard(card);  
         }
    }
+
+    public Hand getDealerCards() {
+        return DealerCards;
+    }
    
    public void GiveCard(Card card)
    {
