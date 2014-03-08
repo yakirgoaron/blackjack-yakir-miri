@@ -63,4 +63,6 @@ public interface Communicable
     public Double GetBidForPlayer();
     
     public void PrintBidInfo(Bid BidForPrint);
+    
+    public void PrintMessage(String Message);
 }
