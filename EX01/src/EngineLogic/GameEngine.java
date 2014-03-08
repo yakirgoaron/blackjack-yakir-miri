@@ -169,11 +169,11 @@ public class GameEngine
                 } 
                 catch (RulesDosentAllowException ex) 
                 {
-                    
+                    commInterface.PrintMessage(ex.getMessage());
                 }
                 catch (TooLowMoneyException ex) 
                 {
-                    
+                    commInterface.PrintMessage(ex.getMessage());
                 }
             }
         }
