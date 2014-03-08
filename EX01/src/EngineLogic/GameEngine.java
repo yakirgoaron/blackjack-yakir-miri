@@ -23,23 +23,25 @@ import javax.xml.bind.Unmarshaller;
  */
 public class GameEngine 
 {
-    ArrayList<Player> GamePlayers;
-    ArrayList<Card> GameDeck;
-    Dealer GameDealer;
-    int TopDeckCard;
-    int PlayerTurn;
-    Boolean IsInRound;
-    final int NUMBER_PLAYERS = 6;
-    
+    private ArrayList<Player> GamePlayers;
+    private ArrayList<Card> GameDeck;
+    private Dealer GameDealer;
+    private int TopDeckCard;
+    private int PlayerTurn;
+    private Boolean IsInRound;
+    private final int NUMBER_PLAYERS = 6;
+    private final int NUMBER_OF_DECKS = 6;
     
     public GameEngine()
     {
         GamePlayers = new ArrayList<>();
         GameDealer = new Dealer();
         IsInRound = false;
-        
+        CreateDeck();
     }
-        
+    
+    
+    
     public GameEngine(String FileName) throws JAXBException,
                                               TooManyPlayersException,
                                               DuplicateCardException
@@ -49,11 +51,18 @@ public class GameEngine
         Unmarshaller XmlParser = JaxReader.createUnmarshaller();
         File XmlFile = new File(FileName);
         Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
-        GameDeck = Card.newDeck();
+        CreateDeck();
         CreatePlayers(BlackJackGame.getPlayers());
         
     }
-    
+    private void CreateDeck()
+    {
+        GameDeck = new ArrayList<>();
+        for (int i = 0; i < NUMBER_OF_DECKS; i++) 
+        {
+            GameDeck.addAll(Card.newDeck());
+        }
+    }
     private void CreatePlayers(Players XmlPlayers) throws TooManyPlayersException, DuplicateCardException 
     {
         for (EngineLogic.XmlClasses.Player player : XmlPlayers.getPlayer()) 
@@ -65,7 +74,7 @@ public class GameEngine
      
     public void StartNewRound()
     {
-        GameDeck = Card.newDeck();
+        CreateDeck();
         TopDeckCard = 0;
         PlayerTurn = 0;
         IsInRound = true;
