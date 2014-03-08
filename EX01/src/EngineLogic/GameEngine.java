@@ -6,13 +6,17 @@
 
 package EngineLogic;
 
+import EngineLogic.Communicable.PlayerAction;
 import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.Exception.RulesDosentAllowException;
+import EngineLogic.Exception.TooLowMoneyException;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.XmlClasses.Blackjack;
 import EngineLogic.XmlClasses.Players;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -83,7 +87,7 @@ public class GameEngine
         }
     }
      
-    public void StartNewRound()
+    private void StartNewRound()
     {
         if(!IsInRound)
         {
@@ -93,15 +97,15 @@ public class GameEngine
         }
     }
     
-    public void InsertBidForRound(Player Participant, Double Money) throws RulesDosentAllowException
+    private void InsertBidForRound(Communicable commGetBid )
     {
-        if(IsInRound) 
-          Participant.GivePlayerCards(PullCard(), PullCard(),Money);
-        else
-            throw new RulesDosentAllowException("Cant Give Cards In the end");
+        for (Player Participant : GamePlayers) 
+        {
+            Participant.GivePlayerCards(PullCard(), PullCard(),commGetBid.GetBidForPlayer());
+        }
     }
     
-    public Card PullCard()
+    private Card PullCard()
     {
         return GameDeck.remove(0);
     }
@@ -124,21 +128,81 @@ public class GameEngine
        GamePlayers.add(new CompPlayer());
     }
     
-    public Player GetCurrentPlayer()
+    
+    private void DoPlayerMove(PlayerAction EnumAction,Player CurrentPlayer,Bid CurrentBid) throws RulesDosentAllowException, TooLowMoneyException
     {
-        while (GamePlayers.get(PlayerTurn) instanceof CompPlayer )
+        switch(EnumAction)
         {
-            ((CompPlayer)GamePlayers.get(PlayerTurn)).Play();
-            PlayerTurn++;
-            if(GamePlayers.size() == PlayerTurn)
-            {
-                this.IsInRound = false;
-                return null;
-            }
+           case DOUBLE:
+           {
+               CurrentPlayer.DoubleBid(CurrentBid, PullCard());
+               break;
+           }
+           case HIT:
+           {
+               CurrentPlayer.HitBid(CurrentBid, PullCard());
+               break;
+           }
+           case SPLIT:
+           {
+               CurrentPlayer.Split();
+               break;
+           }
+           case STAY:
+               break;
         }
-        return GamePlayers.get(PlayerTurn++);
     }
-
+    
+    private void MakePlayerMove(Communicable commInterface,Player CurrentPlayer)
+    {
+        PlayerAction EnumAction;
+        
+        
+        for (Bid CurrBid : CurrentPlayer.getBids()) 
+        {
+            while (true)
+            {
+                EnumAction = commInterface.GetWantedAction();    
+                commInterface.PrintBidInfo(CurrBid);
+                try 
+                {
+                    DoPlayerMove(EnumAction, CurrentPlayer, CurrBid);
+                    break;
+                } 
+                catch (RulesDosentAllowException ex) 
+                {
+                    
+                }
+                catch (TooLowMoneyException ex) 
+                {
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
+    private void HandleRoundPlay(Communicable commInterface)
+    {
+        for (Player player : GamePlayers)
+        {
+            commInterface.PrintPlayerInfo(player);
+            if(player instanceof CompPlayer)
+                ((CompPlayer)player).Play();
+            else
+                MakePlayerMove(commInterface,player);
+        }
+    }
+    
+    public void StartGame(Communicable commInterface)
+    {
+        InsertBidForRound(commInterface);
+        StartNewRound();
+        HandleRoundPlay(commInterface);
+        //ENDRound
+    }
+    
     public Dealer getGameDealer() {
         return GameDealer;
     }
