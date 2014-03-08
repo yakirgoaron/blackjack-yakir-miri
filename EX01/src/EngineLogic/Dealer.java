@@ -15,18 +15,29 @@ import java.util.List;
  */
 public class Dealer 
 {
-   private List<Card> Cards; 
-   private int SumofCards;
+   private Hand DealerCards; 
    
    public Dealer()
    {
-       SumofCards = 0;
-       Cards = new ArrayList<>();
+       DealerCards = new Hand();
    }
    
    public void GiveCard(Card card)
    {
-        Cards.add(card);
+        DealerCards.AddCard(card);
    }
+
+    public int getSumofCards() {
+        return DealerCards.getSumCards();
+    }
+    
+    public void HitBid(Card card)
+    {
+        DealerCards.AddCard(card);
+    }
+   
+    public ArrayList<Card> getCards() {
+        return DealerCards.getCards();
+    }
    
 }
