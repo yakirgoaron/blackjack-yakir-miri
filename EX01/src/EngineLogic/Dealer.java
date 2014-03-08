@@ -6,8 +6,8 @@
 
 package EngineLogic;
 
+import EngineLogic.Communicable.PlayerAction;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -48,6 +48,13 @@ public class Dealer
    
     public ArrayList<Card> getCards() {
         return DealerCards.getCards();
+    }
+    
+    public PlayerAction Play(){
+        
+        if (getSumofCards() < 17)
+            return PlayerAction.HIT;       
+        return PlayerAction.STAY;       
     }
    
 }
