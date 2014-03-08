@@ -26,7 +26,6 @@ public class GameEngine
     private ArrayList<Player> GamePlayers;
     private ArrayList<Card> GameDeck;
     private Dealer GameDealer;
-    private int TopDeckCard;
     private int PlayerTurn;
     private Boolean IsInRound;
     private final int NUMBER_PLAYERS = 6;
@@ -63,7 +62,8 @@ public class GameEngine
                                               DuplicateCardException
     {
         IniGameEngine();
-        XMLJAXRead(FileName);  
+        XMLJAXRead(FileName);
+        IsInRound = true;
     }
     private void CreateDeck()
     {
@@ -84,10 +84,12 @@ public class GameEngine
      
     public void StartNewRound()
     {
-        CreateDeck();
-        TopDeckCard = 0;
-        PlayerTurn = 0;
-        IsInRound = true;
+        if(!IsInRound)
+        {
+            CreateDeck();
+            PlayerTurn = 0;
+            IsInRound = true;
+        }
     }
     
     public void InsertBidForRound(Player Participant, Double Money) throws RulesDosentAllowException
@@ -150,6 +152,11 @@ public class GameEngine
             }
         }
         return RemovedCard;
+    }
+    
+    
+    public Boolean GetIsInRound() {
+        return IsInRound;
     }
     
 }
