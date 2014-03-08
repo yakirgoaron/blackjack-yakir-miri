@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author yakir
  */
-public class CompPlayer extends Player
+public class CompPlayer extends Player implements AIPlayer
 {
     static int CompIdGen=1;
     public CompPlayer()
@@ -29,9 +29,10 @@ public class CompPlayer extends Player
         this.Bids = Bids;
     }
     
-    public PlayerAction Play(Bid bid)
+    @Override
+    public PlayerAction Play(Hand hand)
     {               
-        if (bid.GetSumOfCards() < 17)
+        if (hand.getSumCards() < 17)
             return PlayerAction.HIT;       
         return PlayerAction.STAY;   
         
