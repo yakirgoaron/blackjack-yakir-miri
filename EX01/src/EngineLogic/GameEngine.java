@@ -155,9 +155,7 @@ public class GameEngine
     
     private void MakePlayerMove(Communicable commInterface,Player CurrentPlayer)
     {
-        PlayerAction EnumAction;
-        
-        
+        PlayerAction EnumAction; 
         for (Bid CurrBid : CurrentPlayer.getBids()) 
         {
             while (true)
@@ -178,7 +176,6 @@ public class GameEngine
                     
                 }
             }
-            
         }
         
     }
