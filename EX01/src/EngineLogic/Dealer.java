@@ -7,6 +7,8 @@
 package EngineLogic;
 
 import EngineLogic.Communicable.PlayerAction;
+import EngineLogic.Exception.RulesDosentAllowException;
+import EngineLogic.Exception.TooLowMoneyException;
 import java.util.ArrayList;
 
 /**
@@ -60,6 +62,24 @@ public class Dealer implements AIPlayer
         if (hand.getSumCards() < 17)
             return PlayerAction.HIT;       
         return PlayerAction.STAY;       
+    }
+
+    @Override
+    public void Split() throws RulesDosentAllowException, TooLowMoneyException 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void HitBid(Hand bid, Card card) 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void DoubleBid(Bid bid, Card card) throws TooLowMoneyException 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
 }

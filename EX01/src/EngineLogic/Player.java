@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author yakir
  */
-public abstract class Player {
+public abstract class Player implements GameParticipant{
     protected String Name;
     protected Double Money;
     protected ArrayList<Bid> Bids;
@@ -51,6 +51,7 @@ public abstract class Player {
     }
     
     
+    @Override
     public void DoubleBid(Bid bid,Card card) throws TooLowMoneyException
     {
         if(bid.getTotalBid() *2 > Money)
@@ -58,9 +59,10 @@ public abstract class Player {
         bid.DoubleBid(card);
     }
     
-    public void HitBid(Bid bid,Card card)
+    @Override
+    public void HitBid(Hand bid,Card card)
     {
-        bid.HitBid(card);
+        bid.AddCard(card);
     }
     
     
@@ -78,6 +80,7 @@ public abstract class Player {
            throw new RulesDosentAllowException("Cards are not the same");
     }
     
+    @Override
     public void Split() throws RulesDosentAllowException, TooLowMoneyException
     {
         CheckForSplit();

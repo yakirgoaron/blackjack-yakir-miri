@@ -8,7 +8,7 @@ package EngineLogic;
  *
  * @author miri
  */
-public interface AIPlayer {
+public interface AIPlayer extends GameParticipant{
     public Communicable.PlayerAction Play(Hand hand);
     
 }
