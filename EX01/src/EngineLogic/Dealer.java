@@ -37,19 +37,9 @@ public class Dealer implements AIPlayer
     public Hand getDealerCards() {
         return DealerCards;
     }
-   
-   public void GiveCard(Card card)
-   {
-        DealerCards.AddCard(card);
-   }
 
     public int getSumofCards() {
         return DealerCards.getSumCards();
-    }
-    
-    public void HitBid(Card card)
-    {
-        DealerCards.AddCard(card);
     }
    
     public ArrayList<Card> getCards() {
