@@ -91,8 +91,5 @@ public abstract class Player implements GameParticipant{
         Bids.add(NewBid);  
     }
     
-    
-    
-    
-    
+    abstract public Double GetBidForPlayer(Communicable commGetBid); 
 }
