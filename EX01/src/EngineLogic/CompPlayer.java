@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public class CompPlayer extends Player implements AIPlayer
 {
     static int CompIdGen=1;
+    final static Double StartingBid = 10.0;
+    
     public CompPlayer()
     {
         Name = "Comp"+CompIdGen;
@@ -36,5 +38,10 @@ public class CompPlayer extends Player implements AIPlayer
             return PlayerAction.HIT;       
         return PlayerAction.STAY;   
         
+    }
+    
+    @Override
+    public Double GetBidForPlayer(Communicable commGetBid){
+        return StartingBid;
     }
 }
