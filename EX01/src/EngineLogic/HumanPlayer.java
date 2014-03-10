@@ -29,6 +29,6 @@ public class HumanPlayer extends Player
     
     @Override
     public Double GetBidForPlayer(Communicable commGetBid){
-        return (commGetBid.GetBidForPlayer());
+        return (commGetBid.GetBidForPlayer(this));
     }
 }
