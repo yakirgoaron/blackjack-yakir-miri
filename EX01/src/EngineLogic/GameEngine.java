@@ -13,10 +13,12 @@ import EngineLogic.Exception.TooLowMoneyException;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.XmlClasses.Blackjack;
 import EngineLogic.XmlClasses.Players;
+import com.sun.xml.internal.ws.util.Pool;
 import java.io.File;
 import java.util.ArrayList;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 /**
@@ -50,6 +52,18 @@ public class GameEngine
         Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
         CreatePlayers(BlackJackGame.getPlayers());
         GameDealer = XmlHandler.CreateDealer(BlackJackGame.getDiller(), this);
+    }
+    
+    private void XMLJAXBWrite(String FileName) throws JAXBException
+    {
+        JAXBContext JaxWriter = JAXBContext.newInstance(Blackjack.class);
+        Marshaller XmlParser = JaxWriter.createMarshaller();
+        File XmlFile = new File(FileName);
+        XmlParser.marshal(GameDealer, XmlFile);
+        
+        for (Player player: GamePlayers){
+            XmlParser.marshal(player, XmlFile);
+        }
     }
     
     public GameEngine()
