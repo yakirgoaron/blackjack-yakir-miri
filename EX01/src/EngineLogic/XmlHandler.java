@@ -10,6 +10,7 @@ import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.XmlClasses.Bet;
 import EngineLogic.XmlClasses.Bets;
 import EngineLogic.XmlClasses.Cards;
+import EngineLogic.XmlClasses.PlayerType;
 import EngineLogic.XmlClasses.Rank;
 import EngineLogic.XmlClasses.Suit;
 import java.util.ArrayList;
@@ -41,8 +42,7 @@ public class XmlHandler
     
     public static Bet SaveDealer(Dealer GameDealer){
         
-        Bet XmlDealer = new Bet();
-        SaveBetCards(XmlDealer, GameDealer.getDealerCards());
+        Bet XmlDealer = SaveBetCards(GameDealer.getDealerCards());
         XmlDealer.setSum(0);
         return XmlDealer;
     }
@@ -77,31 +77,49 @@ public class XmlHandler
     
     public static EngineLogic.XmlClasses.Player SavePlayer(Player GamePlayer){
         
-        EngineLogic.XmlClasses.Player XmlPlayer = 
-                new EngineLogic.XmlClasses.Player();
+        EngineLogic.XmlClasses.Player XmlPlayer;
+        XmlPlayer = SavePlayerBids(GamePlayer);
         XmlPlayer.setName(GamePlayer.getName());
-       // XmlPlayer.setMoney((Float)GamePlayer.getMoney());       
-        return null;
+        //XmlPlayer.setMoney((Float)GamePlayer.getMoney());  
+        
+        if (GamePlayer instanceof HumanPlayer)
+            XmlPlayer.setType(PlayerType.HUMAN);
+        XmlPlayer.setType(PlayerType.COMPUTER);       
+        return XmlPlayer;
     }
     
     private static ArrayList<Bid> CreatePlayerBids(Bets bets, 
                                                    GameEngine GameEng) throws 
                                                    DuplicateCardException {
         
-            ArrayList<Bid> Bids = new ArrayList<>();
-            
-            for(Bet bet: bets.getBet()){
-                
-                Double TotalBid = (double)bet.getSum();
-                List<EngineLogic.XmlClasses.Cards.Card> XmlCards = 
-                        bet.getCards().getCard();
-     
-                ArrayList<Card> PlayerCards = 
-                        CreateHandCards(XmlCards, GameEng);
-                
-                Bids.add(new Bid(PlayerCards, TotalBid));
-            }           
-            return Bids;
+        ArrayList<Bid> Bids = new ArrayList<>();           
+        for(Bet bet: bets.getBet()){               
+            Double TotalBid = (double)bet.getSum();
+            List<EngineLogic.XmlClasses.Cards.Card> XmlCards = 
+                    bet.getCards().getCard();
+
+            ArrayList<Card> PlayerCards = 
+                    CreateHandCards(XmlCards, GameEng);
+
+            Bids.add(new Bid(PlayerCards, TotalBid));
+        }           
+        return Bids;
+    }
+    
+    private static EngineLogic.XmlClasses.Player SavePlayerBids(Player GamePlayer) {
+        
+        EngineLogic.XmlClasses.Player XmlPlayer = 
+                new EngineLogic.XmlClasses.Player();
+        Bets XmlBets = new Bets();
+        
+        for (Bid bid: GamePlayer.getBids()){      
+            Bet PlayerBet = SaveBetCards(bid);
+           // PlayerBet.setSum(bid.getTotalBid());
+            XmlBets.getBet().add(PlayerBet);
+        }
+        
+        XmlPlayer.setBets(XmlBets);
+        return XmlPlayer;
     }
     
     private static ArrayList<Card> CreateHandCards(
@@ -124,11 +142,12 @@ public class XmlHandler
         return PlayerCards;
     }
     
-    public static void SaveBetCards(Bet XmlBet, Hand PlayerHand){
+    public static Bet SaveBetCards(Hand PlayerHand){
        
-        ArrayList<Card> HandCards = PlayerHand.getCards();
+        Bet XmlBet = new Bet();
         EngineLogic.XmlClasses.Cards XmlCards = new Cards();
-        
+        ArrayList<Card> HandCards = PlayerHand.getCards();
+            
         for (Card card:HandCards){
             
             Rank rank = GameToXmlRank(card.getRank());
@@ -141,7 +160,7 @@ public class XmlHandler
         }
         
         XmlBet.setCards(XmlCards);
-        
+        return XmlBet;        
     }
     
     private static Card.Rank XmlToGameRank(Rank rank) {
