@@ -198,11 +198,13 @@ public class GameEngine
             commInterface.PrintMessage("YOU ARE BURNED");
     }
     
-    private void HandleAIPlayers(AIPlayer CurrPlayer,Hand CurrBid)
+    private void HandleAIPlayers(AIPlayer CurrPlayer,Hand CurrBid,Communicable commInterface)
     {
         try
         {
-            DoPlayerMove(CurrPlayer.Play(CurrBid),CurrPlayer,CurrBid);
+            PlayerAction actToDo = CurrPlayer.Play(CurrBid);
+            commInterface.PrintMessage(actToDo.getDescription());
+            DoPlayerMove(actToDo,CurrPlayer,CurrBid);
         } 
         catch (RulesDosentAllowException ex) {
         } catch (TooLowMoneyException ex) {
@@ -217,12 +219,12 @@ public class GameEngine
             for (Bid CurrBid : player.getBids()) 
             {     
                 if(player instanceof CompPlayer)
-                    HandleAIPlayers((CompPlayer)player,CurrBid); 
+                    HandleAIPlayers((CompPlayer)player,CurrBid,commInterface); 
                 else
                     MakePlayerMove(commInterface,CurrBid,player);
             }
         }
-        HandleAIPlayers(GameDealer,GameDealer.getDealerCards());
+        HandleAIPlayers(GameDealer,GameDealer.getDealerCards(),commInterface);
     }
     
     public void StartGame(Communicable commInterface)
