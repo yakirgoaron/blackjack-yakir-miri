@@ -7,6 +7,7 @@ package ConsoleApp;
 import EngineLogic.Bid;
 import EngineLogic.Card;
 import EngineLogic.Communicable;
+import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
 import EngineLogic.Player;
 import java.util.List;
@@ -84,6 +85,11 @@ public class BJCommunicate implements Communicable{
             System.out.println(card);
         }
         
+    }
+
+    @Override
+    public void PrintParticipnatName(GameParticipant PartToPrint) {
+        System.out.println(PartToPrint.getName());
     }
     
 }
