@@ -149,7 +149,10 @@ public class GameEngine
         {
            case DOUBLE:
            {
-               CurrentPlayer.DoubleBid(CurrentBid, PullCard());
+               if (CurrentBid instanceof Bid)                 
+                   CurrentPlayer.DoubleBid((Bid)CurrentBid, PullCard());
+               else throw new RulesDosentAllowException(
+                       "You are not allowed to choose double bid action");
                break;
            }
            case HIT:
