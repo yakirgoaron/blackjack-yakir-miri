@@ -140,7 +140,10 @@ public class GameEngine
     }
     
     
-    private void DoPlayerMove(PlayerAction EnumAction,GameParticipant CurrentPlayer,Hand CurrentBid) throws RulesDosentAllowException, TooLowMoneyException
+    private void DoPlayerMove(PlayerAction EnumAction,
+                              GameParticipant CurrentPlayer,
+                              Hand CurrentBid) 
+            throws RulesDosentAllowException, TooLowMoneyException
     {
         switch(EnumAction)
         {
