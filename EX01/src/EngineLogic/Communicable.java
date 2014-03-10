@@ -60,7 +60,7 @@ public interface Communicable
     
     public RoundAction GetFinishRoundAction();
     
-    public Double GetBidForPlayer();
+    public Double GetBidForPlayer(Player BettingPlayer);
     
     public void PrintBidInfo(Bid BidForPrint);
     
