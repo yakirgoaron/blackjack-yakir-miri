@@ -210,7 +210,7 @@ public class GameEngine
     {
         for (Player player : GamePlayers)
         {
-            commInterface.PrintPlayerInfo(player);
+            commInterface.PrintBasicPlayerInfo(player);
             for (Bid CurrBid : player.getBids()) 
             {     
                 if(player instanceof CompPlayer)
