@@ -116,6 +116,7 @@ public class GameEngine
                                    PullCard(),
                                    player.GetBidForPlayer(commGetBid));
         }
+        GameDealer.HitBid(GameDealer.getDealerCards(), PullCard());
     }
     
     private Card PullCard()
@@ -227,7 +228,6 @@ public class GameEngine
             }
         }
         commInterface.PrintParticipnatName(GameDealer);
-        commInterface.PrintHandInfo(GameDealer.getDealerCards());
         HandleAIPlayers(GameDealer,GameDealer.getDealerCards(),commInterface);
     }
     
