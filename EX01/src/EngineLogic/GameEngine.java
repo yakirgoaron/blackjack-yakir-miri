@@ -176,11 +176,12 @@ public class GameEngine
         while (true)
         {
             EnumAction = commInterface.GetWantedAction();    
+            if(EnumAction.equals(EnumAction.STAY))
+                break;
             commInterface.PrintBidInfo(CurrentBid);
             try 
             {
                 DoPlayerMove(EnumAction, CurrentPlayer, CurrentBid);
-                break;
             } 
             catch (RulesDosentAllowException ex) 
             {
