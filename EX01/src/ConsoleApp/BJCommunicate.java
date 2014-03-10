@@ -45,8 +45,8 @@ public class BJCommunicate implements Communicable{
     }
 
     @Override
-    public Double GetBidForPlayer() {
-        
+    public Double GetBidForPlayer(Player BettingPlayer) {
+        PrintBasicPlayerInfo(BettingPlayer);
         System.out.println("Please enter your bid - ");
         Double playerBid = UserOptions.UserDoubleInput();
                
