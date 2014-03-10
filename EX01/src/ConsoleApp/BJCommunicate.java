@@ -7,6 +7,7 @@ package ConsoleApp;
 import EngineLogic.Bid;
 import EngineLogic.Card;
 import EngineLogic.Communicable;
+import EngineLogic.Hand;
 import EngineLogic.Player;
 import java.util.List;
 
@@ -56,11 +57,7 @@ public class BJCommunicate implements Communicable{
     @Override
     public void PrintBidInfo(Bid BidForPrint) {
         System.out.println("Bid Money " + BidForPrint.getTotalBid() + " cards: ");
-            List<Card> playerCards = BidForPrint.getCards();
-            
-            for (Card card : playerCards){
-                System.out.println(card);
-            }
+        PrintHandInfo(BidForPrint);
     }
 
     @Override
@@ -77,6 +74,16 @@ public class BJCommunicate implements Communicable{
     @Override
     public void PrintMessage(String Message) {
         System.out.println(Message);
+    }
+
+    @Override
+    public void PrintHandInfo(Hand HandForPrint) {      
+        List<Card> playerCards = HandForPrint.getCards();           
+        
+        for (Card card : playerCards){
+            System.out.println(card);
+        }
+        
     }
     
 }
