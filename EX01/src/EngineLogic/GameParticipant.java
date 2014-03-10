@@ -17,4 +17,5 @@ public interface GameParticipant {
      public void Split()throws RulesDosentAllowException, TooLowMoneyException;
      public void HitBid(Hand bid,Card card);
      public void DoubleBid(Bid bid,Card card)throws TooLowMoneyException;
+     public String getName();
 }

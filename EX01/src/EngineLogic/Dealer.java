@@ -71,5 +71,11 @@ public class Dealer implements AIPlayer
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public String getName() 
+    {
+       return "Dealer"; 
+    }
    
 }
