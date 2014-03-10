@@ -226,6 +226,7 @@ public class GameEngine
                     MakePlayerMove(commInterface,CurrBid,player);
             }
         }
+        commInterface.PrintParticipnatName(GameDealer);
         HandleAIPlayers(GameDealer,GameDealer.getDealerCards(),commInterface);
     }
     
