@@ -110,9 +110,11 @@ public class GameEngine
     
     private void InsertBidForRound(Communicable commGetBid )
     {
-        for (Player Participant : GamePlayers) 
+        for (Player player : GamePlayers) 
         {
-            Participant.GivePlayerCards(PullCard(), PullCard(),commGetBid.GetBidForPlayer());
+            player.GivePlayerCards(PullCard(), 
+                                   PullCard(),
+                                   player.GetBidForPlayer(commGetBid));
         }
     }
     
