@@ -73,7 +73,7 @@ public class Dealer implements AIPlayer
     @Override
     public void HitBid(Hand bid, Card card) 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bid.AddCard(card);
     }
 
     @Override
