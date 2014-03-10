@@ -174,13 +174,12 @@ public class GameEngine
     
     private void MakePlayerMove(Communicable commInterface,Bid CurrentBid,Player CurrentPlayer)
     {
-        PlayerAction EnumAction; 
-        while (true)
+        PlayerAction EnumAction = PlayerAction.DOUBLE; 
+        while (!EnumAction.equals(PlayerAction.STAY))
         {
-            EnumAction = commInterface.GetWantedAction();    
-            if(EnumAction.equals(EnumAction.STAY))
-                break;
             commInterface.PrintBidInfo(CurrentBid);
+            EnumAction = commInterface.GetWantedAction();    
+            
             try 
             {
                 DoPlayerMove(EnumAction, CurrentPlayer, CurrentBid);
