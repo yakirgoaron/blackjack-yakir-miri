@@ -90,7 +90,7 @@ public class BlackJack {
        
         BlackJack BJGame = null;
         MenuMessages.LoadGameMessage();
-        String filePathString = UserOptions.FilePath();
+        String filePathString = UserOptions.FilePathInput();
         
         try{
            BJGame = new BlackJack(filePathString);
