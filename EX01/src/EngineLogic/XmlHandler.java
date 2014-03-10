@@ -9,6 +9,7 @@ package EngineLogic;
 import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.XmlClasses.Bet;
 import EngineLogic.XmlClasses.Bets;
+import EngineLogic.XmlClasses.Cards;
 import EngineLogic.XmlClasses.Rank;
 import EngineLogic.XmlClasses.Suit;
 import java.util.ArrayList;
@@ -26,17 +27,24 @@ public class XmlHandler
     
     }
     
-    public static Dealer CreateDealer(EngineLogic.XmlClasses.Bet XmlDealer,
-                                      GameEngine GameEng) throws DuplicateCardException
+    public static Dealer CreateDealer(Bet XmlDealer,
+                                      GameEngine GameEng) 
+                         throws DuplicateCardException
     {
         Dealer dealer;
         List<EngineLogic.XmlClasses.Cards.Card> XmlCards = 
                 XmlDealer.getCards().getCard();
-        ArrayList<Card> PlayerCards = CreateHandCards(XmlCards, GameEng);
-        
-        dealer = new Dealer(PlayerCards);
-          
+        ArrayList<Card> PlayerCards = CreateHandCards(XmlCards, GameEng);       
+        dealer = new Dealer(PlayerCards);         
         return dealer;
+    }
+    
+    public static Bet SaveDealer(Dealer GameDealer){
+        
+        Bet XmlDealer = new Bet();
+        SaveBetCards(XmlDealer, GameDealer.getDealerCards());
+        XmlDealer.setSum(0);
+        return XmlDealer;
     }
     
     
@@ -67,6 +75,15 @@ public class XmlHandler
         return NewPlayer;
     }
     
+    public static EngineLogic.XmlClasses.Player SavePlayer(Player GamePlayer){
+        
+        EngineLogic.XmlClasses.Player XmlPlayer = 
+                new EngineLogic.XmlClasses.Player();
+        XmlPlayer.setName(GamePlayer.getName());
+       // XmlPlayer.setMoney((Float)GamePlayer.getMoney());       
+        return null;
+    }
+    
     private static ArrayList<Bid> CreatePlayerBids(Bets bets, 
                                                    GameEngine GameEng) throws 
                                                    DuplicateCardException {
@@ -95,8 +112,8 @@ public class XmlHandler
                                       
         for (EngineLogic.XmlClasses.Cards.Card card : XmlCards){
 
-            Card.Rank rank = RankToRank(card.getRank());
-            Card.Suit suit = SuitToSuit(card.getSuit());
+            Card.Rank rank = XmlToGameRank(card.getRank());
+            Card.Suit suit = XmlToGameSuit(card.getSuit());
             Card cardToAdd = GameEng.getCardAndRemove(rank, suit);                     
 
             if (cardToAdd == null)
@@ -107,11 +124,40 @@ public class XmlHandler
         return PlayerCards;
     }
     
-    private static Card.Rank RankToRank(Rank rank) {
+    public static void SaveBetCards(Bet XmlBet, Hand PlayerHand){
+       
+        ArrayList<Card> HandCards = PlayerHand.getCards();
+        EngineLogic.XmlClasses.Cards XmlCards = new Cards();
+        
+        for (Card card:HandCards){
+            
+            Rank rank = GameToXmlRank(card.getRank());
+            Suit suit = GameToXmlSuit(card.getSuit());
+            EngineLogic.XmlClasses.Cards.Card cardToAdd = 
+                    new EngineLogic.XmlClasses.Cards.Card();
+            cardToAdd.setRank(rank);
+            cardToAdd.setSuit(suit);
+            XmlCards.getCard().add(cardToAdd);           
+        }
+        
+        XmlBet.setCards(XmlCards);
+        
+    }
+    
+    private static Card.Rank XmlToGameRank(Rank rank) {
        return Card.Rank.values()[rank.ordinal()];
     }
     
-     private static Card.Suit SuitToSuit(Suit suit) {
+     private static Card.Suit XmlToGameSuit(Suit suit) {
         return Card.Suit.values()[suit.ordinal()];
+    }
+     
+         
+    private static Rank GameToXmlRank(Card.Rank rank) {
+       return Rank.values()[rank.ordinal()];
+    }
+    
+    private static Suit GameToXmlSuit(Card.Suit suit) {
+        return Suit.values()[suit.ordinal()];
     }
 }
