@@ -227,6 +227,7 @@ public class GameEngine
             }
         }
         commInterface.PrintParticipnatName(GameDealer);
+        commInterface.PrintHandInfo(GameDealer.getDealerCards());
         HandleAIPlayers(GameDealer,GameDealer.getDealerCards(),commInterface);
     }
     
