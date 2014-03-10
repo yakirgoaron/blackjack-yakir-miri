@@ -175,7 +175,8 @@ public class GameEngine
     private void MakePlayerMove(Communicable commInterface,Bid CurrentBid,Player CurrentPlayer)
     {
         PlayerAction EnumAction = PlayerAction.DOUBLE; 
-        while (!EnumAction.equals(PlayerAction.STAY))
+        while (!EnumAction.equals(PlayerAction.STAY) &&
+                CurrentBid.getSumCards() < 22)
         {
             commInterface.PrintBidInfo(CurrentBid);
             EnumAction = commInterface.GetWantedAction();    
@@ -192,7 +193,9 @@ public class GameEngine
             {
                 commInterface.PrintMessage(ex.getMessage());
             }
-        }        
+        }  
+        if(CurrentBid.getSumCards() > 21)
+            commInterface.PrintMessage("YOU ARE BURNED");
     }
     
     private void HandleAIPlayers(AIPlayer CurrPlayer,Hand CurrBid)
