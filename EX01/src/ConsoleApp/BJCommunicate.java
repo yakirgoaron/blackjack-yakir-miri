@@ -89,7 +89,7 @@ public class BJCommunicate implements Communicable{
 
     @Override
     public void PrintParticipnatName(GameParticipant PartToPrint) {
-        System.out.println(PartToPrint.getName());
+        System.out.println("participant " + PartToPrint.getName());
     }
     
 }
