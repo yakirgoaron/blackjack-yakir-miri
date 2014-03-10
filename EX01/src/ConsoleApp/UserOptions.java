@@ -117,7 +117,7 @@ public class UserOptions {
         return userInput;
     }
     
-    public static String FilePath(){
+    public static String FilePathInput(){
         
         String filePathString;
         File file;
@@ -129,5 +129,25 @@ public class UserOptions {
         }while((!file.exists() || file.isDirectory()));
         
         return filePathString;
+    }
+    
+    public static String FilePathOutput(){
+        
+        String filePathString;
+        boolean OverwriteFlag = true;
+        File file;
+        Scanner scanner = new Scanner(System.in);
+        
+        do {      
+            filePathString =  scanner.nextLine();
+            file = new File(filePathString);
+            
+            if (file.exists()){
+                System.out.println("file already exists. overewrite it?");
+                OverwriteFlag = scanner.nextBoolean();
+            }
+        }while(!OverwriteFlag || file.isDirectory());
+        
+        return filePathString;      
     }
 }
