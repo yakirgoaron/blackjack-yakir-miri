@@ -62,6 +62,7 @@ public interface Communicable
     public Double GetBidForPlayer(Player BettingPlayer);
     
     public void PrintBidInfo(Bid BidForPrint);
+    public void PrintHandInfo(Hand HandForPrint);
     
     public void PrintMessage(String Message);
 }
