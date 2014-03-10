@@ -26,4 +26,9 @@ public class HumanPlayer extends Player
         this.Money = Money;
         this.Bids = Bids;
     }
+    
+    @Override
+    public Double GetBidForPlayer(Communicable commGetBid){
+        return (commGetBid.GetBidForPlayer());
+    }
 }
