@@ -233,10 +233,16 @@ public class GameEngine
     
     public void StartGame(Communicable commInterface)
     {
-        InsertBidForRound(commInterface);
-        StartNewRound();
+        if (!IsInRound)
+            InitAndDealCards(commInterface);
         HandleRoundPlay(commInterface);
         //ENDRound
+    }
+    
+    private void InitAndDealCards(Communicable commInterface){
+        InsertBidForRound(commInterface);
+        StartNewRound();  
+        
     }
     
     public Dealer getGameDealer() {
