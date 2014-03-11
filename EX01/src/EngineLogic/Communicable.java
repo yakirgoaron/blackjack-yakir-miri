@@ -52,7 +52,6 @@ public interface Communicable
     }
     
     public PlayerAction GetWantedAction();
-    
     public void PrintPlayerInfo(Player PlayerToPrint);
     
     public void PrintBasicPlayerInfo(Player PlayerToPrint);
