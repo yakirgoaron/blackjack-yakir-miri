@@ -204,14 +204,15 @@ public class GameEngine
     {
         try
         {
-            PlayerAction actToDo = CurrPlayer.Play(CurrBid);
-            while (!actToDo.equals(PlayerAction.STAY))
+            PlayerAction actToDo;
+            do            
             {
+                actToDo = CurrPlayer.Play(CurrBid);
                 commInterface.PrintHandInfo(CurrBid);
                 commInterface.PrintMessage(actToDo.getDescription());
                 DoPlayerMove(actToDo,CurrPlayer,CurrBid);
                 commInterface.PrintHandInfo(CurrBid);
-            }
+            }while (!actToDo.equals(PlayerAction.STAY));
         } 
         catch (RulesDosentAllowException ex) {
         } catch (TooLowMoneyException ex) {
