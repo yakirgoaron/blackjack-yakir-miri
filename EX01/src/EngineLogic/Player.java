@@ -21,6 +21,10 @@ public abstract class Player implements GameParticipant{
     protected ArrayList<Bid> Bids;
     protected Double TotalBid;
     protected final Double StartMoney = 1000.0;
+    private final static int BLACKJACK = 21;
+    private final static int INIT_NUM_CARDS = 2;
+    private final static Double WIN_BJ_ONSTART = 2.5;
+    private final static Double WIN_BJ = 2.0;
     
     
     public Player()
@@ -49,7 +53,6 @@ public abstract class Player implements GameParticipant{
     {         
          Bids.add(new Bid(FirstCard,SecondCard,BetValue));    
     }
-    
     
     @Override
     public void DoubleBid(Bid bid,Card card) throws TooLowMoneyException
@@ -92,4 +95,41 @@ public abstract class Player implements GameParticipant{
     }
     
     abstract public Double GetBidForPlayer(Communicable commGetBid); 
+       
+    public void HandleEndOfRound(int DealerSumOfCards){
+        
+        for (Bid bid: getBids()){
+            HandleBidEndRound(bid, DealerSumOfCards);
+            Bids.remove(bid);
+        }          
+    }
+    
+    private void HandleBidEndRound(Bid bid, int DealerSumOfCards) {
+        if (!CheckBJ(bid))
+            HandleLose(bid, DealerSumOfCards);
+    }
+        
+    private boolean CheckBJ(Bid bid) {
+        
+        Double BetToAdd;
+        
+        if (bid.getSumCards() == BLACKJACK){
+            if (bid.getCards().size() == INIT_NUM_CARDS)
+               BetToAdd =  bid.getTotalBid() * WIN_BJ_ONSTART;
+            else
+               BetToAdd = bid.getTotalBid() * WIN_BJ;
+            Money += bid.getTotalBid() * BetToAdd;
+            return true;
+        }
+        return false;
+    }
+
+    private void HandleLose(Bid bid, int DealerSumOfCards) {
+        if (((DealerSumOfCards > bid.getSumCards()) && 
+             (DealerSumOfCards <= BLACKJACK)) ||
+            ((bid.getSumCards() > BLACKJACK) && 
+             (DealerSumOfCards <= BLACKJACK)))
+           
+            Money -= bid.getTotalBid();        
+    }
 }
