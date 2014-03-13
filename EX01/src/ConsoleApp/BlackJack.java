@@ -24,7 +24,7 @@ public class BlackJack {
     BJCommunicate BJComm;
     
     
-    public static void main(String[] args) throws RulesDosentAllowException {
+    public static void main(String[] args) throws RulesDosentAllowException, JAXBException {
     
         MenuMessages.OpeningMessage();
         BlackJack BJGame = CreateBJGame();     
@@ -169,7 +169,7 @@ public class BlackJack {
         GameEng.AddPlayer();       
     }
                
-    private void StartGame() {
+    private void StartGame() throws JAXBException {
         GameEng.StartGame(BJComm);
     }
 }
