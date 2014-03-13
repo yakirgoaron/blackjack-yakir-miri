@@ -208,7 +208,6 @@ public class GameEngine
             do            
             {
                 actToDo = CurrPlayer.Play(CurrBid);
-                commInterface.PrintHandInfo(CurrBid);
                 commInterface.PrintMessage(actToDo.getDescription());
                 DoPlayerMove(actToDo,CurrPlayer,CurrBid);
                 commInterface.PrintHandInfo(CurrBid);
