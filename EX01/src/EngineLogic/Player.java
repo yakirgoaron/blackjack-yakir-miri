@@ -100,8 +100,9 @@ public abstract class Player implements GameParticipant{
         
         for (Bid bid: getBids()){
             HandleBidEndRound(bid, DealerSumOfCards);
-            Bids.remove(bid);
-        }          
+        }     
+        
+        Bids.clear();
     }
     
     private void HandleBidEndRound(Bid bid, int DealerSumOfCards) {
