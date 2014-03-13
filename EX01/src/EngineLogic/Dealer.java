@@ -46,6 +46,10 @@ public class Dealer implements AIPlayer
         return DealerCards.getCards();
     }
     
+    public void HandleEndOfRound(){
+        DealerCards.getCards().clear();
+    }
+    
    @Override
     public PlayerAction Play(Hand hand){
         
