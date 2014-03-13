@@ -11,6 +11,7 @@ import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
 import EngineLogic.Player;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -90,6 +91,14 @@ public class BJCommunicate implements Communicable{
     @Override
     public void PrintParticipnatName(GameParticipant PartToPrint) {
         System.out.println("participant " + PartToPrint.getName());
+    }
+
+    @Override
+    public String EnterFileNameForSave() 
+    {
+       Scanner Scanner = new Scanner(System.in);
+       System.out.println("Enter File name - ");
+       return Scanner.nextLine(); 
     }
     
 }

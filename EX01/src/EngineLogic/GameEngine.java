@@ -7,6 +7,7 @@
 package EngineLogic;
 
 import EngineLogic.Communicable.PlayerAction;
+import EngineLogic.Communicable.RoundAction;
 import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.Exception.RulesDosentAllowException;
 import EngineLogic.Exception.TooLowMoneyException;
@@ -231,14 +232,31 @@ public class GameEngine
         HandleAIPlayers(GameDealer,GameDealer.getDealerCards(),commInterface);
     }
     
-    public void StartGame(Communicable commInterface)
+    public void StartGame(Communicable commInterface) throws JAXBException
     {
-        if (!IsInRound)
-            InitAndDealCards(commInterface);
-        HandleRoundPlay(commInterface);
-        //ENDRound
+        RoundAction NewRoundAction ;
+        do
+        {
+            if (!IsInRound)
+                InitAndDealCards(commInterface);
+            HandleRoundPlay(commInterface);
+            EndRound(commInterface);
+            NewRoundAction = commInterface.GetFinishRoundAction();
+        }while(!NewRoundAction.equals(RoundAction.SAVE_GAME));
+        XMLJAXBWrite(commInterface.EnterFileNameForSave());
     }
-    
+    private void EndRound(Communicable commInterface)
+    {
+        commInterface.PrintMessage("******ROUND ENDED AND SCOURE IS********");
+        
+        for (Player player : GamePlayers) 
+        {
+           player.HandleEndOfRound(GameDealer.getSumofCards());
+           commInterface.PrintBasicPlayerInfo(player);
+        }
+        IsInRound = false;
+        GameDealer.HandleEndOfRound();
+    }
     private void InitAndDealCards(Communicable commInterface){
         InsertBidForRound(commInterface);
         StartNewRound();  

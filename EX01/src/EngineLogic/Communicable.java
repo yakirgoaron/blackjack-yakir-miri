@@ -63,6 +63,6 @@ public interface Communicable
     public void PrintBidInfo(Bid BidForPrint);
     public void PrintHandInfo(Hand HandForPrint);
     public void PrintParticipnatName(GameParticipant PartToPrint);
-    
+    public String EnterFileNameForSave();
     public void PrintMessage(String Message);
 }
