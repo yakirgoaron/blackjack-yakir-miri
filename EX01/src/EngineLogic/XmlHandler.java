@@ -80,7 +80,7 @@ public class XmlHandler
         EngineLogic.XmlClasses.Player XmlPlayer;
         XmlPlayer = SavePlayerBids(GamePlayer);
         XmlPlayer.setName(GamePlayer.getName());
-        //XmlPlayer.setMoney((Float)GamePlayer.getMoney());  
+        XmlPlayer.setMoney(GamePlayer.getMoney().floatValue());  
         
         if (GamePlayer instanceof HumanPlayer)
             XmlPlayer.setType(PlayerType.HUMAN);

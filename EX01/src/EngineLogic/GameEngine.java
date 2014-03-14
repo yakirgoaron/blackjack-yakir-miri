@@ -58,12 +58,18 @@ public class GameEngine
     {
         JAXBContext JaxWriter = JAXBContext.newInstance(Blackjack.class);
         Marshaller XmlParser = JaxWriter.createMarshaller();
-        File XmlFile = new File(FileName);
-        XmlParser.marshal(GameDealer, XmlFile);
+        File XmlFile = new File(FileName + ".xml");
+        Blackjack XmlBj = new Blackjack();
+        XmlBj.setDiller(XmlHandler.SaveDealer(GameDealer));
+        Players XmlGamePlayers = new Players();
         
-        for (Player player: GamePlayers){
-            XmlParser.marshal(player, XmlFile);
+         for (Player player: GamePlayers){
+            XmlGamePlayers.getPlayer().add(XmlHandler.SavePlayer(player));
         }
+        XmlBj.setPlayers(XmlGamePlayers);
+        XmlParser.marshal(XmlBj, XmlFile);
+        
+       
     }
     
     public GameEngine()

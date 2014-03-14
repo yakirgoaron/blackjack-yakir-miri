@@ -47,7 +47,7 @@ public class Dealer implements AIPlayer
     }
     
     public void HandleEndOfRound(){
-        DealerCards.getCards().clear();
+        DealerCards = new Hand();
     }
     
    @Override
