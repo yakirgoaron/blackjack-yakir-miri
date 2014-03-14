@@ -33,7 +33,7 @@ public interface Communicable
     }
     public static enum RoundAction{      
         SAVE_GAME("Save and Exit game"), 
-        NEW_ROUND("New Round"); 
+        CONTINUE_GAME("Continue Game"); 
         
         private final String Description;
         private static final int Size = PlayerAction.values().length;
