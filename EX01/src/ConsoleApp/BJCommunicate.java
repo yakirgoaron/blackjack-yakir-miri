@@ -4,6 +4,7 @@
  */
 package ConsoleApp;
 
+import ConsoleApp.UserOptions.SaveOptions;
 import EngineLogic.Bid;
 import EngineLogic.Card;
 import EngineLogic.Communicable;
@@ -18,6 +19,13 @@ import java.util.List;
  */
 public class BJCommunicate implements Communicable{
 
+    String FilePathForSave;
+
+    
+    public String getFilePathForSave() {
+        return FilePathForSave;
+    }
+    
     @Override
     public PlayerAction GetWantedAction() {
         MenuMessages.PlayerActionMessage();
@@ -71,6 +79,15 @@ public class BJCommunicate implements Communicable{
          
       return EnumRoundAction;
     }
+    
+    private SaveOptions SaveOrSaveAs(){
+        MenuMessages.SaveMessage();
+        int IntUserChoice =
+                UserOptions.UserIntChoice(SaveOptions.getSize());
+        SaveOptions EnumSaveOption = 
+                SaveOptions.values()[IntUserChoice];
+        return EnumSaveOption;
+    }
 
     @Override
     public void PrintMessage(String Message) {
@@ -92,10 +109,10 @@ public class BJCommunicate implements Communicable{
         System.out.println("participant " + PartToPrint.getName());
     }
 
-    @Override
-    public String EnterFileNameForSave() 
-    {      
-       return UserOptions.FilePathOutput(); 
+    private String EnterFileNameForSave() 
+    {  
+       FilePathForSave = UserOptions.FilePathOutput();
+       return FilePathForSave; 
     }
 
     @Override

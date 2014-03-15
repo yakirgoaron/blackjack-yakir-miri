@@ -66,6 +66,15 @@ public class MenuMessages {
                                option.getDescription()); 
     }
     
+    public static void SaveMessage(){
+        
+      System.out.println("What do you wish to do?");
+        
+        for (SaveOptions option: SaveOptions.values())
+            System.out.println((option.ordinal() + 1) + "- " + 
+                               option.getDescription()); 
+    }
+    
     public static void LoadGameMessage(){
         
         System.out.println("Enter xml file path");
