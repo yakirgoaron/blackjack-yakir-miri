@@ -269,15 +269,17 @@ public class GameEngine
         if (!IsInRound)
             InitAndDealCards(commInterface);
                     
-        while(!NewRoundAction.equals(RoundAction.SAVE_GAME))
+        while(!NewRoundAction.equals(RoundAction.EXIT_GAME))
         {
             HandleRoundPlay(commInterface);
             EndRound(commInterface);
             InitAndDealCards(commInterface);
             NewRoundAction = commInterface.GetFinishRoundAction();
+            if(NewRoundAction.equals(RoundAction.SAVE_GAME))
+                XMLJAXBWrite(commInterface.getFilePathForSave());
         }
         
-        XMLJAXBWrite(commInterface.EnterFileNameForSave());
+        
     }
     
     private void EndRound(Communicable commInterface)
