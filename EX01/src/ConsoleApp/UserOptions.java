@@ -85,7 +85,7 @@ public class UserOptions {
             System.out.println("Enter your choice");
         
             try {
-		   Choice = Scanner.nextInt();
+		   Choice = Scanner.nextInt() - 1;
 	    } catch (InputMismatchException exception) {
 		System.out.println("This is not a valid number!!!");
 		ValidInput = false;

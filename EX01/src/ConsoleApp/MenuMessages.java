@@ -26,7 +26,7 @@ public class MenuMessages {
         System.out.println("Which game do you want?");
         
         for (MainMenu option: MainMenu.values())
-            System.out.println(option.ordinal() + "- " + 
+            System.out.println((option.ordinal() + 1) + "- " + 
                                option.getDescription());
     }
     
@@ -35,7 +35,7 @@ public class MenuMessages {
       System.out.println("What do you wish to do?");
         
         for (SecondaryMenu option: SecondaryMenu.values())
-            System.out.println(option.ordinal() + "- " + 
+            System.out.println((option.ordinal() + 1) + "- " + 
                                option.getDescription()); 
     }
     
@@ -44,7 +44,7 @@ public class MenuMessages {
       System.out.println("What is your next action?");
         
         for (PlayerAction option: PlayerAction.values())
-            System.out.println(option.ordinal() + "- " + 
+            System.out.println((option.ordinal() + 1) + "- " + 
                                option.getDescription()); 
     }
     
@@ -53,7 +53,7 @@ public class MenuMessages {
       System.out.println("Which player do you want to add?");
         
         for (NewPlayer option: NewPlayer.values())
-            System.out.println(option.ordinal() + "- " + 
+            System.out.println((option.ordinal() + 1) + "- " + 
                                option.getDescription()); 
     }
     
@@ -62,7 +62,7 @@ public class MenuMessages {
       System.out.println("What do you wish to do?");
         
         for (RoundAction option: RoundAction.values())
-            System.out.println(option.ordinal() + "- " + 
+            System.out.println((option.ordinal() + 1) + "- " + 
                                option.getDescription()); 
     }
     
