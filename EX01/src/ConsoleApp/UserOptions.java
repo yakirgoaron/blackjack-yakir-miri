@@ -134,20 +134,47 @@ public class UserOptions {
     public static String FilePathOutput(){
         
         String filePathString;
-        boolean OverwriteFlag = true;
+        boolean FileValidFlag = false;
         File file;
         Scanner scanner = new Scanner(System.in);
         
-        do {      
+        do { 
+            System.out.println("Enter file name - ");
             filePathString =  scanner.nextLine();
             file = new File(filePathString);
             
-            if (file.exists()){
-                System.out.println("file already exists. overewrite it?");
-                OverwriteFlag = scanner.nextBoolean();
+            if (file.isDirectory())
+                System.out.println("File is a directory!!");
+            else if (file.exists()){                            
+                if (CheckIfOverwriteFile())
+                    FileValidFlag = true; 
             }
-        }while(!OverwriteFlag || file.isDirectory());
+            else
+                FileValidFlag = true;           
+        }while(!FileValidFlag);
         
         return filePathString;      
+    }
+    
+    private static boolean CheckIfOverwriteFile(){
+        Scanner scanner = new Scanner(System.in);
+        boolean ValidInput;
+        boolean OverwriteFlag = false;
+        
+         
+        do{   
+            System.out.println("Overwrite it? "
+                            + "true- overwrite, false - don`t overwrite");
+            ValidInput = true;
+            try{
+                OverwriteFlag = scanner.nextBoolean(); 
+            } catch (InputMismatchException exception) {
+                System.out.println("This is not a valid input!!!");
+                ValidInput = false;
+                scanner.nextLine();
+            }
+        }while(!ValidInput);
+
+        return OverwriteFlag;      
     }
 }

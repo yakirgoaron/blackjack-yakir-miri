@@ -13,8 +13,6 @@ import EngineLogic.Exception.TooLowPlayers;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.GameEngine;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 
 /**
