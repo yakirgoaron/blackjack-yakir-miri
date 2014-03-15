@@ -116,8 +116,10 @@ public abstract class Player implements GameParticipant{
         Double BetToAdd;
         
         if (bid.getSumCards() == GameEngine.BLACKJACK){
-            if (bid.getCards().size() == INIT_NUM_CARDS)
-               BetToAdd =  bid.getTotalBid() * WIN_BJ_ONSTART;
+            if ((Bids.size() == 1) && 
+                (bid.getCards().size() == INIT_NUM_CARDS))
+               
+                BetToAdd =  bid.getTotalBid() * WIN_BJ_ONSTART;
             else
                BetToAdd = bid.getTotalBid() * WIN_BJ;
             Money += BetToAdd;
