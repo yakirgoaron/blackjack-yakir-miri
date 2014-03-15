@@ -53,13 +53,9 @@ public interface Communicable
     
     public PlayerAction GetWantedAction();
     public void PrintPlayerInfo(Player PlayerToPrint);
-    
     public void PrintBasicPlayerInfo(Player PlayerToPrint);
-    
     public RoundAction GetFinishRoundAction();
-    
-    public Double GetBidForPlayer(Player BettingPlayer);
-    
+    public Double GetBidForPlayer(Player BettingPlayer);    
     public void PrintBidInfo(Bid BidForPrint);
     public void PrintHandInfo(Hand HandForPrint);
     public void PrintParticipnatName(GameParticipant PartToPrint);
