@@ -115,7 +115,7 @@ public class XmlHandler
         
         for (Bid bid: GamePlayer.getBids()){      
             Bet PlayerBet = SaveBetCards(bid);
-           // PlayerBet.setSum(bid.getTotalBid());
+            PlayerBet.setSum(bid.getTotalBid().floatValue());
             XmlBets.getBet().add(PlayerBet);
         }
         
