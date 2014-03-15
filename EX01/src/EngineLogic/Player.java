@@ -90,13 +90,13 @@ public abstract class Player implements GameParticipant{
         CheckForSplit();
         Bid BidToSplit = Bids.get(0);
         Card SecondCard = BidToSplit.getCards().get(1);
-        BidToSplit.getCards().remove(1);
+        BidToSplit.RemoveCardFromHand(SecondCard);
         Bid NewBid = new Bid(SecondCard,BidToSplit.getTotalBid());
         Bids.add(NewBid);  
     }
     
     abstract public Double GetBidForPlayer(Communicable commGetBid); 
-       
+    
     public void HandleEndOfRound(int DealerSumOfCards){
         
         for (Bid bid: getBids()){
