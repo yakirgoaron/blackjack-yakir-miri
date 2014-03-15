@@ -22,6 +22,7 @@ public class BJCommunicate implements Communicable{
     String FilePathForSave;
 
     
+    @Override
     public String getFilePathForSave() {
         return FilePathForSave;
     }
@@ -76,6 +77,10 @@ public class BJCommunicate implements Communicable{
                 UserOptions.UserIntChoice(RoundAction.getSize());
         RoundAction EnumRoundAction = 
                 RoundAction.values()[IntUserChoice];
+        
+        if (EnumRoundAction.equals(RoundAction.SAVE_GAME)){
+            HandleSaveGame();        
+        }
          
       return EnumRoundAction;
     }
@@ -121,6 +126,19 @@ public class BJCommunicate implements Communicable{
         System.out.println("Do you wish to continue playing? "
                             + "enter true - continue, false - exit the game ");
         return UserOptions.UserBoolChoice();
+    }
+
+    private void HandleSaveGame() {
+        SaveOptions UserChoice;
+        
+        if (FilePathForSave == null)
+            FilePathForSave = EnterFileNameForSave();
+        else{
+            UserChoice = SaveOrSaveAs();            
+            if (UserChoice.equals(SaveOptions.SAVE_AS))
+                FilePathForSave = EnterFileNameForSave();
+        }
+            
     }
     
 }
