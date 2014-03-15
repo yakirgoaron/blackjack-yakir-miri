@@ -31,10 +31,10 @@ public class GameEngine
     private ArrayList<Player> GamePlayers;
     private ArrayList<Card> GameDeck;
     private Dealer GameDealer;
-    private int PlayerTurn;
     private Boolean IsInRound;
     private final int NUMBER_PLAYERS = 6;
     private final int NUMBER_OF_DECKS = 6;
+    public final static int BLACKJACK = 21;
     
     private void IniGameEngine()
     {
@@ -97,6 +97,7 @@ public class GameEngine
             GameDeck.addAll(Card.newDeck());
         }
     }
+   
     private void CreatePlayers(Players XmlPlayers) throws TooManyPlayersException, DuplicateCardException 
     {
         for (EngineLogic.XmlClasses.Player player : XmlPlayers.getPlayer()) 
@@ -111,7 +112,6 @@ public class GameEngine
         if(!IsInRound)
         {
             CreateDeck();
-            PlayerTurn = 0;
             IsInRound = true;
         }
     }
@@ -185,7 +185,7 @@ public class GameEngine
     {
         PlayerAction EnumAction = PlayerAction.DOUBLE; 
         while (!EnumAction.equals(PlayerAction.STAY) &&
-                CurrentBid.getSumCards() < 22)
+                CurrentBid.getSumCards() <= BLACKJACK)
         {
             commInterface.PrintBidInfo(CurrentBid);
             EnumAction = commInterface.GetWantedAction();    
@@ -203,7 +203,7 @@ public class GameEngine
                 commInterface.PrintMessage(ex.toString());
             }
         }  
-        if(CurrentBid.getSumCards() > 21)
+        if(CurrentBid.getSumCards() > BLACKJACK)
         {
             commInterface.PrintMessage("YOU ARE BURNED");
             commInterface.PrintHandInfo(CurrentBid);
@@ -277,6 +277,7 @@ public class GameEngine
         IsInRound = false;
         GameDealer.HandleEndOfRound();
     }
+   
     private void InitAndDealCards(Communicable commInterface){
         InsertBidForRound(commInterface);
         StartNewRound();  

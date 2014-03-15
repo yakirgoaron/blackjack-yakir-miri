@@ -20,8 +20,7 @@ public abstract class Player implements GameParticipant{
     protected Double Money;
     protected ArrayList<Bid> Bids;
     protected Double TotalBid;
-    protected final Double StartMoney = 1000.0;
-    private final static int BLACKJACK = 21;
+    protected final Double StartMoney = 1000.0;    
     private final static int INIT_NUM_CARDS = 2;
     private final static Double WIN_BJ_ONSTART = 2.5;
     private final static Double WIN_BJ = 2.0;
@@ -116,7 +115,7 @@ public abstract class Player implements GameParticipant{
         
         Double BetToAdd;
         
-        if (bid.getSumCards() == BLACKJACK){
+        if (bid.getSumCards() == GameEngine.BLACKJACK){
             if (bid.getCards().size() == INIT_NUM_CARDS)
                BetToAdd =  bid.getTotalBid() * WIN_BJ_ONSTART;
             else
@@ -129,9 +128,9 @@ public abstract class Player implements GameParticipant{
 
     private void HandleLose(Bid bid, int DealerSumOfCards) {
         if (((DealerSumOfCards > bid.getSumCards()) && 
-             (DealerSumOfCards <= BLACKJACK)) ||
-            ((bid.getSumCards() > BLACKJACK) && 
-             (DealerSumOfCards <= BLACKJACK)))
+             (DealerSumOfCards <= GameEngine.BLACKJACK)) ||
+            ((bid.getSumCards() > GameEngine.BLACKJACK) && 
+             (DealerSumOfCards <= GameEngine.BLACKJACK)))
            
             Money -= bid.getTotalBid();        
     }
