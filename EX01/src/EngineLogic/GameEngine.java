@@ -196,8 +196,9 @@ public class GameEngine
     
     private void MakePlayerMove(Communicable commInterface,Bid CurrentBid,Player CurrentPlayer)
     {
-        PlayerAction EnumAction = PlayerAction.DOUBLE; 
+        PlayerAction EnumAction = PlayerAction.HIT; 
         while (!EnumAction.equals(PlayerAction.STAY) &&
+                !EnumAction.equals(PlayerAction.DOUBLE) &&
                 CurrentBid.getSumCards() <= BLACKJACK)
         {
             commInterface.PrintBidInfo(CurrentBid);
