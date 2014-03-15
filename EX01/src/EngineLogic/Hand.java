@@ -17,6 +17,7 @@ public class Hand
     private ArrayList<Card> Cards;   
     private Boolean IsHaveAce;
     private int SumCards;
+    
     public Hand()
     {
         SumCards=0;
@@ -61,5 +62,10 @@ public class Hand
     
     public ArrayList<Card> getCards() {
         return Cards;
+    }
+    
+    protected void RemoveCardFromHand(Card card){      
+        Cards.remove(card);
+        SumCards -= card.getRank().Value();
     }
 }
