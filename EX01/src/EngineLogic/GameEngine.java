@@ -72,7 +72,7 @@ public class GameEngine
         XmlParser.setSchema(schema);
         File XmlFile = new File(FileName);
         Blackjack XmlBj = new Blackjack();
-        
+        XmlBj.setName("Game");
         XmlBj.setDealer(XmlHandler.SaveDealer(GameDealer));
         Players XmlGamePlayers = new Players();
         
