@@ -142,6 +142,7 @@ public class UserOptions {
         do { 
             System.out.println("Enter file name - ");
             filePathString =  scanner.nextLine();
+                
             file = new File(filePathString);
             
             if (file.isDirectory())
@@ -153,7 +154,6 @@ public class UserOptions {
             else
                 FileValidFlag = true;           
         }while(!FileValidFlag);
-        //Paths.get(null).
         return filePathString;      
     }
     
