@@ -63,12 +63,16 @@ public class GameEngine
         GameDealer = XmlHandler.CreateDealer(BlackJackGame.getDealer(), this);
     }
     
-    private void XMLJAXBWrite(String FileName) throws JAXBException
+    private void XMLJAXBWrite(String FileName) throws JAXBException, SAXException
     {
         JAXBContext JaxWriter = JAXBContext.newInstance(Blackjack.class);
         Marshaller XmlParser = JaxWriter.createMarshaller();
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
+        Schema schema = sf.newSchema(new File("blackjack.xsd"));
+        XmlParser.setSchema(schema);
         File XmlFile = new File(FileName);
         Blackjack XmlBj = new Blackjack();
+        
         XmlBj.setDealer(XmlHandler.SaveDealer(GameDealer));
         Players XmlGamePlayers = new Players();
         
@@ -254,7 +258,7 @@ public class GameEngine
         HandleAIPlayers(GameDealer,GameDealer.getDealerCards(),commInterface);
     }
     
-    public void StartGame(Communicable commInterface) throws JAXBException
+    public void StartGame(Communicable commInterface) throws JAXBException, SAXException
     {
         if(GamePlayers.isEmpty())
             throw new TooLowPlayers();
