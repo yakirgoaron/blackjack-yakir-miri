@@ -95,10 +95,8 @@ public class BJCommunicate implements Communicable{
 
     @Override
     public String EnterFileNameForSave() 
-    {
-       Scanner Scanner = new Scanner(System.in);
-       System.out.println("Enter File name - ");
-       return Scanner.nextLine(); 
+    {      
+       return UserOptions.FilePathOutput(); 
     }
     
 }
