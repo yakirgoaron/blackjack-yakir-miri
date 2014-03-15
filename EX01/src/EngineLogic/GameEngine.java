@@ -17,10 +17,14 @@ import EngineLogic.XmlClasses.Blackjack;
 import EngineLogic.XmlClasses.Players;
 import java.io.File;
 import java.util.ArrayList;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -45,10 +49,14 @@ public class GameEngine
     
     private void XMLJAXRead(String FileName)throws JAXBException,
                                               TooManyPlayersException,
-                                              DuplicateCardException
+                                              DuplicateCardException,
+                                              SAXException
     {
         JAXBContext JaxReader = JAXBContext.newInstance(Blackjack.class);
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
+        Schema schema = sf.newSchema(new File("blackjack.xsd"));
         Unmarshaller XmlParser = JaxReader.createUnmarshaller();
+        XmlParser.setSchema(schema);
         File XmlFile = new File(FileName);
         Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
         CreatePlayers(BlackJackGame.getPlayers());
@@ -83,7 +91,8 @@ public class GameEngine
     
     public GameEngine(String FileName) throws JAXBException,
                                               TooManyPlayersException,
-                                              DuplicateCardException
+                                              DuplicateCardException,
+                                              SAXException
     {
         IniGameEngine();
         XMLJAXRead(FileName);
