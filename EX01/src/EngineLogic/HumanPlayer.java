@@ -28,7 +28,14 @@ public class HumanPlayer extends Player
     }
     
     @Override
-    public Double GetBidForPlayer(Communicable commGetBid){
-        return (commGetBid.GetBidForPlayer(this));
+    public Double GetBidForPlayer(Communicable commGetBid)
+    {
+        Double Playerbid = commGetBid.GetBidForPlayer(this);
+        while (Playerbid > Money)
+        {
+            commGetBid.PrintMessage("Too much money");
+            Playerbid = commGetBid.GetBidForPlayer(this);
+        }
+        return Playerbid;
     }
 }

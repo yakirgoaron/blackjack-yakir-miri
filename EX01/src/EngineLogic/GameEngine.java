@@ -200,7 +200,7 @@ public class GameEngine
             }
             catch (TooLowMoneyException ex) 
             {
-                commInterface.PrintMessage(ex.getMessage());
+                commInterface.PrintMessage(ex.toString());
             }
         }  
         if(CurrentBid.getSumCards() > 21)
