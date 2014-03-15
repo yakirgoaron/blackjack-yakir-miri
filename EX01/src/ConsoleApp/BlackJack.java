@@ -9,11 +9,11 @@ import ConsoleApp.UserOptions.NewPlayer;
 import ConsoleApp.UserOptions.SecondaryMenu;
 import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.Exception.RulesDosentAllowException;
-import EngineLogic.Exception.TooLowPlayers;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.GameEngine;
 import java.util.Scanner;
 import javax.xml.bind.JAXBException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -25,7 +25,7 @@ public class BlackJack {
     BJCommunicate BJComm;
     
     
-    public static void main(String[] args) throws RulesDosentAllowException, JAXBException {
+    public static void main(String[] args) throws RulesDosentAllowException, JAXBException, SAXException {
     
         MenuMessages.OpeningMessage();
         BlackJack BJGame = CreateBJGame();     
@@ -37,7 +37,7 @@ public class BlackJack {
     }
     
     
-    private static BlackJack CreateBJGame() {
+    private static BlackJack CreateBJGame() throws SAXException {
        
         BlackJack BJGame = NewOrLoadGame();       
         return BJGame;
@@ -52,12 +52,13 @@ public class BlackJack {
     // C`tor for load game
     private BlackJack(String filePathString) throws JAXBException, 
                                                     TooManyPlayersException,       
-                                                    DuplicateCardException{       
+                                                    DuplicateCardException,       
+                                                    SAXException{       
         GameEng = new GameEngine(filePathString);
         BJComm = new BJCommunicate();
     }
         
-    private static BlackJack NewOrLoadGame(){
+    private static BlackJack NewOrLoadGame() throws SAXException{
         
         int IntUserChoice;
         MainMenu EnumUserChoice;
@@ -89,7 +90,7 @@ public class BlackJack {
         return  BJGame;
     } 
     
-    private static BlackJack LoadGame() {     
+    private static BlackJack LoadGame() throws SAXException {     
        
         BlackJack BJGame = null;
         MenuMessages.LoadGameMessage();
