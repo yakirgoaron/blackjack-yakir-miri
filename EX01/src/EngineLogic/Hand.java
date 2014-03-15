@@ -45,7 +45,7 @@ public class Hand
     public int getSumCards() 
     {
         if(IsHaveAce && SumCards <= 11)
-            SumCards += 10;
+            return SumCards + 10;
         return SumCards;
     }
     
