@@ -160,8 +160,7 @@ public class UserOptions {
         Scanner scanner = new Scanner(System.in);
         boolean ValidInput;
         boolean OverwriteFlag = false;
-        
-         
+               
         do{   
             System.out.println("Overwrite it? "
                             + "true- overwrite, false - don`t overwrite");
