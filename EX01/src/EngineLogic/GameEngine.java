@@ -51,7 +51,7 @@ public class GameEngine
         File XmlFile = new File(FileName);
         Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
         CreatePlayers(BlackJackGame.getPlayers());
-        GameDealer = XmlHandler.CreateDealer(BlackJackGame.getDiller(), this);
+        GameDealer = XmlHandler.CreateDealer(BlackJackGame.getDealer(), this);
     }
     
     private void XMLJAXBWrite(String FileName) throws JAXBException
@@ -60,7 +60,7 @@ public class GameEngine
         Marshaller XmlParser = JaxWriter.createMarshaller();
         File XmlFile = new File(FileName + ".xml");
         Blackjack XmlBj = new Blackjack();
-        XmlBj.setDiller(XmlHandler.SaveDealer(GameDealer));
+        XmlBj.setDealer(XmlHandler.SaveDealer(GameDealer));
         Players XmlGamePlayers = new Players();
         
          for (Player player: GamePlayers){
