@@ -32,32 +32,14 @@ public class BlackJack {
         
         if (BJGame != null)
         {
-            try
-            {
-                BJGame.StartGame();           
-            }
-            catch(TooLowPlayers e)
-            {
-                System.out.println("You have to enter at least one player.");
-                try 
-                {
-                    BJGame.CreatePlayers();
-                }catch(TooManyPlayersException exception){
-                        System.out.println("Too many players - can`t add another player");
-                }
-                BJGame.AddPlayers();
-                BJGame.StartGame(); 
-            }
+            BJGame.StartGame();                       
         }
     }
     
     
     private static BlackJack CreateBJGame() {
-        BlackJack BJGame = NewOrLoadGame();
-        
-        if (BJGame != null)
-            BJGame.AddPlayers();
-        
+       
+        BlackJack BJGame = NewOrLoadGame();       
         return BJGame;
     }
     
@@ -101,7 +83,10 @@ public class BlackJack {
     }
     
     private static BlackJack NewGame(){                        
-        return new BlackJack();     
+        
+        BlackJack BJGame = new BlackJack();
+        BJGame.AddPlayers();
+        return  BJGame;
     } 
     
     private static BlackJack LoadGame() {     
@@ -131,27 +116,22 @@ public class BlackJack {
         
         int IntUserChoice;
         SecondaryMenu EnumUserChoice;
-               
-        MenuMessages.SecondaryMenuMessage();
-        IntUserChoice = UserOptions.UserIntChoice(SecondaryMenu.getSize());
-        EnumUserChoice = SecondaryMenu.values()[IntUserChoice];
         
         try{
-            while (EnumUserChoice == SecondaryMenu.ADD_PLAYER) {
-
-                CreatePlayers();
+            do{
+                CreatePlayer();
                 MenuMessages.SecondaryMenuMessage();
                 IntUserChoice = 
                         UserOptions.UserIntChoice(SecondaryMenu.getSize());
                 EnumUserChoice = SecondaryMenu.values()[IntUserChoice];            
-            }
+            }while (EnumUserChoice == SecondaryMenu.ADD_PLAYER);
         }catch(TooManyPlayersException exception){
             System.out.println("Too many players - can`t add another player");
         }
     }
         
    
-    private void CreatePlayers()throws TooManyPlayersException{
+    private void CreatePlayer()throws TooManyPlayersException{
        
         int IntUserChoice;
         NewPlayer EnumUserChoice;
