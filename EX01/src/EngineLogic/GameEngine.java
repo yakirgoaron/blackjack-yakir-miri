@@ -17,6 +17,7 @@ import EngineLogic.XmlClasses.Blackjack;
 import EngineLogic.XmlClasses.Players;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -290,8 +291,23 @@ public class GameEngine
         }
         IsInRound = false;
         GameDealer.HandleEndOfRound();
+        PlayerContinueGame(commInterface);
     }
-   
+    
+    private void PlayerContinueGame(Communicable commInterface)
+    {
+        for (Iterator<Player> it = GamePlayers.iterator(); it.hasNext();) 
+        {
+            Player player = it.next();
+            if(player instanceof HumanPlayer && 
+               commInterface.DoesPlayerContinue(player))
+            {
+                it.remove();
+            }               
+            
+        }
+    }
+    
     private void InitAndDealCards(Communicable commInterface){
         InsertBidForRound(commInterface);
         StartNewRound();  
