@@ -38,7 +38,7 @@ public class UserOptions {
         ADD_PLAYER("Add Player"), START_GAME("Start Game");
         
         private final String Description;
-        private static final int Size = MainMenu.values().length;
+        private static final int Size = SecondaryMenu.values().length;
         
         SecondaryMenu(String Description){
             this.Description = Description;
@@ -72,6 +72,25 @@ public class UserOptions {
         public static int getSize() {
             return Size;
         }     
+    }
+    
+    public static enum SaveOptions{
+        SAVE("Save Game"), SAVE_AS("Save As");
+        
+        private final String Description;
+        private static final int Size = SaveOptions.values().length;
+        
+        SaveOptions(String Description){
+            this.Description = Description;
+        }
+
+        public String getDescription() {
+            return Description;
+        }
+
+        public static int getSize() {
+            return Size;
+        }      
     }
 
     public static Integer UserIntChoice(int MaxValue){
