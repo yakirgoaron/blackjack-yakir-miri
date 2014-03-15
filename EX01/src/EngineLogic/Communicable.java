@@ -32,8 +32,9 @@ public interface Communicable
         }       
     }
     public static enum RoundAction{      
-        SAVE_GAME("Save and Exit game"), 
-        CONTINUE_GAME("Continue Game"); 
+        SAVE_GAME("Save Game"), 
+        CONTINUE_GAME("Continue Game"), 
+        EXIT_GAME("Exit Game"); 
         
         private final String Description;
         private static final int Size = PlayerAction.values().length;
@@ -60,6 +61,6 @@ public interface Communicable
     public void PrintBidInfo(Bid BidForPrint);
     public void PrintHandInfo(Hand HandForPrint);
     public void PrintParticipnatName(GameParticipant PartToPrint);
-    public String EnterFileNameForSave();
     public void PrintMessage(String Message);
+    
 }
