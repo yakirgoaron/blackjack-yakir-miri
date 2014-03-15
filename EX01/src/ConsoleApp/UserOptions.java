@@ -5,6 +5,7 @@
 package ConsoleApp;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -152,7 +153,7 @@ public class UserOptions {
             else
                 FileValidFlag = true;           
         }while(!FileValidFlag);
-        
+        //Paths.get(null).
         return filePathString;      
     }
     
