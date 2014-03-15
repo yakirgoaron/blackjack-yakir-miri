@@ -146,8 +146,11 @@ public class UserOptions {
             
             if (file.isDirectory())
                 System.out.println("File is a directory!!");
-            else if (file.exists()){                            
-                if (CheckIfOverwriteFile())
+            else if (file.exists()){  
+                System.out.println("Overwrite it? "
+                            + "true- overwrite, false - don`t overwrite");
+                
+                if (UserBoolChoice())
                     FileValidFlag = true; 
             }
             else
@@ -156,17 +159,17 @@ public class UserOptions {
         return filePathString;      
     }
     
-    private static boolean CheckIfOverwriteFile(){
+    public static boolean UserBoolChoice(){
+        
         Scanner scanner = new Scanner(System.in);
         boolean ValidInput;
-        boolean OverwriteFlag = false;
+        boolean UserChoice = false;
                
         do{   
-            System.out.println("Overwrite it? "
-                            + "true- overwrite, false - don`t overwrite");
             ValidInput = true;
             try{
-                OverwriteFlag = scanner.nextBoolean(); 
+                System.out.println("Enter your choice");
+                UserChoice = scanner.nextBoolean(); 
             } catch (InputMismatchException exception) {
                 System.out.println("This is not a valid input!!!");
                 ValidInput = false;
@@ -174,6 +177,6 @@ public class UserOptions {
             }
         }while(!ValidInput);
 
-        return OverwriteFlag;      
+        return UserChoice;      
     }
 }

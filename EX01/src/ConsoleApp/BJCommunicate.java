@@ -97,5 +97,13 @@ public class BJCommunicate implements Communicable{
     {      
        return UserOptions.FilePathOutput(); 
     }
+
+    @Override
+    public boolean DoesPlayerContinue(Player player) {
+        PrintParticipnatName(player);
+        System.out.println("Do you wish to continue playing? "
+                            + "enter true - continue, false - exit the game ");
+        return UserOptions.UserBoolChoice();
+    }
     
 }
