@@ -61,7 +61,7 @@ public class Dealer implements AIPlayer
     @Override
     public void Split() throws RulesDosentAllowException, TooLowMoneyException 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Dealer implements AIPlayer
     @Override
     public void DoubleBid(Bid bid, Card card) throws TooLowMoneyException 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
