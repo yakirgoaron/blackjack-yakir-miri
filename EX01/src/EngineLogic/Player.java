@@ -49,6 +49,7 @@ public abstract class Player implements GameParticipant{
     public Double getTotalBid() {
         return TotalBid;
     }
+    
     public void GivePlayerCards(Card FirstCard,Card SecondCard,Double BetValue)
     {         
          Bids.add(new Bid(FirstCard,SecondCard,BetValue));    

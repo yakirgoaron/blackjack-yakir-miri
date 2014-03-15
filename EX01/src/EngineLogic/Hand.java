@@ -32,7 +32,8 @@ public class Hand
    
     private void CheckAceCard(Card First)
     {
-        IsHaveAce = First.getRank().compareTo(Card.Rank.ACE) == 0;
+        IsHaveAce = IsHaveAce || 
+                    (First.getRank().compareTo(Card.Rank.ACE) == 0);
     }
     
     private void AddCardsToList(Card CardToAdd)
@@ -43,7 +44,7 @@ public class Hand
      
     public int getSumCards() 
     {
-        if(IsHaveAce && SumCards < 10)
+        if(IsHaveAce && SumCards <= 11)
             SumCards += 10;
         return SumCards;
     }

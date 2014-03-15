@@ -243,20 +243,25 @@ public class GameEngine
     
     public void StartGame(Communicable commInterface) throws JAXBException
     {
-        RoundAction NewRoundAction ;
-        do
+        RoundAction NewRoundAction = RoundAction.CONTINUE_GAME;
+        
+        if (!IsInRound)
+            InitAndDealCards(commInterface);
+                    
+        while(!NewRoundAction.equals(RoundAction.SAVE_GAME))
         {
-            if (!IsInRound)
-                InitAndDealCards(commInterface);
             HandleRoundPlay(commInterface);
             EndRound(commInterface);
+            InitAndDealCards(commInterface);
             NewRoundAction = commInterface.GetFinishRoundAction();
-        }while(!NewRoundAction.equals(RoundAction.SAVE_GAME));
+        }
+        
         XMLJAXBWrite(commInterface.EnterFileNameForSave());
     }
+    
     private void EndRound(Communicable commInterface)
     {
-        commInterface.PrintMessage("******ROUND ENDED AND SCOURE IS********");
+        commInterface.PrintMessage("******ROUND ENDED AND SCORE IS********");
         
         for (Player player : GamePlayers) 
         {
