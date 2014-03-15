@@ -242,12 +242,12 @@ public class GameEngine
         for (Player player : GamePlayers)
         {
             commInterface.PrintBasicPlayerInfo(player);
-            for (Bid CurrBid : player.getBids()) 
+            for (int i = 0; i < player.getBids().size(); i++)                
             {     
                 if(player instanceof CompPlayer)
-                    HandleAIPlayers((CompPlayer)player,CurrBid,commInterface); 
+                    HandleAIPlayers((CompPlayer)player,player.getBids().get(i),commInterface); 
                 else
-                    MakePlayerMove(commInterface,CurrBid,player);
+                    MakePlayerMove(commInterface,player.getBids().get(i),player);
             }
         }
         commInterface.PrintParticipnatName(GameDealer);
