@@ -34,6 +34,7 @@ public abstract class Player implements GameParticipant{
         Bids = new ArrayList<>();
     }
     
+    @Override
     public String getName() {
         return Name;
     }
