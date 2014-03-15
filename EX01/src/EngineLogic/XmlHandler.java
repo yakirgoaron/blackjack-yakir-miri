@@ -84,7 +84,8 @@ public class XmlHandler
         
         if (GamePlayer instanceof HumanPlayer)
             XmlPlayer.setType(PlayerType.HUMAN);
-        XmlPlayer.setType(PlayerType.COMPUTER);       
+        else
+            XmlPlayer.setType(PlayerType.COMPUTER);       
         return XmlPlayer;
     }
     
