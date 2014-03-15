@@ -11,6 +11,7 @@ import EngineLogic.Communicable.RoundAction;
 import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.Exception.RulesDosentAllowException;
 import EngineLogic.Exception.TooLowMoneyException;
+import EngineLogic.Exception.TooLowPlayers;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.XmlClasses.Blackjack;
 import EngineLogic.XmlClasses.Players;
@@ -203,7 +204,10 @@ public class GameEngine
             }
         }  
         if(CurrentBid.getSumCards() > 21)
+        {
             commInterface.PrintMessage("YOU ARE BURNED");
+            commInterface.PrintHandInfo(CurrentBid);
+        }
     }
     
     private void HandleAIPlayers(AIPlayer CurrPlayer,Hand CurrBid,Communicable commInterface)
@@ -243,6 +247,8 @@ public class GameEngine
     
     public void StartGame(Communicable commInterface) throws JAXBException
     {
+        if(GamePlayers.isEmpty())
+            throw new TooLowPlayers();
         RoundAction NewRoundAction = RoundAction.CONTINUE_GAME;
         
         if (!IsInRound)

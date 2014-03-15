@@ -9,9 +9,12 @@ import ConsoleApp.UserOptions.NewPlayer;
 import ConsoleApp.UserOptions.SecondaryMenu;
 import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.Exception.RulesDosentAllowException;
+import EngineLogic.Exception.TooLowPlayers;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.GameEngine;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 
 /**
@@ -30,7 +33,24 @@ public class BlackJack {
         BlackJack BJGame = CreateBJGame();     
         
         if (BJGame != null)
-            BJGame.StartGame();           
+        {
+            try
+            {
+                BJGame.StartGame();           
+            }
+            catch(TooLowPlayers e)
+            {
+                System.out.println("You have to enter at least one player.");
+                try 
+                {
+                    BJGame.CreatePlayers();
+                }catch(TooManyPlayersException exception){
+                        System.out.println("Too many players - can`t add another player");
+                }
+                BJGame.AddPlayers();
+                BJGame.StartGame(); 
+            }
+        }
     }
     
     
