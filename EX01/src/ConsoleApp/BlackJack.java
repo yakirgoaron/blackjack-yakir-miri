@@ -25,7 +25,7 @@ public class BlackJack {
     BJCommunicate BJComm;
     
     
-    public static void main(String[] args) throws RulesDosentAllowException, JAXBException, SAXException {
+    public static void main(String[] args) throws RulesDosentAllowException, JAXBException {
     
         MenuMessages.OpeningMessage();
         BlackJack BJGame = CreateBJGame();     
@@ -37,7 +37,7 @@ public class BlackJack {
     }
     
     
-    private static BlackJack CreateBJGame() throws SAXException {
+    private static BlackJack CreateBJGame(){
        
         BlackJack BJGame = NewOrLoadGame();       
         return BJGame;
@@ -58,7 +58,7 @@ public class BlackJack {
         BJComm = new BJCommunicate();
     }
         
-    private static BlackJack NewOrLoadGame() throws SAXException{
+    private static BlackJack NewOrLoadGame(){
         
         int IntUserChoice;
         MainMenu EnumUserChoice;
@@ -90,24 +90,31 @@ public class BlackJack {
         return  BJGame;
     } 
     
-    private static BlackJack LoadGame() throws SAXException {     
+    private static BlackJack LoadGame() {     
        
         BlackJack BJGame = null;
+        boolean FileValid;
         MenuMessages.LoadGameMessage();
         String filePathString = UserOptions.FilePathInput();
         
-        try{
-           BJGame = new BlackJack(filePathString);
-        }
-        catch(JAXBException exception){
-            System.out.println("file not suitable to expected strcture");
-        }
-        catch (TooManyPlayersException exception){
-            System.out.println("Too many players in file");
-        }
-        catch (DuplicateCardException exception){
-            System.out.println("File contains duplicate cards");
-        }
+        do{
+            try{
+                FileValid = true;
+                BJGame = new BlackJack(filePathString);               
+            }
+            catch(JAXBException | SAXException exception){
+                System.out.println("file not suitable to expected strcture");
+                FileValid = false;
+            }
+            catch (TooManyPlayersException exception){
+                System.out.println("Too many players in file");
+                FileValid = false;
+            }
+            catch (DuplicateCardException exception){
+                System.out.println("File contains duplicate cards");
+                FileValid = false;
+            }                    
+        }while(!FileValid);
         
         return BJGame;
     }
