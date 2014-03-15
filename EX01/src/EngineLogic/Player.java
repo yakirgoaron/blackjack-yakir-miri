@@ -120,7 +120,7 @@ public abstract class Player implements GameParticipant{
                BetToAdd =  bid.getTotalBid() * WIN_BJ_ONSTART;
             else
                BetToAdd = bid.getTotalBid() * WIN_BJ;
-            Money += bid.getTotalBid() * BetToAdd;
+            Money += BetToAdd;
             return true;
         }
         return false;
