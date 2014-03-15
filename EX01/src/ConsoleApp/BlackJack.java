@@ -94,12 +94,12 @@ public class BlackJack {
        
         BlackJack BJGame = null;
         boolean FileValid;
-        MenuMessages.LoadGameMessage();
-        String filePathString = UserOptions.FilePathInput();
         
         do{
             try{
                 FileValid = true;
+                MenuMessages.LoadGameMessage();
+                String filePathString = UserOptions.FilePathInput();
                 BJGame = new BlackJack(filePathString);               
             }
             catch(JAXBException | SAXException exception){
