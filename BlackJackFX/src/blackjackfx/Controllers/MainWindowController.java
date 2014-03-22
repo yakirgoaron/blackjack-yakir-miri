@@ -46,7 +46,7 @@ public class MainWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        GameInitType = new SimpleObjectProperty<>(MainMenu.NEW_GAME);
+        GameInitType = new SimpleObjectProperty<>();
         
         this.btnLoadGame.setOnAction(new EventHandler<ActionEvent>(){
             @Override

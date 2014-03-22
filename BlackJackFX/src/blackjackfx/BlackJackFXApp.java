@@ -37,7 +37,7 @@ public class BlackJackFXApp extends Application {
     public class ChangeMainMenu implements ChangeListener<MainMenu>{
 
         @Override
-        public void changed(ObservableValue<? extends MainMenu> ov, MainMenu oldValue, MainMenu NewValue) {
+        public void changed(ObservableValue<? extends MainMenu> ov, MainMenu oldValue, MainMenu NewValue)  {
             
             FXMLLoader fxmlLoader = new FXMLLoader();
             
