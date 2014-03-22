@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.FadeTransitionBuilder;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -50,15 +51,17 @@ public class CreatePlayersScreenController implements Initializable {
     @FXML
     private Label errorMessageLabel;
 
+    private SimpleBooleanProperty finishedInit;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-       this.BtnAdd.setOnAction(new EventHandler<ActionEvent>() {
+       /*this.BtnAdd.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
                AddPlayer();
-            }} );
+            }} );*/
        this.TextName.visibleProperty().set(false);
        this.IsHuman.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -66,10 +69,15 @@ public class CreatePlayersScreenController implements Initializable {
             public void handle(ActionEvent event) {
                ChangeTextEnable();
             }});
+       finishedInit = new SimpleBooleanProperty(false);
+    }
+   
+    public SimpleBooleanProperty getFinishedInit() {
+        return finishedInit;
     }
     
     @FXML
-    public void AddPlayer()
+    public void AddPlayer(ActionEvent event)
     {
         try 
         {
@@ -112,5 +120,11 @@ public class CreatePlayersScreenController implements Initializable {
     
     public void setBjGame(GameEngine BjGame) {
         this.BjGame = BjGame;
+    }
+
+    @FXML
+    protected void OnStartGame(ActionEvent event) 
+    {
+        finishedInit.set(true);
     }
 }
