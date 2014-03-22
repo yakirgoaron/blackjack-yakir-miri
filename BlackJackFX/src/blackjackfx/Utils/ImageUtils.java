@@ -15,8 +15,8 @@ import javafx.scene.image.Image;
  * @author yakir
  */
 public class ImageUtils {
-    private static final String RESOURCES_DIR = "/resources/";
-    private static final String IMAGES_DIR = RESOURCES_DIR + "images/";
+    private static final String RESOURCES_DIR = "/blackjackfx/resources/";
+    private static final String IMAGES_DIR = RESOURCES_DIR + "Images/";
     private static final String IMAGE_EXTENSION = ".png";
     
     public static Image getImage (String filename){
