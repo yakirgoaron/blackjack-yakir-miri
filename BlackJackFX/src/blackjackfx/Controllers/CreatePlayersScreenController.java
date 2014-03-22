@@ -11,17 +11,14 @@ import EngineLogic.GameEngine;
 import blackjackfx.PlayerView;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.FadeTransitionBuilder;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -38,6 +35,8 @@ public class CreatePlayersScreenController implements Initializable {
      * Initializes the controller class.
      */
     private GameEngine BjGame;
+    private Boolean IsHuman;
+    
     @FXML
     private Pane PlayerIn;
     @FXML
@@ -45,13 +44,17 @@ public class CreatePlayersScreenController implements Initializable {
     @FXML
     private Button BtnAdd;
     @FXML
-    private CheckBox IsHuman;
-    @FXML
     private Button BtnStart;
     @FXML
     private Label errorMessageLabel;
 
     private SimpleBooleanProperty finishedInit;
+    @FXML
+    private Label lblPlayerName;
+    @FXML
+    private Label lblPlayersJoined;
+    @FXML
+    private ComboBox<?> cbPlayerType;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -63,15 +66,26 @@ public class CreatePlayersScreenController implements Initializable {
                AddPlayer();
             }} );*/
        this.TextName.visibleProperty().set(false);
-       this.IsHuman.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-               ChangeTextEnable();
-            }});
+       this.lblPlayerName.visibleProperty().set(false);
+       this.lblPlayersJoined.visibleProperty().set(false);
        finishedInit = new SimpleBooleanProperty(false);
     }
    
+    @FXML
+    public void SetPlayerType(ActionEvent t) {
+       
+        if (cbPlayerType.getValue().toString().equals("Human")){
+            IsHuman = true; 
+            EnableTextName();
+            EnableLblPlayerName();
+        }
+        else{
+            IsHuman = false;
+            DisableTextName();
+            DisableLblPlayerName();
+        }
+    }
+    
     public SimpleBooleanProperty getFinishedInit() {
         return finishedInit;
     }
@@ -81,7 +95,7 @@ public class CreatePlayersScreenController implements Initializable {
     {
         try 
         {
-            if(this.IsHuman.isSelected())
+            if(this.IsHuman)
             {
                 BjGame.AddPlayer(TextName.getText());
             }
@@ -90,7 +104,7 @@ public class CreatePlayersScreenController implements Initializable {
                 BjGame.AddPlayer();
             }
             this.TextName.clear();
-            PlayerView playerView = new PlayerView(TextName.getText(), this.IsHuman.isSelected());
+            PlayerView playerView = new PlayerView(TextName.getText(), this.IsHuman);
             PlayerIn.getChildren().add(playerView);
         }
         catch (TooManyPlayersException ex) 
@@ -116,6 +130,39 @@ public class CreatePlayersScreenController implements Initializable {
     {
         this.TextName.visibleProperty().set(!this.TextName.visibleProperty().get());
     }
+    
+    public void EnableTextName()
+    {
+        this.TextName.visibleProperty().set(true);
+    }
+    
+    public void DisableTextName()
+    {
+        this.TextName.visibleProperty().set(false);
+    }
+    public void ChangeLblPlayerNameEnable(){
+        this.lblPlayerName.visibleProperty().set(!this.lblPlayerName.visibleProperty().get());
+    }
+    
+    public void EnableLblPlayerName(){
+        this.lblPlayerName.visibleProperty().set(true);
+    }
+    
+    public void DisableLblPlayerName(){
+        this.lblPlayerName.visibleProperty().set(false);
+    }
+    public void ChangeLblPlayerJoinedEnable(){
+          this.lblPlayersJoined.visibleProperty().set(!this.lblPlayersJoined.visibleProperty().get());
+    }
+    
+    public void EnableLblPlayerJoined(){
+        this.lblPlayerName.visibleProperty().set(true);
+    }
+    
+    public void DisableLblPlayerJoined(){
+        this.lblPlayerName.visibleProperty().set(false);
+    }
+    
     
     
     public void setBjGame(GameEngine BjGame) {
