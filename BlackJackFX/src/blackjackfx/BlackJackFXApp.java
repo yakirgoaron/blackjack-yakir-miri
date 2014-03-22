@@ -24,19 +24,20 @@ import javafx.stage.Stage;
  *
  * @author yakir
  */
-public class BlackJackFX extends Application {
+public class BlackJackFXApp extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException
     {
-       GameEngine BlackJackGame = new GameEngine();
+       //GameEngine BlackJackGame = new GameEngine();
        FXMLLoader fxmlLoader = new FXMLLoader();
-       URL url = getClass().getResource("CreatePlayersScreen.fxml");
+       URL url = getClass().getResource("MainWindow.fxml");
+    //   URL url = getClass().getResource("CreatePlayersScreen.fxml");
        fxmlLoader.setLocation(url);
        Parent root = (Parent)fxmlLoader.load(url.openStream());
-       CreatePlayersScreenController CreatePlayers = (CreatePlayersScreenController) fxmlLoader.getController();
+       //CreatePlayersScreenController CreatePlayers = (CreatePlayersScreenController) fxmlLoader.getController();
        
-       CreatePlayers.setBjGame(BlackJackGame);
+      // CreatePlayers.setBjGame(BlackJackGame);
        Scene scene = new Scene(root);
        primaryStage.setScene(scene);
        primaryStage.show();

@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.MainWindowController" fx:controller="blackjackfx.MainWindowController" fx:controller="blackjackfx.MainWindowController" fx:controller="blackjackfx.MainWindowController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="blackjackfx.Controllers.MainWindowController">
   <children>
     <ImageView fitHeight="448.49998296560887" fitWidth="598.0" layoutX="1.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
       <image>
@@ -41,16 +41,16 @@
     </Label>
     <HBox layoutX="120.0" layoutY="215.0" prefHeight="185.0" prefWidth="549.0" spacing="150.0">
       <children>
-        <Button id="startbutton" minWidth="122.0" mnemonicParsing="false" prefHeight="171.0" prefWidth="122.0" rotate="342.0" text="New Game">
+        <Button id="startbutton" fx:id="btnNewGame" minWidth="122.0" mnemonicParsing="false" prefHeight="171.0" prefWidth="122.0" rotate="342.0" text="New Game">
           <font>
             <Font name="System Bold" size="16.0" fx:id="x1" />
           </font>
         </Button>
-        <Button font="$x1" mnemonicParsing="false" prefHeight="171.0" prefWidth="122.0" rotate="18.0" text="Load Game" />
+        <Button fx:id="btnLoadGame" font="$x1" mnemonicParsing="false" prefHeight="171.0" prefWidth="122.0" rotate="18.0" text="Load Game" />
       </children>
     </HBox>
   </children>
   <stylesheets>
-    <URL value="file:/C:/java/JavaFXApplication2/src/newCascadeStyleSheet.css" />
+    <URL value="@resources/CSS/mainwindow.css" />
   </stylesheets>
 </AnchorPane>
