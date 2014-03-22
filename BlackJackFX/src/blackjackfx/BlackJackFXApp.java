@@ -12,6 +12,8 @@ import blackjackfx.Controllers.CreatePlayersScreenController;
 import blackjackfx.Controllers.MainWindowController;
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,42 +32,57 @@ import javafx.stage.Stage;
  */
 public class BlackJackFXApp extends Application {
     
-    @Override
-    public void start(Stage primaryStage) throws IOException
-    {
-       
-       FXMLLoader fxmlLoader = new FXMLLoader();
-       URL url = getClass().getResource("MainWindow.fxml");  
-       fxmlLoader.setLocation(url);
-       Parent root = (Parent)fxmlLoader.load(url.openStream());     
-        MainWindowController mainWindowController = (MainWindowController) fxmlLoader.getController();
-        mainWindowController.getGameInitType().addListener(new ChangeListener<MainMenu>() {
+    Stage PrimaryStage;
+    
+    public class ChangeMainMenu implements ChangeListener<MainMenu>{
 
-           @Override
-           public void changed(ObservableValue<? extends MainMenu> ov, MainMenu oldValue, MainMenu NewValue) {
-               switch (NewValue)
+        @Override
+        public void changed(ObservableValue<? extends MainMenu> ov, MainMenu oldValue, MainMenu NewValue) {
+            
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            
+            switch (NewValue)
                {
                    case NEW_GAME:
                    {
-                       /*
+                      
                       GameEngine BlackJackGame = new GameEngine(); 
                       URL url = getClass().getResource("CreatePlayersScreen.fxml");
+                      fxmlLoader.setLocation(url);
+                      Parent root = null;
+                try {
+                    root = (Parent)fxmlLoader.load(url.openStream());
+                } catch (IOException ex) {
+                    Logger.getLogger(BlackJackFXApp.class.getName()).log(Level.SEVERE, null, ex);
+                }
                       CreatePlayersScreenController CreatePlayers = 
                               (CreatePlayersScreenController) fxmlLoader.getController();      
                       CreatePlayers.setBjGame(BlackJackGame);
-                      primaryStage.setScene(new GameScene(playersManager)); */
+                      Scene scene = new Scene(root);
+                      PrimaryStage.setScene(scene); 
                    }
                    case LOAD_GAME:
                    {
                        
                    }
                }
-           }
-        });
-        
+           }      
+    }
+    
+    @Override
+    public void start(Stage primaryStage) throws IOException
+    {
+       this.PrimaryStage = primaryStage;
+       FXMLLoader fxmlLoader = new FXMLLoader();
+       URL url = getClass().getResource("MainWindow.fxml");  
+       fxmlLoader.setLocation(url);
+       Parent root = (Parent)fxmlLoader.load(url.openStream());     
+       MainWindowController mainWindowController = (MainWindowController) fxmlLoader.getController();
+       mainWindowController.getGameInitType().addListener(new ChangeMainMenu());
+          
        Scene scene = new Scene(root);
-       primaryStage.setScene(scene);
-       primaryStage.show();
+       PrimaryStage.setScene(scene);
+       PrimaryStage.show();
     }
 
     /**
