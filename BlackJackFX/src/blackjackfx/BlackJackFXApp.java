@@ -7,10 +7,14 @@
 package blackjackfx;
 
 import EngineLogic.GameEngine;
+import GameEnums.MainMenu;
 import blackjackfx.Controllers.CreatePlayersScreenController;
+import blackjackfx.Controllers.MainWindowController;
 import java.io.IOException;
 import java.net.URL;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -29,15 +33,36 @@ public class BlackJackFXApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException
     {
-       //GameEngine BlackJackGame = new GameEngine();
-       FXMLLoader fxmlLoader = new FXMLLoader();
-       URL url = getClass().getResource("MainWindow.fxml");
-    //   URL url = getClass().getResource("CreatePlayersScreen.fxml");
-       fxmlLoader.setLocation(url);
-       Parent root = (Parent)fxmlLoader.load(url.openStream());
-       //CreatePlayersScreenController CreatePlayers = (CreatePlayersScreenController) fxmlLoader.getController();
        
-      // CreatePlayers.setBjGame(BlackJackGame);
+       FXMLLoader fxmlLoader = new FXMLLoader();
+       URL url = getClass().getResource("MainWindow.fxml");  
+       fxmlLoader.setLocation(url);
+       Parent root = (Parent)fxmlLoader.load(url.openStream());     
+        MainWindowController mainWindowController = (MainWindowController) fxmlLoader.getController();
+        mainWindowController.getGameInitType().addListener(new ChangeListener<MainMenu>() {
+
+           @Override
+           public void changed(ObservableValue<? extends MainMenu> ov, MainMenu oldValue, MainMenu NewValue) {
+               switch (NewValue)
+               {
+                   case NEW_GAME:
+                   {
+                       /*
+                      GameEngine BlackJackGame = new GameEngine(); 
+                      URL url = getClass().getResource("CreatePlayersScreen.fxml");
+                      CreatePlayersScreenController CreatePlayers = 
+                              (CreatePlayersScreenController) fxmlLoader.getController();      
+                      CreatePlayers.setBjGame(BlackJackGame);
+                      primaryStage.setScene(new GameScene(playersManager)); */
+                   }
+                   case LOAD_GAME:
+                   {
+                       
+                   }
+               }
+           }
+        });
+        
        Scene scene = new Scene(root);
        primaryStage.setScene(scene);
        primaryStage.show();
