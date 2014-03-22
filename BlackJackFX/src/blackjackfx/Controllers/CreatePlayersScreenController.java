@@ -60,7 +60,7 @@ public class CreatePlayersScreenController implements Initializable {
             public void handle(ActionEvent event) {
                ChangeTextEnable();
             }});
-    }    
+    }
     
     public void AddPlayer()
     {

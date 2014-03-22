@@ -15,9 +15,9 @@
         <TextField fx:id="TextName" layoutX="89.0" layoutY="11.0" prefWidth="200.0" />
         <CheckBox fx:id="IsHuman" layoutX="89.0" layoutY="47.0" mnemonicParsing="false" text="Is Human Player?" />
         <Button id="PlayerName" fx:id="BtnAdd" layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#AddPlayer" text="Add Player" />
-        <Pane id="PlayersRegistered" fx:id="PlayerIn" layoutX="14.0" layoutY="100.0" prefHeight="252.0" prefWidth="572.000022070315" />
         <Label layoutX="14.0" layoutY="84.0" text="Players Joined" />
         <Button fx:id="BtnStart" layoutX="498.0" layoutY="365.0" mnemonicParsing="false" text="Start Game" />
+        <FlowPane fx:id="PlayerIn" layoutX="14.0" layoutY="100.0" prefHeight="254.00009999999747" prefWidth="572.0" />
       </children>
     </Pane>
   </children>
