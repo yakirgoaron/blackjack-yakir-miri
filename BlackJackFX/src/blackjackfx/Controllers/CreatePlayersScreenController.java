@@ -100,7 +100,9 @@ public class CreatePlayersScreenController implements Initializable {
                     .fromValue(0.0)
                     .toValue(1.0)
                     .build();
-            animation.play();
+        animation.play();
+        BtnAdd.setDisable(true);
+            
     }
     public void ChangeTextEnable()
     {
