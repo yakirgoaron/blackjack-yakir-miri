@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet C:/java/JavaFXApplication2/src/newCascadeStyleSheet.css?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <ImageView fitHeight="448.49998296560887" fitWidth="598.0" layoutX="1.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="file:/C:/Users/miri/Documents/12_bg_green.png" />
+      </image>
+    </ImageView>
+    <Label ellipsisString="..." graphicTextGap="4.0" layoutX="162.0" layoutY="45.0" prefHeight="135.0" prefWidth="391.0" text="BLACKJACK" textAlignment="CENTER" textFill="#777777" textOverrun="CLIP" underline="false" wrapText="false">
+      <effect>
+        <DropShadow spread="0.03968253968253968">
+          <input>
+            <Lighting diffuseConstant="0.9206349206349207" specularConstant="1.284126984126984" specularExponent="7.936507936507937" surfaceScale="1.2619047619047619">
+              <bumpInput>
+                <Shadow />
+              </bumpInput>
+              <contentInput>
+                <Glow level="0.7025157232704402" />
+              </contentInput>
+              <light>
+                <javafx.scene.effect.Light.Distant color="#808080" />
+              </light>
+            </Lighting>
+          </input>
+        </DropShadow>
+      </effect>
+      <font>
+        <Font name="Aharoni Bold" size="50.0" />
+      </font>
+    </Label>
+    <HBox layoutX="120.0" layoutY="215.0" prefHeight="185.0" prefWidth="549.0" spacing="150.0">
+      <children>
+        <Button id="startbutton" minWidth="122.0" mnemonicParsing="false" prefHeight="171.0" prefWidth="122.0" rotate="342.0" text="New Game">
+          <font>
+            <Font name="System Bold" size="16.0" fx:id="x1" />
+          </font>
+        </Button>
+        <Button font="$x1" mnemonicParsing="false" prefHeight="171.0" prefWidth="122.0" rotate="18.0" text="Load Game" />
+      </children>
+    </HBox>
+  </children>
+  <stylesheets>
+    <URL value="file:/C:/java/JavaFXApplication2/src/newCascadeStyleSheet.css" />
+  </stylesheets>
+</AnchorPane>

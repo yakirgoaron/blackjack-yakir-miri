@@ -1,0 +1,14 @@
+/* 
+    Document   : newCascadeStyleSheet
+    Created on : 17/03/2014, 14:20:57
+    Author     : miri
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.button {
+    -fx-background-image: url('4Hearts.png');
+    
+    
+}
+
