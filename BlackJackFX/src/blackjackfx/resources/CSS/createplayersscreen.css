@@ -5,3 +5,8 @@
 .mainFxmlClass {
 
 }
+#errorMessageLabel{
+    -fx-alignment: center;
+    -fx-text-fill: red;
+    
+}
