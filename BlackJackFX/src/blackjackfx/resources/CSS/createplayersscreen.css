@@ -5,8 +5,18 @@
 .mainFxmlClass {
 
 }
+
+#AnchorPane{
+    -fx-background-image: url('/blackjackfx/resources/Images/Background/bg_green.png');
+}
 #errorMessageLabel{
     -fx-alignment: center;
     -fx-text-fill: red;
+    
+}
+
+.label{
+    -fx-font: 16px "serif";
+   -fx-text-fill: white;
     
 }
