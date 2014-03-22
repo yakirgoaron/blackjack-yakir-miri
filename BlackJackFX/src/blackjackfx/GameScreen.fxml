@@ -5,9 +5,26 @@
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?scenebuilder-stylesheet resources/CSS/gamescreen.css?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.GameScreenController">
+<AnchorPane id="AnchorPane" minWidth="1079.0" prefHeight="682.0" prefWidth="1079.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.GameScreenController">
+  <children>
+    <ImageView id="bacgreen.png" fitHeight="682.0" fitWidth="1087.0" layoutX="1.0" layoutY="0.0">
+      <image>
+        <Image url="file:/C:/Users/yakir/Desktop/CardsPic/bacgreen.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="DealerImage" fitHeight="90.0" fitWidth="120.00000405100594" layoutX="468.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+    <HBox fx:id="DealerCards" layoutX="398.0" layoutY="104.0" prefHeight="100.0" prefWidth="283.0" />
+    <ImageView fx:id="Player1" fitHeight="90.0" fitWidth="120.0" layoutX="14.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="Player2" fitHeight="90.0" fitWidth="120.0" layoutX="169.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="Player3" fitHeight="90.0" fitWidth="120.0" layoutX="468.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="Player4" fitHeight="90.0" fitWidth="120.0" layoutX="796.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="Player5" fitHeight="90.0" fitWidth="120.0" layoutX="954.0" layoutY="398.0" pickOnBounds="true" preserveRatio="true" />
+    <ImageView fx:id="Player6" fitHeight="90.0" fitWidth="120.0" layoutX="968.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />
   </stylesheets>

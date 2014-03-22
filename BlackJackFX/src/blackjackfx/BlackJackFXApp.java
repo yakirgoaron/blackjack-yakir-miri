@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 public class BlackJackFXApp extends Application {
     
     Stage PrimaryStage;
+    GameEngine BlackJackGame;
     
     public class ChangeMainMenu implements ChangeListener<MainMenu>{
 
@@ -46,7 +47,7 @@ public class BlackJackFXApp extends Application {
                    case NEW_GAME:
                    {
                       
-                      GameEngine BlackJackGame = new GameEngine(); 
+                      BlackJackGame = new GameEngine(); 
                       ScreenManager.GetInstance().getCrePlayerCr().setBjGame(BlackJackGame);
                       Scene scene = new Scene(ScreenManager.GetInstance().getCrePlayerSc());
                       PrimaryStage.setScene(scene); 
@@ -59,12 +60,23 @@ public class BlackJackFXApp extends Application {
            }      
     }
     
+    
+    public class StartGame implements ChangeListener<Boolean>{   
+
+        @Override
+        public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) 
+        {
+           ScreenManager.GetInstance().getGameScCr().setBJGame(BlackJackGame);
+           Scene scene = new Scene(ScreenManager.GetInstance().getGameSc());
+           PrimaryStage.setScene(scene); 
+        }
+    }
     @Override
     public void start(Stage primaryStage) throws IOException
     {
        this.PrimaryStage = primaryStage;
        ScreenManager.GetInstance().getMainWinCr().getGameInitType().addListener(new ChangeMainMenu());
-          
+       ScreenManager.GetInstance().getCrePlayerCr().getFinishedInit().addListener(new StartGame());   
        Scene scene = new Scene(ScreenManager.GetInstance().getMainWinSc());
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
