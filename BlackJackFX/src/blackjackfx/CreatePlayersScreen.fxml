@@ -9,17 +9,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="blackjackfx.Controllers.CreatePlayersScreenController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.CreatePlayersScreenController">
   <children>
     <Pane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
       <children>
         <Label fx:id="lblPlayerName" layoutX="14.0" layoutY="65.0" text="Player Name" />
-        <TextField fx:id="TextName" layoutX="131.0" layoutY="65.0" prefWidth="200.0" />
-        <Button id="PlayerName" fx:id="BtnAdd" layoutX="373.0" layoutY="63.0" mnemonicParsing="false" onAction="#AddPlayer" text="Add Player" />
+        <TextField fx:id="TextName" layoutX="111.0" layoutY="65.0" prefWidth="200.0" />
+        <Button id="PlayerName" fx:id="BtnAdd" layoutX="339.0" layoutY="30.0" mnemonicParsing="false" onAction="#AddPlayer" prefHeight="20.484375" prefWidth="87.0" text="Add Player" />
         <Label fx:id="lblPlayersJoined" layoutX="14.0" layoutY="136.0" text="Players Joined" />
         <Button fx:id="BtnStart" layoutX="498.0" layoutY="365.0" mnemonicParsing="false" onAction="#OnStartGame" text="Start Game" />
         <FlowPane fx:id="PlayerIn" layoutX="14.0" layoutY="172.0" prefHeight="189.00009999999747" prefWidth="572.0" />
-        <Label fx:id="errorMessageLabel" layoutX="53.0" layoutY="72.0" prefHeight="21.9609375" prefWidth="511.0" text="" textAlignment="JUSTIFY" textFill="#ff3333" underline="true">
+        <Label fx:id="errorMessageLabel" layoutX="83.0" layoutY="150.0" prefHeight="21.9609375" prefWidth="511.0" text="" textAlignment="JUSTIFY" textFill="#ff3333" underline="true">
           <font>
             <Font size="12.0" />
           </font>
@@ -39,4 +39,7 @@
       </children>
     </Pane>
   </children>
+  <stylesheets>
+    <URL value="@resources/CSS/createplayersscreen.css" />
+  </stylesheets>
 </AnchorPane>
