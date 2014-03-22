@@ -69,6 +69,12 @@ public class MainWindowController implements Initializable {
     private void OnStartButtonAction(MainMenu MainMenuType) {
         GameInitType.set(MainMenuType);
     }
+
+    public SimpleObjectProperty<MainMenu> getGameInitType() {
+        return GameInitType;
+    }
+    
+    
         
       
    
