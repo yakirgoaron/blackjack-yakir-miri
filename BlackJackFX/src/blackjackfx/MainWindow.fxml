@@ -44,6 +44,7 @@
         <Button fx:id="btnLoadGame" font="$x1" mnemonicParsing="false" prefHeight="171.0" prefWidth="122.0" rotate="18.0" text="Load Game" />
       </children>
     </HBox>
+    <Label fx:id="ErrorMessage" layoutX="51.0" layoutY="150.0" prefHeight="30.0" prefWidth="479.0" text="" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/mainwindow.css" />

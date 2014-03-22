@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 
 /**
@@ -36,6 +37,8 @@ public class MainWindowController implements Initializable {
     private Button btnLoadGame;
     
     private SimpleObjectProperty<MainMenu> GameInitType;
+    @FXML
+    private Label ErrorMessage;
     
    
     
@@ -64,8 +67,10 @@ public class MainWindowController implements Initializable {
         
     }
               
-        
-    @FXML
+    public void SetErrorMessage(String Message)   
+    {
+        ErrorMessage.setText(Message);
+    }
     private void OnStartButtonAction(MainMenu MainMenuType) {
         GameInitType.set(MainMenuType);
     }

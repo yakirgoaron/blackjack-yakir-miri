@@ -11,6 +11,14 @@
     
     
 }
+#ErrorMessage
+{
+    -fx-alignment: center;
+    -fx-text-fill: red;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    
+}
 #AnchorPane {
      -fx-background-image: url('/blackjackfx/resources/Images/Background/bg_green.png');
 }
