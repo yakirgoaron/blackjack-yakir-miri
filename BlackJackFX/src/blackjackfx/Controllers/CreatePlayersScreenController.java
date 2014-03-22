@@ -13,14 +13,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
+import javafx.animation.FadeTransitionBuilder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -43,6 +47,8 @@ public class CreatePlayersScreenController implements Initializable {
     private CheckBox IsHuman;
     @FXML
     private Button BtnStart;
+    @FXML
+    private Label errorMessageLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -62,6 +68,7 @@ public class CreatePlayersScreenController implements Initializable {
             }});
     }
     
+    @FXML
     public void AddPlayer()
     {
         try 
@@ -74,16 +81,27 @@ public class CreatePlayersScreenController implements Initializable {
             {
                 BjGame.AddPlayer();
             }
+            this.TextName.clear();
             PlayerView playerView = new PlayerView(TextName.getText(), this.IsHuman.isSelected());
             PlayerIn.getChildren().add(playerView);
         }
         catch (TooManyPlayersException ex) 
         {
-            Logger.getLogger(CreatePlayersScreenController.class.getName()).log(Level.SEVERE, null, ex);
+            showError(ex.toString());
         }
         
     }
-    
+    private void showError(String message) 
+    {
+        errorMessageLabel.textProperty().setValue(message);
+        FadeTransition animation = FadeTransitionBuilder.create()
+                    .node(errorMessageLabel)
+                    .duration(Duration.seconds(0.3))
+                    .fromValue(0.0)
+                    .toValue(1.0)
+                    .build();
+            animation.play();
+    }
     public void ChangeTextEnable()
     {
         this.TextName.visibleProperty().set(!this.TextName.visibleProperty().get());
