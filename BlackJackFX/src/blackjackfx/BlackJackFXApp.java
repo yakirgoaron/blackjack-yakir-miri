@@ -39,7 +39,7 @@ public class BlackJackFXApp extends Application {
         @Override
         public void changed(ObservableValue<? extends MainMenu> ov, MainMenu oldValue, MainMenu NewValue)  {
             
-            FXMLLoader fxmlLoader = new FXMLLoader();
+
             
             switch (NewValue)
                {
@@ -47,18 +47,8 @@ public class BlackJackFXApp extends Application {
                    {
                       
                       GameEngine BlackJackGame = new GameEngine(); 
-                      URL url = getClass().getResource("CreatePlayersScreen.fxml");
-                      fxmlLoader.setLocation(url);
-                      Parent root = null;
-                try {
-                    root = (Parent)fxmlLoader.load(url.openStream());
-                } catch (IOException ex) {
-                    Logger.getLogger(BlackJackFXApp.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                      CreatePlayersScreenController CreatePlayers = 
-                              (CreatePlayersScreenController) fxmlLoader.getController();      
-                      CreatePlayers.setBjGame(BlackJackGame);
-                      Scene scene = new Scene(root);
+                      ScreenManager.GetInstance().getCrePlayerCr().setBjGame(BlackJackGame);
+                      Scene scene = new Scene(ScreenManager.GetInstance().getCrePlayerSc());
                       PrimaryStage.setScene(scene); 
                    }
                    case LOAD_GAME:
@@ -73,14 +63,9 @@ public class BlackJackFXApp extends Application {
     public void start(Stage primaryStage) throws IOException
     {
        this.PrimaryStage = primaryStage;
-       FXMLLoader fxmlLoader = new FXMLLoader();
-       URL url = getClass().getResource("MainWindow.fxml");  
-       fxmlLoader.setLocation(url);
-       Parent root = (Parent)fxmlLoader.load(url.openStream());     
-       MainWindowController mainWindowController = (MainWindowController) fxmlLoader.getController();
-       mainWindowController.getGameInitType().addListener(new ChangeMainMenu());
+       ScreenManager.GetInstance().getMainWinCr().getGameInitType().addListener(new ChangeMainMenu());
           
-       Scene scene = new Scene(root);
+       Scene scene = new Scene(ScreenManager.GetInstance().getMainWinSc());
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
     }
