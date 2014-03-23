@@ -16,14 +16,14 @@
         <Image url="file:/C:/Users/yakir/Desktop/CardsPic/bacgreen.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <ImageView fx:id="DealerImage" fitHeight="90.0" fitWidth="120.00000405100594" layoutX="468.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
     <HBox fx:id="DealerCards" layoutX="398.0" layoutY="104.0" prefHeight="100.0" prefWidth="283.0" />
-    <ImageView fx:id="Player1" fitHeight="90.0" fitWidth="120.0" layoutX="14.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true" />
-    <ImageView fx:id="Player2" fitHeight="90.0" fitWidth="120.0" layoutX="169.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true" />
-    <ImageView fx:id="Player3" fitHeight="90.0" fitWidth="120.0" layoutX="468.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true" />
-    <ImageView fx:id="Player4" fitHeight="90.0" fitWidth="120.0" layoutX="796.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true" />
-    <ImageView fx:id="Player5" fitHeight="90.0" fitWidth="120.0" layoutX="954.0" layoutY="398.0" pickOnBounds="true" preserveRatio="true" />
-    <ImageView fx:id="Player6" fitHeight="90.0" fitWidth="120.0" layoutX="968.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true" />
+    <Pane fx:id="DealerInfo" layoutX="468.0" layoutY="14.0" prefHeight="100.0" prefWidth="120.0" />
+    <Pane fx:id="Player1" layoutX="24.0" layoutY="394.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player6" layoutX="965.0" layoutY="214.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player5" layoutX="965.0" layoutY="407.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player2" layoutX="184.0" layoutY="535.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player4" layoutX="803.0" layoutY="535.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player3" layoutX="478.0" layoutY="596.0" prefHeight="86.0" prefWidth="100.0" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />

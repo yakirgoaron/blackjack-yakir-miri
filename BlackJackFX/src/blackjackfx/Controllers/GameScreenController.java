@@ -6,39 +6,45 @@
 
 package blackjackfx.Controllers;
 
+import EngineLogic.Bid;
+import EngineLogic.Communicable;
 import EngineLogic.GameEngine;
+import EngineLogic.GameParticipant;
+import EngineLogic.Hand;
+import EngineLogic.Player;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class
  *
  * @author yakir
  */
-public class GameScreenController implements Initializable 
+public class GameScreenController implements Initializable ,Communicable
 {
     
     private GameEngine BJGame;
     @FXML
-    private ImageView DealerImage;
-    @FXML
     private HBox DealerCards;
     @FXML
-    private ImageView Player1;
+    private Pane Player1;
     @FXML
-    private ImageView Player2;
+    private Pane Player2;
     @FXML
-    private ImageView Player3;
+    private Pane Player3;
     @FXML
-    private ImageView Player4;
+    private Pane Player4;
     @FXML
-    private ImageView Player5;
+    private Pane Player5;
     @FXML
-    private ImageView Player6;
+    private Pane Player6;
+    @FXML
+    private Pane DealerInfo;
 
     /**
      * Initializes the controller class.
@@ -50,6 +56,64 @@ public class GameScreenController implements Initializable
     
     public void setBJGame(GameEngine BJGame) {
         this.BJGame = BJGame;
+    }
+
+    @Override
+    public boolean DoesPlayerContinue(Player player) {
+        return true;
+    }
+
+    @Override
+    public String getFilePathForSave() 
+    {
+        return "Hello";
+    }
+
+    @Override
+    public PlayerAction GetWantedAction() 
+    {
+        return PlayerAction.STAY;
+    }
+
+    @Override
+    public void PrintPlayerInfo(Player PlayerToPrint) 
+    {
+        
+    }
+
+    @Override
+    public void PrintBasicPlayerInfo(Player PlayerToPrint) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public RoundAction GetFinishRoundAction() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Double GetBidForPlayer(Player BettingPlayer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void PrintBidInfo(Bid BidForPrint) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void PrintHandInfo(Hand HandForPrint) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void PrintParticipnatName(GameParticipant PartToPrint) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void PrintMessage(String Message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
