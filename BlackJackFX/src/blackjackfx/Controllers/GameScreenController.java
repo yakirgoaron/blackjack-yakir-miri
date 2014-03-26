@@ -102,7 +102,11 @@ public class GameScreenController implements Initializable
 
     @FXML
     private void DoublePress(ActionEvent event) {
-        plAction.set(PlayerAction.DOUBLE);
+        synchronized(plAction)
+        {
+            plAction.set(PlayerAction.DOUBLE);
+            plAction.notify();
+        }
     }
 
     @FXML

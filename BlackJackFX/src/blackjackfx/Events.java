@@ -66,15 +66,19 @@ public class Events extends Thread implements Communicable
     {
         try 
         {
-            scControoler.ShowActions();
-            System.out.println("1");
-            scControoler.getPlayerActionType().wait();
-            System.out.println("2");
+            synchronized(scControoler.getPlayerActionType())
+            {
+                scControoler.ShowActions();
+                System.out.println("1");
+
+                scControoler.getPlayerActionType().wait();
+                System.out.println("2");
+            }
         } catch (InterruptedException ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("3");
         }
-        return scControoler.getPlayerActionType().getValue();
+        return scControoler.getPlayerActionType().get();
     }
 
     @Override
