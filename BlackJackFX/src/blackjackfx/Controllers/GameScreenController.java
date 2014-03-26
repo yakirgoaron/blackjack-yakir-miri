@@ -8,24 +8,34 @@ package blackjackfx.Controllers;
 
 import EngineLogic.Bid;
 import EngineLogic.Communicable;
+import EngineLogic.Communicable.PlayerAction;
 import EngineLogic.GameEngine;
 import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
 import EngineLogic.Player;
+import blackjackfx.Events;
+import blackjackfx.PlayerView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javax.xml.bind.JAXBException;
+import org.xml.sax.SAXException;
 
 /**
  * FXML Controller class
  *
  * @author yakir
  */
-public class GameScreenController implements Initializable ,Communicable
+public class GameScreenController implements Initializable
 {
     
     private GameEngine BJGame;
@@ -45,75 +55,71 @@ public class GameScreenController implements Initializable ,Communicable
     private Pane Player6;
     @FXML
     private Pane DealerInfo;
-
+    @FXML
+    private Button btnDouble;
+    @FXML
+    private Button btnHit;
+    @FXML
+    private Button btnSplit;
+    @FXML
+    private Button btnStay;
+    
+    private SimpleObjectProperty<PlayerAction> plAction;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+        btnDouble.setVisible(false);
+        btnHit.setVisible(false);
+        btnSplit.setVisible(false);
+        btnStay.setVisible(false);
+        plAction = new SimpleObjectProperty<>();
     }   
+    
+    public void ShowActions()
+    {
+       btnDouble.setVisible(true);
+        btnHit.setVisible(true);
+        btnSplit.setVisible(true);
+        btnStay.setVisible(true); 
+    }
+    
     
     public void setBJGame(GameEngine BJGame) {
         this.BJGame = BJGame;
     }
 
-    @Override
-    public boolean DoesPlayerContinue(Player player) {
-        return true;
+     public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
+        return plAction;
     }
-
-    @Override
-    public String getFilePathForSave() 
+    
+    @FXML
+    private void StartRound(ActionEvent event) 
     {
-        return "Hello";
+        new Events(BJGame,this).start();
     }
 
-    @Override
-    public PlayerAction GetWantedAction() 
-    {
-        return PlayerAction.STAY;
+    @FXML
+    private void DoublePress(ActionEvent event) {
+        plAction.set(PlayerAction.DOUBLE);
     }
 
-    @Override
-    public void PrintPlayerInfo(Player PlayerToPrint) 
-    {
-        
+    @FXML
+    private void HitPress(ActionEvent event) {
+        plAction.set(PlayerAction.HIT);
     }
 
-    @Override
-    public void PrintBasicPlayerInfo(Player PlayerToPrint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @FXML
+    private void SplitPress(ActionEvent event) {
+        plAction.set(PlayerAction.SPLIT);
     }
 
-    @Override
-    public RoundAction GetFinishRoundAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @FXML
+    private void StayPress(ActionEvent event) {
+        plAction.set(PlayerAction.STAY);
     }
-
-    @Override
-    public Double GetBidForPlayer(Player BettingPlayer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void PrintBidInfo(Bid BidForPrint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void PrintHandInfo(Hand HandForPrint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void PrintParticipnatName(GameParticipant PartToPrint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void PrintMessage(String Message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+    
     
 }

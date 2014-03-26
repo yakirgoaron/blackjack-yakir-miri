@@ -25,10 +25,10 @@
     <Pane fx:id="Player4" layoutX="803.0" layoutY="535.0" prefHeight="86.0" prefWidth="100.0" />
     <Pane fx:id="Player3" layoutX="165.0" layoutY="549.0" prefHeight="86.0" prefWidth="100.0" />
     <Button layoutX="40.0" layoutY="22.0" mnemonicParsing="false" onAction="#StartRound" prefHeight="24.0" prefWidth="100.0" text="Start Round" />
-    <Button fx:id="btnDouble" layoutX="484.0" layoutY="493.0" mnemonicParsing="false" text="Double" />
-    <Button fx:id="btnHit" layoutX="484.0" layoutY="529.0" mnemonicParsing="false" prefWidth="59.0" text="Hit" />
-    <Button fx:id="btnSplit" layoutX="484.0" layoutY="568.0" mnemonicParsing="false" prefWidth="59.000099999997474" text="Split" />
-    <Button fx:id="btnStay" layoutX="484.0" layoutY="607.0" mnemonicParsing="false" prefWidth="59.0" text="Stay" />
+    <Button fx:id="btnDouble" layoutX="484.0" layoutY="493.0" mnemonicParsing="false" onAction="#DoublePress" text="Double" />
+    <Button fx:id="btnHit" layoutX="484.0" layoutY="529.0" mnemonicParsing="false" onAction="#HitPress" prefWidth="59.0" text="Hit" />
+    <Button fx:id="btnSplit" layoutX="484.0" layoutY="568.0" mnemonicParsing="false" onAction="#SplitPress" prefWidth="59.000099999997474" text="Split" />
+    <Button fx:id="btnStay" layoutX="484.0" layoutY="607.0" mnemonicParsing="false" onAction="#StayPress" prefWidth="59.0" text="Stay" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />
