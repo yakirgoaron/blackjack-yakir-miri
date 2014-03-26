@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?scenebuilder-stylesheet resources/CSS/gamescreen.css?>
 
-<AnchorPane id="AnchorPane" minWidth="1079.0" prefHeight="682.0" prefWidth="1079.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.GameScreenController">
+<AnchorPane id="AnchorPane" minWidth="1079.0" prefHeight="682.0" prefWidth="1079.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="blackjackfx.Controllers.GameScreenController">
   <children>
     <ImageView id="bacgreen.png" fitHeight="682.0" fitWidth="1087.0" layoutX="-4.0" layoutY="0.0">
       <image>
@@ -29,6 +29,9 @@
     <Button fx:id="btnHit" layoutX="484.0" layoutY="529.0" mnemonicParsing="false" onAction="#HitPress" prefWidth="59.0" text="Hit" />
     <Button fx:id="btnSplit" layoutX="484.0" layoutY="568.0" mnemonicParsing="false" onAction="#SplitPress" prefWidth="59.000099999997474" text="Split" />
     <Button fx:id="btnStay" layoutX="484.0" layoutY="607.0" mnemonicParsing="false" onAction="#StayPress" prefWidth="59.0" text="Stay" />
+    <Button fx:id="btnContinue" layoutX="366.0" layoutY="493.0" mnemonicParsing="false" onAction="#ContinuePress" text="Continue Game" />
+    <Button fx:id="btnSaveGame" layoutX="377.0" layoutY="529.0" mnemonicParsing="false" onAction="#SavePress" text="Save Game" />
+    <Button fx:id="btnExitGame" layoutX="397.0" layoutY="568.0" mnemonicParsing="false" onAction="#ExitPress" text="Exit" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />
