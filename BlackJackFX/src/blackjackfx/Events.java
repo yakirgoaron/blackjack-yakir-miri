@@ -93,7 +93,20 @@ public class Events extends Thread implements Communicable
 
     @Override
     public RoundAction GetFinishRoundAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try 
+        {
+            synchronized(scControoler.getRoundChoice())
+            {
+                scControoler.ShowRoundActions();
+                
+                scControoler.getRoundChoice().wait();
+           
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return scControoler.getRoundChoice().get();
     }
 
     @Override
