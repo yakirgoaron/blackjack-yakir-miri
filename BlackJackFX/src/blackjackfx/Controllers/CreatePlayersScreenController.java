@@ -93,19 +93,23 @@ public class CreatePlayersScreenController implements Initializable {
     @FXML
     public void AddPlayer(ActionEvent event)
     {
+        String PlayerName = "";
+        
         try 
         {
             if(this.IsHuman)
             {
-                BjGame.AddPlayer(TextName.getText());
+                PlayerName = TextName.getText();
+                BjGame.AddPlayer(PlayerName);
             }
             else
             {
                 BjGame.AddPlayer();
             }
-            this.TextName.clear();
-            PlayerView playerView = new PlayerView(TextName.getText(), this.IsHuman);
+           
+            PlayerView playerView = new PlayerView(PlayerName, this.IsHuman);
             PlayerIn.getChildren().add(playerView);
+            this.TextName.clear();
         }
         catch (TooManyPlayersException ex) 
         {
