@@ -9,6 +9,7 @@ package blackjackfx.Controllers;
 import EngineLogic.Bid;
 import EngineLogic.Communicable;
 import EngineLogic.Communicable.PlayerAction;
+import EngineLogic.Communicable.RoundAction;
 import EngineLogic.GameEngine;
 import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
@@ -65,6 +66,13 @@ public class GameScreenController implements Initializable
     private Button btnStay;
     
     private SimpleObjectProperty<PlayerAction> plAction;
+    private SimpleObjectProperty<RoundAction> RoundChoice;
+    @FXML
+    private Button btnContinue;
+    @FXML
+    private Button btnSaveGame;
+    @FXML
+    private Button btnExitGame;
     /**
      * Initializes the controller class.
      */
@@ -74,7 +82,11 @@ public class GameScreenController implements Initializable
         btnHit.setVisible(false);
         btnSplit.setVisible(false);
         btnStay.setVisible(false);
+        btnContinue.setVisible(false);
+        btnSaveGame.setVisible(false);
+        btnExitGame.setVisible(false);
         plAction = new SimpleObjectProperty<>();
+        RoundChoice = new SimpleObjectProperty<>();
     }   
     
     public void ShowActions()
@@ -85,6 +97,12 @@ public class GameScreenController implements Initializable
         btnStay.setVisible(true); 
     }
     
+    public void ShowRoundActions(){
+        btnContinue.setVisible(true);
+        btnSaveGame.setVisible(true);
+        btnExitGame.setVisible(true);
+    }
+    
     
     public void setBJGame(GameEngine BJGame) {
         this.BJGame = BJGame;
@@ -93,6 +111,11 @@ public class GameScreenController implements Initializable
      public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
         return plAction;
     }
+
+    public SimpleObjectProperty<RoundAction> getRoundChoice() {
+        return RoundChoice;
+    }
+    
     
     @FXML
     private void StartRound(ActionEvent event) 
@@ -122,6 +145,27 @@ public class GameScreenController implements Initializable
     @FXML
     private void StayPress(ActionEvent event) {
         plAction.set(PlayerAction.STAY);
+    }
+
+    @FXML
+    private void ContinuePress(ActionEvent event) {
+        synchronized (RoundChoice){
+            RoundChoice.set(RoundAction.CONTINUE_GAME);
+        }
+    }
+
+    @FXML
+    private void SavePress(ActionEvent event) {
+         synchronized (RoundChoice){
+            RoundChoice.set(RoundAction.SAVE_GAME);
+        }
+    }
+
+    @FXML
+    private void ExitPress(ActionEvent event) {
+         synchronized (RoundChoice){
+            RoundChoice.set(RoundAction.EXIT_GAME);
+        }
     }
     
     
