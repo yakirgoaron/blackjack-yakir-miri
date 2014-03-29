@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -65,14 +66,17 @@ public class CreatePlayersScreenController implements Initializable {
             public void handle(ActionEvent event) {
                AddPlayer();
             }} );*/
-       this.TextName.visibleProperty().set(false);
-       this.lblPlayerName.visibleProperty().set(false);
-       this.lblPlayersJoined.visibleProperty().set(false);
+       TextName.visibleProperty().set(false);
+       BtnStart.disableProperty().set(true);
+       lblPlayerName.visibleProperty().set(false);
+       lblPlayersJoined.visibleProperty().set(false);
+       BtnAdd.disableProperty().set(true);
        finishedInit = new SimpleBooleanProperty(false);
     }
    
     @FXML
-    public void SetPlayerType(ActionEvent t) {
+    public void SetPlayerType(ActionEvent t) {      
+       BtnAdd.disableProperty().set(false); 
        
         if (cbPlayerType.getValue().toString().equals("Human")){
             IsHuman = true; 
@@ -80,7 +84,7 @@ public class CreatePlayersScreenController implements Initializable {
             EnableLblPlayerName();
         }
         else{
-            IsHuman = false;
+            IsHuman = false;           
             DisableTextName();
             DisableLblPlayerName();
         }
@@ -97,7 +101,7 @@ public class CreatePlayersScreenController implements Initializable {
         
         try 
         {
-            if(this.IsHuman)
+            if(IsHuman)
             {
                 PlayerName = TextName.getText();
                 BjGame.AddPlayer(PlayerName);
@@ -110,6 +114,7 @@ public class CreatePlayersScreenController implements Initializable {
             PlayerView playerView = new PlayerView(PlayerName, this.IsHuman);
             PlayerIn.getChildren().add(playerView);
             this.TextName.clear();
+            BtnStart.disableProperty().set(false);
         }
         catch (TooManyPlayersException ex) 
         {
