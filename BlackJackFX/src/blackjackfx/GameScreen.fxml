@@ -13,12 +13,6 @@
   <children>
     <HBox fx:id="DealerCards" layoutX="398.0" layoutY="104.0" prefHeight="100.0" prefWidth="283.0" />
     <Pane fx:id="DealerInfo" layoutX="468.0" layoutY="14.0" prefHeight="100.0" prefWidth="120.0" />
-    <Pane fx:id="Player1" layoutX="19.0" layoutY="571.0" prefHeight="86.0" prefWidth="100.0" />
-    <Pane fx:id="Player6" layoutX="874.0" layoutY="571.0" prefHeight="86.0" prefWidth="100.0" />
-    <Pane fx:id="Player5" layoutX="744.0" layoutY="571.0" prefHeight="86.0" prefWidth="100.0" />
-    <Pane fx:id="Player2" layoutX="166.0" layoutY="571.0" prefHeight="86.0" prefWidth="100.0" />
-    <Pane fx:id="Player4" layoutX="596.0" layoutY="575.0" prefHeight="86.0" prefWidth="100.0" />
-    <Pane fx:id="Player3" layoutX="313.0" layoutY="573.0" prefHeight="86.0" prefWidth="100.0" />
     <Button layoutX="40.0" layoutY="22.0" mnemonicParsing="false" onAction="#StartRound" prefHeight="24.0" prefWidth="100.0" text="Start Round" />
     <Button fx:id="btnDouble" layoutX="479.0" layoutY="283.0" mnemonicParsing="false" onAction="#DoublePress" text="Double" />
     <Button fx:id="btnHit" layoutX="481.0" layoutY="324.0" mnemonicParsing="false" onAction="#HitPress" prefWidth="59.0" text="Hit" />
@@ -27,6 +21,8 @@
     <Button fx:id="btnContinue" layoutX="456.0" layoutY="455.0" mnemonicParsing="false" onAction="#ContinuePress" text="Continue Game" />
     <Button fx:id="btnSaveGame" layoutX="471.0" layoutY="497.0" mnemonicParsing="false" onAction="#SavePress" text="Save Game" />
     <Button fx:id="btnExitGame" layoutX="493.0" layoutY="528.0" mnemonicParsing="false" onAction="#ExitPress" text="Exit" />
+    <HBox id="" fx:id="Players1t3" layoutX="14.0" layoutY="563.0" prefHeight="100.0" prefWidth="388.0" />
+    <HBox fx:id="Players4t6" layoutX="598.0" layoutY="563.0" prefHeight="100.0" prefWidth="388.0" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />

@@ -25,6 +25,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -44,18 +45,6 @@ public class GameScreenController implements Initializable
     @FXML
     private HBox DealerCards;
     @FXML
-    private Pane Player1;
-    @FXML
-    private Pane Player2;
-    @FXML
-    private Pane Player3;
-    @FXML
-    private Pane Player4;
-    @FXML
-    private Pane Player5;
-    @FXML
-    private Pane Player6;
-    @FXML
     private Pane DealerInfo;
     @FXML
     private Button btnDouble;
@@ -74,6 +63,11 @@ public class GameScreenController implements Initializable
     private Button btnSaveGame;
     @FXML
     private Button btnExitGame;
+    @FXML
+    private HBox Players1t3;
+    @FXML
+    private HBox Players4t6;
+    private Events GameEvents;
     /**
      * Initializes the controller class.
      */
@@ -113,7 +107,15 @@ public class GameScreenController implements Initializable
     {
         Boolean IsHuman = dispPlayer instanceof HumanPlayer;
         PlayerView plView = new PlayerView(dispPlayer.getName(), IsHuman);
-        this.Player1.getChildren().add(plView);
+        Players1t3.setSpacing(80.0);
+        Players4t6.setSpacing(80.0);
+        if(Players1t3.getChildren().size() < 3)
+        {
+            Players1t3.getChildren().add(plView);
+            
+        }
+        else
+            Players4t6.getChildren().add(plView);
     }
     public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
         return plAction;
@@ -127,7 +129,8 @@ public class GameScreenController implements Initializable
     @FXML
     private void StartRound(ActionEvent event) 
     {
-        new Events(BJGame,this).start();
+       GameEvents = new Events(BJGame,this);
+       GameEvents.start();
     }
 
     @FXML
@@ -141,17 +144,32 @@ public class GameScreenController implements Initializable
 
     @FXML
     private void HitPress(ActionEvent event) {
-        plAction.set(PlayerAction.HIT);
+        synchronized(plAction)
+        {
+             plAction.set(PlayerAction.HIT);
+             plAction.notify();
+        }
+       
     }
 
     @FXML
     private void SplitPress(ActionEvent event) {
-        plAction.set(PlayerAction.SPLIT);
+        synchronized(plAction)
+        {
+             plAction.set(PlayerAction.SPLIT);
+             plAction.notify();
+        }
+        
     }
 
     @FXML
     private void StayPress(ActionEvent event) {
-        plAction.set(PlayerAction.STAY);
+        synchronized(plAction)
+        {
+             plAction.set(PlayerAction.STAY);
+             plAction.notify();
+        }
+        
     }
 
     @FXML
