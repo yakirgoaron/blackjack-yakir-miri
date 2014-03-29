@@ -101,6 +101,7 @@ public class BlackJackFXApp extends Application {
     public void start(Stage primaryStage) throws IOException
     {
        this.PrimaryStage = primaryStage;
+       PrimaryStage.setResizable(false);
        ScreenManager.GetInstance().getMainWinCr().getGameInitType().addListener(new ChangeMainMenu());
        ScreenManager.GetInstance().getCrePlayerCr().getFinishedInit().addListener(new StartGame());   
        Scene scene = new Scene(ScreenManager.GetInstance().getMainWinSc());
