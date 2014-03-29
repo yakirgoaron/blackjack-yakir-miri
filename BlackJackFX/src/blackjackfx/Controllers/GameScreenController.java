@@ -13,6 +13,7 @@ import EngineLogic.Communicable.RoundAction;
 import EngineLogic.GameEngine;
 import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
+import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
 import blackjackfx.Events;
 import blackjackfx.PlayerView;
@@ -110,7 +111,8 @@ public class GameScreenController implements Initializable
 
     public void DisplayPlayer(Player dispPlayer)
     {
-        PlayerView plView = new PlayerView(dispPlayer.getName(), true);
+        Boolean IsHuman = dispPlayer instanceof HumanPlayer;
+        PlayerView plView = new PlayerView(dispPlayer.getName(), IsHuman);
         this.Player1.getChildren().add(plView);
     }
     public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
