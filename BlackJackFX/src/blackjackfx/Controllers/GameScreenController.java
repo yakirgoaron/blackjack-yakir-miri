@@ -108,7 +108,12 @@ public class GameScreenController implements Initializable
         this.BJGame = BJGame;
     }
 
-     public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
+    public void DisplayPlayer(Player dispPlayer)
+    {
+        PlayerView plView = new PlayerView(dispPlayer.getName(), true);
+        this.Player1.getChildren().add(plView);
+    }
+    public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
         return plAction;
     }
 

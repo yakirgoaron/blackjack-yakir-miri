@@ -15,6 +15,7 @@ import EngineLogic.Player;
 import blackjackfx.Controllers.GameScreenController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 
@@ -87,8 +88,15 @@ public class Events extends Thread implements Communicable
     }
 
     @Override
-    public void PrintBasicPlayerInfo(Player PlayerToPrint) {
+    public void PrintBasicPlayerInfo(final Player PlayerToPrint) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    scControoler.DisplayPlayer(PlayerToPrint);
+                                }});
+        
     }
 
     @Override
