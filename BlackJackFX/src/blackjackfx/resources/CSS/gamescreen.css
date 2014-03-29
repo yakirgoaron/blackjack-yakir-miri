@@ -3,6 +3,11 @@
  */
 
 .mainFxmlClass {
-    //-fx-background-image: url('/blackjackfx/resources/Images/bacgreen.png');
+    
+}
+
+#AnchorPane
+{
+ -fx-background-image: url('/blackjackfx/resources/Images/Background/bacgreen2.png');   
     
 }
