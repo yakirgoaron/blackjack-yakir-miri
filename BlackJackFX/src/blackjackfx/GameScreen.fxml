@@ -9,29 +9,24 @@
 <?import javafx.scene.layout.*?>
 <?scenebuilder-stylesheet resources/CSS/gamescreen.css?>
 
-<AnchorPane id="AnchorPane" minWidth="1079.0" prefHeight="682.0" prefWidth="1079.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.GameScreenController">
+<AnchorPane id="AnchorPane" minHeight="657.0" minWidth="991.0" prefHeight="668.0" prefWidth="1000.0000999999975" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.GameScreenController">
   <children>
-    <ImageView id="bacgreen2.png" fitHeight="680.0" fitWidth="1076.0" layoutX="3.0" layoutY="1.0">
-      <image>
-        <Image url="file:/C:/Users/yakir/Desktop/CardsPic/bacgreen2.png" preserveRatio="true" smooth="true" />
-      </image>
-    </ImageView>
     <HBox fx:id="DealerCards" layoutX="398.0" layoutY="104.0" prefHeight="100.0" prefWidth="283.0" />
     <Pane fx:id="DealerInfo" layoutX="468.0" layoutY="14.0" prefHeight="100.0" prefWidth="120.0" />
-    <Pane fx:id="Player1" layoutX="29.0" layoutY="585.0" prefHeight="86.0" prefWidth="100.0" />
-    <Pane fx:id="Player6" layoutX="955.0" layoutY="585.0" prefHeight="86.0" prefWidth="100.0" />
-    <Pane fx:id="Player5" layoutX="797.0" layoutY="585.0" prefHeight="86.0" prefWidth="100.0" />
-    <Pane fx:id="Player2" layoutX="179.0" layoutY="585.0" prefHeight="86.0" prefWidth="100.0" />
-    <Pane fx:id="Player4" layoutX="648.0" layoutY="585.0" prefHeight="86.0" prefWidth="100.0" />
-    <Pane fx:id="Player3" layoutX="336.0" layoutY="585.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player1" layoutX="19.0" layoutY="571.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player6" layoutX="874.0" layoutY="571.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player5" layoutX="744.0" layoutY="571.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player2" layoutX="166.0" layoutY="571.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player4" layoutX="596.0" layoutY="575.0" prefHeight="86.0" prefWidth="100.0" />
+    <Pane fx:id="Player3" layoutX="313.0" layoutY="573.0" prefHeight="86.0" prefWidth="100.0" />
     <Button layoutX="40.0" layoutY="22.0" mnemonicParsing="false" onAction="#StartRound" prefHeight="24.0" prefWidth="100.0" text="Start Round" />
-    <Button fx:id="btnDouble" layoutX="510.0" layoutY="300.0" mnemonicParsing="false" onAction="#DoublePress" text="Double" />
-    <Button fx:id="btnHit" layoutX="512.0" layoutY="341.0" mnemonicParsing="false" onAction="#HitPress" prefWidth="59.0" text="Hit" />
-    <Button fx:id="btnSplit" layoutX="513.0" layoutY="387.0" mnemonicParsing="false" onAction="#SplitPress" prefWidth="59.000099999997474" text="Split" />
-    <Button fx:id="btnStay" layoutX="512.0" layoutY="430.0" mnemonicParsing="false" onAction="#StayPress" prefWidth="59.0" text="Stay" />
-    <Button fx:id="btnContinue" layoutX="485.0" layoutY="472.0" mnemonicParsing="false" onAction="#ContinuePress" text="Continue Game" />
-    <Button fx:id="btnSaveGame" layoutX="500.0" layoutY="514.0" mnemonicParsing="false" onAction="#SavePress" text="Save Game" />
-    <Button fx:id="btnExitGame" layoutX="522.0" layoutY="545.0" mnemonicParsing="false" onAction="#ExitPress" text="Exit" />
+    <Button fx:id="btnDouble" layoutX="479.0" layoutY="283.0" mnemonicParsing="false" onAction="#DoublePress" text="Double" />
+    <Button fx:id="btnHit" layoutX="481.0" layoutY="324.0" mnemonicParsing="false" onAction="#HitPress" prefWidth="59.0" text="Hit" />
+    <Button fx:id="btnSplit" layoutX="482.0" layoutY="370.0" mnemonicParsing="false" onAction="#SplitPress" prefWidth="59.000099999997474" text="Split" />
+    <Button fx:id="btnStay" layoutX="483.0" layoutY="413.0" mnemonicParsing="false" onAction="#StayPress" prefWidth="59.0" text="Stay" />
+    <Button fx:id="btnContinue" layoutX="456.0" layoutY="455.0" mnemonicParsing="false" onAction="#ContinuePress" text="Continue Game" />
+    <Button fx:id="btnSaveGame" layoutX="471.0" layoutY="497.0" mnemonicParsing="false" onAction="#SavePress" text="Save Game" />
+    <Button fx:id="btnExitGame" layoutX="493.0" layoutY="528.0" mnemonicParsing="false" onAction="#ExitPress" text="Exit" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />
