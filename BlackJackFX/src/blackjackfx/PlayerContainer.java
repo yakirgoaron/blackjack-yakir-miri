@@ -33,6 +33,8 @@ public class PlayerContainer
     {
         this.PlayerImage = PlayerImage;
         Bids = new LinkedList<>();
+        Bid1.setSpacing(-45.0);
+        Bid2.setSpacing(-45.0);
         Bids.add(Bid1);
         Bids.add(Bid2);
         BidView = new HashMap<>();
