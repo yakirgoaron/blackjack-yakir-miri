@@ -120,8 +120,13 @@ public class Events extends Thread implements Communicable
     }
 
     @Override
-    public void PrintBidInfo(Bid BidForPrint, Player PlayerBid) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void PrintBidInfo(final Bid BidForPrint, final Player PlayerBid) {
+       Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    scControoler.DisplayBid(BidForPrint, PlayerBid);
+                                }}); 
     }
 
     @Override
