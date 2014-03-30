@@ -202,7 +202,7 @@ public class GameEngine
                 !EnumAction.equals(PlayerAction.DOUBLE) &&
                 CurrentBid.getSumCards() <= BLACKJACK)
         {
-            commInterface.PrintBidInfo(CurrentBid);
+            commInterface.PrintBidInfo(CurrentBid,CurrentPlayer);
             EnumAction = commInterface.GetWantedAction();    
             
             try 
