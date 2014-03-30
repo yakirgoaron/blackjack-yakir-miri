@@ -7,11 +7,14 @@
 package blackjackfx;
 
 import EngineLogic.Bid;
+import EngineLogic.Card;
 import EngineLogic.CompPlayer;
 import EngineLogic.Player;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -31,10 +34,31 @@ public class PlayerContainer
         Bids = new LinkedList<>();
         Bids.add(Bid1);
         Bids.add(Bid2);
+        BidView = new HashMap<>();
     }
     public void PrintPlayerInfo(Player plToPrint)
     {
-        
+        PlayerView pl = new PlayerView(plToPrint.getName(), plToPrint instanceof CompPlayer);
+        PlayerImage.getChildren().add(pl);
     }
     
+    public void PrintBidInfo(Bid currBid)
+    {
+        if(!BidView.containsKey(currBid))
+        {
+            BidView.put(currBid,Bids.remove());
+        }
+        addcards(currBid);
+    }
+    private void addcards(Bid currBid)
+    {
+         VBox curr = BidView.get(currBid);
+         curr.getChildren().clear();
+         for (Card curCard : currBid.getCards()) 
+         {
+             CardView cd = new CardView(curCard);
+             curr.getChildren().add(cd);
+         }
+         
+    }
 }
