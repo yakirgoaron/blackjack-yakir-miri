@@ -94,7 +94,7 @@ public class GameScreenController implements Initializable
         btnExitGame.setVisible(false);
         plAction = new SimpleObjectProperty<>();
         RoundChoice = new SimpleObjectProperty<>();
-
+        Players = new HashMap<>();
     }   
     
     public void ShowActions()
@@ -119,8 +119,9 @@ public class GameScreenController implements Initializable
 
     public void DisplayPlayer(Player dispPlayer)
     {
-        Boolean IsHuman = dispPlayer instanceof HumanPlayer;
-        PlayerView plView = new PlayerView(dispPlayer.getName(), IsHuman);
+      //  Boolean IsHuman = dispPlayer instanceof HumanPlayer;
+        Players.get(dispPlayer).PrintPlayerInfo(dispPlayer);
+     //   PlayerView plView = new PlayerView(dispPlayer.getName(), IsHuman);
     }
     public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
         return plAction;
@@ -202,12 +203,13 @@ public class GameScreenController implements Initializable
     private void InitPlayers() {
        ArrayList<Player> GamePlayers = BJGame.getGamePlayers();
       
+       Scene scene = apPlayer1.getScene();
+       
        for (int i=0; i< GamePlayers.size(); i++){
-          
-           Scene scene = apPlayer1.getScene();
-           VBox FirstBid = (VBox) scene.lookup("vbxPlayerBid" + (i+1) + "a");
-           VBox SecondBid = (VBox) scene.lookup("vbxPlayerBid" + (i+1) + "b");
-           Pane PlayerImage = (Pane) scene.lookup("pPlayerPane" + (i+1));
+                   
+           VBox FirstBid = (VBox) scene.lookup("#vbxPlayerBid" + (i+1) + "a");
+           VBox SecondBid = (VBox) scene.lookup("#vbxPlayerBid" + (i+1) + "b");
+           Pane PlayerImage = (Pane) scene.lookup("#pPlayerPane" + (i+1));
            PlayerContainer playerCont = 
                    new PlayerContainer(FirstBid, SecondBid, PlayerImage);
            Players.put(GamePlayers.get(i), playerCont);              
