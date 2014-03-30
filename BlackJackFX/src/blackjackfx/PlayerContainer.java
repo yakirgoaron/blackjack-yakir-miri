@@ -9,6 +9,7 @@ package blackjackfx;
 import EngineLogic.Bid;
 import EngineLogic.Card;
 import EngineLogic.CompPlayer;
+import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,7 +39,7 @@ public class PlayerContainer
     }
     public void PrintPlayerInfo(Player plToPrint)
     {
-        PlayerView pl = new PlayerView(plToPrint.getName(), plToPrint instanceof CompPlayer);
+        PlayerView pl = new PlayerView(plToPrint.getName(), plToPrint instanceof HumanPlayer);
         PlayerImage.getChildren().add(pl);
     }
     
