@@ -114,7 +114,7 @@ public class GameScreenController implements Initializable
     
     public void setBJGame(GameEngine BJGame) {
         this.BJGame = BJGame;
-        InitPlayers();
+        
     }
 
     public void DisplayPlayer(Player dispPlayer)
@@ -134,6 +134,7 @@ public class GameScreenController implements Initializable
     @FXML
     private void StartRound(ActionEvent event) 
     {
+        InitPlayers();
        GameEvents = new Events(BJGame,this);
        GameEvents.start();
     }
@@ -203,7 +204,7 @@ public class GameScreenController implements Initializable
       
        for (int i=0; i< GamePlayers.size(); i++){
           
-           Scene scene = hbxPlayers.getScene();
+           Scene scene = apPlayer1.getScene();
            VBox FirstBid = (VBox) scene.lookup("vbxPlayerBid" + (i+1) + "a");
            VBox SecondBid = (VBox) scene.lookup("vbxPlayerBid" + (i+1) + "b");
            Pane PlayerImage = (Pane) scene.lookup("pPlayerPane" + (i+1));
