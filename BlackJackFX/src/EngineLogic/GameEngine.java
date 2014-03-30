@@ -320,15 +320,9 @@ public class GameEngine
         return GameDealer;
     }
     
-    public ArrayList<HumanPlayer> GetHumanPlayers() 
+    public ArrayList<Player> getGamePlayers() 
     {   
-        ArrayList<HumanPlayer> HumanPlayers = new ArrayList<>();
-        for (Player player : GamePlayers) 
-        {
-            if(player instanceof HumanPlayer)
-                HumanPlayers.add((HumanPlayer)player);
-        }
-        return HumanPlayers;
+        return GamePlayers;
     }
     
     Card getCardAndRemove(Card.Rank CardRank,Card.Suit CardSuit)

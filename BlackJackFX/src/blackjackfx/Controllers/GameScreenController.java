@@ -16,8 +16,11 @@ import EngineLogic.Hand;
 import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
 import blackjackfx.Events;
+import blackjackfx.PlayerContainer;
 import blackjackfx.PlayerView;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,8 +29,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -55,7 +60,7 @@ public class GameScreenController implements Initializable
     private Button btnSplit;
     @FXML
     private Button btnStay;
-    
+    private HashMap<Player, PlayerContainer> Players;
     private SimpleObjectProperty<PlayerAction> plAction;
     private SimpleObjectProperty<RoundAction> RoundChoice;
     @FXML
@@ -64,17 +69,17 @@ public class GameScreenController implements Initializable
     private Button btnSaveGame;
     @FXML
     private Button btnExitGame;
-    @FXML
-    private HBox Players1t3;
-    @FXML
-    private HBox Players4t6;
     private Events GameEvents;
     @FXML
-    private HBox hbxPlayer1Bids;
+    private AnchorPane apPlayer1;
     @FXML
-    private VBox vbxPlayer1Bid1;
+    private HBox hbxPlayers;
     @FXML
-    private VBox vbxPlayer1Bid2;
+    private VBox vbxPlayerBid1b;
+    @FXML
+    private VBox vbxPlayerBid1a;
+    @FXML
+    private Pane pPlayerPane1;
     /**
      * Initializes the controller class.
      */
@@ -89,6 +94,7 @@ public class GameScreenController implements Initializable
         btnExitGame.setVisible(false);
         plAction = new SimpleObjectProperty<>();
         RoundChoice = new SimpleObjectProperty<>();
+
     }   
     
     public void ShowActions()
@@ -108,21 +114,13 @@ public class GameScreenController implements Initializable
     
     public void setBJGame(GameEngine BJGame) {
         this.BJGame = BJGame;
+        InitPlayers();
     }
 
     public void DisplayPlayer(Player dispPlayer)
     {
         Boolean IsHuman = dispPlayer instanceof HumanPlayer;
         PlayerView plView = new PlayerView(dispPlayer.getName(), IsHuman);
-        Players1t3.setSpacing(80.0);
-        Players4t6.setSpacing(80.0);
-        if(Players1t3.getChildren().size() < 3)
-        {
-            Players1t3.getChildren().add(plView);
-            
-        }
-        else
-            Players4t6.getChildren().add(plView);
     }
     public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
         return plAction;
@@ -198,6 +196,21 @@ public class GameScreenController implements Initializable
          synchronized (RoundChoice){
             RoundChoice.set(RoundAction.EXIT_GAME);
         }
+    }
+
+    private void InitPlayers() {
+       ArrayList<Player> GamePlayers = BJGame.getGamePlayers();
+      
+       for (int i=0; i< GamePlayers.size(); i++){
+          
+           Scene scene = hbxPlayers.getScene();
+           VBox FirstBid = (VBox) scene.lookup("vbxPlayerBid" + (i+1) + "a");
+           VBox SecondBid = (VBox) scene.lookup("vbxPlayerBid" + (i+1) + "b");
+           Pane PlayerImage = (Pane) scene.lookup("pPlayerPane" + (i+1));
+           PlayerContainer playerCont = 
+                   new PlayerContainer(FirstBid, SecondBid, PlayerImage);
+           Players.put(GamePlayers.get(i), playerCont);              
+       }
     }
     
     
