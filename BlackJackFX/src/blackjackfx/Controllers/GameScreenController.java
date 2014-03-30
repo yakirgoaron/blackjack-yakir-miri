@@ -73,8 +73,6 @@ public class GameScreenController implements Initializable
     @FXML
     private AnchorPane apPlayer1;
     @FXML
-    private HBox hbxPlayers;
-    @FXML
     private VBox vbxPlayerBid1b;
     @FXML
     private VBox vbxPlayerBid1a;

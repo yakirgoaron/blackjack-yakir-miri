@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?scenebuilder-stylesheet resources/CSS/gamescreen.css?>
 
-<AnchorPane id="AnchorPane" minHeight="657.0" minWidth="991.0" prefHeight="667.0" prefWidth="999.999977929685" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="blackjackfx.Controllers.GameScreenController">
+<AnchorPane id="AnchorPane" minHeight="657.0" minWidth="991.0" prefHeight="667.0" prefWidth="999.999977929685" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.GameScreenController">
   <children>
     <ImageView id="bacgreen2.png" layoutX="0.0" layoutY="1.0">
       <image>
@@ -26,17 +26,48 @@
     <Button fx:id="btnContinue" layoutX="456.0" layoutY="455.0" mnemonicParsing="false" onAction="#ContinuePress" text="Continue Game" />
     <Button fx:id="btnSaveGame" layoutX="471.0" layoutY="497.0" mnemonicParsing="false" onAction="#SavePress" text="Save Game" />
     <Button fx:id="btnExitGame" layoutX="493.0" layoutY="528.0" mnemonicParsing="false" onAction="#ExitPress" text="Exit" />
-    <HBox fx:id="hbxPlayers" layoutX="-1.0" layoutY="204.0" prefHeight="464.0" prefWidth="987.0">
+    <AnchorPane fx:id="apPlayer1" layoutX="5.0" layoutY="207.0" prefHeight="456.0" prefWidth="135.0">
       <children>
-        <AnchorPane fx:id="apPlayer1" prefHeight="456.0" prefWidth="135.0">
-          <children>
-            <VBox fx:id="vbxPlayerBid1b" layoutX="56.0" layoutY="0.0" prefHeight="350.0" prefWidth="72.0" />
-            <VBox fx:id="vbxPlayerBid1a" layoutX="0.0" layoutY="0.0" prefHeight="350.0" prefWidth="58.0" />
-            <Pane fx:id="pPlayerPane1" layoutX="-6.0" layoutY="357.0" prefHeight="98.0" prefWidth="135.0" />
-          </children>
-        </AnchorPane>
+        <VBox fx:id="vbxPlayerBid1b" layoutX="56.0" layoutY="6.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid1a" layoutX="0.0" layoutY="3.0" prefHeight="350.0" prefWidth="58.0" />
+        <Pane fx:id="pPlayerPane1" layoutX="-6.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
       </children>
-    </HBox>
+    </AnchorPane>
+    <AnchorPane fx:id="apPlayer2" layoutX="146.0" layoutY="212.0" prefHeight="456.0" prefWidth="135.0">
+      <children>
+        <VBox fx:id="vbxPlayerBid2b" layoutX="56.0" layoutY="3.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid2a" layoutX="1.0" layoutY="2.0" prefHeight="350.0" prefWidth="58.0" />
+        <Pane fx:id="pPlayerPane2" layoutX="-1.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
+      </children>
+    </AnchorPane>
+    <AnchorPane fx:id="apPlayer3" layoutX="291.0" layoutY="207.0" prefHeight="456.0" prefWidth="135.0">
+      <children>
+        <VBox fx:id="vbxPlayerBid3b" layoutX="56.0" layoutY="6.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid3a" layoutX="0.0" layoutY="3.0" prefHeight="350.0" prefWidth="58.0" />
+        <Pane fx:id="pPlayerPane3" layoutX="-1.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
+      </children>
+    </AnchorPane>
+    <AnchorPane fx:id="apPlayer4" layoutX="578.0" layoutY="210.0" prefHeight="456.0" prefWidth="135.0">
+      <children>
+        <VBox fx:id="vbxPlayerBid4b" layoutX="56.0" layoutY="4.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid4a" layoutX="0.0" layoutY="3.0" prefHeight="350.0" prefWidth="58.0" />
+        <Pane fx:id="pPlayerPane4" layoutX="-1.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
+      </children>
+    </AnchorPane>
+    <AnchorPane fx:id="apPlayer5" layoutX="721.0" layoutY="207.0" prefHeight="456.0" prefWidth="135.0">
+      <children>
+        <VBox fx:id="vbxPlayerBid5b" layoutX="56.0" layoutY="6.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid5a" layoutX="0.0" layoutY="3.0" prefHeight="350.0" prefWidth="58.0" />
+        <Pane fx:id="pPlayerPane5" layoutX="-1.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
+      </children>
+    </AnchorPane>
+    <AnchorPane fx:id="apPlayer6" layoutX="865.0" layoutY="210.0" prefHeight="456.0" prefWidth="135.0">
+      <children>
+        <VBox fx:id="vbxPlayerBid6b" layoutX="56.0" layoutY="4.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid6a" layoutX="0.0" layoutY="3.0" prefHeight="350.0" prefWidth="58.0" />
+        <Pane fx:id="pPlayerPane6" layoutX="-2.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
+      </children>
+    </AnchorPane>
   </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />
