@@ -30,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 
@@ -68,6 +69,12 @@ public class GameScreenController implements Initializable
     @FXML
     private HBox Players4t6;
     private Events GameEvents;
+    @FXML
+    private HBox hbxPlayer1Bids;
+    @FXML
+    private VBox vbxPlayer1Bid1;
+    @FXML
+    private VBox vbxPlayer1Bid2;
     /**
      * Initializes the controller class.
      */

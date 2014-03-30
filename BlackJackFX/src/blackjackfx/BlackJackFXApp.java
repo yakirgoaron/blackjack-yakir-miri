@@ -93,8 +93,9 @@ public class BlackJackFXApp extends Application {
         public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) 
         {
            ScreenManager.GetInstance().getGameScCr().setBJGame(BlackJackGame);
-           Scene scene = new Scene(ScreenManager.GetInstance().getGameSc());
+           Scene scene = new Scene(ScreenManager.GetInstance().getGameSc());          
            PrimaryStage.setScene(scene); 
+           PrimaryStage.centerOnScreen();
         }
     }
     @Override

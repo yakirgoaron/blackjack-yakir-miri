@@ -9,8 +9,13 @@
 <?import javafx.scene.layout.*?>
 <?scenebuilder-stylesheet resources/CSS/gamescreen.css?>
 
-<AnchorPane id="AnchorPane" minHeight="657.0" minWidth="991.0" prefHeight="668.0" prefWidth="1000.0000999999975" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.GameScreenController">
+<AnchorPane id="AnchorPane" minHeight="657.0" minWidth="991.0" prefHeight="667.0" prefWidth="999.999977929685" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml"  fx:controller="blackjackfx.Controllers.GameScreenController">
   <children>
+    <ImageView id="bacgreen2.png" layoutX="0.0" layoutY="1.0">
+      <image>
+        <Image url="@resources/Images/Background/bacgreen2.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
     <HBox fx:id="DealerCards" layoutX="398.0" layoutY="104.0" prefHeight="100.0" prefWidth="283.0" />
     <Pane fx:id="DealerInfo" layoutX="468.0" layoutY="14.0" prefHeight="100.0" prefWidth="120.0" />
     <Button layoutX="40.0" layoutY="22.0" mnemonicParsing="false" onAction="#StartRound" prefHeight="24.0" prefWidth="100.0" text="Start Round" />
@@ -23,6 +28,12 @@
     <Button fx:id="btnExitGame" layoutX="493.0" layoutY="528.0" mnemonicParsing="false" onAction="#ExitPress" text="Exit" />
     <HBox id="" fx:id="Players1t3" layoutX="14.0" layoutY="563.0" prefHeight="100.0" prefWidth="388.0" />
     <HBox fx:id="Players4t6" layoutX="598.0" layoutY="563.0" prefHeight="100.0" prefWidth="388.0" />
+    <HBox fx:id="hbxPlayer1Bids" layoutX="8.0" layoutY="211.0" prefHeight="352.0" prefWidth="120.0">
+      <children>
+        <VBox fx:id="vbxPlayer1Bid1" prefHeight="352.0" prefWidth="58.0" />
+        <VBox id="vbxPlayer1Bid1" fx:id="vbxPlayer1Bid2" prefHeight="352.0" prefWidth="60.0" />
+      </children>
+    </HBox>
   </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />

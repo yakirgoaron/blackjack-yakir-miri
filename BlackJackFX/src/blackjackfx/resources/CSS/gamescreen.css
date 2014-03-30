@@ -11,3 +11,187 @@
  -fx-background-image: url('/blackjackfx/resources/Images/Background/bacgreen2.png');   
     
 }
+
+.TENCLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/10Clubs');   
+}
+
+.TENDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/10Dimond');   
+}
+
+.TENHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/10Hearts');   
+}
+
+.TENSPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/10Spades');   
+}
+
+.DEUCECLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/2Clubs');   
+}
+
+.DEUCEDIAMOND{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/2Clubs');   
+}
+
+.DEUCEHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/2Hearts');   
+}
+
+.DEUCESPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/2Spades');   
+}
+
+.THREECLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/3Clubs');   
+}
+
+.THREEDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/3Dimond');   
+}
+
+.THREEHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/3Hearts');   
+}
+
+.THREESPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/3Spades');   
+}
+
+.FOURCLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/4Clubs');   
+}
+.FOURDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/4Dimond');   
+}
+.FOURSPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/4Spades');   
+}
+.FOURHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/4Hearts');   
+}
+.FIVECLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/5Clubs');   
+}
+
+.FIVEDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/5Dimond');   
+}
+
+.FIVEHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/5Hearts');   
+}
+.FIVESPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/5Spades');   
+}
+.SIXCLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/6Clubs');   
+}
+.SIXDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/6Dimond');   
+}
+.SIXHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/6Hearts');   
+}
+
+.SIXSPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/6Spades');   
+}
+
+.SEVENCLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/7Clubs');   
+}
+.SEVENDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/7Dimond');   
+}
+.SEVENHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/7Hearts');   
+}
+.SEVENSPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/7Spades');   
+}
+.EIGHTCLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/8Clubs');   
+}
+
+.EIGHTDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/8Dimond');   
+}
+
+.EIGHTHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/8Hearts');   
+}
+.EIGHTSPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/8Spades');   
+}
+.NINECLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/9Clubs');   
+}
+.NINEDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/9Dimond');   
+}
+.NINEHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/9Hearts');   
+}
+
+.NINESPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/9Spades');   
+}
+
+.JACKCLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/JClubs');   
+}
+.JACKDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/JDimond');   
+}
+.JACKHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/JHearts');   
+}
+.JACKSPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/JSpades');   
+}
+.QUEENCLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/QClubs');   
+}
+
+.QUEENDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/QDimond');   
+}
+
+.QUEENHEARTS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/QHearts');   
+}
+.QUEENSPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/QSpades');   
+}
+.KINGCLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/KClubs');   
+}
+.KINGDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/KDimond');   
+}
+.KINGHEARTS
+{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/KHearts');   
+}
+
+.KINGSPADES
+{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/KSpades');   
+}
+
+.ACECLUBS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/AceClubs');   
+}
+.ACEDIAMONDS{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/AceDimond');   
+}
+.ACEHEARTS
+{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/AceHearts');   
+}
+.ACESPADES{
+ -fx-image: url('/blackjackfx/resources/Images/Cards/AceSpades');   
+}
