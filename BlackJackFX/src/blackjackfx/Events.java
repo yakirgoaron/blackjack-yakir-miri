@@ -130,8 +130,13 @@ public class Events extends Thread implements Communicable
     }
 
     @Override
-    public void PrintHandInfo(Hand HandForPrint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void PrintHandInfo(final Hand HandForPrint,final GameParticipant ParPlayer) {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    scControoler.DisplayHand(HandForPrint, ParPlayer);
+                                }}); 
     }
 
     @Override
