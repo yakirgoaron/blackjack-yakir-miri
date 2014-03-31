@@ -232,6 +232,7 @@ public class GameScreenController implements Initializable
     private void ContinuePress(ActionEvent event) {
         synchronized (RoundChoice){
             RoundChoice.set(RoundAction.CONTINUE_GAME);
+            RoundChoice.notify();
         }
     }
 
@@ -239,6 +240,7 @@ public class GameScreenController implements Initializable
     private void SavePress(ActionEvent event) {
          synchronized (RoundChoice){
             RoundChoice.set(RoundAction.SAVE_GAME);
+            RoundChoice.notify();
         }
     }
 
@@ -246,6 +248,7 @@ public class GameScreenController implements Initializable
     private void ExitPress(ActionEvent event) {
          synchronized (RoundChoice){
             RoundChoice.set(RoundAction.EXIT_GAME);
+            RoundChoice.notify();
         }
     }
 
