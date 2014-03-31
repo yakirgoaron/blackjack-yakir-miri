@@ -9,6 +9,7 @@ package blackjackfx;
 import EngineLogic.Bid;
 import EngineLogic.Card;
 import EngineLogic.CompPlayer;
+import EngineLogic.Hand;
 import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
 import java.util.HashMap;
@@ -27,7 +28,7 @@ public class PlayerContainer
 {
     private Pane PlayerImage;
     private Queue<VBox> Bids;
-    private HashMap<Bid,VBox> BidView;
+    private HashMap<Hand,VBox> BidView;
     
     public PlayerContainer(VBox Bid1,VBox Bid2,Pane PlayerImage)
     {
@@ -45,7 +46,7 @@ public class PlayerContainer
         PlayerImage.getChildren().add(pl);
     }
     
-    public void PrintBidInfo(Bid currBid)
+    public void PrintBidInfo(Hand currBid)
     {
         if(!BidView.containsKey(currBid))
         {
@@ -53,7 +54,7 @@ public class PlayerContainer
         }
         addcards(currBid);
     }
-    private void addcards(Bid currBid)
+    private void addcards(Hand currBid)
     {
          VBox curr = BidView.get(currBid);
          curr.getChildren().clear();
