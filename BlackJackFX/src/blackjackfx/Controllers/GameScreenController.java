@@ -16,7 +16,7 @@ import EngineLogic.Hand;
 import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
 import blackjackfx.Events;
-import blackjackfx.PlayerContainer;
+import blackjackfx.ParticipantContainer;
 import blackjackfx.PlayerView;
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,10 +50,6 @@ public class GameScreenController implements Initializable
     
     private GameEngine BJGame;
     @FXML
-    private HBox DealerCards;
-    @FXML
-    private Pane DealerInfo;
-    @FXML
     private Button btnDouble;
     @FXML
     private Button btnHit;
@@ -61,7 +57,7 @@ public class GameScreenController implements Initializable
     private Button btnSplit;
     @FXML
     private Button btnStay;
-    private HashMap<Player, PlayerContainer> Players;
+    private HashMap<GameParticipant, ParticipantContainer> Players;
     private SimpleObjectProperty<PlayerAction> plAction;
     private SimpleObjectProperty<RoundAction> RoundChoice;
     @FXML
@@ -121,6 +117,10 @@ public class GameScreenController implements Initializable
     private Pane pPlayerPane6;
     @FXML
     private Label MsgLable;
+    @FXML
+    private Pane PDealerPane;
+    @FXML
+    private VBox vbxDealerHand;
     /**
      * Initializes the controller class.
      */
@@ -159,10 +159,11 @@ public class GameScreenController implements Initializable
     }
     public void DisplayBid(Bid currBid,Player currPlayer)
     {
-        Players.get(currPlayer).PrintBidInfo(currBid);
+        Players.get(currPlayer).PrintHandInfo(currBid);
     }
-    public void DisplayHand(Hand currBid,GameParticipant currPlayer)
+    public void DisplayHand(Hand currHand,GameParticipant currPlayer)
     {
+        Players.get(currPlayer).PrintHandInfo(currHand);
         
     }
     public void DisplayPlayer(Player dispPlayer)
@@ -258,10 +259,16 @@ public class GameScreenController implements Initializable
            VBox FirstBid = (VBox) scene.lookup("#vbxPlayerBid" + (i+1) + "a");
            VBox SecondBid = (VBox) scene.lookup("#vbxPlayerBid" + (i+1) + "b");
            Pane PlayerImage = (Pane) scene.lookup("#pPlayerPane" + (i+1));
-           PlayerContainer playerCont = 
-                   new PlayerContainer(FirstBid, SecondBid, PlayerImage);
+           ParticipantContainer playerCont = 
+                   new ParticipantContainer(FirstBid, SecondBid, PlayerImage);
            Players.put(GamePlayers.get(i), playerCont);              
        }
+       
+       VBox DealerHand = (VBox) scene.lookup("#vbxDealerHand");
+       Pane DealerImage = (Pane) scene.lookup("#pDealerPane");
+       ParticipantContainer DealerCont =
+            new ParticipantContainer(DealerHand, DealerImage);
+       Players.put(BJGame.getGameDealer(), DealerCont);
     }
     
     public void DisplayMessage(String Msg)

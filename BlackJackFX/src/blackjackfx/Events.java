@@ -141,7 +141,7 @@ public class Events extends Thread implements Communicable
 
     @Override
     public void PrintParticipnatName(GameParticipant PartToPrint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //todo
     }
 
     @Override
