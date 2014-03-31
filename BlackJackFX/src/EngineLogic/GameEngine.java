@@ -221,7 +221,7 @@ public class GameEngine
         if(CurrentBid.getSumCards() > BLACKJACK)
         {
             commInterface.PrintMessage("YOU ARE BURNED");
-            commInterface.PrintHandInfo(CurrentBid);
+            commInterface.PrintHandInfo(CurrentBid,CurrentPlayer);
         }
     }
     
@@ -235,7 +235,7 @@ public class GameEngine
                 actToDo = CurrPlayer.Play(CurrBid);
                 commInterface.PrintMessage(actToDo.getDescription());
                 DoPlayerMove(actToDo,CurrPlayer,CurrBid);
-                commInterface.PrintHandInfo(CurrBid);
+                commInterface.PrintHandInfo(CurrBid,CurrPlayer);
             }while (!actToDo.equals(PlayerAction.STAY));
         } 
         catch (RulesDosentAllowException ex) {
