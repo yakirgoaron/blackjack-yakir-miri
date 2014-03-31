@@ -31,6 +31,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -78,6 +79,48 @@ public class GameScreenController implements Initializable
     private VBox vbxPlayerBid1a;
     @FXML
     private Pane pPlayerPane1;
+    @FXML
+    private AnchorPane apPlayer2;
+    @FXML
+    private VBox vbxPlayerBid2b;
+    @FXML
+    private VBox vbxPlayerBid2a;
+    @FXML
+    private Pane pPlayerPane2;
+    @FXML
+    private AnchorPane apPlayer3;
+    @FXML
+    private VBox vbxPlayerBid3b;
+    @FXML
+    private VBox vbxPlayerBid3a;
+    @FXML
+    private Pane pPlayerPane3;
+    @FXML
+    private AnchorPane apPlayer4;
+    @FXML
+    private VBox vbxPlayerBid4b;
+    @FXML
+    private VBox vbxPlayerBid4a;
+    @FXML
+    private Pane pPlayerPane4;
+    @FXML
+    private AnchorPane apPlayer5;
+    @FXML
+    private VBox vbxPlayerBid5b;
+    @FXML
+    private VBox vbxPlayerBid5a;
+    @FXML
+    private Pane pPlayerPane5;
+    @FXML
+    private AnchorPane apPlayer6;
+    @FXML
+    private VBox vbxPlayerBid6b;
+    @FXML
+    private VBox vbxPlayerBid6a;
+    @FXML
+    private Pane pPlayerPane6;
+    @FXML
+    private Label MsgLable;
     /**
      * Initializes the controller class.
      */
@@ -217,6 +260,9 @@ public class GameScreenController implements Initializable
        }
     }
     
-    
+    public void DisplayMessage(String Msg)
+    {
+        this.MsgLable.setText(Msg);
+    }
     
 }

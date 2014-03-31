@@ -140,8 +140,13 @@ public class Events extends Thread implements Communicable
     }
 
     @Override
-    public void PrintMessage(String Message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void PrintMessage(final String Message) {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    scControoler.DisplayMessage(Message);
+                                }}); 
     }
     
 }

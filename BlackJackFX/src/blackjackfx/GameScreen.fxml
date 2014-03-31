@@ -68,6 +68,7 @@
         <Pane fx:id="pPlayerPane6" layoutX="-2.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
       </children>
     </AnchorPane>
+    <Label fx:id="MsgLable" layoutX="40.0" layoutY="124.0" prefHeight="21.000099999997474" prefWidth="187.00009999999747" text="" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />
