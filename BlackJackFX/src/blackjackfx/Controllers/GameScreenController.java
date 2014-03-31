@@ -161,6 +161,10 @@ public class GameScreenController implements Initializable
     {
         Players.get(currPlayer).PrintBidInfo(currBid);
     }
+    public void DisplayHand(Hand currBid,GameParticipant currPlayer)
+    {
+        
+    }
     public void DisplayPlayer(Player dispPlayer)
     {
       //  Boolean IsHuman = dispPlayer instanceof HumanPlayer;
