@@ -21,6 +21,7 @@ import blackjackfx.PlayerView;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -277,6 +278,13 @@ public class GameScreenController implements Initializable
     public void DisplayMessage(String Msg)
     {
         this.MsgLable.setText(Msg);
+    }
+
+    public void ClearTable() {
+        
+        for (Entry<GameParticipant, ParticipantContainer> entry: Players.entrySet()){
+            entry.getValue().ClearCards();
+        }
     }
     
 }

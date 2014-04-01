@@ -27,42 +27,42 @@
     <Button fx:id="btnExitGame" layoutX="493.0" layoutY="528.0" mnemonicParsing="false" onAction="#ExitPress" text="Exit" />
     <AnchorPane fx:id="apPlayer1" layoutX="5.0" layoutY="207.0" prefHeight="456.0" prefWidth="135.0">
       <children>
-        <VBox fx:id="vbxPlayerBid1b" layoutX="56.0" layoutY="6.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid1b" layoutX="67.0" layoutY="4.0" prefHeight="350.0" prefWidth="72.0" />
         <VBox fx:id="vbxPlayerBid1a" layoutX="0.0" layoutY="2.0" prefHeight="350.0" prefWidth="58.0" />
         <Pane fx:id="pPlayerPane1" layoutX="-6.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
       </children>
     </AnchorPane>
     <AnchorPane fx:id="apPlayer2" layoutX="146.0" layoutY="212.0" prefHeight="456.0" prefWidth="135.0">
       <children>
-        <VBox fx:id="vbxPlayerBid2b" layoutX="59.0" layoutY="0.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid2b" layoutX="70.0" layoutY="-2.0" prefHeight="350.0" prefWidth="72.0" />
         <VBox fx:id="vbxPlayerBid2a" layoutX="3.0" layoutY="-3.0" prefHeight="350.0" prefWidth="58.0" />
         <Pane fx:id="pPlayerPane2" layoutX="-1.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
       </children>
     </AnchorPane>
     <AnchorPane fx:id="apPlayer3" layoutX="291.0" layoutY="207.0" prefHeight="456.0" prefWidth="135.0">
       <children>
-        <VBox fx:id="vbxPlayerBid3b" layoutX="56.0" layoutY="6.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid3b" layoutX="69.0" layoutY="3.0" prefHeight="350.0" prefWidth="72.0" />
         <VBox fx:id="vbxPlayerBid3a" layoutX="1.0" layoutY="2.0" prefHeight="350.0" prefWidth="58.0" />
         <Pane fx:id="pPlayerPane3" layoutX="-1.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
       </children>
     </AnchorPane>
     <AnchorPane fx:id="apPlayer4" layoutX="578.0" layoutY="210.0" prefHeight="456.0" prefWidth="135.0">
       <children>
-        <VBox fx:id="vbxPlayerBid4b" layoutX="56.0" layoutY="4.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid4b" layoutX="68.0" layoutY="-1.0" prefHeight="350.0" prefWidth="72.0" />
         <VBox fx:id="vbxPlayerBid4a" layoutX="0.0" layoutY="-1.0" prefHeight="350.0" prefWidth="58.0" />
         <Pane fx:id="pPlayerPane4" layoutX="-1.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
       </children>
     </AnchorPane>
     <AnchorPane fx:id="apPlayer5" layoutX="721.0" layoutY="207.0" prefHeight="456.0" prefWidth="135.0">
       <children>
-        <VBox fx:id="vbxPlayerBid5b" layoutX="56.0" layoutY="6.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid5b" layoutX="68.0" layoutY="3.0" prefHeight="350.0" prefWidth="72.0" />
         <VBox fx:id="vbxPlayerBid5a" layoutX="1.0" layoutY="2.0" prefHeight="350.0" prefWidth="58.0" />
         <Pane fx:id="pPlayerPane5" layoutX="-1.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
       </children>
     </AnchorPane>
     <AnchorPane fx:id="apPlayer6" layoutX="865.0" layoutY="210.0" prefHeight="456.0" prefWidth="135.0">
       <children>
-        <VBox fx:id="vbxPlayerBid6b" layoutX="59.0" layoutY="2.0" prefHeight="350.0" prefWidth="72.0" />
+        <VBox fx:id="vbxPlayerBid6b" layoutX="67.0" layoutY="-2.0" prefHeight="350.0" prefWidth="72.0" />
         <VBox fx:id="vbxPlayerBid6a" layoutX="0.0" layoutY="-1.0" prefHeight="350.0" prefWidth="58.0" />
         <Pane fx:id="pPlayerPane6" layoutX="-2.0" layoutY="362.0" prefHeight="98.0" prefWidth="135.0" />
       </children>

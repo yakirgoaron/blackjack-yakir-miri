@@ -102,10 +102,11 @@ public class Events extends Thread implements Communicable
         {
             synchronized(scControoler.getRoundChoice())
             {
+                
                 scControoler.ShowRoundActions();
                 
                 scControoler.getRoundChoice().wait();
-           
+                ClearTable();
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
@@ -152,6 +153,15 @@ public class Events extends Thread implements Communicable
                                 { 
                                     scControoler.DisplayMessage(Message);
                                 }}); 
+    }
+
+    private void ClearTable() {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                     scControoler.ClearTable();
+                                }});        
     }
     
 }

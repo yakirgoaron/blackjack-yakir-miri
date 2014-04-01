@@ -15,6 +15,7 @@ import EngineLogic.Player;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
 import javafx.scene.layout.HBox;
@@ -72,5 +73,16 @@ public class ParticipantContainer
              curr.getChildren().add(cd);
          }
          
+    }
+
+    public void ClearCards() {
+        for (Entry<Hand,VBox> entry: HandView.entrySet()) {       
+            entry.getValue().getChildren().clear();
+            
+            // todo: fix order
+            Hands.add(entry.getValue());
+        }
+       
+        HandView.clear();
     }
 }
