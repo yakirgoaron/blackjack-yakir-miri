@@ -57,6 +57,7 @@ public class BlackJackFXApp extends Application {
                       ScreenManager.GetInstance().getCrePlayerCr().setBjGame(BlackJackGame);
                       Scene scene = new Scene(ScreenManager.GetInstance().getCrePlayerSc());
                       PrimaryStage.setScene(scene); 
+                      PrimaryStage.setTitle("Create Players");
                       break;
                    }
                    case LOAD_GAME:
@@ -96,6 +97,7 @@ public class BlackJackFXApp extends Application {
            Scene scene = new Scene(ScreenManager.GetInstance().getGameSc());          
            PrimaryStage.setScene(scene); 
            PrimaryStage.centerOnScreen();
+           PrimaryStage.setTitle("Let's play BLACKJACK");
         }
     }
     @Override
@@ -108,6 +110,7 @@ public class BlackJackFXApp extends Application {
        Scene scene = new Scene(ScreenManager.GetInstance().getMainWinSc());
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
+       PrimaryStage.setTitle("Welcome to BLACKJACK");
     }
 
     /**
