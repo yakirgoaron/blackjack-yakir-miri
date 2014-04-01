@@ -29,23 +29,28 @@ import javafx.scene.layout.VBox;
 public class ParticipantContainer
 {
     private Pane ParticipantImage;
-    private Queue<VBox> Hands;
-    private HashMap<Hand,VBox> HandView;
+    private Queue<Pane> Hands;
+    private Queue<Pane> OrderHand;
+    private HashMap<Hand,Pane> HandView;
     
     public ParticipantContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage)
     {
         this.ParticipantImage = ParticipantImage;
         Hands = new LinkedList<>();
+        OrderHand = new LinkedList<>();
         Hand1.setSpacing(-45.0);
         Hand2.setSpacing(-45.0);
-        Hands.add(Hand1);
-        Hands.add(Hand2);
+        OrderHand.add(Hand1);
+        OrderHand.add(Hand2);
+        Hands.addAll(OrderHand);
         HandView = new HashMap<>();
     }
-    public ParticipantContainer(VBox Hand, Pane PlayerImage){
+    public ParticipantContainer(HBox Hand, Pane PlayerImage){
         this.ParticipantImage = PlayerImage;
         Hands = new LinkedList<>();
         Hand.setSpacing(-45.0);
+        OrderHand = new LinkedList<>();
+        OrderHand.add(Hand);
         Hands.add(Hand); 
         HandView = new HashMap<>();
     }
@@ -65,7 +70,7 @@ public class ParticipantContainer
     }
     private void addcards(Hand currHand)
     {
-         VBox curr = HandView.get(currHand);
+         Pane curr = HandView.get(currHand);
          curr.getChildren().clear();
          for (Card curCard : currHand.getCards()) 
          {
@@ -76,13 +81,14 @@ public class ParticipantContainer
     }
 
     public void ClearCards() {
-        for (Entry<Hand,VBox> entry: HandView.entrySet()) {       
+        for (Entry<Hand,Pane> entry: HandView.entrySet()) {       
             entry.getValue().getChildren().clear();
             
             // todo: fix order
-            Hands.add(entry.getValue());
+            
         }
-       
+        Hands.clear();
+        Hands.addAll(OrderHand);
         HandView.clear();
     }
 }

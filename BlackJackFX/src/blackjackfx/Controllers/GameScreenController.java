@@ -121,7 +121,7 @@ public class GameScreenController implements Initializable
     @FXML
     private Pane PDealerPane;
     @FXML
-    private VBox vbxDealerHand;
+    private HBox vbxDealerHand;
     /**
      * Initializes the controller class.
      */
@@ -139,6 +139,20 @@ public class GameScreenController implements Initializable
         Players = new HashMap<>();
     }   
     
+    public void ChangeVisibleAction()
+    {
+        btnDouble.setVisible(!btnDouble.isVisible());
+        btnHit.setVisible(!btnHit.isVisible());
+        btnSplit.setVisible(!btnSplit.isVisible());
+        btnStay.setVisible(!btnStay.isVisible());
+    }
+    
+    public void ChangeVisibleEnd()
+    {
+        btnContinue.setVisible(!btnContinue.isVisible());
+        btnSaveGame.setVisible(!btnSaveGame.isVisible());
+        btnExitGame.setVisible(!btnExitGame.isVisible());
+    }
     public void ShowActions()
     {
        btnDouble.setVisible(true);
@@ -197,6 +211,7 @@ public class GameScreenController implements Initializable
             plAction.set(PlayerAction.DOUBLE);
             plAction.notify();
         }
+        ChangeVisibleAction();
     }
 
     @FXML
@@ -206,6 +221,7 @@ public class GameScreenController implements Initializable
              plAction.set(PlayerAction.HIT);
              plAction.notify();
         }
+        ChangeVisibleAction();
        
     }
 
@@ -216,7 +232,7 @@ public class GameScreenController implements Initializable
              plAction.set(PlayerAction.SPLIT);
              plAction.notify();
         }
-        
+        ChangeVisibleAction();
     }
 
     @FXML
@@ -226,7 +242,7 @@ public class GameScreenController implements Initializable
              plAction.set(PlayerAction.STAY);
              plAction.notify();
         }
-        
+        ChangeVisibleAction();
     }
 
     @FXML
@@ -235,6 +251,7 @@ public class GameScreenController implements Initializable
             RoundChoice.set(RoundAction.CONTINUE_GAME);
             RoundChoice.notify();
         }
+        ChangeVisibleEnd();
     }
 
     @FXML
@@ -243,6 +260,7 @@ public class GameScreenController implements Initializable
             RoundChoice.set(RoundAction.SAVE_GAME);
             RoundChoice.notify();
         }
+         ChangeVisibleEnd();
     }
 
     @FXML
@@ -251,6 +269,7 @@ public class GameScreenController implements Initializable
             RoundChoice.set(RoundAction.EXIT_GAME);
             RoundChoice.notify();
         }
+        ChangeVisibleEnd();
     }
 
     private void InitPlayers() {
@@ -268,7 +287,7 @@ public class GameScreenController implements Initializable
            Players.put(GamePlayers.get(i), playerCont);              
        }
        
-       VBox DealerHand = (VBox) scene.lookup("#vbxDealerHand");
+       HBox DealerHand = (HBox) scene.lookup("#vbxDealerHand");
        Pane DealerImage = (Pane) scene.lookup("#pDealerPane");
        ParticipantContainer DealerCont =
             new ParticipantContainer(DealerHand, DealerImage);
