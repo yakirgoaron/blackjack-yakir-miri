@@ -82,10 +82,7 @@ public class ParticipantContainer
 
     public void ClearCards() {
         for (Entry<Hand,Pane> entry: HandView.entrySet()) {       
-            entry.getValue().getChildren().clear();
-            
-            // todo: fix order
-            
+            entry.getValue().getChildren().clear();            
         }
         Hands.clear();
         Hands.addAll(OrderHand);

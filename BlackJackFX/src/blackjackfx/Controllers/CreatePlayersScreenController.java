@@ -81,6 +81,7 @@ public class CreatePlayersScreenController implements Initializable {
         if (cbPlayerType.getValue().toString().equals("Human")){
             IsHuman = true; 
             EnableTextName();
+            TextName.requestFocus();
             EnableLblPlayerName();
         }
         else{
