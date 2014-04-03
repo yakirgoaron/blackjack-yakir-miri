@@ -5,7 +5,13 @@
 .mainFxmlClass {
     
 }
-
+#MsgLable
+{
+    -fx-alignment: center;
+    -fx-text-fill: red;
+    -fx-font-size: 20 px;
+    
+}
 #AnchorPane
 {
  -fx-background-image: url('/blackjackfx/resources/Images/Background/bacgreen2.png');   

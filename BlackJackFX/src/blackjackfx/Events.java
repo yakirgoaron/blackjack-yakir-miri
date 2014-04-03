@@ -58,8 +58,19 @@ public class Events extends Thread implements Communicable
     }
    
     @Override
-    public String getFilePathForSave() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getFilePathForSave() 
+    {
+        synchronized(scControoler.GetPath())
+            {
+                
+                scControoler.GetFilePathToSave();
+            try {                
+                scControoler.GetPath().wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+        return scControoler.GetPath().get();
     }
 
     @Override

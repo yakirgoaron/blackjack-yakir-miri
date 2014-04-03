@@ -18,6 +18,7 @@ import EngineLogic.Player;
 import blackjackfx.Events;
 import blackjackfx.ParticipantContainer;
 import blackjackfx.PlayerView;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,6 +40,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 
@@ -122,6 +125,7 @@ public class GameScreenController implements Initializable
     private Pane PDealerPane;
     @FXML
     private HBox vbxDealerHand;
+    private SimpleStringProperty FlPath;
     /**
      * Initializes the controller class.
      */
@@ -136,9 +140,13 @@ public class GameScreenController implements Initializable
         btnExitGame.setVisible(false);
         plAction = new SimpleObjectProperty<>();
         RoundChoice = new SimpleObjectProperty<>();
+        FlPath = new SimpleStringProperty();
         Players = new HashMap<>();
     }   
-    
+    public SimpleStringProperty GetPath()
+    {
+        return this.FlPath;
+    }
     public void ChangeVisibleAction()
     {
         btnDouble.setVisible(!btnDouble.isVisible());
@@ -195,6 +203,16 @@ public class GameScreenController implements Initializable
         return RoundChoice;
     }
     
+    public void GetFilePathToSave()
+    {
+        FileChooser flChose = new FileChooser();
+        flChose.setTitle("Choose a path to save game");
+        flChose.getExtensionFilters().addAll(
+                                new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+        File flToSave = flChose.showSaveDialog(apPlayer1.getScene().getWindow());
+        this.FlPath.set(flToSave.getAbsolutePath());
+        this.FlPath.notify();
+    }
     
     @FXML
     private void StartRound(ActionEvent event) 
