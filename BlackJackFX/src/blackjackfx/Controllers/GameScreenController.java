@@ -199,8 +199,9 @@ public class GameScreenController implements Initializable
     @FXML
     private void StartRound(ActionEvent event) 
     {
-        InitPlayers();
+       InitPlayers();
        GameEvents = new Events(BJGame,this);
+       GameEvents.setDaemon(true);
        GameEvents.start();
     }
 
