@@ -13,6 +13,7 @@ import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
 import EngineLogic.Player;
 import blackjackfx.Controllers.GameScreenController;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -198,6 +199,16 @@ public class Events extends Thread implements Communicable
                                 { 
                                      scControoler.ClearTable();
                                 }});        
+    }
+
+    @Override
+    public void PrintAllPlayers(final ArrayList<Player> GamePlayers) {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                     scControoler.ShowPlayers(GamePlayers);
+                                }});
     }
     
 }

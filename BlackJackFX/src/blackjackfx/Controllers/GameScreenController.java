@@ -22,6 +22,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -217,7 +218,7 @@ public class GameScreenController implements Initializable
     @FXML
     private void StartRound(ActionEvent event) 
     {
-       InitPlayers();
+       InitPlayers();       
        GameEvents = new Events(BJGame,this);
        GameEvents.setDaemon(true);
        GameEvents.start();
@@ -322,6 +323,19 @@ public class GameScreenController implements Initializable
         
         for (Entry<GameParticipant, ParticipantContainer> entry: Players.entrySet()){
             entry.getValue().ClearCards();
+        }
+    }
+
+    public void ShowPlayers(ArrayList<Player> GamePlayers) {
+        
+        for (Player player: GamePlayers){
+            ParticipantContainer playerCont = Players.get(player);
+            playerCont.PrintPlayerInfo(player);
+           
+            List<Bid> PlayerBids = player.getBids();
+            
+            for (Bid bid: PlayerBids)
+                playerCont.PrintHandInfo(bid);
         }
     }
     

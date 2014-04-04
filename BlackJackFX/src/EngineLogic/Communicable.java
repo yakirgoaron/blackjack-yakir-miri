@@ -6,12 +6,17 @@
 
 package EngineLogic;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author yakir
  */
 public interface Communicable 
 {
+
+    public void PrintAllPlayers(ArrayList<Player> GamePlayers);
+
     public static enum PlayerAction{
         
         DOUBLE("Double"), HIT("Hit"), SPLIT("Split"), STAY("Stay");
