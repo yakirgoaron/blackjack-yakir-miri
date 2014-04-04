@@ -9,6 +9,7 @@ package blackjackfx.Controllers;
 import EngineLogic.Player;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,13 +35,20 @@ public class BidInputController implements Initializable {
     
     private Player plCurrent;
     
+    private SimpleDoubleProperty dblAmount;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        dblAmount = new SimpleDoubleProperty();
     }    
+    
+    public SimpleDoubleProperty GetNumberBid()
+    {
+        return this.dblAmount;
+    }
     
     public void SetPlayer(Player current)
     {
@@ -56,6 +64,9 @@ public class BidInputController implements Initializable {
     
     @FXML
     private void Finish(ActionEvent event) {
+        this.dblAmount.set(SdBidAmount.getValue());
+        this.dblAmount.notify();
+        
     }
     
 }

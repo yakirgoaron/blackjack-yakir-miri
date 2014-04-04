@@ -131,6 +131,7 @@ public class Events extends Thread implements Communicable
     @Override
     public Double GetBidForPlayer(Player BettingPlayer) {
         ScreenManager.GetInstance().getBidScCr().SetPlayer(BettingPlayer);
+        
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
@@ -141,7 +142,18 @@ public class Events extends Thread implements Communicable
                                     stNew.showAndWait();
                                     
                                 }}); 
-        return 100.0;
+        try 
+        {
+            synchronized(ScreenManager.GetInstance().getBidScCr().GetNumberBid())
+            {
+                ScreenManager.GetInstance().getBidScCr().GetNumberBid().wait();
+                
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return ScreenManager.GetInstance().getBidScCr().GetNumberBid().getValue();
     }
 
     @Override
