@@ -16,6 +16,8 @@ import blackjackfx.Controllers.GameScreenController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 
@@ -128,6 +130,17 @@ public class Events extends Thread implements Communicable
 
     @Override
     public Double GetBidForPlayer(Player BettingPlayer) {
+        ScreenManager.GetInstance().getBidScCr().SetPlayer(BettingPlayer);
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    Stage stNew = new Stage();
+                                    Scene scene = new Scene(ScreenManager.GetInstance().getBidSc());
+                                    stNew.setScene(scene);
+                                    stNew.showAndWait();
+                                    
+                                }}); 
         return 100.0;
     }
 

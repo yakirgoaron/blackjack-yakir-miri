@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="188.9609375" prefWidth="363.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="blackjackfx.Controllers.BidInputController">
+  <!--stylesheets>
+        <URL value="@/blackjackfx/resources/CSS/bidinput.css"/>
+    </stylesheets-->
+  <children>
+    <Slider fx:id="SdBidAmount" layoutX="14.0" layoutY="56.0" prefWidth="289.0" />
+    <Button id="OK" fx:id="btnFinish" layoutX="110.0" layoutY="112.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="97.0" text="Finish" />
+    <Label fx:id="lblPlayerName" layoutX="14.0" layoutY="14.0" text="Label" />
+    <TextField fx:id="Amount" layoutX="303.0" layoutY="52.0" onAction="#Finish" prefWidth="47.0" />
+  </children>
+</AnchorPane>

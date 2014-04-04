@@ -6,6 +6,7 @@
 
 package blackjackfx;
 
+import blackjackfx.Controllers.BidInputController;
 import blackjackfx.Controllers.CreatePlayersScreenController;
 import blackjackfx.Controllers.GameScreenController;
 import blackjackfx.Controllers.LoadScreenController;
@@ -29,12 +30,14 @@ public class ScreenManager
      private LoadScreenController LoadScCr;
      private MainWindowController MainWinCr;
      private SaveScreenController SavScCr;
+     private BidInputController   BidScCr;
      
      private Parent CrePlayerSc;
      private Parent GameSc;
      private Parent LoadSc;
      private Parent MainWinSc;
      private Parent SavSc;
+     private Parent BidSc;
      
      private FXMLLoader fxmlLoader;
      private URL url;
@@ -46,6 +49,13 @@ public class ScreenManager
          fxmlLoader = new FXMLLoader();
          url = getClass().getResource(NameScreen);  
          fxmlLoader.setLocation(url);
+     }
+     
+     private void LoadBidScreen() throws IOException
+     {
+        LoadFxml("BidInput.fxml");
+        BidSc = (Parent)fxmlLoader.load(url.openStream());     
+        BidScCr = (BidInputController) fxmlLoader.getController();
      }
      
      private void LoadCreatePlayers() throws IOException
@@ -90,6 +100,7 @@ public class ScreenManager
         LoadScreenLoad();        
         LoadMainWindow();        
         LoadSaveScreen();
+        LoadBidScreen();
      }
 
      public static ScreenManager GetInstance()
@@ -128,6 +139,10 @@ public class ScreenManager
     public SaveScreenController getSavScCr() {
         return SavScCr;
     }
+    
+    public BidInputController getBidScCr() {
+        return BidScCr;
+    }
 
     public Parent getCrePlayerSc() {
         return CrePlayerSc;
@@ -148,4 +163,9 @@ public class ScreenManager
     public Parent getSavSc() {
         return SavSc;
     }
+    
+    public Parent getBidSc() {
+        return BidSc;
+    }
+     
 }
