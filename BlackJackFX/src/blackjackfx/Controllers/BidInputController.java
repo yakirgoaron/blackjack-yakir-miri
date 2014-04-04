@@ -64,8 +64,11 @@ public class BidInputController implements Initializable {
     
     @FXML
     private void Finish(ActionEvent event) {
-        this.dblAmount.set(SdBidAmount.getValue());
-        this.dblAmount.notify();
+        synchronized(this.dblAmount)
+        {
+            this.dblAmount.set(SdBidAmount.getValue());
+            this.dblAmount.notify();
+        }
         
     }
     
