@@ -27,6 +27,7 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -127,6 +128,7 @@ public class GameScreenController implements Initializable
     @FXML
     private HBox vbxDealerHand;
     private SimpleStringProperty FlPath;
+    private SimpleBooleanProperty HideBidWindow;
     /**
      * Initializes the controller class.
      */
@@ -143,7 +145,13 @@ public class GameScreenController implements Initializable
         RoundChoice = new SimpleObjectProperty<>();
         FlPath = new SimpleStringProperty();
         Players = new HashMap<>();
-    }   
+        HideBidWindow = new SimpleBooleanProperty(true);
+    }  
+    public SimpleBooleanProperty GetHideBidWindow()
+    {
+        return HideBidWindow;
+    }
+    
     public SimpleStringProperty GetPath()
     {
         return this.FlPath;
@@ -221,7 +229,8 @@ public class GameScreenController implements Initializable
        InitPlayers();       
        GameEvents = new Events(BJGame,this);
        GameEvents.setDaemon(true);
-       GameEvents.start();
+       GameEvents.start();       
+       HideBidWindow.set(false);
     }
 
     @FXML

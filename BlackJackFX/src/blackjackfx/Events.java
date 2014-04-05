@@ -133,16 +133,6 @@ public class Events extends Thread implements Communicable
     public Double GetBidForPlayer(Player BettingPlayer) {
         ScreenManager.GetInstance().getBidScCr().SetPlayer(BettingPlayer);
         
-        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                    Stage stNew = new Stage();
-                                    Scene scene = new Scene(ScreenManager.GetInstance().getBidSc());
-                                    stNew.setScene(scene);
-                                    stNew.showAndWait();
-                                    
-                                }}); 
         try 
         {
             synchronized(ScreenManager.GetInstance().getBidScCr().GetNumberBid())
