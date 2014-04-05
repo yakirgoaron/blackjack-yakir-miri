@@ -100,6 +100,34 @@ public class BlackJackFXApp extends Application {
            PrimaryStage.setTitle("Let's play BLACKJACK");
         }
     }
+    
+        public class BidAmount implements ChangeListener<Boolean>{   
+            
+            Scene GameScene;
+                
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) 
+            {
+                if (!t1){
+                    GameScene = PrimaryStage.getScene();
+
+                    Scene scene = new Scene(ScreenManager.GetInstance().getBidSc());          
+                    PrimaryStage.setScene(scene); 
+                    PrimaryStage.centerOnScreen();
+                    PrimaryStage.setTitle("Enter Bid");
+                }
+                else
+                {
+
+
+                    PrimaryStage.setScene(GameScene); 
+                    PrimaryStage.centerOnScreen();
+                    PrimaryStage.setTitle("Let's play BLACKJACK");              
+                }
+            }
+        }
+    
+        
     @Override
     public void start(Stage primaryStage) throws IOException
     {
@@ -107,6 +135,7 @@ public class BlackJackFXApp extends Application {
        PrimaryStage.setResizable(false);
        ScreenManager.GetInstance().getMainWinCr().getGameInitType().addListener(new ChangeMainMenu());
        ScreenManager.GetInstance().getCrePlayerCr().getFinishedInit().addListener(new StartGame());   
+       ScreenManager.GetInstance().getGameScCr().GetHideBidWindow().addListener(new BidAmount());
        Scene scene = new Scene(ScreenManager.GetInstance().getMainWinSc());
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
