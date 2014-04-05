@@ -193,11 +193,12 @@ public class Events extends Thread implements Communicable
 
     @Override
     public void PrintAllPlayers(final ArrayList<Player> GamePlayers) {
-        scControoler.GetHideBidWindow().set(true);
+       
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
                                 { 
+                                     scControoler.GetHideBidWindow().set(true);
                                      scControoler.ShowPlayers(GamePlayers);
                                 }});
     }
