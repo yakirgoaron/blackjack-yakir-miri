@@ -8,8 +8,11 @@ package blackjackfx.Controllers;
 
 import EngineLogic.Player;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
 
 /**
  * FXML Controller class
@@ -56,9 +60,18 @@ public class BidInputController implements Initializable {
         lblPlayerName.setText(current.getName());
         SdBidAmount.setMax(current.getMoney());
         SdBidAmount.setMin(1.0);
-        SdBidAmount.setShowTickLabels(true);
-        SdBidAmount.setShowTickMarks(true);
+        SdBidAmount.setMajorTickUnit(25);
+        SdBidAmount.setMinorTickCount(50);
+        SdBidAmount.setBlockIncrement(10);
         SdBidAmount.setValue(1.0);
+        SdBidAmount.valueProperty().addListener(new ChangeListener<Number>()
+                {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> ov,Number old_val, Number new_val) 
+                    {
+                         Amount.setText(new DecimalFormat("####.##").format(SdBidAmount.getValue()));
+                    }
+                });
         Amount.setText(Double.toString(SdBidAmount.getValue()));
     }
     
@@ -70,6 +83,11 @@ public class BidInputController implements Initializable {
             this.dblAmount.notify();
         }
         
+    }
+
+    @FXML
+    private void UpdateText(DragEvent event) {
+        Amount.setText(Double.toString(SdBidAmount.getValue()));
     }
     
 }
