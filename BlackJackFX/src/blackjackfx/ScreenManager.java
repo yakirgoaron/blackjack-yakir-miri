@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 /**
  *
@@ -32,12 +33,13 @@ public class ScreenManager
      private SaveScreenController SavScCr;
      private BidInputController   BidScCr;
      
-     private Parent CrePlayerSc;
-     private Parent GameSc;
-     private Parent LoadSc;
-     private Parent MainWinSc;
-     private Parent SavSc;
-     private Parent BidSc;
+     private Scene CrePlayerSc;
+     private Scene GameSc;
+     private Scene LoadSc;
+     private Scene MainWinSc;
+     private Scene SavSc;
+     private Scene BidSc;
+     
      
      private FXMLLoader fxmlLoader;
      private URL url;
@@ -54,42 +56,42 @@ public class ScreenManager
      private void LoadBidScreen() throws IOException
      {
         LoadFxml("BidInput.fxml");
-        BidSc = (Parent)fxmlLoader.load(url.openStream());     
+        BidSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
         BidScCr = (BidInputController) fxmlLoader.getController();
      }
      
      private void LoadCreatePlayers() throws IOException
      {
         LoadFxml("CreatePlayersScreen.fxml");
-        CrePlayerSc = (Parent)fxmlLoader.load(url.openStream());     
+        CrePlayerSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
         CrePlayerCr = (CreatePlayersScreenController) fxmlLoader.getController();
      }
      
      private void LoadGameScreen() throws IOException
      {
          LoadFxml("GameScreen.fxml");
-         GameSc = (Parent)fxmlLoader.load(url.openStream());     
+         GameSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
          GameScCr = (GameScreenController) fxmlLoader.getController();
      }
      
      private void LoadScreenLoad() throws IOException
      {
          LoadFxml("LoadScreen.fxml");
-         LoadSc = (Parent)fxmlLoader.load(url.openStream());     
+         LoadSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
          LoadScCr = (LoadScreenController) fxmlLoader.getController();
      }
      
      private void LoadMainWindow() throws IOException
      {
          LoadFxml("MainWindow.fxml");
-         MainWinSc = (Parent)fxmlLoader.load(url.openStream());     
+         MainWinSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
          MainWinCr = (MainWindowController) fxmlLoader.getController();
      }
      
      private void LoadSaveScreen() throws IOException
      {
          LoadFxml("SaveScreen.fxml");
-         SavSc = (Parent)fxmlLoader.load(url.openStream());     
+         SavSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
          SavScCr = (SaveScreenController) fxmlLoader.getController();
      }
     
@@ -144,27 +146,27 @@ public class ScreenManager
         return BidScCr;
     }
 
-    public Parent getCrePlayerSc() {
+    public Scene getCrePlayerSc() {
         return CrePlayerSc;
     }
 
-    public Parent getGameSc() {
+    public Scene getGameSc() {
         return GameSc;
     }
 
-    public Parent getLoadSc() {
+    public Scene getLoadSc() {
         return LoadSc;
     }
 
-    public Parent getMainWinSc() {
+    public Scene getMainWinSc() {
         return MainWinSc;
     }
 
-    public Parent getSavSc() {
+    public Scene getSavSc() {
         return SavSc;
     }
     
-    public Parent getBidSc() {
+    public Scene getBidSc() {
         return BidSc;
     }
      

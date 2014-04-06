@@ -103,6 +103,7 @@ public class ParticipantContainer
 
     public void ClearEffects() {
         if (ParticipantImage.getStyleClass().contains("PlayerFocus"))
-            ParticipantImage.getStyleClass().removeAll("PlayerFocus");
+            ParticipantImage.getStyleClass().remove("PlayerFocus");
+        
     }
 }

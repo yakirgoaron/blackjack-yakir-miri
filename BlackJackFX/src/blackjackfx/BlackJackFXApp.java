@@ -55,7 +55,7 @@ public class BlackJackFXApp extends Application {
                       
                       BlackJackGame = new GameEngine(); 
                       ScreenManager.GetInstance().getCrePlayerCr().setBjGame(BlackJackGame);
-                      Scene scene = new Scene(ScreenManager.GetInstance().getCrePlayerSc());
+                      Scene scene = ScreenManager.GetInstance().getCrePlayerSc();
                       PrimaryStage.setScene(scene); 
                       PrimaryStage.setTitle("Create Players");
                       break;
@@ -94,7 +94,7 @@ public class BlackJackFXApp extends Application {
         public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) 
         {
            ScreenManager.GetInstance().getGameScCr().setBJGame(BlackJackGame);
-           Scene scene = new Scene(ScreenManager.GetInstance().getGameSc());          
+           Scene scene = ScreenManager.GetInstance().getGameSc();          
            PrimaryStage.setScene(scene); 
            PrimaryStage.centerOnScreen();
            PrimaryStage.setTitle("Let's play BLACKJACK");
@@ -111,7 +111,7 @@ public class BlackJackFXApp extends Application {
                 if (!t1){
                     GameScene = PrimaryStage.getScene();
 
-                    Scene scene = new Scene(ScreenManager.GetInstance().getBidSc());          
+                    Scene scene = ScreenManager.GetInstance().getBidSc();          
                     PrimaryStage.setScene(scene); 
                     PrimaryStage.centerOnScreen();
                     PrimaryStage.setTitle("Enter Bid");
@@ -136,7 +136,7 @@ public class BlackJackFXApp extends Application {
        ScreenManager.GetInstance().getMainWinCr().getGameInitType().addListener(new ChangeMainMenu());
        ScreenManager.GetInstance().getCrePlayerCr().getFinishedInit().addListener(new StartGame());   
        ScreenManager.GetInstance().getGameScCr().GetHideBidWindow().addListener(new BidAmount());
-       Scene scene = new Scene(ScreenManager.GetInstance().getMainWinSc());
+       Scene scene = ScreenManager.GetInstance().getMainWinSc();
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
        PrimaryStage.setTitle("Welcome to BLACKJACK");

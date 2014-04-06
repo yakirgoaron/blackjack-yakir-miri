@@ -116,11 +116,11 @@ public class Events extends Thread implements Communicable
         {
             synchronized(scControoler.getRoundChoice())
             {
-                
+                ClearTable();
                 scControoler.ShowRoundActions();
                 
                 scControoler.getRoundChoice().wait();
-                ClearTable();
+                
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,8 +130,16 @@ public class Events extends Thread implements Communicable
     }
 
     @Override
-    public Double GetBidForPlayer(Player BettingPlayer) {
-        ScreenManager.GetInstance().getBidScCr().SetPlayer(BettingPlayer);
+    public Double GetBidForPlayer(final Player BettingPlayer) {
+        
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                      ScreenManager.GetInstance().getBidScCr().SetPlayer(BettingPlayer);
+                                      scControoler.GetHideBidWindow().set(false);
+                                }});
+       
         
         try 
         {
@@ -143,7 +151,13 @@ public class Events extends Thread implements Communicable
         } catch (InterruptedException ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
             
-        }
+        } 
+       Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                      scControoler.GetHideBidWindow().set(true);
+                                }});
         return ScreenManager.GetInstance().getBidScCr().GetNumberBid().getValue();
     }
 
