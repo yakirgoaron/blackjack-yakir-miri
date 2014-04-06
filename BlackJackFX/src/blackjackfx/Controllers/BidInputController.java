@@ -40,6 +40,8 @@ public class BidInputController implements Initializable {
     private Player plCurrent;
     
     private SimpleDoubleProperty dblAmount;
+    private SlideBarChange SdeventChange;
+    private TextBoxValueChange TxteventChange;
     
     /**
      * Initializes the controller class.
@@ -47,6 +49,11 @@ public class BidInputController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dblAmount = new SimpleDoubleProperty();
+        Amount.setText("1");
+        SdeventChange = new SlideBarChange();
+        TxteventChange = new TextBoxValueChange();
+        SdBidAmount.valueProperty().addListener(SdeventChange);
+        Amount.textProperty().addListener(TxteventChange);
     }    
     
     public SimpleDoubleProperty GetNumberBid()
@@ -64,14 +71,8 @@ public class BidInputController implements Initializable {
         SdBidAmount.setMinorTickCount(50);
         SdBidAmount.setBlockIncrement(10);
         SdBidAmount.setValue(1.0);
-        SdBidAmount.valueProperty().addListener(new ChangeListener<Number>()
-                {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> ov,Number old_val, Number new_val) 
-                    {
-                         Amount.setText(new DecimalFormat("####.##").format(SdBidAmount.getValue()));
-                    }
-                });
+        
+        
         Amount.setText(Double.toString(SdBidAmount.getValue()));
     }
     
@@ -84,10 +85,36 @@ public class BidInputController implements Initializable {
         }
         
     }
-
+    
     @FXML
     private void UpdateText(DragEvent event) {
         Amount.setText(Double.toString(SdBidAmount.getValue()));
+    }
+    
+    public class SlideBarChange implements ChangeListener<Number>
+    {
+
+        @Override
+        public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) 
+        {
+            Amount.textProperty().removeListener(TxteventChange);
+            Amount.setText(new DecimalFormat("####.##").format(SdBidAmount.getValue()));
+            Amount.textProperty().addListener(TxteventChange);
+        }
+        
+    }
+    
+    public class TextBoxValueChange implements ChangeListener<String>
+    {
+
+        @Override
+        public void changed(ObservableValue<? extends String> ov, String t, String t1) 
+        {
+            SdBidAmount.valueProperty().removeListener(SdeventChange);
+            SdBidAmount.setValue(Double.valueOf(t));
+            SdBidAmount.valueProperty().addListener(SdeventChange);
+        }
+        
     }
     
 }
