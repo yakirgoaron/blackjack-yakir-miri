@@ -17,7 +17,7 @@
  -fx-background-image: url('/blackjackfx/resources/Images/Background/bacgreen2.png');   
     
 }
-#PDealerPane
+#pDealerPane
 {
     -fx-background-image: url('/blackjackfx/resources/Images/players/Dealer.png');
 }
