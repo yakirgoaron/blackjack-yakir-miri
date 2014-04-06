@@ -18,9 +18,16 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
+import javafx.scene.effect.InnerShadow;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -58,13 +65,18 @@ public class ParticipantContainer
     {
         PlayerView pl = new PlayerView(plToPrint.getName(), plToPrint instanceof HumanPlayer);
         ParticipantImage.getChildren().add(pl);
+        
+        //ParticipantImage.setEffect(new DropShadow(25.0, Color.RED));
+        ParticipantImage.getStyleClass().add("PlayerFocus");
     }
     
     public void PrintHandInfo(Hand currHand)
     {
         if(!HandView.containsKey(currHand))
         {
-            HandView.put(currHand,Hands.remove());
+            Pane Player = Hands.remove();
+            HandView.put(currHand, Player);
+            
         }
         addcards(currHand);
     }
@@ -87,5 +99,10 @@ public class ParticipantContainer
         Hands.clear();
         Hands.addAll(OrderHand);
         HandView.clear();
+    }
+
+    public void ClearEffects() {
+        if (ParticipantImage.getStyleClass().contains("PlayerFocus"))
+            ParticipantImage.getStyleClass().removeAll("PlayerFocus");
     }
 }

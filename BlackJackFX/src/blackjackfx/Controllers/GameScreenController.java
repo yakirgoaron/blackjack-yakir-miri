@@ -200,6 +200,10 @@ public class GameScreenController implements Initializable
     }
     public void DisplayPlayer(Player dispPlayer)
     {
+       
+        for (Entry<GameParticipant, ParticipantContainer> entry: Players.entrySet()){
+            entry.getValue().ClearEffects();
+        }
       //  Boolean IsHuman = dispPlayer instanceof HumanPlayer;
         Players.get(dispPlayer).PrintPlayerInfo(dispPlayer);
      //   PlayerView plView = new PlayerView(dispPlayer.getName(), IsHuman);
