@@ -16,7 +16,7 @@
         <Image url="@resources/Images/Background/bacgreen2.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <Pane fx:id="PDealerPane" layoutX="751.0" layoutY="14.0" prefHeight="100.0" prefWidth="120.0" />
+    <Pane id="pDealerPane" fx:id="PDealerPane" layoutX="751.0" layoutY="14.0" prefHeight="100.0" prefWidth="120.0" />
     <Button layoutX="40.0" layoutY="22.0" mnemonicParsing="false" onAction="#StartRound" prefHeight="24.0" prefWidth="100.0" text="Start Round" />
     <Button fx:id="btnDouble" layoutX="479.0" layoutY="283.0" mnemonicParsing="false" onAction="#DoublePress" text="Double" />
     <Button fx:id="btnHit" layoutX="481.0" layoutY="324.0" mnemonicParsing="false" onAction="#HitPress" prefWidth="59.0" text="Hit" />
