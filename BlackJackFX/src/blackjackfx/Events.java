@@ -63,16 +63,7 @@ public class Events extends Thread implements Communicable
     @Override
     public String getFilePathForSave() 
     {
-        synchronized(scControoler.GetPath())
-            {
-                
-                scControoler.GetFilePathToSave();
-            try {                
-                scControoler.GetPath().wait();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            }
+        scControoler.GetFilePathToSave();
         return scControoler.GetPath().get();
     }
 

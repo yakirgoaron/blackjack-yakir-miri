@@ -223,8 +223,9 @@ public class GameScreenController implements Initializable
         flChose.getExtensionFilters().addAll(
                                 new FileChooser.ExtensionFilter("XML Files", "*.xml"));
         File flToSave = flChose.showSaveDialog(apPlayer1.getScene().getWindow());
-        this.FlPath.set(flToSave.getAbsolutePath());
-        this.FlPath.notify();
+        
+        this.FlPath.set(flToSave.getPath() + ".xml");
+       
     }
     
     @FXML
