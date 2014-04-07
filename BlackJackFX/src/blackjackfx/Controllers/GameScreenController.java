@@ -345,6 +345,7 @@ public class GameScreenController implements Initializable
         for (Player player: GamePlayers){
             ParticipantContainer playerCont = Players.get(player);
             playerCont.PrintPlayerInfo(player);
+            playerCont.ClearEffects();
            
             List<Bid> PlayerBids = player.getBids();
             

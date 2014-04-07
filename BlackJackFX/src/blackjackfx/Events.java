@@ -103,6 +103,14 @@ public class Events extends Thread implements Communicable
 
     @Override
     public RoundAction GetFinishRoundAction() {
+       
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                      scControoler.GetHideBidWindow().set(true);
+                                }});
+        
         try 
         {
             synchronized(scControoler.getRoundChoice())
@@ -129,8 +137,7 @@ public class Events extends Thread implements Communicable
                                 { 
                                       ScreenManager.GetInstance().getBidScCr().SetPlayer(BettingPlayer);
                                       scControoler.GetHideBidWindow().set(false);
-                                }});
-       
+                                }});       
         
         try 
         {
@@ -143,12 +150,7 @@ public class Events extends Thread implements Communicable
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
             
         } 
-       Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                      scControoler.GetHideBidWindow().set(true);
-                                }});
+        
         return ScreenManager.GetInstance().getBidScCr().GetNumberBid().getValue();
     }
 
