@@ -268,9 +268,10 @@ public class GameEngine
         
         if (!IsInRound)
             InitAndDealCards(commInterface);
-        commInterface.PrintAllPlayers(GamePlayers);            
+                    
         while(!NewRoundAction.equals(RoundAction.EXIT_GAME))
         {
+            commInterface.PrintAllPlayers(GamePlayers);
             HandleRoundPlay(commInterface);
             EndRound(commInterface);
             InitAndDealCards(commInterface);

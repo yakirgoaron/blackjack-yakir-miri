@@ -316,8 +316,10 @@ public class GameScreenController implements Initializable
            VBox FirstBid = (VBox) scene.lookup("#vbxPlayerBid" + (i+1) + "a");
            VBox SecondBid = (VBox) scene.lookup("#vbxPlayerBid" + (i+1) + "b");
            Pane PlayerImage = (Pane) scene.lookup("#pPlayerPane" + (i+1));
+           Label Bid1 = (Label) scene.lookup("#pPlayerBid" + (i+1));
+           Label Bid2 = (Label) scene.lookup("#pPlayerBid" + (i+1) + "2");
            ParticipantContainer playerCont = 
-                   new ParticipantContainer(FirstBid, SecondBid, PlayerImage);
+                   new ParticipantContainer(FirstBid, SecondBid, PlayerImage,Bid1,Bid2);
            Players.put(GamePlayers.get(i), playerCont);              
        }
        
