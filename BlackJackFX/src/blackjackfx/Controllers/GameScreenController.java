@@ -129,6 +129,32 @@ public class GameScreenController implements Initializable
     private HBox vbxDealerHand;
     private SimpleStringProperty FlPath;
     private SimpleBooleanProperty HideBidWindow;
+    @FXML
+    private Button btnStartRound;
+    @FXML
+    private Label pPlayerBid21;
+    @FXML
+    private Label pPlayerBid1;
+    @FXML
+    private Label pPlayerBid2;
+    @FXML
+    private Label pPlayerBid22;
+    @FXML
+    private Label pPlayerBid3;
+    @FXML
+    private Label pPlayerBid32;
+    @FXML
+    private Label pPlayerBid4;
+    @FXML
+    private Label pPlayerBid42;
+    @FXML
+    private Label pPlayerBid5;
+    @FXML
+    private Label pPlayerBid52;
+    @FXML
+    private Label pPlayerBid6;
+    @FXML
+    private Label pPlayerBid62;
     /**
      * Initializes the controller class.
      */
@@ -236,6 +262,7 @@ public class GameScreenController implements Initializable
        GameEvents.setDaemon(true);
        GameEvents.start();       
        HideBidWindow.set(false);
+       btnStartRound.setDisable(true);
     }
 
     @FXML

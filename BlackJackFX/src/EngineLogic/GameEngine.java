@@ -260,6 +260,23 @@ public class GameEngine
         HandleAIPlayers(GameDealer,GameDealer.getDealerCards(),commInterface);
     }
     
+    private void RemovePlayerWithNoMoney()
+    {
+        ArrayList<Player> SurvivedPlayers = new ArrayList<>();
+        
+        for (Player player : GamePlayers) 
+        {
+            if(player.getMoney() > 0)
+            {
+                SurvivedPlayers.add(player);
+            }
+        }
+        GamePlayers = SurvivedPlayers;
+        
+        
+    }
+    
+    
     public void StartGame(Communicable commInterface) throws JAXBException, SAXException
     {
         if(GamePlayers.isEmpty())
@@ -274,12 +291,14 @@ public class GameEngine
             commInterface.PrintAllPlayers(GamePlayers);
             HandleRoundPlay(commInterface);
             EndRound(commInterface);
+            if(GamePlayers.isEmpty())
+                break;
             InitAndDealCards(commInterface);
             NewRoundAction = commInterface.GetFinishRoundAction();
             if(NewRoundAction.equals(RoundAction.SAVE_GAME))
                 XMLJAXBWrite(commInterface.getFilePathForSave());
         }
-        
+        commInterface.PrintMessage("******No Playes Left Start New Game********");
         
     }
     
@@ -294,6 +313,7 @@ public class GameEngine
         }
         IsInRound = false;
         GameDealer.HandleEndOfRound();
+        RemovePlayerWithNoMoney();
         PlayerContinueGame(commInterface);
     }
     
