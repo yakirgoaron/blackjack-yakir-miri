@@ -17,6 +17,8 @@ public interface Communicable
 
     public void PrintAllPlayers(ArrayList<Player> GamePlayers);
 
+    public void RemovePlayer(Player player);
+
     public static enum PlayerAction{
         
         DOUBLE("Double"), HIT("Hit"), SPLIT("Split"), STAY("Stay");

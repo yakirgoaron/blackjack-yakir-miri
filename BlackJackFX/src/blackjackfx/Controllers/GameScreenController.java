@@ -155,6 +155,14 @@ public class GameScreenController implements Initializable
     private Label pPlayerBid6;
     @FXML
     private Label pPlayerBid62;
+    @FXML
+    private Button btnPlayerContinue;
+    @FXML
+    private Button btnPlayerExit;
+    @FXML
+    private Label lblPlayerEndRound;
+    
+    private SimpleBooleanProperty DoesPlayerContinue;
     /**
      * Initializes the controller class.
      */
@@ -167,7 +175,11 @@ public class GameScreenController implements Initializable
         btnContinue.setVisible(false);
         btnSaveGame.setVisible(false);
         btnExitGame.setVisible(false);
+        btnPlayerContinue.setVisible(false);
+        btnPlayerExit.setVisible(false);
+        lblPlayerEndRound.setVisible(false);
         plAction = new SimpleObjectProperty<>();
+        DoesPlayerContinue = new SimpleBooleanProperty();
         RoundChoice = new SimpleObjectProperty<>();
         FlPath = new SimpleStringProperty();
         Players = new HashMap<>();
@@ -196,6 +208,14 @@ public class GameScreenController implements Initializable
         btnSaveGame.setVisible(!btnSaveGame.isVisible());
         btnExitGame.setVisible(!btnExitGame.isVisible());
     }
+    
+    public void ChangeVisiblePlayerRoundEnd(){
+        lblPlayerEndRound.setVisible(false);
+        lblPlayerEndRound.toBack();
+        btnPlayerContinue.setVisible(false);
+        btnPlayerExit.setVisible(false);
+    }
+    
     public void ShowActions()
     {
        btnDouble.setVisible(true);
@@ -372,6 +392,8 @@ public class GameScreenController implements Initializable
         for (Entry<GameParticipant, ParticipantContainer> entry: Players.entrySet()){
             entry.getValue().ClearCards();
         }
+        
+        MsgLable.setText("");
     }
 
     public void ShowPlayers(ArrayList<Player> GamePlayers) {
@@ -386,6 +408,48 @@ public class GameScreenController implements Initializable
             for (Bid bid: PlayerBids)
                 playerCont.PrintHandInfo(bid);
         }
+    }
+
+    public void ShowPlayerContGame(String playerName) {
+        lblPlayerEndRound.setVisible(true);
+        lblPlayerEndRound.toFront();
+        String text = "player " + playerName + "\n" + "what do you "
+                       + "\n wish to do?";
+        lblPlayerEndRound.setText(text);
+        btnPlayerContinue.setVisible(true);
+        btnPlayerExit.setVisible(true);
+    }
+
+    public SimpleBooleanProperty getDoesPlayerContinue() {
+        return DoesPlayerContinue;
+    }
+
+
+
+    @FXML
+    private void PlayerContGame(ActionEvent event) {
+        
+        synchronized(DoesPlayerContinue)
+        {
+            DoesPlayerContinue.set(true);
+            DoesPlayerContinue.notify();
+        }
+        ChangeVisiblePlayerRoundEnd();
+    }
+
+    @FXML
+    private void PlayerExitGame(ActionEvent event) {
+        synchronized(DoesPlayerContinue)
+        {
+            DoesPlayerContinue.set(false);
+            DoesPlayerContinue.notify();
+        }
+        ChangeVisiblePlayerRoundEnd();
+    }
+
+    public void RemovePlayer(Player player) {
+        Players.get(player).removePlayer();
+        Players.remove(player);
     }
     
 }

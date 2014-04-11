@@ -38,9 +38,27 @@ public class Events extends Thread implements Communicable
     }
     
     @Override
-    public boolean DoesPlayerContinue(Player player) 
+    public boolean DoesPlayerContinue(final Player player) 
     {
-        return false;
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    scControoler.ShowPlayerContGame(player.getName());
+                                }});      
+         try 
+        {
+            synchronized(scControoler.getDoesPlayerContinue())
+            {               
+
+                scControoler.getDoesPlayerContinue().wait();
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+       return scControoler.getDoesPlayerContinue().get();
+       
     }
     
     @Override
@@ -208,6 +226,16 @@ public class Events extends Thread implements Communicable
                                      scControoler.GetHideBidWindow().set(true);
                                      scControoler.ShowPlayers(GamePlayers);
                                 }});
+    }
+
+    @Override
+    public void RemovePlayer(final Player player) {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                     scControoler.RemovePlayer(player);
+                                }}); 
     }
     
 }

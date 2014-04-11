@@ -131,4 +131,11 @@ public class ParticipantContainer
         }
        ParticipantImage.setEffect(null);
     }
+
+    public void removePlayer() {
+        this.ParticipantImage.getChildren().clear();
+        this.Bid1Value.setText("");
+        this.Bid2Value.setText("");
+        ClearCards();
+    }
 }

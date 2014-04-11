@@ -323,9 +323,10 @@ public class GameEngine
         {
             Player player = it.next();
             if(player instanceof HumanPlayer && 
-               commInterface.DoesPlayerContinue(player))
+               !commInterface.DoesPlayerContinue(player))
             {
                 it.remove();
+                commInterface.RemovePlayer(player);
             }               
             
         }
