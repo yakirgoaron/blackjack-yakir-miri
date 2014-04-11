@@ -90,6 +90,17 @@ public class ParticipantContainer
             Bid1Value.setText(new DecimalFormat("####.##").format(((Bid)currHand).getTotalBid()));
         }
     }
+    
+    public void GlowHandInfo(Hand currHand)
+    {
+        HandView.get(currHand).setEffect(new DropShadow(25.0, Color.RED));
+    }
+    
+    public void ClearGlowHandInfo(Hand currHand)
+    {
+        HandView.get(currHand).setEffect(null);
+    }
+    
     private void addcards(Hand currHand)
     {
          Pane curr = HandView.get(currHand);
@@ -99,7 +110,6 @@ public class ParticipantContainer
              CardView cd = new CardView(curCard);
              curr.getChildren().add(cd);
          }
-         
     }
 
     public void ClearCards() {
@@ -114,7 +124,11 @@ public class ParticipantContainer
     public void ClearEffects() {
         if (ParticipantImage.getStyleClass().contains("PlayerFocus"))
             ParticipantImage.getStyleClass().remove("PlayerFocus");
-       
+        for (Entry<Hand, Pane> entry : HandView.entrySet()) {
+            
+            entry.getValue().setEffect(null);
+            
+        }
        ParticipantImage.setEffect(null);
     }
 }
