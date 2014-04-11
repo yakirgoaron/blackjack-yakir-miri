@@ -219,7 +219,7 @@ public class GameScreenController implements Initializable
     {
         for (Bid object : currPlayer.getBids()) {
              Players.get(currPlayer).PrintHandInfo(object);
-             Players.get(currPlayer).ClearEffects();
+             Players.get(currPlayer).ClearGlowHandInfo(object);
              
         }
         Players.get(currPlayer).GlowHandInfo(currBid);
