@@ -28,6 +28,10 @@ public class CardView extends ImageView{
         getStyleClass().add(ClassName);
     }
 
+    public Card getCdRef() {
+        return cdRef;
+    }
+
     @Override
     public boolean equals(Object obj) 
     {

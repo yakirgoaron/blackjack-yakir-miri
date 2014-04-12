@@ -13,8 +13,10 @@ import EngineLogic.Hand;
 import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
@@ -24,6 +26,7 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Bloom;
@@ -106,13 +109,20 @@ public class ParticipantContainer
     
     private void addcards(Hand currHand)
     {
-         Pane curr = HandView.get(currHand);
-         //curr.getChildren().clear();
-         for (Card curCard : currHand.getCards()) 
-         {
-             CardView cd = new CardView(curCard);
-             if(!curr.getChildren().contains(cd))
-             {
+        
+        Pane curr = HandView.get(currHand);        
+        ArrayList<Card> HandCards = currHand.getCards();
+         
+        if (curr.getChildren().size() > HandCards.size())
+        {
+           curr.getChildren().clear(); 
+        }
+        
+        for (Card curCard : HandCards) 
+        {
+            CardView cd = new CardView(curCard);
+            if(!curr.getChildren().contains(cd))
+            {
                 cd.setVisible(false);
                 //Pane Temp = DuplicatePane(pDeckPane);
                 pDeckPane.getChildren().add(new CardView(curCard));
