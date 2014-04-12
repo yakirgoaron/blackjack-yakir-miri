@@ -373,8 +373,9 @@ public class GameScreenController implements Initializable
            Pane PlayerImage = (Pane) scene.lookup("#pPlayerPane" + (i+1));
            Label Bid1 = (Label) scene.lookup("#pPlayerBid" + (i+1));
            Label Bid2 = (Label) scene.lookup("#pPlayerBid" + (i+1) + "2");
+           Label Money = (Label) scene.lookup("#lblPlayerMoney" + (i+1));
            PlayerContainer playerCont = 
-                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,Bid1,Bid2,pDeckPlace);
+                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,Bid1,Bid2, Money, pDeckPlace);
            Players.put(GamePlayers.get(i), playerCont);              
        }
        
@@ -402,14 +403,14 @@ public class GameScreenController implements Initializable
     public void ShowPlayers(ArrayList<Player> GamePlayers) {
         
         for (Player player: GamePlayers){
-            ParticipantContainer playerCont = Players.get(player);
+            PlayerContainer playerCont = (PlayerContainer) Players.get(player);
             playerCont.PrintPlayerInfo(player);
             playerCont.ClearEffects();
            
             List<Bid> PlayerBids = player.getBids();
             
             for (Bid bid: PlayerBids)
-                playerCont.PrintHandInfo(bid);
+                playerCont.PrintBidInfo(bid);
         }
     }
 
