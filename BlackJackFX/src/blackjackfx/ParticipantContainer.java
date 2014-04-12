@@ -63,7 +63,7 @@ public class ParticipantContainer
         HandView = new HashMap<>(); 
         pDeckPane = CardsDeck;
     }
-    public ParticipantContainer(HBox Hand, Pane PlayerImage){
+    public ParticipantContainer(HBox Hand, Pane PlayerImage, Pane CardsDeck){
         this.ParticipantImage = PlayerImage;
         Hands = new LinkedList<>();
         Hand.setSpacing(-45.0);
@@ -71,6 +71,7 @@ public class ParticipantContainer
         OrderHand.add(Hand);
         Hands.add(Hand); 
         HandView = new HashMap<>();
+        pDeckPane = CardsDeck;
     }
     public void PrintPlayerInfo(Player plToPrint)
     {

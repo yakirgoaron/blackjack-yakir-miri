@@ -381,7 +381,7 @@ public class GameScreenController implements Initializable
        HBox DealerHand = (HBox) scene.lookup("#vbxDealerHand");
        Pane DealerImage = (Pane) scene.lookup("#pDealerPane");
        ParticipantContainer DealerCont =
-            new ParticipantContainer(DealerHand, DealerImage);
+            new ParticipantContainer(DealerHand, DealerImage, pDeckPlace);
        Players.put(BJGame.getGameDealer(), DealerCont);
     }
     
