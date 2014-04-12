@@ -218,6 +218,7 @@ public class GameEngine
                 commInterface.PrintMessage(ex.toString());
             }
         }  
+        commInterface.PrintBidInfo(CurrentBid,CurrentPlayer);
         if(CurrentBid.getSumCards() > BLACKJACK)
         {
             commInterface.PrintMessage("Player " + CurrentPlayer.getName() +
