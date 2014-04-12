@@ -107,16 +107,19 @@ public class ParticipantContainer
     private void addcards(Hand currHand)
     {
          Pane curr = HandView.get(currHand);
-         curr.getChildren().clear();
+         //curr.getChildren().clear();
          for (Card curCard : currHand.getCards()) 
          {
              CardView cd = new CardView(curCard);
-             cd.setVisible(false);
-             //Pane Temp = DuplicatePane(pDeckPane);
-             pDeckPane.getChildren().add(new CardView(curCard));
-             //Temp.getChildren().add(new CardView(curCard));
-             PullCardUI(curr,cd,pDeckPane);
-             curr.getChildren().add(cd);
+             if(!curr.getChildren().contains(cd))
+             {
+                cd.setVisible(false);
+                //Pane Temp = DuplicatePane(pDeckPane);
+                pDeckPane.getChildren().add(new CardView(curCard));
+                //Temp.getChildren().add(new CardView(curCard));
+                PullCardUI(curr,cd,pDeckPane);
+                curr.getChildren().add(cd);
+             }
          }
     }
     

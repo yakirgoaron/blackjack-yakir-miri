@@ -20,9 +20,23 @@ import javafx.scene.image.ImageViewBuilder;
  */
 public class CardView extends ImageView{
     
+    private Card cdRef;
     public CardView(Card card){
         super();
         String ClassName = card.getRank().toString() + card.getSuit().toString();
+        cdRef = card;
         getStyleClass().add(ClassName);
     }
+
+    @Override
+    public boolean equals(Object obj) 
+    {
+        if(obj instanceof  CardView)
+        {
+            return cdRef.equals(((CardView)obj).cdRef);
+        }
+        return false;
+    }
+    
+    
 }
