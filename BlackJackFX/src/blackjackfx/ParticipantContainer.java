@@ -111,9 +111,9 @@ public class ParticipantContainer
          {
              CardView cd = new CardView(curCard);
              cd.setVisible(false);
-             Pane Temp = DuplicatePane(pDeckPane);
-             pDeckPane.getChildren().add(Temp);
-             Temp.getChildren().add(new CardView(curCard));
+             //Pane Temp = DuplicatePane(pDeckPane);
+             pDeckPane.getChildren().add(new CardView(curCard));
+             //Temp.getChildren().add(new CardView(curCard));
              PullCardUI(curr,cd,pDeckPane);
              curr.getChildren().add(cd);
          }
@@ -154,6 +154,7 @@ public class ParticipantContainer
                 pToMove.setLayoutY(y);
                 pToMove.setVisible(false);
                 CardToAdd.setVisible(true);
+                pToMove.getChildren().clear();
             }
         });
         translateTransition.play();
