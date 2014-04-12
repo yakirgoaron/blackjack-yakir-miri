@@ -300,8 +300,10 @@ public class GameEngine
             if(NewRoundAction.equals(RoundAction.SAVE_GAME))
                 XMLJAXBWrite(commInterface.getFilePathForSave());
         }
-        commInterface.PrintMessage("******No Playes Left Start New Game********");
         
+        if (GamePlayers.isEmpty())
+            commInterface.PrintMessage
+                    ("******No Playes Left Start New Game********"); 
     }
     
     private void EndRound(Communicable commInterface)

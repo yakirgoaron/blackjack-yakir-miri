@@ -31,6 +31,8 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -164,6 +166,7 @@ public class GameScreenController implements Initializable
     private Label lblPlayerEndRound;
     
     private SimpleBooleanProperty DoesPlayerContinue;
+    private SimpleBooleanProperty GameEnded;
 
     /**
      * Initializes the controller class.
@@ -186,6 +189,7 @@ public class GameScreenController implements Initializable
         FlPath = new SimpleStringProperty();
         Players = new HashMap<>();
         HideBidWindow = new SimpleBooleanProperty(true);
+        GameEnded = new SimpleBooleanProperty();
     }  
     public SimpleBooleanProperty GetHideBidWindow()
     {
@@ -292,11 +296,24 @@ public class GameScreenController implements Initializable
     {
        InitPlayers();       
        GameEvents = new Events(BJGame,this);
+       GameEvents.getGameEnded().addListener(new ChangeListener<Boolean>() {
+
+           @Override
+           public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+               if (t1)
+                   GameEnded.set(true);
+           }
+       });
        GameEvents.setDaemon(true);
        GameEvents.start();       
        HideBidWindow.set(false);
        btnStartRound.setDisable(true);
     }
+
+    public SimpleBooleanProperty getGameEnded() {
+        return GameEnded;
+    }
+    
 
     @FXML
     private void DoublePress(ActionEvent event) {

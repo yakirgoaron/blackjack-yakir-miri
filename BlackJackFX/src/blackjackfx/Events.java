@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javax.xml.bind.JAXBException;
@@ -30,11 +31,17 @@ public class Events extends Thread implements Communicable
 {
     private GameEngine BJGame;
     private GameScreenController scControoler;
+    private SimpleBooleanProperty GameEnded;
     
     public Events(GameEngine BJGame,GameScreenController Controller)
     {
+        GameEnded = new SimpleBooleanProperty(false);
         this.BJGame = BJGame;
         this.scControoler = Controller;
+    }
+
+    public SimpleBooleanProperty getGameEnded() {
+        return GameEnded;
     }
     
     @Override
@@ -67,6 +74,7 @@ public class Events extends Thread implements Communicable
         try 
         {
             BJGame.StartGame(this);
+            GameEnded.set(true);
         }
         catch (JAXBException ex) 
         {

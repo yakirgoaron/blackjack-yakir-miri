@@ -16,6 +16,10 @@
     -fx-effect: dropshadow(one-pass-box, black, 8, 0, 2, 2);
 }
 
+.button:hover{
+ -fx-background-color: linear-gradient(#cc6600,#cc9900);   
+}
+
 #MsgLable
 {
     -fx-alignment: center;

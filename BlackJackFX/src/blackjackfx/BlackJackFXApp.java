@@ -18,6 +18,8 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -40,6 +42,14 @@ public class BlackJackFXApp extends Application {
     
     Stage PrimaryStage;
     GameEngine BlackJackGame;
+
+    public class GameEnded implements ChangeListener<Boolean> {
+        @Override
+        public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+            if (t1)
+                EndGame();
+        }
+    }
     
     public class ChangeMainMenu implements ChangeListener<MainMenu>{
 
@@ -130,7 +140,11 @@ public class BlackJackFXApp extends Application {
            Scene scene = ScreenManager.GetInstance().getGameSc();          
            PrimaryStage.setScene(scene); 
            PrimaryStage.centerOnScreen();
-           PrimaryStage.setTitle("Let's play BLACKJACK");
+           PrimaryStage.setTitle("Let's play BLACKJACK");           
+        }
+        
+        public void EndGame(){
+            Platform.exit();
         }
         
     @Override
@@ -141,6 +155,7 @@ public class BlackJackFXApp extends Application {
        ScreenManager.GetInstance().getMainWinCr().getGameInitType().addListener(new ChangeMainMenu());
        ScreenManager.GetInstance().getCrePlayerCr().getFinishedInit().addListener(new StartGame());   
        ScreenManager.GetInstance().getGameScCr().GetHideBidWindow().addListener(new BidAmount());
+       ScreenManager.GetInstance().getGameScCr().getGameEnded().addListener(new GameEnded());
        Scene scene = ScreenManager.GetInstance().getMainWinSc();
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
