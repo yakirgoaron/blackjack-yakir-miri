@@ -8,6 +8,14 @@
 .label{
     -fx-text-fill:white;
 }
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-size: 14 px;
+    -fx-background-color: linear-gradient(#cc9900,#cc6600);
+    -fx-effect: dropshadow(one-pass-box, black, 8, 0, 2, 2);
+}
+
 #MsgLable
 {
     -fx-alignment: center;
