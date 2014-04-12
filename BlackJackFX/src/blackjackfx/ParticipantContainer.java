@@ -153,7 +153,6 @@ public class ParticipantContainer
             public void handle(ActionEvent t) {
                 pToMove.setLayoutX(x);
                 pToMove.setLayoutY(y);
-                pToMove.setVisible(false);
                 CardToAdd.setVisible(true);
                 pToMove.getChildren().clear();
             }
