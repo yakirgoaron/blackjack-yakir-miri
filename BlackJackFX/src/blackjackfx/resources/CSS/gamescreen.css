@@ -51,7 +51,7 @@
 }
 
 .PlayerFocus{
-  -fx-background-color: red;
+  -fx-background-color: yellow;
 }
 .TENCLUBS{
  -fx-image: url('/blackjackfx/resources/Images/Cards/10Clubs.png');   
