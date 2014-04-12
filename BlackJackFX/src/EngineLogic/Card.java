@@ -78,7 +78,7 @@ public class Card
     private static final List<Card> deck = new ArrayList<>();
 
 	// Initialize the static deck
-    static 
+    /*static 
     {		
         for (Suit suit : Suit.values())
         {
@@ -87,13 +87,22 @@ public class Card
                 deck.add(new Card(rank, suit));
             }
         }
-    }
+    }*/
 
     public static ArrayList<Card> newDeck() 
     {	
+        ArrayList<Card> newDeck = new ArrayList<>();
         // Return copy of prototype deck 
-        ArrayList<Card> newDeck = new ArrayList<>(deck);
+        for (Suit suit : Suit.values())
+        {
+            for (Rank rank : Rank.values())
+            {
+                newDeck.add(new Card(rank, suit));
+            }
+        }
+        
         Collections.shuffle(newDeck);
+        
         return newDeck;
     }
     
