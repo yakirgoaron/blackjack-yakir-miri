@@ -14,6 +14,8 @@ import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.animation.FadeTransitionBuilder;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -72,23 +74,41 @@ public class CreatePlayersScreenController implements Initializable {
        lblPlayersJoined.visibleProperty().set(false);
        BtnAdd.disableProperty().set(true);
        finishedInit = new SimpleBooleanProperty(false);
+       
+       TextName.textProperty().addListener(new ChangeListener<String>() {
+
+           @Override
+           public void changed(ObservableValue<? extends String> ov, String t, String t1) {
+               onPlayerNameChanged();
+           }
+
+       });
     }
+    
    
     @FXML
     public void SetPlayerType(ActionEvent t) {      
-       BtnAdd.disableProperty().set(false); 
-       
+             
         if (cbPlayerType.getValue().toString().equals("Human")){
             IsHuman = true; 
+            BtnAdd.disableProperty().set(true);
             EnableTextName();
             TextName.requestFocus();
             EnableLblPlayerName();
         }
         else{
-            IsHuman = false;           
+            IsHuman = false; 
+            BtnAdd.disableProperty().set(false); 
             DisableTextName();
             DisableLblPlayerName();
         }
+    }
+    
+    private void onPlayerNameChanged() {
+        if (TextName.getText().isEmpty())
+            BtnAdd.disableProperty().set(true); 
+        else
+            BtnAdd.disableProperty().set(false); 
     }
     
     public SimpleBooleanProperty getFinishedInit() {
@@ -119,9 +139,15 @@ public class CreatePlayersScreenController implements Initializable {
         }
         catch (TooManyPlayersException ex) 
         {
-            showError(ex.toString());
+            showError("Too many players!!");
         }
         
+    }
+    
+    @FXML
+    public void TextNameAction(ActionEvent event){
+        if (!BtnAdd.disableProperty().get())
+            AddPlayer(event);
     }
     private void showError(String message) 
     {

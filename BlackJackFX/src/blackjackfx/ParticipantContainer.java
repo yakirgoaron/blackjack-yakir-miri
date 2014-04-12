@@ -41,9 +41,8 @@ public class ParticipantContainer
     private Queue<Pane> Hands;
     private Queue<Pane> OrderHand;
     private HashMap<Hand,Pane> HandView;
-    private Label Bid1Value;
-    private Label Bid2Value;
-    public ParticipantContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,Label PlaceBid1,Label PlaceBid2)
+    
+    public ParticipantContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage)
     {
         this.ParticipantImage = ParticipantImage;
         Hands = new LinkedList<>();
@@ -53,10 +52,7 @@ public class ParticipantContainer
         OrderHand.add(Hand1);
         OrderHand.add(Hand2);
         Hands.addAll(OrderHand);
-        HandView = new HashMap<>();
-        Bid1Value = PlaceBid1;
-        Bid1Value.getStyleClass().add("BidClass");
-        Bid2Value = PlaceBid2;
+        HandView = new HashMap<>(); 
     }
     public ParticipantContainer(HBox Hand, Pane PlayerImage){
         this.ParticipantImage = PlayerImage;
@@ -85,10 +81,6 @@ public class ParticipantContainer
             
         }
         addcards(currHand);
-        if (currHand instanceof Bid)
-        {
-            Bid1Value.setText(new DecimalFormat("####.##").format(((Bid)currHand).getTotalBid()));
-        }
     }
     
     public void GlowHandInfo(Hand currHand)
@@ -98,7 +90,8 @@ public class ParticipantContainer
     
     public void ClearGlowHandInfo(Hand currHand)
     {
-        HandView.get(currHand).setEffect(null);
+        if (HandView.get(currHand) != null)
+            HandView.get(currHand).setEffect(null);
     }
     
     private void addcards(Hand currHand)
@@ -132,10 +125,8 @@ public class ParticipantContainer
        ParticipantImage.setEffect(null);
     }
 
-    public void removePlayer() {
+    public void RemovePlayer() {
         this.ParticipantImage.getChildren().clear();
-        this.Bid1Value.setText("");
-        this.Bid2Value.setText("");
         ClearCards();
     }
 }

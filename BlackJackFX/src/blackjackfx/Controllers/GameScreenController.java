@@ -17,6 +17,7 @@ import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
 import blackjackfx.Events;
 import blackjackfx.ParticipantContainer;
+import blackjackfx.PlayerContainer;
 import blackjackfx.PlayerView;
 import java.io.File;
 import java.net.URL;
@@ -237,9 +238,9 @@ public class GameScreenController implements Initializable
     }
     public void DisplayBid(Bid currBid,Player currPlayer)
     {
-        for (Bid object : currPlayer.getBids()) {
-             Players.get(currPlayer).PrintHandInfo(object);
-             Players.get(currPlayer).ClearGlowHandInfo(object);
+        for (Bid bid : currPlayer.getBids()) {
+             ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(bid);
+             Players.get(currPlayer).ClearGlowHandInfo(bid);
              
         }
         Players.get(currPlayer).GlowHandInfo(currBid);
@@ -370,8 +371,8 @@ public class GameScreenController implements Initializable
            Pane PlayerImage = (Pane) scene.lookup("#pPlayerPane" + (i+1));
            Label Bid1 = (Label) scene.lookup("#pPlayerBid" + (i+1));
            Label Bid2 = (Label) scene.lookup("#pPlayerBid" + (i+1) + "2");
-           ParticipantContainer playerCont = 
-                   new ParticipantContainer(FirstBid, SecondBid, PlayerImage,Bid1,Bid2);
+           PlayerContainer playerCont = 
+                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,Bid1,Bid2);
            Players.put(GamePlayers.get(i), playerCont);              
        }
        
@@ -448,7 +449,7 @@ public class GameScreenController implements Initializable
     }
 
     public void RemovePlayer(Player player) {
-        Players.get(player).removePlayer();
+        Players.get(player).RemovePlayer();
         Players.remove(player);
     }
     

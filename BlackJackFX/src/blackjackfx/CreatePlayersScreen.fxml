@@ -14,7 +14,7 @@
     <Pane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
       <children>
         <Label fx:id="lblPlayerName" layoutX="14.0" layoutY="98.0" text="Player Name" />
-        <TextField fx:id="TextName" layoutX="111.0" layoutY="98.0" onAction="#AddPlayer" prefWidth="200.0" />
+        <TextField fx:id="TextName" layoutX="111.0" layoutY="98.0" onAction="#TextNameAction" prefWidth="200.0" />
         <Button id="PlayerName" fx:id="BtnAdd" layoutX="339.0" layoutY="30.0" mnemonicParsing="false" onAction="#AddPlayer" prefHeight="20.484375" prefWidth="87.0" text="Add Player" />
         <Label fx:id="lblPlayersJoined" layoutX="14.0" layoutY="136.0" text="Players Joined" />
         <Button fx:id="BtnStart" layoutX="238.0" layoutY="348.0" mnemonicParsing="false" onAction="#OnStartGame" prefHeight="31.484275000002526" prefWidth="101.0" text="Start Game" />

@@ -5,6 +5,9 @@
 .mainFxmlClass {
     
 }
+.label{
+    -fx-text-fill:white;
+}
 #MsgLable
 {
     -fx-alignment: center;
@@ -21,7 +24,7 @@
 }
 #AnchorPane
 {
- -fx-background-image: url('/blackjackfx/resources/Images/Background/bacgreen2.png');   
+ -fx-background-image: url('/blackjackfx/resources/Images/Background/game_screen.jpg');   
     
 }
 #pDealerPane

@@ -12,36 +12,19 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.MainWindowController">
   <children>
-    <Label ellipsisString="..." graphicTextGap="4.0" layoutX="162.0" layoutY="45.0" prefHeight="135.0" prefWidth="391.0" text="BLACKJACK" textAlignment="CENTER" textFill="#777777" textOverrun="CLIP" underline="false" wrapText="false">
-      <effect>
-        <DropShadow spread="0.03968253968253968">
-          <input>
-            <Lighting diffuseConstant="0.9206349206349207" specularConstant="1.284126984126984" specularExponent="7.936507936507937" surfaceScale="1.2619047619047619">
-              <bumpInput>
-                <Shadow />
-              </bumpInput>
-              <contentInput>
-                <Glow level="0.7025157232704402" />
-              </contentInput>
-              <light>
-                <javafx.scene.effect.Light.Distant color="GREY" />
-              </light>
-            </Lighting>
-          </input>
-        </DropShadow>
-      </effect>
-      <font>
-        <Font name="Aharoni Bold" size="50.0" />
-      </font>
-    </Label>
-    <HBox layoutX="120.0" layoutY="215.0" prefHeight="185.0" prefWidth="549.0" spacing="150.0">
+    <ImageView fitHeight="404.6007103162806" fitWidth="606.3189086914062" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@resources/Images/Background/mainscreen.jpg" />
+      </image>
+    </ImageView>
+    <HBox layoutX="37.0" layoutY="207.0" prefHeight="185.0" prefWidth="549.0" spacing="310.0">
       <children>
-        <Button id="startbutton" fx:id="btnNewGame" minWidth="122.0" mnemonicParsing="false" prefHeight="171.0" prefWidth="122.0" rotate="342.0" text="New Game">
+        <Button id="startbutton" fx:id="btnNewGame" minWidth="99.29785281419754" mnemonicParsing="false" prefHeight="164.20367431640625" prefWidth="111.0" rotate="331.0" text="">
           <font>
             <Font name="System Bold" size="16.0" fx:id="x1" />
           </font>
         </Button>
-        <Button fx:id="btnLoadGame" font="$x1" mnemonicParsing="false" prefHeight="171.0" prefWidth="122.0" rotate="18.0" text="Load Game" />
+        <Button fx:id="btnLoadGame" font="$x1" mnemonicParsing="false" prefHeight="166.22238159179688" prefWidth="115.0" rotate="23.0" text="" />
       </children>
     </HBox>
     <Label fx:id="ErrorMessage" layoutX="51.0" layoutY="150.0" prefHeight="30.0" prefWidth="479.0" text="" />

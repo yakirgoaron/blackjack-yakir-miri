@@ -220,7 +220,8 @@ public class GameEngine
         }  
         if(CurrentBid.getSumCards() > BLACKJACK)
         {
-            commInterface.PrintMessage("YOU ARE BURNED");
+            commInterface.PrintMessage("Player " + CurrentPlayer.getName() +
+                                       " YOU ARE BURNED");
             commInterface.PrintHandInfo(CurrentBid,CurrentPlayer);
         }
     }
@@ -260,16 +261,16 @@ public class GameEngine
         HandleAIPlayers(GameDealer,GameDealer.getDealerCards(),commInterface);
     }
     
-    private void RemovePlayerWithNoMoney()
+    private void RemovePlayerWithNoMoney(Communicable commInterface)
     {
         ArrayList<Player> SurvivedPlayers = new ArrayList<>();
         
         for (Player player : GamePlayers) 
         {
-            if(player.getMoney() > 0)
-            {
-                SurvivedPlayers.add(player);
-            }
+            if(player.getMoney() > 0)           
+                SurvivedPlayers.add(player);           
+            else
+                commInterface.RemovePlayer(player);
         }
         GamePlayers = SurvivedPlayers;
         
@@ -313,7 +314,7 @@ public class GameEngine
         }
         IsInRound = false;
         GameDealer.HandleEndOfRound();
-        RemovePlayerWithNoMoney();
+        RemovePlayerWithNoMoney(commInterface);
         PlayerContinueGame(commInterface);
     }
     

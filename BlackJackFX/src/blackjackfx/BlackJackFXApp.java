@@ -72,6 +72,7 @@ public class BlackJackFXApp extends Application {
                         try 
                         {
                           BlackJackGame = new GameEngine(flOpen.getPath());
+                          StartGame();
                         //Scene scene = new Scene(ScreenManager.GetInstance().getLoadSc());
                         //PrimaryStage.setScene(scene);
 
@@ -93,11 +94,8 @@ public class BlackJackFXApp extends Application {
         @Override
         public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) 
         {
-           ScreenManager.GetInstance().getGameScCr().setBJGame(BlackJackGame);
-           Scene scene = ScreenManager.GetInstance().getGameSc();          
-           PrimaryStage.setScene(scene); 
-           PrimaryStage.centerOnScreen();
-           PrimaryStage.setTitle("Let's play BLACKJACK");
+            StartGame();
+           
         }
     }
     
@@ -127,6 +125,13 @@ public class BlackJackFXApp extends Application {
             }
         }
     
+        public void StartGame(){
+           ScreenManager.GetInstance().getGameScCr().setBJGame(BlackJackGame);
+           Scene scene = ScreenManager.GetInstance().getGameSc();          
+           PrimaryStage.setScene(scene); 
+           PrimaryStage.centerOnScreen();
+           PrimaryStage.setTitle("Let's play BLACKJACK");
+        }
         
     @Override
     public void start(Stage primaryStage) throws IOException

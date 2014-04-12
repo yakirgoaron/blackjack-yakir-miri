@@ -7,7 +7,7 @@
 */
 
 .button {
-    -fx-background-image: url('/blackjackfx/resources/Images/Cards/4HeartsBig.png');
+ -fx-background-color: transparent;   
     
     
 }
@@ -19,8 +19,6 @@
     -fx-font-weight: bold;
     
 }
-#AnchorPane {
-     -fx-background-image: url('/blackjackfx/resources/Images/Background/bg_green.png');
-}
+
 
 
