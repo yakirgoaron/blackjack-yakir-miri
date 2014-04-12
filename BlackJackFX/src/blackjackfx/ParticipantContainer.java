@@ -143,8 +143,8 @@ public class ParticipantContainer
         translateTransition.setFromY(0);
         //translateTransition.setToX(-200);
         //translateTransition.setToY(200);
-        translateTransition.setToX(ParticipantImage.getLayoutX() - x);
-        translateTransition.setToY(ParticipantImage.getLayoutY() + y + pToMove.getMaxHeight()+200);
+        translateTransition.setToX(ParticipantImage.getParent().getLayoutX() - x);
+        translateTransition.setToY(ParticipantImage.getParent().getLayoutY() + y + pToMove.getMaxHeight()+200);
         /*translateTransition.setCycleCount(4);
         translateTransition.setAutoReverse(true);*/
         
