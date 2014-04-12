@@ -312,7 +312,7 @@ public class GameEngine
         
         for (Player player : GamePlayers) 
         {
-           player.HandleEndOfRound(GameDealer.getSumofCards());
+           player.HandleEndOfRound(commInterface, GameDealer.getSumofCards());
            commInterface.PrintBasicPlayerInfo(player);
         }
         IsInRound = false;

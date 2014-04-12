@@ -97,35 +97,42 @@ public abstract class Player implements GameParticipant{
     
     abstract public Double GetBidForPlayer(Communicable commGetBid); 
     
-    public void HandleEndOfRound(int DealerSumOfCards){
+    public void HandleEndOfRound(Communicable commInterface, 
+                                 int DealerSumOfCards){
         
-        for (Bid bid: getBids()){
-            HandleBidEndRound(bid, DealerSumOfCards);
-        }     
+        if (CheckBJ()){
+            Money +=  Bids.get(0).getTotalBid() * WIN_BJ_ONSTART; 
+            commInterface.PrintPlayerMessage(this, "BLACKJACK!!!!");
+        }
+        else {
+            for (Bid bid: getBids()){
+                HandleBidEndRound(bid, DealerSumOfCards);
+            } 
+        }
         
         Bids.clear();
     }
     
     private void HandleBidEndRound(Bid bid, int DealerSumOfCards) {
-        if (!CheckBJ(bid))
+        
+        if (bid.getSumCards() == GameEngine.BLACKJACK)
+            HandlePlayerWon(bid);
+        else
             HandleLose(bid, DealerSumOfCards);
     }
-        
-    private boolean CheckBJ(Bid bid) {
-        
-        Double BetToAdd;
-        
-        if (bid.getSumCards() == GameEngine.BLACKJACK){
-            if ((Bids.size() == 1) && 
-                (bid.getCards().size() == INIT_NUM_CARDS))
-               
-                BetToAdd =  bid.getTotalBid() * WIN_BJ_ONSTART;
-            else
-               BetToAdd = bid.getTotalBid() * WIN_BJ;
-            Money += BetToAdd;
-            return true;
-        }
-        return false;
+    
+    public boolean CheckBJ(){
+       if ((Bids.size() == 1) && 
+           (Bids.get(0).getCards().size() == INIT_NUM_CARDS) && 
+           (Bids.get(0).getSumCards() == GameEngine.BLACKJACK) )       
+           
+           return true;
+       else
+           return false;     
+    }
+    
+    private void HandlePlayerWon(Bid bid) {     
+        Money +=  bid.getTotalBid() * WIN_BJ;
     }
 
     private void HandleLose(Bid bid, int DealerSumOfCards) {
