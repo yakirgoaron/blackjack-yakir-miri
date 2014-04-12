@@ -58,6 +58,9 @@ public class CreatePlayersScreenController implements Initializable {
     private Label lblPlayersJoined;
     @FXML
     private ComboBox<?> cbPlayerType;
+    private int HumanPlayersCounter;
+    private int CompPlayersCounter;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -68,6 +71,8 @@ public class CreatePlayersScreenController implements Initializable {
             public void handle(ActionEvent event) {
                AddPlayer();
             }} );*/
+       HumanPlayersCounter = 0;
+       CompPlayersCounter = 0;
        TextName.visibleProperty().set(false);
        BtnStart.disableProperty().set(true);
        lblPlayerName.visibleProperty().set(false);
@@ -124,22 +129,29 @@ public class CreatePlayersScreenController implements Initializable {
         {
             if(IsHuman)
             {
+                HumanPlayersCounter++;
                 PlayerName = TextName.getText();
                 BjGame.AddPlayer(PlayerName);
             }
             else
             {
+                CompPlayersCounter++;
                 BjGame.AddPlayer();
             }
-           
+            
             PlayerView playerView = new PlayerView(PlayerName, this.IsHuman);
             PlayerIn.getChildren().add(playerView);
             this.TextName.clear();
-            BtnStart.disableProperty().set(false);
+            if(HumanPlayersCounter > 0)
+                BtnStart.disableProperty().set(false);
         }
         catch (TooManyPlayersException ex) 
         {
             showError("Too many players!!");
+        }
+        if(CompPlayersCounter == 5)
+        {
+            cbPlayerType.getItems().remove("Computer");
         }
         
     }
