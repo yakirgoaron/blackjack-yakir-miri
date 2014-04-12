@@ -42,7 +42,7 @@
         <VBox fx:id="vbxPlayerBid1a" layoutX="0.0" layoutY="39.0" prefHeight="350.0" prefWidth="58.0" />
         <VBox fx:id="vbxPlayerBid1b" layoutX="68.0" layoutY="39.0" prefHeight="350.0" prefWidth="72.0" />
         <Label fx:id="pPlayerBid1" layoutX="28.0" layoutY="7.0" prefHeight="24.0" prefWidth="46.0" text="" textFill="WHITE" />
-        <Label fx:id="pPlayerBid21" layoutX="84.0" layoutY="7.0" prefHeight="20.0" prefWidth="58.0" text="" textFill="WHITE" />
+        <Label fx:id="pPlayerBid12" layoutX="84.0" layoutY="7.0" prefHeight="20.0" prefWidth="58.0" text="" textFill="WHITE" />
         <Label layoutX="-6.0" layoutY="10.0" prefWidth="32.0" text="Bet:" />
       </children>
     </AnchorPane>
