@@ -42,6 +42,8 @@ public class BidInputController implements Initializable {
     private SimpleDoubleProperty dblAmount;
     private SlideBarChange SdeventChange;
     private TextBoxValueChange TxteventChange;
+    @FXML
+    private Label lblPlayerMoney;
     
     /**
      * Initializes the controller class.
@@ -65,6 +67,7 @@ public class BidInputController implements Initializable {
     {
         this.plCurrent = current;
         lblPlayerName.setText(current.getName());
+        lblPlayerMoney.setText(current.getMoney().toString());
         SdBidAmount.setMax(current.getMoney());
         SdBidAmount.setMin(1.0);
         SdBidAmount.setMajorTickUnit(25);
@@ -86,8 +89,7 @@ public class BidInputController implements Initializable {
         
     }
     
-    @FXML
-    private void UpdateText(DragEvent event) {
+        private void UpdateText(DragEvent event) {
         Amount.setText(Double.toString(SdBidAmount.getValue()));
     }
     
