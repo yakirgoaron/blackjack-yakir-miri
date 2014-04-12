@@ -8,6 +8,7 @@ package blackjackfx;
 
 import EngineLogic.Bid;
 import EngineLogic.Communicable;
+import EngineLogic.CompPlayer;
 import EngineLogic.GameEngine;
 import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
@@ -192,12 +193,18 @@ public class Events extends Thread implements Communicable
 
     @Override
     public void PrintHandInfo(final Hand HandForPrint,final GameParticipant ParPlayer) {
-        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                    scControoler.DisplayHand(HandForPrint, ParPlayer);
-                                }}); 
+        try {
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run()
+                {
+                    scControoler.DisplayHand(HandForPrint, ParPlayer);
+                }});
+            if(ParPlayer instanceof CompPlayer)
+                Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
