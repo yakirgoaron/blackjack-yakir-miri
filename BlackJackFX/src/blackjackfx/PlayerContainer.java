@@ -20,9 +20,9 @@ public class PlayerContainer extends ParticipantContainer{
     private Label Bid1Value;
     private Label Bid2Value;
     
-    public PlayerContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,Label PlaceBid1,Label PlaceBid2)
+    public PlayerContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,Label PlaceBid1,Label PlaceBid2,Pane CradsDeck)
     {
-        super(Hand1,Hand2,ParticipantImage);
+        super(Hand1,Hand2,ParticipantImage,CradsDeck);
         Bid1Value = PlaceBid1;
         Bid2Value = PlaceBid2;
         Bid1Value.getStyleClass().add("BidClass");

@@ -19,6 +19,10 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
+import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
@@ -30,6 +34,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 /**
  *
@@ -41,8 +46,10 @@ public class ParticipantContainer
     private Queue<Pane> Hands;
     private Queue<Pane> OrderHand;
     private HashMap<Hand,Pane> HandView;
+    private Pane pDeckPane;
     
-    public ParticipantContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage)
+    
+    public ParticipantContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,Pane CardsDeck)
     {
         this.ParticipantImage = ParticipantImage;
         Hands = new LinkedList<>();
@@ -53,6 +60,7 @@ public class ParticipantContainer
         OrderHand.add(Hand2);
         Hands.addAll(OrderHand);
         HandView = new HashMap<>(); 
+        pDeckPane = CardsDeck;
     }
     public ParticipantContainer(HBox Hand, Pane PlayerImage){
         this.ParticipantImage = PlayerImage;
@@ -101,10 +109,56 @@ public class ParticipantContainer
          for (Card curCard : currHand.getCards()) 
          {
              CardView cd = new CardView(curCard);
-             curr.getChildren().add(cd);
+             Pane Temp = DuplicatePane(pDeckPane);
+             pDeckPane.getChildren().add(Temp);
+             Temp.getChildren().add(new CardView(curCard));
+             PullCardUI(curr,new CardView(curCard),Temp);
+             //curr.getChildren().add(cd);
          }
     }
-
+    
+    private Pane DuplicatePane(Pane Source)
+    {
+        Pane Temp = new Pane();
+        Temp.setVisible(true);
+        Temp.setLayoutX(Source.getLayoutX());
+        Temp.setLayoutY(Source.getLayoutY());
+        Temp.setMaxHeight(Source.getMaxHeight());
+        Temp.setMaxWidth(Source.getMaxWidth());
+        Temp.setMinHeight(Source.getMinHeight());
+        Temp.setMinWidth(Source.getMinWidth());
+        
+        return Temp;
+    }
+    
+    private void PullCardUI(final Pane AddCardFinish,final CardView CardToAdd,final Pane pToMove)
+    {
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2.0), pToMove);
+        final double x = pToMove.getLayoutX();
+        final double y = pToMove.getLayoutY();
+        translateTransition.setFromX(0);
+        translateTransition.setFromY(0);
+        //translateTransition.setToX(-200);
+        //translateTransition.setToY(200);
+        translateTransition.setToX(ParticipantImage.getLayoutX() - x);
+        translateTransition.setToY(ParticipantImage.getLayoutY() + y + pToMove.getMaxHeight()+200);
+        
+        /*translateTransition.setCycleCount(4);
+        translateTransition.setAutoReverse(true);*/
+        
+         translateTransition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                pToMove.setLayoutX(x);
+                pToMove.setLayoutY(y);
+                pToMove.setVisible(false);
+                AddCardFinish.getChildren().add(CardToAdd);
+            }
+        });
+        translateTransition.play();
+        
+        
+    }
     public void ClearCards() {
         for (Entry<Hand,Pane> entry: HandView.entrySet()) {       
             entry.getValue().getChildren().clear();            

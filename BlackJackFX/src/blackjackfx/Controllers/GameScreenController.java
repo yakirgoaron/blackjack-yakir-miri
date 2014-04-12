@@ -164,6 +164,8 @@ public class GameScreenController implements Initializable
     private Label lblPlayerEndRound;
     
     private SimpleBooleanProperty DoesPlayerContinue;
+    @FXML
+    private Pane pDeckPlace;
     /**
      * Initializes the controller class.
      */
@@ -372,7 +374,7 @@ public class GameScreenController implements Initializable
            Label Bid1 = (Label) scene.lookup("#pPlayerBid" + (i+1));
            Label Bid2 = (Label) scene.lookup("#pPlayerBid" + (i+1) + "2");
            PlayerContainer playerCont = 
-                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,Bid1,Bid2);
+                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,Bid1,Bid2,pDeckPlace);
            Players.put(GamePlayers.get(i), playerCont);              
        }
        
