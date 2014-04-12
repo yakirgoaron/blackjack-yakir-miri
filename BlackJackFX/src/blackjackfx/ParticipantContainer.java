@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -47,7 +49,6 @@ public class ParticipantContainer
     private Queue<Pane> OrderHand;
     private HashMap<Hand,Pane> HandView;
     private Pane pDeckPane;
-    
     
     public ParticipantContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,Pane CardsDeck)
     {
@@ -109,11 +110,12 @@ public class ParticipantContainer
          for (Card curCard : currHand.getCards()) 
          {
              CardView cd = new CardView(curCard);
+             cd.setVisible(false);
              Pane Temp = DuplicatePane(pDeckPane);
              pDeckPane.getChildren().add(Temp);
              Temp.getChildren().add(new CardView(curCard));
-             PullCardUI(curr,new CardView(curCard),Temp);
-             //curr.getChildren().add(cd);
+             PullCardUI(curr,cd,pDeckPane);
+             curr.getChildren().add(cd);
          }
     }
     
@@ -121,8 +123,8 @@ public class ParticipantContainer
     {
         Pane Temp = new Pane();
         Temp.setVisible(true);
-        Temp.setLayoutX(Source.getLayoutX());
-        Temp.setLayoutY(Source.getLayoutY());
+        Temp.setLayoutX(0);
+        Temp.setLayoutY(0);
         Temp.setMaxHeight(Source.getMaxHeight());
         Temp.setMaxWidth(Source.getMaxWidth());
         Temp.setMinHeight(Source.getMinHeight());
@@ -142,7 +144,6 @@ public class ParticipantContainer
         //translateTransition.setToY(200);
         translateTransition.setToX(ParticipantImage.getLayoutX() - x);
         translateTransition.setToY(ParticipantImage.getLayoutY() + y + pToMove.getMaxHeight()+200);
-        
         /*translateTransition.setCycleCount(4);
         translateTransition.setAutoReverse(true);*/
         
@@ -152,10 +153,11 @@ public class ParticipantContainer
                 pToMove.setLayoutX(x);
                 pToMove.setLayoutY(y);
                 pToMove.setVisible(false);
-                AddCardFinish.getChildren().add(CardToAdd);
+                CardToAdd.setVisible(true);
             }
         });
         translateTransition.play();
+        
         
         
     }
