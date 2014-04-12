@@ -37,6 +37,7 @@ public class PlayerContainer extends ParticipantContainer{
         Bid2Value = PlaceBid2;
         MoneyValue = Money;
         Bid1Value.getStyleClass().add("BidClass");
+        Bid2Value.getStyleClass().add("BidClass");
         BidView = new HashMap<>();
         OrderHand = new LinkedList<>();
         Hands = new LinkedList<>();
