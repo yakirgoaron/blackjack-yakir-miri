@@ -164,8 +164,7 @@ public class GameScreenController implements Initializable
     private Label lblPlayerEndRound;
     
     private SimpleBooleanProperty DoesPlayerContinue;
-    @FXML
-    private Pane pDeckPlace;
+
     /**
      * Initializes the controller class.
      */
@@ -374,15 +373,19 @@ public class GameScreenController implements Initializable
            Label Bid1 = (Label) scene.lookup("#pPlayerBid" + (i+1));
            Label Bid2 = (Label) scene.lookup("#pPlayerBid" + (i+1) + "2");
            Label Money = (Label) scene.lookup("#lblPlayerMoney" + (i+1));
+           Pane DeckPlace = (Pane) scene.lookup("#pDeckPlace" + (i+1));
+           
            PlayerContainer playerCont = 
-                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,Bid1,Bid2, Money, pDeckPlace);
+                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,Bid1,Bid2, Money, DeckPlace);
            Players.put(GamePlayers.get(i), playerCont);              
        }
        
        HBox DealerHand = (HBox) scene.lookup("#vbxDealerHand");
        Pane DealerImage = (Pane) scene.lookup("#pDealerPane");
+       Pane DeckPlace = (Pane) scene.lookup("#pDeckPlaceD");
+       
        ParticipantContainer DealerCont =
-            new ParticipantContainer(DealerHand, DealerImage, pDeckPlace);
+            new ParticipantContainer(DealerHand, DealerImage, DeckPlace);
        Players.put(BJGame.getGameDealer(), DealerCont);
     }
     

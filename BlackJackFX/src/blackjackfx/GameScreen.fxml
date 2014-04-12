@@ -125,7 +125,13 @@
     <HBox fx:id="vbxDealerHand" layoutX="369.0" layoutY="89.0" prefHeight="71.0" prefWidth="276.0" />
     <Button fx:id="btnPlayerContinue" layoutX="449.0" layoutY="350.0" mnemonicParsing="false" onAction="#PlayerContGame" text="Continue Game" />
     <Button fx:id="btnPlayerExit" layoutX="473.0" layoutY="380.0" mnemonicParsing="false" onAction="#PlayerExitGame" text="Exit" />
-    <Pane fx:id="pDeckPlace" layoutX="785.0" layoutY="7.0" prefHeight="103.0" prefWidth="78.0" rotate="118.0" />
+    <Pane fx:id="pDeckPlace1" layoutX="780.0" layoutY="8.0" prefHeight="103.0" prefWidth="78.0" rotate="118.0" />
+    <Pane fx:id="pDeckPlace2" layoutX="782.0" layoutY="8.0" prefHeight="103.0" prefWidth="78.0" rotate="118.0" />
+    <Pane fx:id="pDeckPlace3" layoutX="781.0" layoutY="7.0" prefHeight="103.0" prefWidth="78.0" rotate="118.0" />
+    <Pane fx:id="pDeckPlace4" layoutX="782.0" layoutY="6.0" prefHeight="103.0" prefWidth="78.0" rotate="118.0" />
+    <Pane fx:id="pDeckPlace5" layoutX="781.0" layoutY="9.0" prefHeight="103.0" prefWidth="78.0" rotate="118.0" />
+    <Pane fx:id="pDeckPlace6" layoutX="782.0" layoutY="8.0" prefHeight="103.0" prefWidth="78.0" rotate="118.0" />
+    <Pane fx:id="pDeckPlaceD" layoutX="780.0" layoutY="4.0" prefHeight="103.0" prefWidth="78.0" rotate="118.0" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />
