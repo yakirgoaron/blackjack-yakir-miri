@@ -138,21 +138,7 @@ public class ParticipantContainer
              }
          }
     }
-    
-    private Pane DuplicatePane(Pane Source)
-    {
-        Pane Temp = new Pane();
-        Temp.setVisible(true);
-        Temp.setLayoutX(0);
-        Temp.setLayoutY(0);
-        Temp.setMaxHeight(Source.getMaxHeight());
-        Temp.setMaxWidth(Source.getMaxWidth());
-        Temp.setMinHeight(Source.getMinHeight());
-        Temp.setMinWidth(Source.getMinWidth());
         
-        return Temp;
-    }
-    
     private void PullCardUI(final Pane AddCardFinish,final CardView CardToAdd,final Pane pToMove)
     {
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2.0), pToMove);

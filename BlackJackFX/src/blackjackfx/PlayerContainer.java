@@ -8,6 +8,9 @@ import EngineLogic.Bid;
 import EngineLogic.Hand;
 import EngineLogic.Player;
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -21,6 +24,9 @@ public class PlayerContainer extends ParticipantContainer{
     private Label Bid1Value;
     private Label Bid2Value;
     private Label MoneyValue;
+    private Queue<Label> Hands;
+    private Queue<Label> OrderHand;
+    private HashMap<Bid,Label> BidView;
     
     public PlayerContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,
                            Label PlaceBid1,Label PlaceBid2, Label Money, 
@@ -31,12 +37,23 @@ public class PlayerContainer extends ParticipantContainer{
         Bid2Value = PlaceBid2;
         MoneyValue = Money;
         Bid1Value.getStyleClass().add("BidClass");
+        BidView = new HashMap<>();
+        OrderHand = new LinkedList<>();
+        Hands = new LinkedList<>();
+        OrderHand.add(PlaceBid1);
+        OrderHand.add(PlaceBid2);
+        Hands.addAll(OrderHand);
     }
     
     public void PrintBidInfo(Bid currBid)
     {
         PrintHandInfo(currBid);
-        Bid1Value.setText(new DecimalFormat("####.##").format(((Bid)currBid).getTotalBid()));
+        if(!BidView.containsKey(currBid))
+        {
+            BidView.put(currBid, Hands.remove());
+            
+        }
+        BidView.get(currBid).setText(new DecimalFormat("####.##").format(((Bid)currBid).getTotalBid()));
     }
     
     @Override
@@ -44,6 +61,8 @@ public class PlayerContainer extends ParticipantContainer{
         super.RemovePlayer();
         this.Bid1Value.setText("");
         this.Bid2Value.setText("");
+        Hands.clear();
+        Hands.addAll(OrderHand);
     }
     
     @Override
@@ -52,4 +71,13 @@ public class PlayerContainer extends ParticipantContainer{
         super.PrintPlayerInfo(plToPrint);
     }
     
+    @Override
+    public void ClearCards()
+    {
+        super.ClearCards();
+        this.Bid1Value.setText("");
+        this.Bid2Value.setText("");
+        Hands.clear();
+        Hands.addAll(OrderHand);
+    }
 }
