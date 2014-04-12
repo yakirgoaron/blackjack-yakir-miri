@@ -60,7 +60,7 @@ public class CreatePlayersScreenController implements Initializable {
     private ComboBox<?> cbPlayerType;
     private int HumanPlayersCounter;
     private int CompPlayersCounter;
-    
+    private final int MaxPlayerName = 10;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -113,7 +113,17 @@ public class CreatePlayersScreenController implements Initializable {
         if (TextName.getText().isEmpty())
             BtnAdd.disableProperty().set(true); 
         else
+            HandleLength();
             BtnAdd.disableProperty().set(false); 
+    }
+    
+    private void HandleLength() {
+       String Text = TextName.getText();
+        if (Text.length() > MaxPlayerName)
+        {
+            String PlayerName = Text.substring(0, MaxPlayerName);
+            TextName.setText(PlayerName);
+        }
     }
     
     public SimpleBooleanProperty getFinishedInit() {
