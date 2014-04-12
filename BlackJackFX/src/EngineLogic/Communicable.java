@@ -19,6 +19,8 @@ public interface Communicable
 
     public void RemovePlayer(Player player);
 
+    public void PrintPlayerMessage(GameParticipant ParPlayer, String Message);
+
     public static enum PlayerAction{
         
         DOUBLE("Double"), HIT("Hit"), SPLIT("Split"), STAY("Stay");

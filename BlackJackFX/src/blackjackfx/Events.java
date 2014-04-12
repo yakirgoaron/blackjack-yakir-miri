@@ -245,5 +245,15 @@ public class Events extends Thread implements Communicable
                                      scControoler.RemovePlayer(player);
                                 }}); 
     }
+
+    @Override
+    public void PrintPlayerMessage(final GameParticipant ParPlayer, final String Message) {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                     scControoler.PrintPlayerMessage(ParPlayer, Message);
+                                }});
+    }
     
 }

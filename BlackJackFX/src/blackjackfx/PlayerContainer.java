@@ -22,9 +22,11 @@ public class PlayerContainer extends ParticipantContainer{
     private Label Bid2Value;
     private Label MoneyValue;
     
-    public PlayerContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,Label PlaceBid1,Label PlaceBid2, Label Money, Pane CradsDeck)
+    public PlayerContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,
+                           Label PlaceBid1,Label PlaceBid2, Label Money, 
+                           Label Message, Pane CradsDeck)
     {
-        super(Hand1,Hand2,ParticipantImage,CradsDeck);
+        super(Hand1,Hand2,ParticipantImage, Message, CradsDeck);
         Bid1Value = PlaceBid1;
         Bid2Value = PlaceBid2;
         MoneyValue = Money;

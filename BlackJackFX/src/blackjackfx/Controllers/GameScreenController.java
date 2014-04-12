@@ -397,18 +397,21 @@ public class GameScreenController implements Initializable
            Label Bid2 = (Label) scene.lookup("#pPlayerBid" + (i+1) + "2");
            Label Money = (Label) scene.lookup("#lblPlayerMoney" + (i+1));
            Pane DeckPlace = (Pane) scene.lookup("#pDeckPlace" + (i+1));
+           Label PlayerMessage = (Label) scene.lookup("#lblPlayerMessage" + (i+1));
            
            PlayerContainer playerCont = 
-                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,Bid1,Bid2, Money, DeckPlace);
+                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,
+                                       Bid1,Bid2, Money, 
+                                       PlayerMessage, DeckPlace);
            Players.put(GamePlayers.get(i), playerCont);              
        }
        
        HBox DealerHand = (HBox) scene.lookup("#vbxDealerHand");
        Pane DealerImage = (Pane) scene.lookup("#pDealerPane");
        Pane DeckPlace = (Pane) scene.lookup("#pDeckPlaceD");
-       
+       Label DealerMessage = (Label) scene.lookup("#lblDealerMessage");
        ParticipantContainer DealerCont =
-            new ParticipantContainer(DealerHand, DealerImage, DeckPlace);
+            new ParticipantContainer(DealerHand, DealerImage, DealerMessage, DeckPlace);
        Players.put(BJGame.getGameDealer(), DealerCont);
     }
     
@@ -480,6 +483,10 @@ public class GameScreenController implements Initializable
     public void RemovePlayer(Player player) {
         Players.get(player).RemovePlayer();
         Players.remove(player);
+    }
+
+    public void PrintPlayerMessage(GameParticipant ParPlayer, String Message) {
+        Players.get(ParPlayer).PrintMessage(Message);
     }
     
 }

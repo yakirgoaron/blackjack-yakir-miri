@@ -52,8 +52,10 @@ public class ParticipantContainer
     private Queue<Pane> OrderHand;
     private HashMap<Hand,Pane> HandView;
     private Pane pDeckPane;
+    private Label lblMessage;
     
-    public ParticipantContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,Pane CardsDeck)
+    public ParticipantContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,
+                                Label Message, Pane CardsDeck)
     {
         this.ParticipantImage = ParticipantImage;
         Hands = new LinkedList<>();
@@ -64,9 +66,11 @@ public class ParticipantContainer
         OrderHand.add(Hand2);
         Hands.addAll(OrderHand);
         HandView = new HashMap<>(); 
+        lblMessage = Message;
+        lblMessage.getStyleClass().add("PlayerMessage");
         pDeckPane = CardsDeck;
     }
-    public ParticipantContainer(HBox Hand, Pane PlayerImage, Pane CardsDeck){
+    public ParticipantContainer(HBox Hand, Pane PlayerImage, Label Message, Pane CardsDeck){
         this.ParticipantImage = PlayerImage;
         Hands = new LinkedList<>();
         Hand.setSpacing(-45.0);
@@ -74,6 +78,8 @@ public class ParticipantContainer
         OrderHand.add(Hand);
         Hands.add(Hand); 
         HandView = new HashMap<>();
+        lblMessage = Message;
+        lblMessage.getStyleClass().add("PlayerMessage");
         pDeckPane = CardsDeck;
     }
     public void PrintPlayerInfo(Player plToPrint)
@@ -182,6 +188,8 @@ public class ParticipantContainer
         Hands.clear();
         Hands.addAll(OrderHand);
         HandView.clear();
+        
+        lblMessage.setText("");
     }
 
     public void ClearEffects() {
@@ -198,5 +206,9 @@ public class ParticipantContainer
     public void RemovePlayer() {
         this.ParticipantImage.getChildren().clear();
         ClearCards();
+    }
+
+    public void PrintMessage(String Message) {
+        lblMessage.setText(Message);
     }
 }
