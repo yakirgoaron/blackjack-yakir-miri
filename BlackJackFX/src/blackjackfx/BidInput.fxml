@@ -14,11 +14,11 @@
   <children>
     <Slider fx:id="SdBidAmount" layoutX="14.0" layoutY="71.0" prefWidth="289.0" />
     <Button id="OK" fx:id="btnFinish" layoutX="110.0" layoutY="116.0" mnemonicParsing="false" onAction="#Finish" prefHeight="36.0" prefWidth="97.0" text="Finish" />
-    <Label fx:id="lblPlayerName" layoutX="55.0" layoutY="17.0" text="Label" />
+    <Label fx:id="lblPlayerName" layoutX="58.0" layoutY="17.0" text="Label" />
     <TextField fx:id="Amount" layoutX="302.0" layoutY="67.0" onAction="#Finish" prefWidth="47.0" />
     <Label layoutX="13.0" layoutY="17.0" text="Player" />
-    <Label fx:id="lblPlayerMoney" layoutX="92.0" layoutY="40.0" text="Label" />
-    <Label layoutX="14.0" layoutY="40.0" text="Total Money" />
+    <Label fx:id="lblPlayerMoney" layoutX="95.0" layoutY="40.0" text="Label" />
+    <Label layoutX="13.0" layoutY="40.0" text="Total Money" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/bidinput.css" />
