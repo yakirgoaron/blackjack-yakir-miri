@@ -239,17 +239,23 @@ public class GameScreenController implements Initializable
     }
     public void DisplayBid(Bid currBid,Player currPlayer)
     {
-        for (Bid bid : currPlayer.getBids()) {
-             ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(bid);
-             Players.get(currPlayer).ClearGlowHandInfo(bid);
-             
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        for (Bid bid : currPlayer.getBids()) {
+            ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(bid);
+             Players.get(currPlayer).ClearGlowHandInfo(bid);
+
+        }
+        
         Players.get(currPlayer).GlowHandInfo(currBid);
     }
     public void DisplayHand(Hand currHand,GameParticipant currPlayer)
     {
-        Players.get(currPlayer).PrintHandInfo(currHand);
-        
+         Players.get(currPlayer).PrintHandInfo(currHand);   
     }
     public void DisplayPlayer(Player dispPlayer)
     {
