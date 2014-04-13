@@ -212,12 +212,17 @@ public class GameScreenController implements Initializable
     public void GetFilePathToSave()
     {
         FileChooser flChose = new FileChooser();
+        File flToSave = null;
         flChose.setTitle("Choose a path to save game");
         flChose.getExtensionFilters().addAll(
                                 new FileChooser.ExtensionFilter("XML Files", "*.xml"));
-        File flToSave = flChose.showSaveDialog(apPlayer1.getScene().getWindow());
+        while (flToSave == null)
+            flToSave = flChose.showSaveDialog(apPlayer1.getScene().getWindow());
         
-        this.FlPath.set(flToSave.getPath() + ".xml");      
+        if(flToSave.getPath().endsWith(".xml"))         
+            this.FlPath.set(flToSave.getPath() + ".xml");      
+        else
+            this.FlPath.set(flToSave.getPath());      
     }
     
     @FXML
