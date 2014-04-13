@@ -151,12 +151,8 @@ public class ParticipantContainer
         final double y = pToMove.getLayoutY();
         translateTransition.setFromX(0);
         translateTransition.setFromY(0);
-        //translateTransition.setToX(-200);
-        //translateTransition.setToY(200);
         translateTransition.setToX(ParticipantImage.getParent().getLayoutX() - x);
         translateTransition.setToY(ParticipantImage.getParent().getLayoutY() + y + pToMove.getMaxHeight()+200);
-        /*translateTransition.setCycleCount(4);
-        translateTransition.setAutoReverse(true);*/
         
          translateTransition.setOnFinished(new EventHandler<ActionEvent>() {
             @Override

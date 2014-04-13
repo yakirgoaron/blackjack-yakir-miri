@@ -201,7 +201,7 @@ public class Events extends Thread implements Communicable
                     scControoler.DisplayHand(HandForPrint, ParPlayer);
                 }});
             if(ParPlayer instanceof CompPlayer)
-                Thread.sleep(2000);
+                Thread.sleep(2100);
         } catch (InterruptedException ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
         }
