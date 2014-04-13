@@ -51,5 +51,6 @@ public class MainWindowController implements Initializable {
     @FXML
     private void LoadGameAction(ActionEvent event) {
         GameInitType.set(MainMenu.LOAD_GAME);
+        GameInitType.set(null);
     }
 }
