@@ -5,7 +5,6 @@
 package blackjackfx;
 
 import EngineLogic.Bid;
-import EngineLogic.Hand;
 import EngineLogic.Player;
 import java.text.DecimalFormat;
 import java.util.HashMap;

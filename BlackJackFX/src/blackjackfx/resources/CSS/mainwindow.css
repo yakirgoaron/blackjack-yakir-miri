@@ -7,10 +7,9 @@
 */
 
 .button {
- -fx-background-color: transparent;   
-    
-    
+ -fx-background-color: transparent;          
 }
+
 #ErrorMessage
 {
     -fx-alignment: center;

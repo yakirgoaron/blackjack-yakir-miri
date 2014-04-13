@@ -23,7 +23,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -39,6 +38,7 @@ public class CreatePlayersScreenController implements Initializable {
      */
     private GameEngine BjGame;
     private Boolean IsHuman;
+    private final int MaxCompPlayers = 5;
     
     @FXML
     private Pane PlayerIn;
@@ -65,12 +65,6 @@ public class CreatePlayersScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-       /*this.BtnAdd.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-               AddPlayer();
-            }} );*/
        HumanPlayersCounter = 0;
        CompPlayersCounter = 0;
        TextName.visibleProperty().set(false);
@@ -144,15 +138,12 @@ public class CreatePlayersScreenController implements Initializable {
             {
                 PlayerName = TextName.getText();
                 BjGame.AddPlayer(PlayerName);
-                HumanPlayersCounter++;
-                
-                
+                HumanPlayersCounter++;                              
             }
             else
             {
                 BjGame.AddPlayer();
-                CompPlayersCounter++;
-                
+                CompPlayersCounter++;              
             }
             
             PlayerView playerView = new PlayerView(PlayerName, this.IsHuman);
@@ -165,11 +156,10 @@ public class CreatePlayersScreenController implements Initializable {
         {
             showError("Too many players!!");
         }
-        if(CompPlayersCounter == 5)
+        if(CompPlayersCounter == MaxCompPlayers)
         {
             cbPlayerType.getItems().remove("Computer");
-        }
-        
+        }      
     }
     
     @FXML
@@ -177,6 +167,7 @@ public class CreatePlayersScreenController implements Initializable {
         if (!BtnAdd.disableProperty().get())
             AddPlayer(event);
     }
+    
     private void showError(String message) 
     {
         errorMessageLabel.textProperty().setValue(message);
@@ -187,9 +178,9 @@ public class CreatePlayersScreenController implements Initializable {
                     .toValue(1.0)
                     .build();
         animation.play();
-        BtnAdd.setDisable(true);
-            
+        BtnAdd.setDisable(true);           
     }
+    
     public void ChangeTextEnable()
     {
         this.TextName.visibleProperty().set(!this.TextName.visibleProperty().get());
@@ -226,8 +217,6 @@ public class CreatePlayersScreenController implements Initializable {
     public void DisableLblPlayerJoined(){
         this.lblPlayerName.visibleProperty().set(false);
     }
-    
-    
     
     public void setBjGame(GameEngine BjGame) {
         this.BjGame = BjGame;

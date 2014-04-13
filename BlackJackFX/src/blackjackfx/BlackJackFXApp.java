@@ -6,33 +6,17 @@
 
 package blackjackfx;
 
-import EngineLogic.Exception.DuplicateCardException;
-import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.GameEngine;
 import GameEnums.MainMenu;
-import blackjackfx.Controllers.CreatePlayersScreenController;
-import blackjackfx.Controllers.MainWindowController;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.xml.bind.JAXBException;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -56,7 +40,6 @@ public class BlackJackFXApp extends Application {
         @Override
         public void changed(ObservableValue<? extends MainMenu> ov, MainMenu oldValue, MainMenu NewValue)  {
             
-
             if(NewValue != null)
             {
                 switch (NewValue)
@@ -65,8 +48,8 @@ public class BlackJackFXApp extends Application {
                    {
                       
                       BlackJackGame = new GameEngine(); 
-                      ScreenManager.GetInstance().getCrePlayerCr().setBjGame(BlackJackGame);
-                      Scene scene = ScreenManager.GetInstance().getCrePlayerSc();
+                      ScreenManager.GetInstance().getCreatePlayerCr().setBjGame(BlackJackGame);
+                      Scene scene = ScreenManager.GetInstance().getCreatePlayerSc();
                       PrimaryStage.setScene(scene); 
                       PrimaryStage.setTitle("Create Players");
                       break;
@@ -84,13 +67,10 @@ public class BlackJackFXApp extends Application {
                         {
                           BlackJackGame = new GameEngine(flOpen.getPath());
                           StartGame();
-                        //Scene scene = new Scene(ScreenManager.GetInstance().getLoadSc());
-                        //PrimaryStage.setScene(scene);
-
                         } 
                         catch (Exception ex) 
                         {
-                            ScreenManager.GetInstance().getMainWinCr().SetErrorMessage("Error chose another file");
+                            ScreenManager.GetInstance().getMainWinCr().SetErrorMessage("Error choose another file");
                         } 
                         break;
                    }
@@ -110,43 +90,41 @@ public class BlackJackFXApp extends Application {
         }
     }
     
-        public class BidAmount implements ChangeListener<Boolean>{   
-            
-            Scene GameScene;
-                
-            @Override
-            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) 
+    public class BidAmount implements ChangeListener<Boolean>{   
+
+        Scene GameScene;
+
+        @Override
+        public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) 
+        {
+            if (!t1){
+                GameScene = PrimaryStage.getScene();
+
+                Scene scene = ScreenManager.GetInstance().getBidSc();          
+                PrimaryStage.setScene(scene); 
+                PrimaryStage.centerOnScreen();
+                PrimaryStage.setTitle("Enter Bid");
+            }
+            else
             {
-                if (!t1){
-                    GameScene = PrimaryStage.getScene();
-
-                    Scene scene = ScreenManager.GetInstance().getBidSc();          
-                    PrimaryStage.setScene(scene); 
-                    PrimaryStage.centerOnScreen();
-                    PrimaryStage.setTitle("Enter Bid");
-                }
-                else
-                {
-
-
-                    PrimaryStage.setScene(GameScene); 
-                    PrimaryStage.centerOnScreen();
-                    PrimaryStage.setTitle("Let's play BLACKJACK");              
-                }
+                PrimaryStage.setScene(GameScene); 
+                PrimaryStage.centerOnScreen();
+                PrimaryStage.setTitle("Let's play BLACKJACK");              
             }
         }
+    }
     
-        public void StartGame(){
-           ScreenManager.GetInstance().getGameScCr().setBJGame(BlackJackGame);
-           Scene scene = ScreenManager.GetInstance().getGameSc();          
-           PrimaryStage.setScene(scene); 
-           PrimaryStage.centerOnScreen();
-           PrimaryStage.setTitle("Let's play BLACKJACK");           
-        }
+    public void StartGame(){
+       ScreenManager.GetInstance().getGameScCr().setBJGame(BlackJackGame);
+       Scene scene = ScreenManager.GetInstance().getGameSc();          
+       PrimaryStage.setScene(scene); 
+       PrimaryStage.centerOnScreen();
+       PrimaryStage.setTitle("Let's play BLACKJACK");           
+    }
         
-        public void EndGame(){
-            Platform.exit();
-        }
+    public void EndGame(){
+        Platform.exit();
+    }
         
     @Override
     public void start(Stage primaryStage) throws IOException
@@ -154,7 +132,7 @@ public class BlackJackFXApp extends Application {
        this.PrimaryStage = primaryStage;
        PrimaryStage.setResizable(false);
        ScreenManager.GetInstance().getMainWinCr().getGameInitType().addListener(new ChangeMainMenu());
-       ScreenManager.GetInstance().getCrePlayerCr().getFinishedInit().addListener(new StartGame());   
+       ScreenManager.GetInstance().getCreatePlayerCr().getFinishedInit().addListener(new StartGame());   
        ScreenManager.GetInstance().getGameScCr().GetHideBidWindow().addListener(new BidAmount());
        ScreenManager.GetInstance().getGameScCr().getGameEnded().addListener(new GameEnded());
        Scene scene = ScreenManager.GetInstance().getMainWinSc();

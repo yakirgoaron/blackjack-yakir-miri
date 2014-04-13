@@ -5,14 +5,7 @@
 package blackjackfx;
 
 import EngineLogic.Card;
-import blackjackfx.Utils.ImageUtils;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.ImageViewBuilder;
 
 /**
  *
@@ -41,6 +34,5 @@ public class CardView extends ImageView{
         }
         return false;
     }
-    
-    
+     
 }

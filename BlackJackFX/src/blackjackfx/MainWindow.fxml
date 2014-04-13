@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.MainWindowController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="blackjackfx.Controllers.MainWindowController">
   <children>
     <ImageView fitHeight="404.6007103162806" fitWidth="606.3189086914062" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
       <image>
@@ -19,12 +19,12 @@
     </ImageView>
     <HBox layoutX="37.0" layoutY="207.0" prefHeight="185.0" prefWidth="549.0" spacing="310.0">
       <children>
-        <Button id="startbutton" fx:id="btnNewGame" minWidth="99.29785281419754" mnemonicParsing="false" prefHeight="164.20367431640625" prefWidth="111.0" rotate="331.0" text="">
+        <Button id="startbutton" fx:id="btnNewGame" minWidth="99.29785281419754" mnemonicParsing="false" onAction="#NewGameAction" prefHeight="164.20367431640625" prefWidth="111.0" rotate="331.0" text="">
           <font>
             <Font name="System Bold" size="16.0" fx:id="x1" />
           </font>
         </Button>
-        <Button fx:id="btnLoadGame" font="$x1" mnemonicParsing="false" prefHeight="166.22238159179688" prefWidth="115.0" rotate="23.0" text="" />
+        <Button fx:id="btnLoadGame" font="$x1" mnemonicParsing="false" onAction="#LoadGameAction" prefHeight="166.22238159179688" prefWidth="115.0" rotate="23.0" text="" />
       </children>
     </HBox>
     <Label fx:id="ErrorMessage" layoutX="67.0" layoutY="365.0" prefHeight="30.0" prefWidth="479.0" text="" />

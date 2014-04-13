@@ -8,6 +8,7 @@
 .label{
     -fx-text-fill:white;
 }
+
 .button {
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
@@ -50,9 +51,6 @@
     -fx-background-image: url('/blackjackfx/resources/Images/players/Dealer.png');
 }
 
-.PlayerFocus{
-  -fx-background-color: yellow;
-}
 .TENCLUBS{
  -fx-image: url('/blackjackfx/resources/Images/Cards/10Clubs.png');   
 }

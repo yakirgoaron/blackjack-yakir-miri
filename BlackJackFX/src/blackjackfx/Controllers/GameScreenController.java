@@ -7,19 +7,16 @@
 package blackjackfx.Controllers;
 
 import EngineLogic.Bid;
-import EngineLogic.Communicable;
 import EngineLogic.Communicable.PlayerAction;
 import EngineLogic.Communicable.RoundAction;
-import EngineLogic.Communicable.SaveOptions;
+import GameEnums.SaveOptions;
 import EngineLogic.GameEngine;
 import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
-import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
 import blackjackfx.Events;
 import blackjackfx.ParticipantContainer;
 import blackjackfx.PlayerContainer;
-import blackjackfx.PlayerView;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,18 +34,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javax.xml.bind.JAXBException;
-import org.xml.sax.SAXException;
 
 /**
  * FXML Controller class
@@ -56,9 +49,18 @@ import org.xml.sax.SAXException;
  * @author yakir
  */
 public class GameScreenController implements Initializable
-{
-    
+{    
     private GameEngine BJGame;
+    private Events GameEvents;
+    private HashMap<GameParticipant, ParticipantContainer> Players;
+    private SimpleObjectProperty<PlayerAction> plAction;
+    private SimpleObjectProperty<SaveOptions> plSave;
+    private SimpleObjectProperty<RoundAction> RoundChoice;
+    private SimpleStringProperty FlPath;
+    private SimpleBooleanProperty HideBidWindow;
+    private SimpleBooleanProperty DoesPlayerContinue;
+    private SimpleBooleanProperty GameEnded;
+    
     @FXML
     private Button btnDouble;
     @FXML
@@ -66,149 +68,25 @@ public class GameScreenController implements Initializable
     @FXML
     private Button btnSplit;
     @FXML
-    private Button btnStay;
-    private HashMap<GameParticipant, ParticipantContainer> Players;
-    private SimpleObjectProperty<PlayerAction> plAction;
-    private SimpleObjectProperty<SaveOptions> plSave;
-    private SimpleObjectProperty<RoundAction> RoundChoice;
+    private Button btnStay; 
     @FXML
     private Button btnContinue;
     @FXML
     private Button btnSaveGame;
     @FXML
-    private Button btnExitGame;
-    private Events GameEvents;
+    private Button btnExitGame;  
     @FXML
     private AnchorPane apPlayer1;
     @FXML
-    private VBox vbxPlayerBid1b;
-    @FXML
-    private VBox vbxPlayerBid1a;
-    @FXML
-    private Pane pPlayerPane1;
-    @FXML
-    private AnchorPane apPlayer2;
-    @FXML
-    private VBox vbxPlayerBid2b;
-    @FXML
-    private VBox vbxPlayerBid2a;
-    @FXML
-    private Pane pPlayerPane2;
-    @FXML
-    private AnchorPane apPlayer3;
-    @FXML
-    private VBox vbxPlayerBid3b;
-    @FXML
-    private VBox vbxPlayerBid3a;
-    @FXML
-    private Pane pPlayerPane3;
-    @FXML
-    private AnchorPane apPlayer4;
-    @FXML
-    private VBox vbxPlayerBid4b;
-    @FXML
-    private VBox vbxPlayerBid4a;
-    @FXML
-    private Pane pPlayerPane4;
-    @FXML
-    private AnchorPane apPlayer5;
-    @FXML
-    private VBox vbxPlayerBid5b;
-    @FXML
-    private VBox vbxPlayerBid5a;
-    @FXML
-    private Pane pPlayerPane5;
-    @FXML
-    private AnchorPane apPlayer6;
-    @FXML
-    private VBox vbxPlayerBid6b;
-    @FXML
-    private VBox vbxPlayerBid6a;
-    @FXML
-    private Pane pPlayerPane6;
-    @FXML
     private Label MsgLable;
     @FXML
-    private Pane PDealerPane;
-    @FXML
-    private HBox vbxDealerHand;
-    private SimpleStringProperty FlPath;
-    private SimpleBooleanProperty HideBidWindow;
-    @FXML
     private Button btnStartRound;
-    @FXML
-    private Label pPlayerBid1;
-    @FXML
-    private Label pPlayerBid2;
-    @FXML
-    private Label pPlayerBid22;
-    @FXML
-    private Label pPlayerBid3;
-    @FXML
-    private Label pPlayerBid32;
-    @FXML
-    private Label pPlayerBid4;
-    @FXML
-    private Label pPlayerBid42;
-    @FXML
-    private Label pPlayerBid5;
-    @FXML
-    private Label pPlayerBid52;
-    @FXML
-    private Label pPlayerBid6;
-    @FXML
-    private Label pPlayerBid62;
     @FXML
     private Button btnPlayerContinue;
     @FXML
     private Button btnPlayerExit;
     @FXML
     private Label lblPlayerEndRound;
-    
-    private SimpleBooleanProperty DoesPlayerContinue;
-    private SimpleBooleanProperty GameEnded;
-    @FXML
-    private Label lblPlayerMoney1;
-    @FXML
-    private Label pPlayerBid12;
-    @FXML
-    private Label lblPlayerMessage1;
-    @FXML
-    private Label lblPlayerMoney2;
-    @FXML
-    private Label lblPlayerMessage2;
-    @FXML
-    private Label lblPlayerMoney3;
-    @FXML
-    private Label lblPlayerMessage3;
-    @FXML
-    private Label lblPlayerMoney4;
-    @FXML
-    private Label lblPlayerMessage4;
-    @FXML
-    private Label lblPlayerMoney5;
-    @FXML
-    private Label lblPlayerMessage5;
-    @FXML
-    private Label lblPlayerMoney6;
-    @FXML
-    private Label lblPlayerMessage6;
-    @FXML
-    private Pane pDeckPlace1;
-    @FXML
-    private Pane pDeckPlace2;
-    @FXML
-    private Pane pDeckPlace3;
-    @FXML
-    private Pane pDeckPlace4;
-    @FXML
-    private Pane pDeckPlace5;
-    @FXML
-    private Pane pDeckPlace6;
-    @FXML
-    private Pane pDeckPlaceD;
-    @FXML
-    private Label lblDealerMessage;
     @FXML
     private Button btnSaveOption;
     @FXML
@@ -240,6 +118,7 @@ public class GameScreenController implements Initializable
         HideBidWindow = new SimpleBooleanProperty(true);
         GameEnded = new SimpleBooleanProperty();
     }  
+    
     public SimpleBooleanProperty GetHideBidWindow()
     {
         return HideBidWindow;
@@ -249,6 +128,7 @@ public class GameScreenController implements Initializable
     {
         return this.FlPath;
     }
+    
     public void ChangeVisibleAction()
     {
         btnDouble.setVisible(!btnDouble.isVisible());
@@ -287,9 +167,9 @@ public class GameScreenController implements Initializable
     
     
     public void setBJGame(GameEngine BJGame) {
-        this.BJGame = BJGame;
-        
+        this.BJGame = BJGame;       
     }
+    
     public void DisplayBid(Bid currBid,Player currPlayer)
     {
         try {
@@ -300,26 +180,27 @@ public class GameScreenController implements Initializable
         
         for (Bid bid : currPlayer.getBids()) {
             ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(bid);
-             Players.get(currPlayer).ClearGlowHandInfo(bid);
-
+            
+            Players.get(currPlayer).ClearGlowHandInfo(bid);
         }
         
         Players.get(currPlayer).GlowHandInfo(currBid);
     }
+    
     public void DisplayHand(Hand currHand,GameParticipant currPlayer)
     {
          Players.get(currPlayer).PrintHandInfo(currHand);   
     }
+    
     public void DisplayPlayer(Player dispPlayer)
-    {
-       
+    {       
         for (Entry<GameParticipant, ParticipantContainer> entry: Players.entrySet()){
             entry.getValue().ClearEffects();
         }
-      //  Boolean IsHuman = dispPlayer instanceof HumanPlayer;
+
         Players.get(dispPlayer).PrintPlayerInfo(dispPlayer);
-     //   PlayerView plView = new PlayerView(dispPlayer.getName(), IsHuman);
     }
+    
     public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
         return plAction;
     }
@@ -336,8 +217,7 @@ public class GameScreenController implements Initializable
                                 new FileChooser.ExtensionFilter("XML Files", "*.xml"));
         File flToSave = flChose.showSaveDialog(apPlayer1.getScene().getWindow());
         
-        this.FlPath.set(flToSave.getPath() + ".xml");
-       
+        this.FlPath.set(flToSave.getPath() + ".xml");      
     }
     
     @FXML
@@ -506,8 +386,6 @@ public class GameScreenController implements Initializable
         return DoesPlayerContinue;
     }
 
-
-
     @FXML
     private void PlayerContGame(ActionEvent event) {
         
@@ -575,6 +453,5 @@ public class GameScreenController implements Initializable
         btnSaveOption.setVisible(false);
         btnSaveOption.toBack();
     }
-    
-    
+       
 }

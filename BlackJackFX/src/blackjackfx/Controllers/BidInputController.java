@@ -11,8 +11,6 @@ import EngineLogic.Player;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.FadeTransitionBuilder;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -63,8 +61,7 @@ public class BidInputController implements Initializable {
         SdeventChange = new SlideBarChange();
         TxteventChange = new TextBoxValueChange();
         SdBidAmount.valueProperty().addListener(SdeventChange);
-        Amount.textProperty().addListener(TxteventChange);
-       
+        Amount.textProperty().addListener(TxteventChange);      
     }    
     
     public SimpleDoubleProperty GetNumberBid()
@@ -83,8 +80,7 @@ public class BidInputController implements Initializable {
         SdBidAmount.setMinorTickCount(50);
         SdBidAmount.setBlockIncrement(10);
         SdBidAmount.setValue(1.0);
-        
-        
+               
         Amount.setText(Integer.toString((int)SdBidAmount.getValue()));
     }
     
@@ -94,17 +90,15 @@ public class BidInputController implements Initializable {
         {
             this.dblAmount.set(SdBidAmount.getValue());
             this.dblAmount.notify();
-        }
-        
+        }      
     }
     
-        private void UpdateText(DragEvent event) {
+    private void UpdateText(DragEvent event) {
         Amount.setText(Double.toString(SdBidAmount.getValue()));
     }
     
     public class SlideBarChange implements ChangeListener<Number>
     {
-
         @Override
         public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) 
         {
@@ -115,13 +109,11 @@ public class BidInputController implements Initializable {
             Amount.textProperty().addListener(TxteventChange);
             SdBidAmount.valueProperty().addListener(SdeventChange);
             btnFinish.setDisable(false);
-        }
-        
+        }      
     }
     
     public class TextBoxValueChange implements ChangeListener<String>
     {
-
         @Override
         public void changed(ObservableValue<? extends String> ov, String t, String t1) 
         {
@@ -145,9 +137,9 @@ public class BidInputController implements Initializable {
                 
             }
             SdBidAmount.valueProperty().addListener(SdeventChange);
-        }
-        
+        }       
     }
+    
     private void showError(String message) 
     {
         lblError.textProperty().setValue(message);

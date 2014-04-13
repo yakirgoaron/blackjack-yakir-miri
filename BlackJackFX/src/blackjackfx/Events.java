@@ -13,14 +13,13 @@ import EngineLogic.GameEngine;
 import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
 import EngineLogic.Player;
+import GameEnums.SaveOptions;
 import blackjackfx.Controllers.GameScreenController;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 

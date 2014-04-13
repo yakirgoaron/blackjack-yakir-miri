@@ -6,35 +6,21 @@
 
 package blackjackfx;
 
-import EngineLogic.Bid;
 import EngineLogic.Card;
-import EngineLogic.CompPlayer;
 import EngineLogic.Hand;
 import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
-import java.util.Set;
-import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
-import javafx.scene.effect.InnerShadow;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -70,6 +56,7 @@ public class ParticipantContainer
         lblMessage.getStyleClass().add("PlayerMessage");
         pDeckPane = CardsDeck;
     }
+    
     public ParticipantContainer(HBox Hand, Pane PlayerImage, Label Message, Pane CardsDeck){
         this.ParticipantImage = PlayerImage;
         Hands = new LinkedList<>();
@@ -88,7 +75,6 @@ public class ParticipantContainer
         ParticipantImage.getChildren().add(pl);
         Bloom bl = new Bloom(0.00001);
         bl.setInput(new DropShadow(25.0, Color.RED));
-        //ParticipantImage.setEffect(new DropShadow(25.0, Color.RED));
         ParticipantImage.setEffect( bl);
         
     }
@@ -98,18 +84,14 @@ public class ParticipantContainer
         if(!HandView.containsKey(currHand))
         {
             Pane Player = Hands.remove();
-            HandView.put(currHand, Player);
-            
+            HandView.put(currHand, Player);           
         }
         addcards(currHand);
     }
     
     public void GlowHandInfo(Hand currHand)
     {
-       // Bloom bl = new Bloom(0.9);
-        //bl.setInput(new DropShadow(25.0, Color.RED));
         HandView.get(currHand).setEffect(new DropShadow(100.0, Color.YELLOW));
-       // HandView.get(currHand).setEffect(bl);
     }
     
     public void ClearGlowHandInfo(Hand currHand)
@@ -119,8 +101,7 @@ public class ParticipantContainer
     }
     
     private void addcards(Hand currHand)
-    {
-        
+    {      
         Pane curr = HandView.get(currHand);        
         ArrayList<Card> HandCards = currHand.getCards();
          
@@ -135,9 +116,7 @@ public class ParticipantContainer
             if(!curr.getChildren().contains(cd))
             {
                 cd.setVisible(false);
-                //Pane Temp = DuplicatePane(pDeckPane);
                 pDeckPane.getChildren().add(new CardView(curCard));
-                //Temp.getChildren().add(new CardView(curCard));
                 PullCardUI(curr,cd,pDeckPane);
                 curr.getChildren().add(cd);
              }
@@ -163,11 +142,9 @@ public class ParticipantContainer
                 pToMove.getChildren().clear();
             }
         });
-        translateTransition.play();
-        
-        
-        
+        translateTransition.play();          
     }
+    
     public void ClearCards() {
         for (Entry<Hand,Pane> entry: HandView.entrySet()) {       
             entry.getValue().getChildren().clear();            
@@ -180,14 +157,11 @@ public class ParticipantContainer
     }
 
     public void ClearEffects() {
-        if (ParticipantImage.getStyleClass().contains("PlayerFocus"))
-            ParticipantImage.getStyleClass().remove("PlayerFocus");
-        for (Entry<Hand, Pane> entry : HandView.entrySet()) {
-            
-            entry.getValue().setEffect(null);
-            
+    
+        for (Entry<Hand, Pane> entry : HandView.entrySet()) {         
+            entry.getValue().setEffect(null);         
         }
-       ParticipantImage.setEffect(null);
+        ParticipantImage.setEffect(null);
     }
 
     public void RemovePlayer() {
