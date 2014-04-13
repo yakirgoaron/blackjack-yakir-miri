@@ -9,6 +9,7 @@ package blackjackfx;
 import EngineLogic.Bid;
 import EngineLogic.Communicable;
 import EngineLogic.CompPlayer;
+import EngineLogic.Dealer;
 import EngineLogic.GameEngine;
 import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
@@ -235,7 +236,7 @@ public class Events extends Thread implements Communicable
                 {
                     scControoler.DisplayHand(HandForPrint, ParPlayer);
                 }});
-            if(ParPlayer instanceof CompPlayer)
+            if(ParPlayer instanceof CompPlayer || ParPlayer instanceof Dealer)
                 Thread.sleep(2100);
         } catch (InterruptedException ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
