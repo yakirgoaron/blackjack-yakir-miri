@@ -220,9 +220,9 @@ public class GameScreenController implements Initializable
             flToSave = flChose.showSaveDialog(apPlayer1.getScene().getWindow());
         
         if(flToSave.getPath().endsWith(".xml"))         
-            this.FlPath.set(flToSave.getPath() + ".xml");      
-        else
             this.FlPath.set(flToSave.getPath());      
+        else
+            this.FlPath.set(flToSave.getPath() + ".xml");      
     }
     
     @FXML
