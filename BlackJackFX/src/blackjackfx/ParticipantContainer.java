@@ -86,9 +86,11 @@ public class ParticipantContainer
     {
         PlayerView pl = new PlayerView(plToPrint.getName(), plToPrint instanceof HumanPlayer);
         ParticipantImage.getChildren().add(pl);
+        Bloom bl = new Bloom(0.00001);
+        bl.setInput(new DropShadow(25.0, Color.RED));
+        //ParticipantImage.setEffect(new DropShadow(25.0, Color.RED));
+        ParticipantImage.setEffect( bl);
         
-        ParticipantImage.setEffect(new DropShadow(25.0, Color.RED));
-        //ParticipantImage.getStyleClass().add("PlayerFocus");
     }
     
     public void PrintHandInfo(Hand currHand)
@@ -104,7 +106,10 @@ public class ParticipantContainer
     
     public void GlowHandInfo(Hand currHand)
     {
-        HandView.get(currHand).setEffect(new DropShadow(25.0, Color.RED));
+        Bloom bl = new Bloom(0.9);
+        bl.setInput(new DropShadow(25.0, Color.RED));
+        //HandView.get(currHand).setEffect(new DropShadow(25.0, Color.RED));
+        HandView.get(currHand).setEffect(bl);
     }
     
     public void ClearGlowHandInfo(Hand currHand)
