@@ -9,7 +9,10 @@
 #AnchorPane{
     -fx-background-image: url('/blackjackfx/resources/Images/Background/bj_background.jpg');
 }
-
+#lblError
+{
+    -fx-text-fill: red;
+}
 .button {
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
