@@ -142,9 +142,10 @@ public class CreatePlayersScreenController implements Initializable {
         {
             if(IsHuman)
             {
+                PlayerName = TextName.getText();
                 BjGame.AddPlayer(PlayerName);
                 HumanPlayersCounter++;
-                PlayerName = TextName.getText();
+                
                 
             }
             else
