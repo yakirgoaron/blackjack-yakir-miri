@@ -22,11 +22,21 @@
     
     
 }
-
+.list-cell{
+    -fx-text-fill: white;
+}
 .button:hover{
  -fx-background-color: linear-gradient(#cc6600,#cc9900);   
 }
 
+.text-field{
+    -fx-border-color: linear-gradient(#cc9900,#cc6600);
+    -fx-border-width: 2px;
+}
+
+.combo-box .arrow{
+    -fx-background-color: linear-gradient(#cc9900,#cc6600);
+}
 
 #AnchorPane{
     -fx-background-image: url('/blackjackfx/resources/Images/Background/bj_background.jpg');
