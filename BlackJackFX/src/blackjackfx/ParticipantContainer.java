@@ -98,7 +98,7 @@ public class ParticipantContainer
     
     public void GlowHandInfo(Hand currHand)
     {
-        HandView.get(currHand).setEffect(new DropShadow(100.0, Color.YELLOW));
+        HandView.get(currHand).setEffect(new DropShadow(35.0, Color.YELLOW));
     }
     
     public void ClearGlowHandInfo(Hand currHand)
