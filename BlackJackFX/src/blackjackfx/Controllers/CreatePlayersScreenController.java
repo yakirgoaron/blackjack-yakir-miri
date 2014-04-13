@@ -110,11 +110,14 @@ public class CreatePlayersScreenController implements Initializable {
     }
     
     private void onPlayerNameChanged() {
-        if (TextName.getText().isEmpty())
+        TextName.setText(TextName.getText().trim());
+        if (TextName.getText().isEmpty() && cbPlayerType.getValue().toString().equals("Human"))
             BtnAdd.disableProperty().set(true); 
         else
+        {
             HandleLength();
             BtnAdd.disableProperty().set(false); 
+        }
     }
     
     private void HandleLength() {
@@ -139,14 +142,16 @@ public class CreatePlayersScreenController implements Initializable {
         {
             if(IsHuman)
             {
+                BjGame.AddPlayer(PlayerName);
                 HumanPlayersCounter++;
                 PlayerName = TextName.getText();
-                BjGame.AddPlayer(PlayerName);
+                
             }
             else
             {
-                CompPlayersCounter++;
                 BjGame.AddPlayer();
+                CompPlayersCounter++;
+                
             }
             
             PlayerView playerView = new PlayerView(PlayerName, this.IsHuman);

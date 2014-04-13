@@ -22,7 +22,7 @@
         <Image url="@resources/Images/Background/premium_classic_bj_ss123.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <Pane id="pDealerPane" fx:id="PDealerPane" layoutX="628.0" layoutY="61.0" prefHeight="100.0" prefWidth="120.0" />
+    <Pane id="pDealerPane" fx:id="PDealerPane" layoutX="628.0" layoutY="61.0" prefHeight="75.0" prefWidth="70.0" />
     <Button fx:id="btnStartRound" layoutX="44.0" layoutY="2.0" mnemonicParsing="false" onAction="#StartRound" prefHeight="24.0" prefWidth="100.0" text="Start Round" />
     <Button fx:id="btnDouble" layoutX="479.0" layoutY="283.0" mnemonicParsing="false" onAction="#DoublePress" text="Double" />
     <Button fx:id="btnHit" layoutX="481.0" layoutY="324.0" mnemonicParsing="false" onAction="#HitPress" prefWidth="59.0" text="Hit" />
