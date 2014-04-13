@@ -57,9 +57,10 @@ public class BlackJackFXApp extends Application {
         public void changed(ObservableValue<? extends MainMenu> ov, MainMenu oldValue, MainMenu NewValue)  {
             
 
-            
-            switch (NewValue)
-               {
+            if(NewValue != null)
+            {
+                switch (NewValue)
+                {
                    case NEW_GAME:
                    {
                       
@@ -93,8 +94,8 @@ public class BlackJackFXApp extends Application {
                         } 
                         break;
                    }
-                   
-               }
+                }
+              }
            }      
     }
     
