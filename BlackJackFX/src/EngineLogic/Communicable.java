@@ -61,8 +61,27 @@ public interface Communicable
         }       
     }
     
+    public static enum SaveOptions{
+        SAVE("Save Game"), SAVE_AS("Save As");
+        
+        private final String Description;
+        private static final int Size = SaveOptions.values().length;
+        
+        SaveOptions(String Description){
+            this.Description = Description;
+        }
+
+        public String getDescription() {
+            return Description;
+        }
+
+        public static int getSize() {
+            return Size;
+        }      
+    }
+    
     public boolean DoesPlayerContinue(Player player);
-    public String getFilePathForSave();
+    public String GetFilePathForSave();
     public PlayerAction GetWantedAction();
     public void PrintPlayerInfo(Player PlayerToPrint);
     public void PrintBasicPlayerInfo(Player PlayerToPrint);

@@ -10,7 +10,7 @@
 <?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet resources/CSS/gamescreen.css?>
 
-<AnchorPane id="AnchorPane" minHeight="657.0" minWidth="991.0" prefHeight="683.0" prefWidth="999.999977929685" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="blackjackfx.Controllers.GameScreenController">
+<AnchorPane id="AnchorPane" minHeight="657.0" minWidth="991.0" prefHeight="683.0" prefWidth="999.999977929685" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="blackjackfx.Controllers.GameScreenController">
   <children>
     <Label fx:id="lblPlayerEndRound" layoutX="447.0" layoutY="283.0" prefHeight="57.0" prefWidth="111.0" text="Label" textFill="WHITE">
       <font>
@@ -139,6 +139,8 @@
     <Pane fx:id="pDeckPlace6" layoutX="782.0" layoutY="8.0" prefHeight="103.0" prefWidth="78.0" rotate="118.0" />
     <Pane fx:id="pDeckPlaceD" layoutX="780.0" layoutY="4.0" prefHeight="103.0" prefWidth="78.0" rotate="118.0" />
     <Label fx:id="lblDealerMessage" layoutX="428.0" layoutY="64.0" prefHeight="25.0" prefWidth="135.0" text="" />
+    <Button fx:id="btnSaveOption" layoutX="466.0" layoutY="473.0" mnemonicParsing="false" onAction="#SaveOptionPress" text="Save" />
+    <Button fx:id="btnSaveAsOption" layoutX="465.0" layoutY="508.0" mnemonicParsing="false" onAction="#SaveAsOptionPress" text="Save As" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/gamescreen.css" />

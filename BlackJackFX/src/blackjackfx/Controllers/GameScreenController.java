@@ -10,6 +10,7 @@ import EngineLogic.Bid;
 import EngineLogic.Communicable;
 import EngineLogic.Communicable.PlayerAction;
 import EngineLogic.Communicable.RoundAction;
+import EngineLogic.Communicable.SaveOptions;
 import EngineLogic.GameEngine;
 import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
@@ -68,6 +69,7 @@ public class GameScreenController implements Initializable
     private Button btnStay;
     private HashMap<GameParticipant, ParticipantContainer> Players;
     private SimpleObjectProperty<PlayerAction> plAction;
+    private SimpleObjectProperty<SaveOptions> plSave;
     private SimpleObjectProperty<RoundAction> RoundChoice;
     @FXML
     private Button btnContinue;
@@ -135,8 +137,6 @@ public class GameScreenController implements Initializable
     @FXML
     private Button btnStartRound;
     @FXML
-    private Label pPlayerBid21;
-    @FXML
     private Label pPlayerBid1;
     @FXML
     private Label pPlayerBid2;
@@ -167,6 +167,52 @@ public class GameScreenController implements Initializable
     
     private SimpleBooleanProperty DoesPlayerContinue;
     private SimpleBooleanProperty GameEnded;
+    @FXML
+    private Label lblPlayerMoney1;
+    @FXML
+    private Label pPlayerBid12;
+    @FXML
+    private Label lblPlayerMessage1;
+    @FXML
+    private Label lblPlayerMoney2;
+    @FXML
+    private Label lblPlayerMessage2;
+    @FXML
+    private Label lblPlayerMoney3;
+    @FXML
+    private Label lblPlayerMessage3;
+    @FXML
+    private Label lblPlayerMoney4;
+    @FXML
+    private Label lblPlayerMessage4;
+    @FXML
+    private Label lblPlayerMoney5;
+    @FXML
+    private Label lblPlayerMessage5;
+    @FXML
+    private Label lblPlayerMoney6;
+    @FXML
+    private Label lblPlayerMessage6;
+    @FXML
+    private Pane pDeckPlace1;
+    @FXML
+    private Pane pDeckPlace2;
+    @FXML
+    private Pane pDeckPlace3;
+    @FXML
+    private Pane pDeckPlace4;
+    @FXML
+    private Pane pDeckPlace5;
+    @FXML
+    private Pane pDeckPlace6;
+    @FXML
+    private Pane pDeckPlaceD;
+    @FXML
+    private Label lblDealerMessage;
+    @FXML
+    private Button btnSaveOption;
+    @FXML
+    private Button btnSaveAsOption;
 
     /**
      * Initializes the controller class.
@@ -180,10 +226,13 @@ public class GameScreenController implements Initializable
         btnContinue.setVisible(false);
         btnSaveGame.setVisible(false);
         btnExitGame.setVisible(false);
+        btnSaveOption.setVisible(false);
+        btnSaveAsOption.setVisible(false);
         btnPlayerContinue.setVisible(false);
         btnPlayerExit.setVisible(false);
         lblPlayerEndRound.setVisible(false);
         plAction = new SimpleObjectProperty<>();
+        plSave = new SimpleObjectProperty<>();
         DoesPlayerContinue = new SimpleBooleanProperty();
         RoundChoice = new SimpleObjectProperty<>();
         FlPath = new SimpleStringProperty();
@@ -488,5 +537,44 @@ public class GameScreenController implements Initializable
     public void PrintPlayerMessage(GameParticipant ParPlayer, String Message) {
         Players.get(ParPlayer).PrintMessage(Message);
     }
+
+    public SimpleObjectProperty<SaveOptions> getPlayerSaveType() {
+        return plSave;
+    }
+
+    public void ShowSaveOptions() {
+        btnSaveAsOption.setVisible(true);
+        btnSaveAsOption.toFront();
+        btnSaveOption.setVisible(true);
+        btnSaveOption.toFront();
+    }
+
+    @FXML
+    private void SaveOptionPress(ActionEvent event) {
+        synchronized(plSave)
+        {
+            plSave.set(SaveOptions.SAVE);
+            plSave.notify();
+        }
+        ChangeVisibleSaveOptions();
+    }
+
+    @FXML
+    private void SaveAsOptionPress(ActionEvent event) {
+        synchronized(plSave)
+        {
+            plSave.set(SaveOptions.SAVE_AS);
+            plSave.notify();
+        }
+        ChangeVisibleSaveOptions();
+    }
+
+    private void ChangeVisibleSaveOptions() {
+        btnSaveAsOption.setVisible(false);
+        btnSaveAsOption.toBack();
+        btnSaveOption.setVisible(false);
+        btnSaveOption.toBack();
+    }
+    
     
 }

@@ -33,6 +33,7 @@ public class Events extends Thread implements Communicable
     private GameEngine BJGame;
     private GameScreenController scControoler;
     private SimpleBooleanProperty GameEnded;
+    private String FilePath;
     
     public Events(GameEngine BJGame,GameScreenController Controller)
     {
@@ -88,10 +89,45 @@ public class Events extends Thread implements Communicable
     }
    
     @Override
-    public String getFilePathForSave() 
+    public String GetFilePathForSave() 
     {
-        scControoler.GetFilePathToSave();
-        return scControoler.GetPath().get();
+       SaveOptions UserChoice;
+        
+        if (FilePath == null){
+            scControoler.GetFilePathToSave();
+            FilePath = scControoler.GetPath().get();
+        }
+        else {
+            UserChoice = SaveOrSaveAs();
+            
+            if (UserChoice.equals(SaveOptions.SAVE_AS)){
+                scControoler.GetFilePathToSave();
+                FilePath = scControoler.GetPath().get();
+            }           
+        }       
+        return FilePath;
+    }
+    
+    private SaveOptions SaveOrSaveAs() {       
+        
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    scControoler.ShowSaveOptions();
+                                }});    
+        
+        try 
+        {
+            synchronized(scControoler.getPlayerSaveType())
+            {               
+                scControoler.getPlayerSaveType().wait();
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return scControoler.getPlayerSaveType().get();
     }
 
     @Override
@@ -262,5 +298,5 @@ public class Events extends Thread implements Communicable
                                      scControoler.PrintPlayerMessage(ParPlayer, Message);
                                 }});
     }
-    
+   
 }

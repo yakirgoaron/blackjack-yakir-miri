@@ -106,10 +106,10 @@ public class ParticipantContainer
     
     public void GlowHandInfo(Hand currHand)
     {
-        Bloom bl = new Bloom(0.9);
-        bl.setInput(new DropShadow(25.0, Color.RED));
-        //HandView.get(currHand).setEffect(new DropShadow(25.0, Color.RED));
-        HandView.get(currHand).setEffect(bl);
+       // Bloom bl = new Bloom(0.9);
+        //bl.setInput(new DropShadow(25.0, Color.RED));
+        HandView.get(currHand).setEffect(new DropShadow(100.0, Color.YELLOW));
+       // HandView.get(currHand).setEffect(bl);
     }
     
     public void ClearGlowHandInfo(Hand currHand)

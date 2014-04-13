@@ -298,7 +298,7 @@ public class GameEngine
             InitAndDealCards(commInterface);
             NewRoundAction = commInterface.GetFinishRoundAction();
             if(NewRoundAction.equals(RoundAction.SAVE_GAME))
-                XMLJAXBWrite(commInterface.getFilePathForSave());
+                XMLJAXBWrite(commInterface.GetFilePathForSave());
         }
         
         if (GamePlayers.isEmpty())
