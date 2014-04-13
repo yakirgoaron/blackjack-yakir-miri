@@ -122,7 +122,7 @@ public class BidInputController implements Initializable {
             {
                 int Temp = Integer.parseInt(t1);
                 
-                if(Temp > plCurrent.getMoney())
+                if(Temp > plCurrent.getMoney() || Temp < 0)
                     throw new TooLowMoneyException();
                 SdBidAmount.setValue(Temp);                
                 lblError.textProperty().setValue("");
