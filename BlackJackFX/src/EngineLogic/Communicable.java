@@ -70,7 +70,6 @@ public interface Communicable
     public Double GetBidForPlayer(Player BettingPlayer);    
     public void PrintBidInfo(Bid BidForPrint, Player PlayerBid);
     public void PrintHandInfo(Hand HandForPrint,GameParticipant ParPlayer);
-    public void PrintParticipnatName(GameParticipant PartToPrint);
     public void PrintMessage(String Message);
     
 }

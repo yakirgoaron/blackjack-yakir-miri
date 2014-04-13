@@ -194,11 +194,14 @@ public class GameScreenController implements Initializable
     
     public void DisplayPlayer(Player dispPlayer)
     {       
+        ClearEffects();
+        Players.get(dispPlayer).PrintPlayerInfo(dispPlayer);
+    }
+    
+    public void ClearEffects(){
         for (Entry<GameParticipant, ParticipantContainer> entry: Players.entrySet()){
             entry.getValue().ClearEffects();
         }
-
-        Players.get(dispPlayer).PrintPlayerInfo(dispPlayer);
     }
     
     public SimpleObjectProperty<PlayerAction> getPlayerActionType() {

@@ -76,10 +76,14 @@ public class ParticipantContainer
     {
         PlayerView pl = new PlayerView(plToPrint.getName(), plToPrint instanceof HumanPlayer);
         ParticipantImage.getChildren().add(pl);
+        SetParticipantEffect();
+    }
+    
+    public void SetParticipantEffect()
+    {
         Bloom bl = new Bloom(0.00001);
         bl.setInput(new DropShadow(25.0, Color.RED));
-        ParticipantImage.setEffect( bl);
-        
+        ParticipantImage.setEffect( bl);  
     }
     
     public void PrintHandInfo(Hand currHand)

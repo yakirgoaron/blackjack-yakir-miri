@@ -46,10 +46,6 @@
  -fx-background-image: url('/blackjackfx/resources/Images/Background/game_screen.jpg');   
     
 }
-#pDealerPane
-{
-    -fx-background-image: url('/blackjackfx/resources/Images/players/Dealer.png');
-}
 
 .TENCLUBS{
  -fx-image: url('/blackjackfx/resources/Images/Cards/10Clubs.png');   

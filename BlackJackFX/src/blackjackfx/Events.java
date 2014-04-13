@@ -244,11 +244,6 @@ public class Events extends Thread implements Communicable
     }
 
     @Override
-    public void PrintParticipnatName(GameParticipant PartToPrint) {
-        //todo
-    }
-
-    @Override
     public void PrintMessage(final String Message) {
         Platform.runLater(new Runnable(){
                                 @Override
