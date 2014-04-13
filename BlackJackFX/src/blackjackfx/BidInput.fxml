@@ -19,6 +19,7 @@
     <Label layoutX="13.0" layoutY="17.0" text="Player" />
     <Label fx:id="lblPlayerMoney" layoutX="95.0" layoutY="40.0" text="Label" />
     <Label layoutX="13.0" layoutY="40.0" text="Total Money" />
+    <Label fx:id="lblError" layoutX="20.0" layoutY="94.0" prefWidth="329.0" text="" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/bidinput.css" />

@@ -6,10 +6,15 @@
 
 package blackjackfx.Controllers;
 
+import EngineLogic.Exception.TooLowMoneyException;
 import EngineLogic.Player;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
+import javafx.animation.FadeTransitionBuilder;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -44,6 +50,8 @@ public class BidInputController implements Initializable {
     private TextBoxValueChange TxteventChange;
     @FXML
     private Label lblPlayerMoney;
+    @FXML
+    private Label lblError;
     
     /**
      * Initializes the controller class.
@@ -56,6 +64,7 @@ public class BidInputController implements Initializable {
         TxteventChange = new TextBoxValueChange();
         SdBidAmount.valueProperty().addListener(SdeventChange);
         Amount.textProperty().addListener(TxteventChange);
+       
     }    
     
     public SimpleDoubleProperty GetNumberBid()
@@ -76,7 +85,7 @@ public class BidInputController implements Initializable {
         SdBidAmount.setValue(1.0);
         
         
-        Amount.setText(Double.toString(SdBidAmount.getValue()));
+        Amount.setText(Integer.toString((int)SdBidAmount.getValue()));
     }
     
     @FXML
@@ -100,8 +109,12 @@ public class BidInputController implements Initializable {
         public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) 
         {
             Amount.textProperty().removeListener(TxteventChange);
-            Amount.setText(new DecimalFormat("####.##").format(SdBidAmount.getValue()));
+            SdBidAmount.valueProperty().removeListener(SdeventChange);
+            Amount.setText(new DecimalFormat("####").format(SdBidAmount.getValue()));
+            SdBidAmount.setValue(((int)SdBidAmount.getValue()));
             Amount.textProperty().addListener(TxteventChange);
+            SdBidAmount.valueProperty().addListener(SdeventChange);
+            btnFinish.setDisable(false);
         }
         
     }
@@ -113,10 +126,40 @@ public class BidInputController implements Initializable {
         public void changed(ObservableValue<? extends String> ov, String t, String t1) 
         {
             SdBidAmount.valueProperty().removeListener(SdeventChange);
-            SdBidAmount.setValue(Double.valueOf(t));
+            try
+            {
+                int Temp = Integer.parseInt(t1);
+                
+                if(Temp > plCurrent.getMoney())
+                    throw new TooLowMoneyException();
+                SdBidAmount.setValue(Temp);                
+                lblError.textProperty().setValue("");
+                btnFinish.setDisable(false);
+            }
+            catch (NumberFormatException e) 
+            {
+                showError("Only Netural numbers allowed");
+                
+            } catch (TooLowMoneyException ex) {
+                showError("Cant bid more than max");
+                
+            }
             SdBidAmount.valueProperty().addListener(SdeventChange);
         }
         
+    }
+    private void showError(String message) 
+    {
+        lblError.textProperty().setValue(message);
+        FadeTransition animation = FadeTransitionBuilder.create()
+                    .node(lblError)
+                    .duration(Duration.seconds(0.3))
+                    .fromValue(0.0)
+                    .toValue(1.0)
+                    .build();
+                 animation.play();
+       btnFinish.setDisable(true);
+            
     }
     
 }
