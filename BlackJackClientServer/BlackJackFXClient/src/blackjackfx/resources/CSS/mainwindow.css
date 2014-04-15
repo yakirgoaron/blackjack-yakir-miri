@@ -1,0 +1,23 @@
+/* 
+    Document   : newCascadeStyleSheet
+    Created on : 17/03/2014, 14:20:57
+    Author     : miri
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.button {
+ -fx-background-color: transparent;          
+}
+
+#ErrorMessage
+{
+    -fx-alignment: center;
+    -fx-text-fill: red;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    
+}
+
+
+
