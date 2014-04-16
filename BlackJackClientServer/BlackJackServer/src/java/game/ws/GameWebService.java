@@ -49,8 +49,7 @@ public class GameWebService {
     }
 
     public ws.blackjack.GameDetails getGameDetails(java.lang.String gameName) throws GameDoesNotExists_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.GetGameDetails(gameName);
     }
 
     public java.util.List<java.lang.String> getWaitingGames() {
