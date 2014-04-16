@@ -28,7 +28,7 @@
     </target>
     <target name="wsimport-service-BlackJackWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/BlackJackWS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/BlackJackWS" destdir="${build.generated.dir}/jax-wsCache/service/BlackJackWS" wsdl="${basedir}/${conf-dir}xml-resources/web-services/BlackJackWS/wsdl/BlackJackWebService.wsdl" catalog="catalog.xml" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/BlackJackWS" destdir="${build.generated.dir}/jax-wsCache/service/BlackJackWS" wsdl="${basedir}/${conf-dir}xml-resources/web-services/BlackJackWS/wsdl/BlackJackWebService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-services/BlackJackWS/wsdl/BlackJackWebService.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/BlackJackWS"/>
         </wsimport>
