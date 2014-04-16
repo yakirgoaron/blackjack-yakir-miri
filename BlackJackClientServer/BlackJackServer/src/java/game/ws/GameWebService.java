@@ -17,7 +17,7 @@ import ws.blackjack.InvalidXML_Exception;
  * @author Yakir
  */
 @WebService(serviceName = "BlackJackWebService", portName = "BlackJackWebServicePort", endpointInterface = "ws.blackjack.BlackJackWebService", targetNamespace = "http://blackjack.ws/", wsdlLocation = "WEB-INF/wsdl/NewWebServiceFromWSDL/BlackJackWebService.wsdl")
-public class NewWebServiceFromWSDL {
+public class GameWebService {
 
     public java.util.List<ws.blackjack.Event> getEvents(int playerId, int eventId) throws InvalidParameters_Exception {
         //TODO implement this method
