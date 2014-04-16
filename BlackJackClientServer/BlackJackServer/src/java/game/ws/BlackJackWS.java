@@ -25,13 +25,11 @@ public class BlackJackWS {
     }
 
     public void createGame(java.lang.String name, int humanPlayers, int computerizedPlayers) throws InvalidParameters_Exception, DuplicateGameName_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        EngineManager.CreateGame(name, humanPlayers, computerizedPlayers);
     }
 
     public int joinGame(java.lang.String gameName, float money) throws GameDoesNotExists_Exception, InvalidParameters_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.PlayerJoinGame(gameName, money);
     }
 
     public void playerAction(int playerId, int eventId, ws.blackjack.Action action, float bet) throws InvalidParameters_Exception {
@@ -44,14 +42,13 @@ public class BlackJackWS {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public java.lang.String createGameFromXML(java.lang.String xmlData) throws DuplicateGameName_Exception, InvalidXML_Exception, InvalidParameters_Exception {
+    public java.lang.String createGameFromXML(java.lang.String xmlData) throws InvalidParameters_Exception, InvalidXML_Exception, DuplicateGameName_Exception {
         //TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     public ws.blackjack.GameDetails getGameDetails(java.lang.String gameName) throws GameDoesNotExists_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.GetGameDetails(gameName);
     }
 
     public java.util.List<java.lang.String> getWaitingGames() {
@@ -70,8 +67,7 @@ public class BlackJackWS {
     }
 
     public ws.blackjack.PlayerDetails getPlayerDetails(java.lang.String gameName, int playerId) throws GameDoesNotExists_Exception, InvalidParameters_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.GetPlayerDetails(playerId);
     }
     
 }
