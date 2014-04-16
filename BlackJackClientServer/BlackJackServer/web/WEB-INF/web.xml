@@ -8,9 +8,27 @@
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>BlackJackWS</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>NewWebServiceFromWSDL</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>BlackJackWebService</servlet-name>
         <url-pattern>/BlackJackWebService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlackJackWS</servlet-name>
+        <url-pattern>/BlackJackWS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewWebServiceFromWSDL</servlet-name>
+        <url-pattern>/NewWebServiceFromWSDL</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
