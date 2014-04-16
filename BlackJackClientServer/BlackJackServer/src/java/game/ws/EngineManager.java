@@ -8,6 +8,9 @@ package game.ws;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map.Entry;
 import ws.blackjack.DuplicateGameName;
 import ws.blackjack.DuplicateGameName_Exception;
 import ws.blackjack.GameDetails;
@@ -83,6 +86,29 @@ public class EngineManager {
             throw new InvalidParameterException("Error - player doesn`t exist");
     }
     
+    public static List<PlayerDetails> GetGamePlayers(String GameName) throws GameDoesNotExists_Exception{
+        
+        List<PlayerDetails> GamePlayers = new LinkedList<>();
+        
+        if (!gamemanager.containsKey(GameName))
+        {
+            GameDoesNotExists faultInfo = new GameDoesNotExists();
+            faultInfo.setMessage("Error Game Name does not exists");
+            throw new GameDoesNotExists_Exception(GameName, faultInfo);
+        }
+        else
+        {
+          for (Entry<Integer, String> entry: IdToGame.entrySet()){
+              if (entry.getValue().equals(GameName))
+              {
+                  int PlayerID = entry.getKey();
+                  GamePlayers.add(playerManager.get(PlayerID));
+              }
+          } 
+        }
+        
+        return GamePlayers;
+    }
     
     public static int PlayerJoinGame (String GameName, float Money) throws GameDoesNotExists_Exception{
         
