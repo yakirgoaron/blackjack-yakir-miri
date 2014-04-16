@@ -29,8 +29,7 @@ public class GameWebService {
     }
 
     public int joinGame(java.lang.String gameName, float money) throws GameDoesNotExists_Exception, InvalidParameters_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.PlayerJoinGame(gameName, money);
     }
 
     public void playerAction(int playerId, int eventId, ws.blackjack.Action action, float bet) throws InvalidParameters_Exception {
@@ -68,8 +67,7 @@ public class GameWebService {
     }
 
     public ws.blackjack.PlayerDetails getPlayerDetails(java.lang.String gameName, int playerId) throws GameDoesNotExists_Exception, InvalidParameters_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.GetPlayerDetails(playerId);
     }
     
 }

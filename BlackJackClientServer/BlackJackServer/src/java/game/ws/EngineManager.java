@@ -6,6 +6,7 @@
 
 package game.ws;
 
+import java.security.InvalidParameterException;
 import java.util.HashMap;
 import ws.blackjack.DuplicateGameName;
 import ws.blackjack.DuplicateGameName_Exception;
@@ -15,13 +16,19 @@ import ws.blackjack.GameDoesNotExists_Exception;
 import ws.blackjack.GameStatus;
 import ws.blackjack.InvalidParameters;
 import ws.blackjack.InvalidParameters_Exception;
+import ws.blackjack.PlayerDetails;
+import ws.blackjack.PlayerStatus;
+import ws.blackjack.PlayerType;
 
 /**
  *
  * @author Yakir
  */
 public class EngineManager {
+    static int uniqeID = 0;
     static HashMap<String,GameDetails> gamemanager = new HashMap<>();
+    static HashMap<Integer, PlayerDetails> playerManager = new HashMap<>();
+    static HashMap<Integer, String> IdToGame = new HashMap<>();
     
     private EngineManager()
     {
@@ -66,6 +73,43 @@ public class EngineManager {
         }
         
         return gamemanager.get(name);
+    }
+    
+    public static PlayerDetails GetPlayerDetails(int PlayerId){
+        
+        if (playerManager.containsKey(PlayerId))      
+            return playerManager.get(PlayerId);      
+        else
+            throw new InvalidParameterException("Error - player doesn`t exist");
+    }
+    
+    
+    public static int PlayerJoinGame (String GameName, float Money) throws GameDoesNotExists_Exception{
+        
+        if (!gamemanager.containsKey(GameName))
+        {
+            GameDoesNotExists faultInfo = new GameDoesNotExists();
+            faultInfo.setMessage("Error Game Name does not exists");
+            throw new GameDoesNotExists_Exception(GameName, faultInfo);
+        }
+        else
+        {
+            uniqeID++;
+            
+            GameDetails Game = gamemanager.get(GameName);
+            
+            PlayerDetails player = new PlayerDetails();
+            player.setMoney(Money);
+            player.setType(PlayerType.HUMAN);
+            player.setStatus(PlayerStatus.ACTIVE);
+            player.setName("TODO");
+            
+            Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
+            
+            playerManager.put(uniqeID, player);
+            IdToGame.put(uniqeID, GameName);
+        }
+        return uniqeID;
     }
     
     
