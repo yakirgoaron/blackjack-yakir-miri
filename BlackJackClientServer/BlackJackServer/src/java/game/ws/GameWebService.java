@@ -25,8 +25,7 @@ public class GameWebService {
     }
 
     public void createGame(java.lang.String name, int humanPlayers, int computerizedPlayers) throws InvalidParameters_Exception, DuplicateGameName_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        EngineManager.CreateGame(name, humanPlayers, computerizedPlayers);
     }
 
     public int joinGame(java.lang.String gameName, float money) throws GameDoesNotExists_Exception, InvalidParameters_Exception {
