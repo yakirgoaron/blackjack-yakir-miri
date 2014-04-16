@@ -10,6 +10,7 @@ import java.util.HashMap;
 import ws.blackjack.DuplicateGameName;
 import ws.blackjack.DuplicateGameName_Exception;
 import ws.blackjack.GameDetails;
+import ws.blackjack.GameStatus;
 
 /**
  *
@@ -29,6 +30,7 @@ public class EngineManager {
         gmDetail.setComputerizedPlayers(computerizedPlayers);
         gmDetail.setJoinedHumanPlayers(0);
         gmDetail.setName(name);
+        gmDetail.setStatus(GameStatus.WAITING);
         if(gamemanager.containsKey(name))
         {
             DuplicateGameName faultinfo = new DuplicateGameName();
