@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<endpoints version="2.0" xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime">
-  <endpoint implementation="game.ws.NewWebServiceFromWSDL" name="BlackJackWebService" url-pattern="/BlackJackWebService"/>
-  <endpoint implementation="game.ws.BlackJackWS" name="BlackJackWS" url-pattern="/BlackJackWS"/>
-  <endpoint implementation="game.ws.NewWebServiceFromWSDL" name="NewWebServiceFromWSDL" url-pattern="/NewWebServiceFromWSDL"/>
-</endpoints>
