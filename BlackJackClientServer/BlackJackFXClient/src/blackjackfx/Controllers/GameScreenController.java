@@ -6,17 +6,12 @@
 
 package blackjackfx.Controllers;
 
-import EngineLogic.Bid;
-import EngineLogic.Communicable.PlayerAction;
-import EngineLogic.Communicable.RoundAction;
+
 import GameEnums.SaveOptions;
-import EngineLogic.GameEngine;
-import EngineLogic.GameParticipant;
-import EngineLogic.Hand;
-import EngineLogic.Player;
 import blackjackfx.Events;
 import blackjackfx.ParticipantContainer;
 import blackjackfx.PlayerContainer;
+import game.client.ws.PlayerDetails;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -192,7 +187,7 @@ public class GameScreenController implements Initializable
          Players.get(currPlayer).PrintHandInfo(currHand);   
     }
     
-    public void DisplayPlayer(Player dispPlayer)
+    public void DisplayPlayer(PlayerDetails dispPlayer)
     {       
         ClearEffects();
         Players.get(dispPlayer).PrintPlayerInfo(dispPlayer);

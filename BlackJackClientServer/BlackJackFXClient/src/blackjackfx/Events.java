@@ -16,7 +16,17 @@ import EngineLogic.Hand;
 import EngineLogic.Player;
 import GameEnums.SaveOptions;
 import blackjackfx.Controllers.GameScreenController;
+import game.client.ws.BlackJackWebService;
+import game.client.ws.BlackJackWebService_Service;
+import game.client.ws.Event;
+import game.client.ws.GameDoesNotExists_Exception;
+import game.client.ws.InvalidParameters_Exception;
+import game.client.ws.PlayerDetails;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -28,25 +38,36 @@ import org.xml.sax.SAXException;
  *
  * @author yakir
  */
-public class Events extends Thread implements Communicable
+public class Events extends Thread
 {
-    private GameEngine BJGame;
+    private BlackJackWebService GameWS;
     private GameScreenController scControoler;
     private SimpleBooleanProperty GameEnded;
     private String FilePath;
-    
-    public Events(GameEngine BJGame,GameScreenController Controller)
-    {
-        GameEnded = new SimpleBooleanProperty(false);
-        this.BJGame = BJGame;
-        this.scControoler = Controller;
-    }
+    private int PlayerID;
+    private String GameName;
 
+   
+    private int EventID;
+    
+    
+    public Events(String serverAddress ,String  serverPort,String GameName) throws MalformedURLException
+    {
+        URL url = new URL("http://" + serverAddress + ":" + serverPort + "/webapi/BlackJackWebService");
+        BlackJackWebService_Service WSForConnect = new BlackJackWebService_Service(url);
+        GameWS = WSForConnect.getBlackJackWebServicePort();
+        EventID = 0;
+        this.GameName = GameName;
+    }
+    
+    public void setPlayerID(int SetPlayerID) {
+        this.PlayerID = SetPlayerID;
+    }
+    
     public SimpleBooleanProperty getGameEnded() {
         return GameEnded;
     }
     
-    @Override
     public boolean DoesPlayerContinue(final Player player) 
     {
         Platform.runLater(new Runnable(){
@@ -70,25 +91,96 @@ public class Events extends Thread implements Communicable
        
     }
     
-    @Override
-    public void run() 
+    private PlayerDetails GetPlayerDetailsByName(String Name) 
     {
-        try 
+        try
         {
-            BJGame.StartGame(this);
-            GameEnded.set(true);
+            List<PlayerDetails> Players = GameWS.getPlayersDetails(GameName);
+
+            for (PlayerDetails playerDetails : Players) 
+            {
+                 if(playerDetails.getName().equals(Name))
+                     return playerDetails;
+            }
+        } 
+        catch (GameDoesNotExists_Exception ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (JAXBException ex) 
+        return null;
+    }
+    private void DisplayPlayerCards(Event event)
+    {
+        PrintBasicPlayerInfo(GetPlayerDetailsByName(event.getPlayerName()));        
+    }
+    
+    private void DealWithEvents(List<Event> EventsHappened)
+    {
+        EventID += EventsHappened.size();
+        for (Event event : EventsHappened) 
         {
-            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (SAXException ex) 
-        {
-            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
+            
+            switch(event.getType())
+            {
+                case CARDS_DEALT:
+                {
+                    DisplayPlayerCards(event);
+                    break;
+                }
+                case GAME_OVER:
+                {
+                    GameEnded.set(true);
+                    break;
+                }
+                case GAME_START:
+                {
+                    GameEnded.set(false);
+                    break;
+                }
+                case GAME_WINNER:
+                    break;
+                case NEW_ROUND:
+                    break;
+                case PLAYER_RESIGNED:
+                    break;
+                case PLAYER_TURN:
+                {
+                    break;
+                }
+                case PROMPT_PLAYER_TO_TAKE_ACTION:
+                {
+                    break;
+                }
+                case USER_ACTION:
+                {
+                    
+                    break;
+                }
+            }
         }
     }
-   
+    
     @Override
+    public void run() 
+    {   
+        boolean FlagStart = true;
+        while(FlagStart)
+        {
+            try 
+            {
+                List<Event> EventsHappened = GameWS.getEvents(PlayerID, EventID);
+                DealWithEvents(EventsHappened);
+                Thread.sleep(30000);
+            
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidParameters_Exception ex) {
+                Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    
+   
     public String GetFilePathForSave() 
     {
        SaveOptions UserChoice;
@@ -130,7 +222,6 @@ public class Events extends Thread implements Communicable
         return scControoler.getPlayerSaveType().get();
     }
 
-    @Override
     public PlayerAction GetWantedAction() 
     {
         try 
@@ -148,13 +239,8 @@ public class Events extends Thread implements Communicable
         return scControoler.getPlayerActionType().get();
     }
 
-    @Override
-    public void PrintPlayerInfo(Player PlayerToPrint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void PrintBasicPlayerInfo(final Player PlayerToPrint) {
+        
+    public void PrintBasicPlayerInfo(final PlayerDetails PlayerToPrint) {
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
@@ -164,7 +250,7 @@ public class Events extends Thread implements Communicable
         
     }
 
-    @Override
+    
     public RoundAction GetFinishRoundAction() {
        
         Platform.runLater(new Runnable(){
@@ -191,7 +277,7 @@ public class Events extends Thread implements Communicable
         return scControoler.getRoundChoice().get();
     }
 
-    @Override
+   
     public Double GetBidForPlayer(final Player BettingPlayer) {
         
         Platform.runLater(new Runnable(){
@@ -217,7 +303,7 @@ public class Events extends Thread implements Communicable
         return ScreenManager.GetInstance().getBidScCr().GetNumberBid().getValue();
     }
 
-    @Override
+    
     public void PrintBidInfo(final Bid BidForPrint, final Player PlayerBid) {
        Platform.runLater(new Runnable(){
                                 @Override
@@ -227,7 +313,7 @@ public class Events extends Thread implements Communicable
                                 }}); 
     }
 
-    @Override
+   
     public void PrintHandInfo(final Hand HandForPrint,final GameParticipant ParPlayer) {
         try {
             Platform.runLater(new Runnable(){
@@ -243,7 +329,7 @@ public class Events extends Thread implements Communicable
         }
     }
 
-    @Override
+   
     public void PrintMessage(final String Message) {
         Platform.runLater(new Runnable(){
                                 @Override
@@ -262,7 +348,7 @@ public class Events extends Thread implements Communicable
                                 }});        
     }
 
-    @Override
+    
     public void PrintAllPlayers(final ArrayList<Player> GamePlayers) {
        
         Platform.runLater(new Runnable(){
@@ -274,7 +360,7 @@ public class Events extends Thread implements Communicable
                                 }});
     }
 
-    @Override
+    
     public void RemovePlayer(final Player player) {
         Platform.runLater(new Runnable(){
                                 @Override
@@ -284,7 +370,7 @@ public class Events extends Thread implements Communicable
                                 }}); 
     }
 
-    @Override
+    
     public void PrintPlayerMessage(final GameParticipant ParPlayer, final String Message) {
         Platform.runLater(new Runnable(){
                                 @Override
