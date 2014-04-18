@@ -6,8 +6,7 @@
 
 package blackjackfx.Controllers;
 
-import EngineLogic.Exception.TooLowMoneyException;
-import EngineLogic.Player;
+import game.client.ws.PlayerDetails;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
@@ -41,7 +40,7 @@ public class BidInputController implements Initializable {
     @FXML
     private TextField Amount;
     
-    private Player plCurrent;
+    private PlayerDetails plCurrent;
     
     private SimpleDoubleProperty dblAmount;
     private SlideBarChange SdeventChange;
@@ -69,12 +68,18 @@ public class BidInputController implements Initializable {
         return this.dblAmount;
     }
     
-    public void SetPlayer(Player current)
+    public void SetPlayer(PlayerDetails current)
     {
         this.plCurrent = current;
         lblPlayerName.setText(current.getName());
-        lblPlayerMoney.setText(current.getMoney().toString());
-        SdBidAmount.setMax(current.getMoney());
+        
+        // TODO ADD TOTAL AFTER ADD MONEY
+        //lblPlayerMoney.setText(current.getMoney().toString());
+        //SdBidAmount.setMax(current.getMoney());
+        lblPlayerMoney.setText("1000");
+        SdBidAmount.setMax(100);
+        
+        //------------------------------------------------------
         SdBidAmount.setMin(1.0);
         SdBidAmount.setMajorTickUnit(25);
         SdBidAmount.setMinorTickCount(50);
@@ -122,8 +127,9 @@ public class BidInputController implements Initializable {
             {
                 int Temp = Integer.parseInt(t1);
                 
-                if(Temp > plCurrent.getMoney() || Temp < 0)
-                    throw new TooLowMoneyException();
+                //TODO : CHECK MONEY AFTER ADDED
+                if(/*Temp > plCurrent.getMoney() ||*/ Temp < 0)
+                    throw new Error();
                 SdBidAmount.setValue(Temp);                
                 lblError.textProperty().setValue("");
                 btnFinish.setDisable(false);
@@ -132,7 +138,7 @@ public class BidInputController implements Initializable {
             {
                 showError("Only Netural numbers allowed");
                 
-            } catch (TooLowMoneyException ex) {
+            } catch (Error ex) {
                 showError("Cant bid more than max");
                 
             }
