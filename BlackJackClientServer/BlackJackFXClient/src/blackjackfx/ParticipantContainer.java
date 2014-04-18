@@ -6,6 +6,7 @@
 
 package blackjackfx;
 
+import game.client.ws.Card;
 import game.client.ws.PlayerDetails;
 import java.util.ArrayList;
 import java.util.HashMap;
