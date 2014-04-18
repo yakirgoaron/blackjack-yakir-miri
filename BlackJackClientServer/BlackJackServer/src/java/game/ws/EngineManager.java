@@ -97,12 +97,15 @@ public class EngineManager {
         return gamemanager.get(name);
     }
     
-    public static PlayerDetails GetPlayerDetails(int PlayerId){
+    public static PlayerDetails GetPlayerDetails(int PlayerId) throws InvalidParameters_Exception{
         
         if (playerManager.containsKey(PlayerId))      
             return playerManager.get(PlayerId);      
-        else
-            throw new InvalidParameterException("Error - player doesn`t exist");
+        else{
+            InvalidParameters faultInfo = new InvalidParameters();
+            faultInfo.setMessage("Error - player doesn`t exist");
+            throw new InvalidParameters_Exception(((Integer)PlayerId).toString(), faultInfo);
+        }
     }
     
     
