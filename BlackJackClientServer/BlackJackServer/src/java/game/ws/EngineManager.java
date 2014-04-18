@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 import ws.blackjack.DuplicateGameName;
 import ws.blackjack.DuplicateGameName_Exception;
 import ws.blackjack.Event;
+import ws.blackjack.EventType;
 import ws.blackjack.GameDetails;
 import ws.blackjack.GameDoesNotExists;
 import ws.blackjack.GameDoesNotExists_Exception;
@@ -30,7 +31,8 @@ import ws.blackjack.PlayerType;
  * @author Yakir
  */
 public class EngineManager {
-    static int uniqeID = 0;
+    static int uniqePlayerID = 0;
+    static int uniqeEventID = 0;
     static HashMap<String,GameDetails> gamemanager = new HashMap<>();
     static HashMap<Integer, PlayerDetails> playerManager = new HashMap<>();
     static HashMap<Integer, String> IdToGame = new HashMap<>();
@@ -143,7 +145,7 @@ public class EngineManager {
         }
         else
         {
-            uniqeID++;
+            uniqePlayerID++;
             
             GameDetails Game = gamemanager.get(GameName);
             
@@ -155,10 +157,10 @@ public class EngineManager {
             
             Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
             
-            playerManager.put(uniqeID, player);
-            IdToGame.put(uniqeID, GameName);
+            playerManager.put(uniqePlayerID, player);
+            IdToGame.put(uniqePlayerID, GameName);
         }
-        return uniqeID;
+        return uniqePlayerID;
     }
     
     public static List<String> GetActiveGames(){
@@ -187,6 +189,30 @@ public class EngineManager {
             }
         }
         return WaitingGames;
+    }
+        
+    public static void PlayerResign(int PlayerId) throws InvalidParameters_Exception
+    {
+        if (!playerManager.containsKey(PlayerId)){
+            InvalidParameters faultInfo = new InvalidParameters();
+            faultInfo.setMessage("Error - player doesn`t exist");
+            throw new InvalidParameters_Exception(((Integer)PlayerId).toString(), faultInfo);    
+        }                 
+        else{
+            PlayerDetails player = playerManager.get(PlayerId);
+            player.setStatus(PlayerStatus.RETIRED);
+            IdToGame.remove(PlayerId);
+            
+            Event playerResign  = new Event();
+            playerResign.setId(uniqeEventID);          
+            playerResign.setPlayerName(player.getName());      
+            playerResign.setType(EventType.PLAYER_RESIGNED);
+            Events.add(playerResign);
+            uniqeEventID++;
+            //TODO: remove player from engine
+        }
+            
+        
     }
     
     

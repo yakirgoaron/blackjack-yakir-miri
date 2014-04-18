@@ -37,8 +37,7 @@ public class BlackJackWS {
     }
 
     public void resign(int playerId) throws InvalidParameters_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        EngineManager.PlayerResign(playerId);
     }
 
     public java.lang.String createGameFromXML(java.lang.String xmlData) throws InvalidParameters_Exception, InvalidXML_Exception, DuplicateGameName_Exception {
