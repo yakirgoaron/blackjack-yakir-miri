@@ -84,7 +84,7 @@ public class EngineManager {
     }
     
     
-    public static int PlayerJoinGame (String GameName, float Money) throws GameDoesNotExists_Exception{
+    public static int PlayerJoinGame (String GameName, String PlayerName, float Money) throws GameDoesNotExists_Exception{
         
         if (!gamemanager.containsKey(GameName))
         {
@@ -102,7 +102,7 @@ public class EngineManager {
             //player.setMoney(Money);
             player.setType(PlayerType.HUMAN);
             player.setStatus(PlayerStatus.ACTIVE);
-            player.setName("TODO");
+            player.setName(PlayerName);
             
             Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
             

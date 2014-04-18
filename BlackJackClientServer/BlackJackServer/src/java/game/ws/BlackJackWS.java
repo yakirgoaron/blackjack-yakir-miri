@@ -29,7 +29,7 @@ public class BlackJackWS {
     }
 
     public int joinGame(java.lang.String gameName, java.lang.String playerName, float money) throws GameDoesNotExists_Exception, InvalidParameters_Exception {
-        return EngineManager.PlayerJoinGame(gameName, money);
+        return EngineManager.PlayerJoinGame(gameName, playerName, money);
     }
 
     public void playerAction(int playerId, int eventId, ws.blackjack.Action action, float bet) throws InvalidParameters_Exception {
