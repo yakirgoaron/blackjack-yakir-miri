@@ -10,9 +10,11 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.List;
 import java.util.Map.Entry;
 import ws.blackjack.DuplicateGameName;
 import ws.blackjack.DuplicateGameName_Exception;
+import ws.blackjack.Event;
 import ws.blackjack.GameDetails;
 import ws.blackjack.GameDoesNotExists;
 import ws.blackjack.GameDoesNotExists_Exception;
@@ -32,24 +34,41 @@ public class EngineManager {
     static HashMap<String,GameDetails> gamemanager = new HashMap<>();
     static HashMap<Integer, PlayerDetails> playerManager = new HashMap<>();
     static HashMap<Integer, String> IdToGame = new HashMap<>();
-    
+    static ArrayList<Event> Events = new ArrayList<>();
+            
     private EngineManager()
     {
+    }
+    
+    private static void ThrowInvalidParameter(String Message) throws InvalidParameters_Exception
+    {
+        InvalidParameters info = new InvalidParameters();
+        info.setMessage(Message);
+        throw new InvalidParameters_Exception(Message,info);
+    }
+    
+    public static List<Event> getEvents(int playerId, int eventId) throws InvalidParameters_Exception
+    {
+        if(!playerManager.containsKey(playerId))
+        {
+            ThrowInvalidParameter("Player id does not exsists");
+        }
+        if(eventId > Events.size() || eventId < 0)
+        {
+            ThrowInvalidParameter("Error eventid is incorrect");
+        }
+        return Events.subList(eventId, Events.size() -1 );
     }
     
     public static void CreateGame(String name, int humanPlayers, int computerizedPlayers) throws DuplicateGameName_Exception, InvalidParameters_Exception
     {
         if(humanPlayers < 0 )
         {
-            InvalidParameters info = new InvalidParameters();
-            info.setMessage("Need one human player");
-            throw new InvalidParameters_Exception("Need one human player",info);
+            ThrowInvalidParameter("Need one human player");
         }
         if((humanPlayers + computerizedPlayers) > 6)
         {
-            InvalidParameters info = new InvalidParameters();
-            info.setMessage("Too many players");
-            throw new InvalidParameters_Exception("Too many players",info);
+            ThrowInvalidParameter("Too many players");
         }
        
         GameDetails gmDetail = new GameDetails();
