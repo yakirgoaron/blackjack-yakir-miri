@@ -6,10 +6,7 @@
 
 package blackjackfx;
 
-import EngineLogic.Card;
-import EngineLogic.Hand;
-import EngineLogic.HumanPlayer;
-import EngineLogic.Player;
+import game.client.ws.PlayerDetails;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -72,7 +69,7 @@ public class ParticipantContainer
         pDeckPane = CardsDeck;
         IsDealer = true;
     }
-    public void PrintPlayerInfo(Player plToPrint)
+    public void PrintPlayerInfo(PlayerDetails plToPrint)
     {
         PlayerView pl = new PlayerView(plToPrint.getName(), plToPrint instanceof HumanPlayer);
         ParticipantImage.getChildren().add(pl);

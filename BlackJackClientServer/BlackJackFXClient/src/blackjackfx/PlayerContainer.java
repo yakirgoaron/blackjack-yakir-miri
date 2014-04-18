@@ -4,8 +4,7 @@
  */
 package blackjackfx;
 
-import EngineLogic.Bid;
-import EngineLogic.Player;
+import game.client.ws.PlayerDetails;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -66,8 +65,9 @@ public class PlayerContainer extends ParticipantContainer{
     }
     
     @Override
-    public void PrintPlayerInfo(Player plToPrint){
-        MoneyValue.setText(plToPrint.getMoney().toString());
+    public void PrintPlayerInfo(PlayerDetails plToPrint){
+        // TODO SET MONEY WHEN PLaYER WIL HAVE IT
+        //MoneyValue.setText(plToPrint.getMoney().toString());
         super.PrintPlayerInfo(plToPrint);
     }
     
