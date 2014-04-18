@@ -136,7 +136,7 @@ public class EngineManager {
     
     
     public static int PlayerJoinGame (String GameName, String PlayerName, float Money) throws GameDoesNotExists_Exception{
-        
+        //TODO IS player name exsits? If does ERROR :P
         if (!gamemanager.containsKey(GameName))
         {
             GameDoesNotExists faultInfo = new GameDoesNotExists();
