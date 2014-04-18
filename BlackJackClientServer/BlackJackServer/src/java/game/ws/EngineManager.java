@@ -99,7 +99,7 @@ public class EngineManager {
             GameDetails Game = gamemanager.get(GameName);
             
             PlayerDetails player = new PlayerDetails();
-            player.setMoney(Money);
+            //player.setMoney(Money);
             player.setType(PlayerType.HUMAN);
             player.setStatus(PlayerStatus.ACTIVE);
             player.setName("TODO");
