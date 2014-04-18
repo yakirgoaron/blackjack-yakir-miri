@@ -8,11 +8,13 @@ package blackjackfx;
 
 import GameEnums.SaveOptions;
 import blackjackfx.Controllers.GameScreenController;
+import game.client.ws.Action;
 import game.client.ws.BlackJackWebService;
 import game.client.ws.BlackJackWebService_Service;
 import game.client.ws.Event;
 import game.client.ws.GameDoesNotExists_Exception;
 import game.client.ws.InvalidParameters_Exception;
+import game.client.ws.PlayerAction;
 import game.client.ws.PlayerDetails;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -111,9 +113,31 @@ public class Events extends Thread
                                 @Override
                                 public void run() 
                                 { 
-                                    scControoler.DisplayEffect(GetPlayerDetailsByName(event.getPlayerName()));
+                                    scControoler.DiplayEffect(GetPlayerDetailsByName(event.getPlayerName()));
                                 }});  
     }
+    
+    
+    
+    private void PromptOptionsToUser(Event event)
+    {
+        try
+        {
+            PlayerDetails MyInfo = GameWS.getPlayerDetails(GameName, PlayerID);
+            if(MyInfo.getName().equals(event.getPlayerName()))
+            {
+                GetWantedAction();
+            }
+        }
+        catch (GameDoesNotExists_Exception ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (InvalidParameters_Exception ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }       
+            
     
     private void DealWithEvents(List<Event> EventsHappened)
     {
@@ -143,7 +167,10 @@ public class Events extends Thread
                 case NEW_ROUND:
                     break;
                 case PLAYER_RESIGNED:
+                {
+                    RemovePlayer(GetPlayerDetailsByName(event.getPlayerName()));
                     break;
+                }
                 case PLAYER_TURN:
                 {
                    DisplayPlayerEffect(event);
@@ -151,11 +178,13 @@ public class Events extends Thread
                 }
                 case PROMPT_PLAYER_TO_TAKE_ACTION:
                 {
+                    PromptOptionsToUser(event);
                     break;
                 }
                 case USER_ACTION:
                 {
-                    
+                    // TODO change the action that given
+                    PrintPlayerMessage(GetPlayerDetailsByName(event.getPlayerName()),"NULL ACTION");
                     break;
                 }
             }
@@ -225,21 +254,35 @@ public class Events extends Thread
         return scControoler.getPlayerSaveType().get();
     }
 
-    public PlayerAction GetWantedAction() 
+    public List<PlayerDetails> getGamePlayers()
     {
-        try 
-        {
-            synchronized(scControoler.getPlayerActionType())
-            {
-                scControoler.ShowActions();
-
-                scControoler.getPlayerActionType().wait();
-            }
-        } catch (InterruptedException ex) {
+        try {
+            return GameWS.getPlayersDetails(GameName);
+        } catch (GameDoesNotExists_Exception ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-
         }
-        return scControoler.getPlayerActionType().get();
+        return null;
+    }
+    
+    public void GetWantedAction() 
+    {
+        try {
+                synchronized(scControoler.getPlayerActionType())
+                {
+                    scControoler.ShowActions();
+                    
+                    scControoler.getPlayerActionType().wait();
+                }
+            
+            Action actionchoosed = scControoler.getPlayerActionType().get();
+            // TODO DEAL WITH THE BET
+            GameWS.playerAction(PlayerID, EventID, actionchoosed, 0);
+        } catch (InvalidParameters_Exception ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+                Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+                
+            }
     }
 
         
@@ -254,7 +297,7 @@ public class Events extends Thread
     }
 
     
-    public RoundAction GetFinishRoundAction() {
+   /* public void GetFinishRoundAction() {
        
         Platform.runLater(new Runnable(){
                                 @Override
@@ -277,11 +320,11 @@ public class Events extends Thread
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
             
         }
-        return scControoler.getRoundChoice().get();
-    }
+         scControoler.getRoundChoice().get();
+    }*/
 
    
-    public Double GetBidForPlayer(final Player BettingPlayer) {
+    public void GetBidForPlayer(final PlayerDetails BettingPlayer) {
         
         Platform.runLater(new Runnable(){
                                 @Override
@@ -303,10 +346,13 @@ public class Events extends Thread
             
         } 
         
-        return ScreenManager.GetInstance().getBidScCr().GetNumberBid().getValue();
+        Double BidValue = ScreenManager.GetInstance().getBidScCr().GetNumberBid().getValue();
+        
+        // TODO UPDATE USER BID AT THE START
     }
 
     
+   /* TODO: CHECK IF NEED WE PRINT THE PLAYER FROM THE EVENT 
     public void PrintBidInfo(final Bid BidForPrint, final Player PlayerBid) {
        Platform.runLater(new Runnable(){
                                 @Override
@@ -330,9 +376,18 @@ public class Events extends Thread
         } catch (InterruptedException ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 
-   
+   /*public void PrintAllPlayers(final ArrayList<Player> GamePlayers) {
+       
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                     scControoler.GetHideBidWindow().set(true);
+                                     scControoler.ShowPlayers(GamePlayers);
+                                }});
+    }*/
     public void PrintMessage(final String Message) {
         Platform.runLater(new Runnable(){
                                 @Override
@@ -352,19 +407,10 @@ public class Events extends Thread
     }
 
     
-    public void PrintAllPlayers(final ArrayList<Player> GamePlayers) {
-       
-        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                     scControoler.GetHideBidWindow().set(true);
-                                     scControoler.ShowPlayers(GamePlayers);
-                                }});
-    }
+    
 
     
-    public void RemovePlayer(final Player player) {
+    public void RemovePlayer(final PlayerDetails player) {
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
@@ -374,7 +420,7 @@ public class Events extends Thread
     }
 
     
-    public void PrintPlayerMessage(final GameParticipant ParPlayer, final String Message) {
+    public void PrintPlayerMessage(final PlayerDetails ParPlayer, final String Message) {
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
