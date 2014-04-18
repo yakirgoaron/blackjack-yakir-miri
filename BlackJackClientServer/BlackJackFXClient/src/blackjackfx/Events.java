@@ -296,7 +296,11 @@ public class Events extends Thread
         
     }
 
-    
+    public void JoinGame(String Name) throws GameDoesNotExists_Exception, InvalidParameters_Exception
+    {
+        // MONEY SHOULD BE GET FROM USER ???
+        GameWS.joinGame(GameName, GameName, 100);
+    }
    /* public void GetFinishRoundAction() {
        
         Platform.runLater(new Runnable(){

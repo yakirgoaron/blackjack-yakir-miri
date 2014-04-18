@@ -11,6 +11,8 @@ import GameEnums.SaveOptions;
 import blackjackfx.Events;
 import blackjackfx.ParticipantContainer;
 import blackjackfx.PlayerContainer;
+import game.client.ws.Action;
+import game.client.ws.PlayerAction;
 import game.client.ws.PlayerDetails;
 import java.io.File;
 import java.net.URL;
@@ -45,10 +47,9 @@ import javafx.stage.FileChooser;
  */
 public class GameScreenController implements Initializable
 {    
-    private GameEngine BJGame;
     private Events GameEvents;
-    private HashMap<GameParticipant, ParticipantContainer> Players;
-    private SimpleObjectProperty<PlayerAction> plAction;
+    private HashMap<PlayerDetails, ParticipantContainer> Players;
+    private SimpleObjectProperty<Action> plAction;
     private SimpleObjectProperty<SaveOptions> plSave;
     private SimpleObjectProperty<RoundAction> RoundChoice;
     private SimpleStringProperty FlPath;
@@ -161,8 +162,8 @@ public class GameScreenController implements Initializable
     }
     
     
-    public void setBJGame(GameEngine BJGame) {
-        this.BJGame = BJGame;       
+    public void setGameEvents(Events BJGame) {
+        this.GameEvents = BJGame;       
     }
     
     public void DisplayBid(Bid currBid,Player currPlayer)
@@ -200,12 +201,12 @@ public class GameScreenController implements Initializable
     }
     
     public void ClearEffects(){
-        for (Entry<GameParticipant, ParticipantContainer> entry: Players.entrySet()){
+        for (Entry<PlayerDetails, ParticipantContainer> entry: Players.entrySet()){
             entry.getValue().ClearEffects();
         }
     }
     
-    public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
+    public SimpleObjectProperty<Action> getPlayerActionType() {
         return plAction;
     }
 
@@ -233,7 +234,6 @@ public class GameScreenController implements Initializable
     private void StartRound(ActionEvent event) 
     {
        InitPlayers();       
-       GameEvents = new Events(BJGame,this);
        GameEvents.getGameEnded().addListener(new ChangeListener<Boolean>() {
 
            @Override
@@ -257,7 +257,7 @@ public class GameScreenController implements Initializable
     private void DoublePress(ActionEvent event) {
         synchronized(plAction)
         {
-            plAction.set(PlayerAction.DOUBLE);
+            plAction.set(Action.DOUBLE);
             plAction.notify();
         }
         ChangeVisibleAction();
@@ -267,7 +267,7 @@ public class GameScreenController implements Initializable
     private void HitPress(ActionEvent event) {
         synchronized(plAction)
         {
-             plAction.set(PlayerAction.HIT);
+             plAction.set(Action.HIT);
              plAction.notify();
         }
         ChangeVisibleAction();
@@ -278,7 +278,7 @@ public class GameScreenController implements Initializable
     private void SplitPress(ActionEvent event) {
         synchronized(plAction)
         {
-             plAction.set(PlayerAction.SPLIT);
+             plAction.set(Action.SPLIT);
              plAction.notify();
         }
         ChangeVisibleAction();
@@ -288,7 +288,7 @@ public class GameScreenController implements Initializable
     private void StayPress(ActionEvent event) {
         synchronized(plAction)
         {
-             plAction.set(PlayerAction.STAY);
+             plAction.set(Action.STAND);
              plAction.notify();
         }
         ChangeVisibleAction();
@@ -322,7 +322,7 @@ public class GameScreenController implements Initializable
     }
 
     private void InitPlayers() {
-       ArrayList<Player> GamePlayers = BJGame.getGamePlayers();
+       List<PlayerDetails> GamePlayers = GameEvents.getGamePlayers();
       
        Scene scene = apPlayer1.getScene();
        
@@ -416,12 +416,12 @@ public class GameScreenController implements Initializable
         ChangeVisiblePlayerRoundEnd();
     }
 
-    public void RemovePlayer(Player player) {
+    public void RemovePlayer(PlayerDetails player) {
         Players.get(player).RemovePlayer();
         Players.remove(player);
     }
 
-    public void PrintPlayerMessage(GameParticipant ParPlayer, String Message) {
+    public void PrintPlayerMessage(PlayerDetails ParPlayer, String Message) {
         Players.get(ParPlayer).PrintMessage(Message);
     }
 

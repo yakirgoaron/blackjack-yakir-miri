@@ -6,7 +6,7 @@
 
 package blackjackfx;
 
-import EngineLogic.GameEngine;
+
 import GameEnums.MainMenu;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 public class BlackJackFXApp extends Application {
     
     Stage PrimaryStage;
-    GameEngine BlackJackGame;
+    Events BlackJackGame;
 
     public class GameEnded implements ChangeListener<Boolean> {
         @Override

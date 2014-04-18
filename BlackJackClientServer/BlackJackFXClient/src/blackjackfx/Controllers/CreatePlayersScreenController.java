@@ -7,9 +7,14 @@
 package blackjackfx.Controllers;
 
 
+import blackjackfx.Events;
 import blackjackfx.PlayerView;
+import game.client.ws.GameDoesNotExists_Exception;
+import game.client.ws.InvalidParameters_Exception;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.FadeTransitionBuilder;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -35,7 +40,7 @@ public class CreatePlayersScreenController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    private GameEngine BjGame;
+    private Events BjGame;
     private Boolean IsHuman;
     private final int MaxCompPlayers = 5;
     
@@ -130,35 +135,45 @@ public class CreatePlayersScreenController implements Initializable {
     public void AddPlayer(ActionEvent event)
     {
         String PlayerName = "";
-        
         try 
         {
+            PlayerName = TextName.getText();
+            BjGame.JoinGame(PlayerName);
+            /*try
+            {
             if(IsHuman)
             {
-                PlayerName = TextName.getText();
-                BjGame.AddPlayer(PlayerName);
-                HumanPlayersCounter++;                              
+            PlayerName = TextName.getText();
+            BjGame.AddPlayer(PlayerName);
+            HumanPlayersCounter++;                              
             }
             else
             {
-                BjGame.AddPlayer();
-                CompPlayersCounter++;              
+            BjGame.AddPlayer();
+            CompPlayersCounter++;              
             }
             
             PlayerView playerView = new PlayerView(PlayerName, this.IsHuman);
             PlayerIn.getChildren().add(playerView);
             this.TextName.clear();
             if(HumanPlayersCounter > 0)
-                BtnStart.disableProperty().set(false);
-        }
-        catch (TooManyPlayersException ex) 
-        {
+            BtnStart.disableProperty().set(false);
+            }
+            catch (TooManyPlayersException ex)
+            {
             showError("Too many players!!");
-        }
-        if(CompPlayersCounter == MaxCompPlayers)
-        {
+            }
+            if(CompPlayersCounter == MaxCompPlayers)
+            {
             cbPlayerType.getItems().remove("Computer");
-        }      
+            }*/      
+        }
+        catch (GameDoesNotExists_Exception ex) 
+        {
+           showError(ex.getMessage());
+        } catch (InvalidParameters_Exception ex) {
+             showError(ex.getMessage());
+        }
     }
     
     @FXML
@@ -217,7 +232,7 @@ public class CreatePlayersScreenController implements Initializable {
         this.lblPlayerName.visibleProperty().set(false);
     }
     
-    public void setBjGame(GameEngine BjGame) {
+    public void setBjGame(Events BjGame) {
         this.BjGame = BjGame;
     }
 
