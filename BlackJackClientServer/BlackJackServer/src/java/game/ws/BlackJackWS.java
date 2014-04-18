@@ -20,8 +20,7 @@ import ws.blackjack.InvalidXML_Exception;
 public class BlackJackWS {
 
     public java.util.List<ws.blackjack.Event> getEvents(int playerId, int eventId) throws InvalidParameters_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.getEvents(playerId, eventId);
     }
 
     public void createGame(java.lang.String name, int humanPlayers, int computerizedPlayers) throws InvalidParameters_Exception, DuplicateGameName_Exception {
