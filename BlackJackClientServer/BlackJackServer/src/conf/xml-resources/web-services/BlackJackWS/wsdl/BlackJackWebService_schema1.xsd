@@ -56,6 +56,7 @@
   <xs:complexType name="joinGame">
     <xs:sequence>
       <xs:element name="gameName" type="xs:string" minOccurs="0"/>
+      <xs:element name="playerName" type="xs:string" minOccurs="0"/>
       <xs:element name="money" type="xs:float"/>
     </xs:sequence>
   </xs:complexType>
@@ -152,6 +153,16 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="getWaitingGames">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getWaitingGamesResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="getPlayersDetails">
     <xs:sequence>
       <xs:element name="gameName" type="xs:string" minOccurs="0"/>
@@ -166,9 +177,11 @@
 
   <xs:complexType name="playerDetails">
     <xs:sequence>
-      <xs:element name="cards" type="tns:card" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="money" type="xs:double"/>
+      <xs:element name="firstBet" type="tns:card" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="firstBetWage" type="xs:float"/>
       <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="secondBet" type="tns:card" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="secondBetWage" type="xs:float"/>
       <xs:element name="status" type="tns:playerStatus" minOccurs="0"/>
       <xs:element name="type" type="tns:playerType" minOccurs="0"/>
     </xs:sequence>
@@ -181,11 +194,11 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="getWaitingGames">
+  <xs:complexType name="getActiveGames">
     <xs:sequence/>
   </xs:complexType>
 
-  <xs:complexType name="getWaitingGamesResponse">
+  <xs:complexType name="getActiveGamesResponse">
     <xs:sequence>
       <xs:element name="return" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
@@ -201,16 +214,6 @@
   <xs:complexType name="getPlayerDetailsResponse">
     <xs:sequence>
       <xs:element name="return" type="tns:playerDetails" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="getActiveGames">
-    <xs:sequence/>
-  </xs:complexType>
-
-  <xs:complexType name="getActiveGamesResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -324,7 +327,7 @@
       <xs:enumeration value="NewRound"/>
       <xs:enumeration value="PlayerTurn"/>
       <xs:enumeration value="CardsDealt"/>
-      <xs:enumeration value="PropmtPlayerToTakeAction"/>
+      <xs:enumeration value="PromptPlayerToTakeAction"/>
       <xs:enumeration value="UserAction"/>
     </xs:restriction>
   </xs:simpleType>
