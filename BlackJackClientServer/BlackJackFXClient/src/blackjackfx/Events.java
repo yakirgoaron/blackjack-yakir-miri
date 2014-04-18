@@ -6,14 +6,6 @@
 
 package blackjackfx;
 
-import EngineLogic.Bid;
-import EngineLogic.Communicable;
-import EngineLogic.CompPlayer;
-import EngineLogic.Dealer;
-import EngineLogic.GameEngine;
-import EngineLogic.GameParticipant;
-import EngineLogic.Hand;
-import EngineLogic.Player;
 import GameEnums.SaveOptions;
 import blackjackfx.Controllers.GameScreenController;
 import game.client.ws.BlackJackWebService;
@@ -68,7 +60,7 @@ public class Events extends Thread
         return GameEnded;
     }
     
-    public boolean DoesPlayerContinue(final Player player) 
+    public void DoesPlayerContinue(final PlayerDetails player) 
     {
         Platform.runLater(new Runnable(){
                                 @Override
@@ -86,8 +78,8 @@ public class Events extends Thread
         } catch (InterruptedException ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-       return scControoler.getDoesPlayerContinue().get();
+        // TODO CReaTe eveNT AND SEND TO THE SERVER 
+        scControoler.getDoesPlayerContinue().get();
        
     }
     
@@ -111,6 +103,16 @@ public class Events extends Thread
     private void DisplayPlayerCards(Event event)
     {
         PrintBasicPlayerInfo(GetPlayerDetailsByName(event.getPlayerName()));        
+    }
+    
+    private void DisplayPlayerEffect(final Event event)
+    {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    scControoler.DisplayEffect(GetPlayerDetailsByName(event.getPlayerName()));
+                                }});  
     }
     
     private void DealWithEvents(List<Event> EventsHappened)
@@ -144,7 +146,8 @@ public class Events extends Thread
                     break;
                 case PLAYER_TURN:
                 {
-                    break;
+                   DisplayPlayerEffect(event);
+                   break;
                 }
                 case PROMPT_PLAYER_TO_TAKE_ACTION:
                 {
