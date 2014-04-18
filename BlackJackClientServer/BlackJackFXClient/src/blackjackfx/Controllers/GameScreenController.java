@@ -193,6 +193,12 @@ public class GameScreenController implements Initializable
         Players.get(dispPlayer).PrintPlayerInfo(dispPlayer);
     }
     
+    public void DiplayEffect(PlayerDetails playerTurn)
+    {
+        ClearEffects();
+        Players.get(playerTurn).SetParticipantEffect();
+    }
+    
     public void ClearEffects(){
         for (Entry<GameParticipant, ParticipantContainer> entry: Players.entrySet()){
             entry.getValue().ClearEffects();
