@@ -7,7 +7,10 @@
 package game.ws;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 import ws.blackjack.DuplicateGameName;
 import ws.blackjack.DuplicateGameName_Exception;
 import ws.blackjack.GameDetails;
@@ -112,7 +115,33 @@ public class EngineManager {
         return uniqeID;
     }
     
+    public static List<String> GetActiveGames(){
+        
+        List<String> ActiveGames = new ArrayList<>();
+        
+        for (Entry<String, GameDetails> game : gamemanager.entrySet())
+        {
+            if (game.getValue().getStatus() == GameStatus.ACTIVE)
+            {
+                ActiveGames.add(game.getKey());
+            }
+        }
+        return ActiveGames;
+    }
     
+        public static List<String> GetWaitingGames(){
+        
+        List<String> WaitingGames = new ArrayList<>();
+        
+        for (Entry<String, GameDetails> game : gamemanager.entrySet())
+        {
+            if (game.getValue().getStatus() == GameStatus.WAITING)
+            {
+                WaitingGames.add(game.getKey());
+            }
+        }
+        return WaitingGames;
+    }
     
     
 }

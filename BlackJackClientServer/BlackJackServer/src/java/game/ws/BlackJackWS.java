@@ -52,13 +52,11 @@ public class BlackJackWS {
     }
 
     public java.util.List<java.lang.String> getWaitingGames() {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.GetWaitingGames();
     }
 
     public java.util.List<java.lang.String> getActiveGames() {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.GetActiveGames();
     }
 
     public java.util.List<ws.blackjack.PlayerDetails> getPlayersDetails(java.lang.String gameName) throws GameDoesNotExists_Exception {
