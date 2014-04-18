@@ -59,8 +59,7 @@ public class BlackJackWS {
     }
 
     public java.util.List<ws.blackjack.PlayerDetails> getPlayersDetails(java.lang.String gameName) throws GameDoesNotExists_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.GetPlayersDetails(gameName);
     }
 
     public ws.blackjack.PlayerDetails getPlayerDetails(java.lang.String gameName, int playerId) throws GameDoesNotExists_Exception, InvalidParameters_Exception {

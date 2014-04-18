@@ -108,6 +108,30 @@ public class EngineManager {
         }
     }
     
+    public static List<PlayerDetails> GetPlayersDetails(String GameName) throws GameDoesNotExists_Exception{
+        
+        List<PlayerDetails> playersDetails = new ArrayList<>();
+        int ID;
+            
+        if (!gamemanager.containsKey(GameName)) {
+            GameDoesNotExists faultInfo = new GameDoesNotExists();
+            faultInfo.setMessage("Error Game Name does not exists");
+            throw new GameDoesNotExists_Exception(GameName, faultInfo);  
+        }
+        else{
+            
+            for (Entry<Integer, String> players : IdToGame.entrySet())
+            {
+                if (players.getValue().equals(GameName)){             
+                    ID = players.getKey();
+                    playersDetails.add(playerManager.get(ID));
+                }
+            }
+
+        }
+        return playersDetails;
+    }
+    
     
     public static int PlayerJoinGame (String GameName, String PlayerName, float Money) throws GameDoesNotExists_Exception{
         
