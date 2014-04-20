@@ -12,6 +12,7 @@ import blackjackfx.Events;
 import blackjackfx.ParticipantContainer;
 import blackjackfx.PlayerContainer;
 import game.client.ws.Action;
+import game.client.ws.Card;
 import game.client.ws.PlayerAction;
 import game.client.ws.PlayerDetails;
 import java.io.File;
@@ -166,7 +167,7 @@ public class GameScreenController implements Initializable
         this.GameEvents = BJGame;       
     }
     
-    public void DisplayBid(Bid currBid,Player currPlayer)
+    public void DisplayBid(String currBid,PlayerDetails currPlayer)
     {
         try {
             Thread.sleep(50);
@@ -174,18 +175,21 @@ public class GameScreenController implements Initializable
             Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        for (Bid bid : currPlayer.getBids()) {
+        
+        ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(currPlayer.getName() + "1", currPlayer.getFirstBet(),currPlayer.getFirstBetWage());
+        ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(currPlayer.getName() + "2", currPlayer.getSecondBet(),currPlayer.getSecondBetWage());
+        /*for (Bid bid : currPlayer.getBids()) {
             ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(bid);
             
             Players.get(currPlayer).ClearGlowHandInfo(bid);
-        }
+        }*/
         
         Players.get(currPlayer).GlowHandInfo(currBid);
     }
     
-    public void DisplayHand(Hand currHand,GameParticipant currPlayer)
+    public void DisplayHand(String currHand,List<Card> currPlayer)
     {
-         Players.get(currPlayer).PrintHandInfo(currHand);   
+         Players.get(currPlayer).PrintHandInfo(currHand,currPlayer);   
     }
     
     public void DisplayPlayer(PlayerDetails dispPlayer)
@@ -360,16 +364,16 @@ public class GameScreenController implements Initializable
 
     public void ClearTable() {
         
-        for (Entry<GameParticipant, ParticipantContainer> entry: Players.entrySet()){
+        for (Entry<PlayerDetails, ParticipantContainer> entry: Players.entrySet()){
             entry.getValue().ClearCards();
         }
         
         MsgLable.setText("");
     }
 
-    public void ShowPlayers(ArrayList<Player> GamePlayers) {
+    public void ShowPlayers(ArrayList<PlayerDetails> GamePlayers) {
         
-        for (Player player: GamePlayers){
+        for (PlayerDetails player: GamePlayers){
             PlayerContainer playerCont = (PlayerContainer) Players.get(player);
             playerCont.PrintPlayerInfo(player);
             playerCont.ClearEffects();

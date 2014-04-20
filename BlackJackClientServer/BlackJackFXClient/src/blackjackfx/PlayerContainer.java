@@ -46,7 +46,7 @@ public class PlayerContainer extends ParticipantContainer{
         Hands.addAll(OrderHand);
     }
     
-    public void PrintBidInfo(String BidName, List<Card> currBid,Double BidMoney)
+    public void PrintBidInfo(String BidName, List<Card> currBid,float BidMoney)
     {
         PrintHandInfo(BidName,currBid);
         if(!BidView.containsKey(BidName))
