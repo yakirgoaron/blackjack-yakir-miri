@@ -62,6 +62,12 @@ public class Events extends Thread
         return GameEnded;
     }
     
+    public List<PlayerDetails> GetPlayersInGame() throws GameDoesNotExists_Exception
+    {
+        return GameWS.getPlayersDetails(GameName);
+    }
+    
+    
     public void DoesPlayerContinue(final PlayerDetails player) 
     {
         Platform.runLater(new Runnable(){
@@ -292,7 +298,7 @@ public class Events extends Thread
     public void JoinGame(String Name) throws GameDoesNotExists_Exception, InvalidParameters_Exception
     {
         // MONEY SHOULD BE GET FROM USER ???
-        GameWS.joinGame(GameName, GameName, 100);
+        GameWS.joinGame(GameName, Name, 100);
     }
    /* public void GetFinishRoundAction() {
        
