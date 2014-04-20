@@ -11,6 +11,7 @@ import game.client.ws.Action;
 import game.client.ws.BlackJackWebService;
 import game.client.ws.BlackJackWebService_Service;
 import game.client.ws.Event;
+import game.client.ws.GameDetails;
 import game.client.ws.GameDoesNotExists_Exception;
 import game.client.ws.InvalidParameters_Exception;
 import game.client.ws.PlayerAction;
@@ -87,6 +88,11 @@ public class Events extends Thread
     public List<String> GetWaitingGames()
     {
         return GameWS.getWaitingGames();
+    }
+    
+    public GameDetails GetGameDetails(String Name) throws GameDoesNotExists_Exception
+    {
+        return GameWS.getGameDetails(Name);
     }
     
     private PlayerDetails GetPlayerDetailsByName(String Name) 
