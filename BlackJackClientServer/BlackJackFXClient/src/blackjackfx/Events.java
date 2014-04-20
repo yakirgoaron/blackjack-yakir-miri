@@ -10,6 +10,7 @@ import blackjackfx.Controllers.GameScreenController;
 import game.client.ws.Action;
 import game.client.ws.BlackJackWebService;
 import game.client.ws.BlackJackWebService_Service;
+import game.client.ws.DuplicateGameName_Exception;
 import game.client.ws.Event;
 import game.client.ws.GameDetails;
 import game.client.ws.GameDoesNotExists_Exception;
@@ -67,7 +68,16 @@ public class Events extends Thread
         return GameWS.getPlayersDetails(GameName);
     }
     
-    
+    public void CreateGame(String GameName, int HumanPlayers, int ComputerizedPlayers )
+    {
+        try {
+            GameWS.createGame(GameName, HumanPlayers, ComputerizedPlayers);
+        } catch (DuplicateGameName_Exception ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameters_Exception ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void DoesPlayerContinue(final PlayerDetails player) 
     {
         Platform.runLater(new Runnable(){

@@ -35,62 +35,71 @@ import javafx.util.Duration;
  *
  * @author yakir
  */
-public class CreatePlayersScreenController implements Initializable {
+public class CreateGameScreenController implements Initializable {
 
     /**
      * Initializes the controller class.
      */
     private Events BjGame;
-    private Boolean IsHuman;
     private final int MaxCompPlayers = 5;
+    private final int MaxPlayerCount = 6;
+    private SimpleBooleanProperty finishedInit;
     
     @FXML
     private Pane PlayerIn;
     @FXML
-    private TextField TextName;
-    @FXML
-    private Button BtnAdd;
-    @FXML
-    private Button BtnStart;
-    @FXML
     private Label errorMessageLabel;
-
-    private SimpleBooleanProperty finishedInit;
-    @FXML
-    private Label lblPlayerName;
-    @FXML
-    private Label lblPlayersJoined;
-    @FXML
-    private ComboBox<?> cbPlayerType;
-    private int HumanPlayersCounter;
     private int CompPlayersCounter;
     private final int MaxPlayerName = 10;
+    @FXML
+    private Button BtnCreateGame;
+    @FXML
+    private ComboBox<Integer> cbCompPlayerCount;
+    @FXML
+    private TextField txtGameName;
+    @FXML
+    private ComboBox<Integer> cbHumanPlayerCount;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-       HumanPlayersCounter = 0;
-       CompPlayersCounter = 0;
-       TextName.visibleProperty().set(false);
-       BtnStart.disableProperty().set(true);
-       lblPlayerName.visibleProperty().set(false);
-       lblPlayersJoined.visibleProperty().set(false);
-       BtnAdd.disableProperty().set(true);
+       cbHumanPlayerCount.setValue(1);
+       cbCompPlayerCount.setValue(1);
+       cbCompPlayerCount.valueProperty().addListener(new ChangeListener<Integer>() {
+
+           @Override
+           public void changed(ObservableValue<? extends Integer> ov, Integer t, Integer t1) {
+               showError("");
+               HandleCreateGameBtn();
+           }
+       });
+       
+       cbHumanPlayerCount.valueProperty().addListener(new ChangeListener<Integer>() {
+
+           @Override
+           public void changed(ObservableValue<? extends Integer> ov, Integer t, Integer t1) {
+               showError("");
+               HandleCreateGameBtn();
+           }
+       });
+       
+       txtGameName.visibleProperty().set(true);
+       BtnCreateGame.disableProperty().set(true);
        finishedInit = new SimpleBooleanProperty(false);
        
-       TextName.textProperty().addListener(new ChangeListener<String>() {
+       txtGameName.textProperty().addListener(new ChangeListener<String>() {
 
            @Override
            public void changed(ObservableValue<? extends String> ov, String t, String t1) {
-               onPlayerNameChanged();
+               showError("");
+               onGameNameChanged();
            }
 
        });
     }
     
-   
-    @FXML
-    public void SetPlayerType(ActionEvent t) {      
+   /*
+        public void SetPlayerType(ActionEvent t) {      
              
         if (cbPlayerType.getValue().toString().equals("Human")){
             IsHuman = true; 
@@ -105,25 +114,41 @@ public class CreatePlayersScreenController implements Initializable {
             DisableTextName();
             DisableLblPlayerName();
         }
-    }
+    }*/
     
-    private void onPlayerNameChanged() {
-        TextName.setText(TextName.getText().trim());
-        if (TextName.getText().isEmpty() && cbPlayerType.getValue().toString().equals("Human"))
-            BtnAdd.disableProperty().set(true); 
+    private void onGameNameChanged() {
+        txtGameName.setText(txtGameName.getText().trim());
+        
+        if (txtGameName.getText().isEmpty())
+            BtnCreateGame.disableProperty().set(true); 
         else
         {
             HandleLength();
-            BtnAdd.disableProperty().set(false); 
+            HandleCreateGameBtn();
+            //BtnAdd.disableProperty().set(false); 
         }
     }
     
+    private void HandleCreateGameBtn()
+    {
+        if ( (!txtGameName.getText().isEmpty()) &&
+              (cbCompPlayerCount.getValue() + cbHumanPlayerCount.getValue() <= 
+                MaxPlayerCount))
+            BtnCreateGame.disableProperty().set(false);
+        else{
+            BtnCreateGame.disableProperty().set(true);
+            showError("Max player count is " + MaxPlayerCount);
+        }     
+    }
+
+    
+    
     private void HandleLength() {
-       String Text = TextName.getText();
+       String Text = txtGameName.getText();
         if (Text.length() > MaxPlayerName)
         {
             String PlayerName = Text.substring(0, MaxPlayerName);
-            TextName.setText(PlayerName);
+            txtGameName.setText(PlayerName);
         }
     }
     
@@ -131,8 +156,8 @@ public class CreatePlayersScreenController implements Initializable {
         return finishedInit;
     }
     
-    @FXML
-    public void AddPlayer(ActionEvent event)
+    /*
+        public void AddPlayer(ActionEvent event)
     {
         String PlayerName = "";
         try 
@@ -166,7 +191,7 @@ public class CreatePlayersScreenController implements Initializable {
             if(CompPlayersCounter == MaxCompPlayers)
             {
             cbPlayerType.getItems().remove("Computer");
-            }*/      
+            }    
         }
         catch (GameDoesNotExists_Exception ex) 
         {
@@ -174,12 +199,12 @@ public class CreatePlayersScreenController implements Initializable {
         } catch (InvalidParameters_Exception ex) {
              showError(ex.getMessage());
         }
-    }
+    }*/
     
     @FXML
     public void TextNameAction(ActionEvent event){
-        if (!BtnAdd.disableProperty().get())
-            AddPlayer(event);
+        if (!BtnCreateGame.disableProperty().get())
+            OnCreateGame(event);
     }
     
     private void showError(String message) 
@@ -192,44 +217,22 @@ public class CreatePlayersScreenController implements Initializable {
                     .toValue(1.0)
                     .build();
         animation.play();
-        BtnAdd.setDisable(true);           
+        BtnCreateGame.setDisable(true);           
     }
     
     public void ChangeTextEnable()
     {
-        this.TextName.visibleProperty().set(!this.TextName.visibleProperty().get());
+        this.txtGameName.visibleProperty().set(!this.txtGameName.visibleProperty().get());
     }
     
     public void EnableTextName()
     {
-        this.TextName.visibleProperty().set(true);
+        this.txtGameName.visibleProperty().set(true);
     }
     
     public void DisableTextName()
     {
-        this.TextName.visibleProperty().set(false);
-    }
-    public void ChangeLblPlayerNameEnable(){
-        this.lblPlayerName.visibleProperty().set(!this.lblPlayerName.visibleProperty().get());
-    }
-    
-    public void EnableLblPlayerName(){
-        this.lblPlayerName.visibleProperty().set(true);
-    }
-    
-    public void DisableLblPlayerName(){
-        this.lblPlayerName.visibleProperty().set(false);
-    }
-    public void ChangeLblPlayerJoinedEnable(){
-          this.lblPlayersJoined.visibleProperty().set(!this.lblPlayersJoined.visibleProperty().get());
-    }
-    
-    public void EnableLblPlayerJoined(){
-        this.lblPlayerName.visibleProperty().set(true);
-    }
-    
-    public void DisableLblPlayerJoined(){
-        this.lblPlayerName.visibleProperty().set(false);
+        this.txtGameName.visibleProperty().set(false);
     }
     
     public void setBjGame(Events BjGame) {
@@ -237,8 +240,12 @@ public class CreatePlayersScreenController implements Initializable {
     }
 
     @FXML
-    protected void OnStartGame(ActionEvent event) 
-    {
+    private void OnCreateGame(ActionEvent event) {
         finishedInit.set(true);
+        
+        BjGame.CreateGame(txtGameName.getText(), cbHumanPlayerCount.getValue(), 
+                          cbCompPlayerCount.getValue());
     }
+    
+
 }

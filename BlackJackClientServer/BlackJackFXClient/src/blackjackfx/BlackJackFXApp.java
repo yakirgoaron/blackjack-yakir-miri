@@ -57,8 +57,8 @@ public class BlackJackFXApp extends Application {
                    {
                       
                       //BlackJackGame = new GameEngine(); 
-                      ScreenManager.GetInstance().getCreatePlayerCr().setBjGame(BlackJackGame);
-                      Scene scene = ScreenManager.GetInstance().getCreatePlayerSc();
+                      ScreenManager.GetInstance().getCreateGameCr().setBjGame(BlackJackGame);
+                      Scene scene = ScreenManager.GetInstance().getCreateGameSc();
                       PrimaryStage.setScene(scene); 
                       PrimaryStage.setTitle("Create Players");
                       break;
@@ -179,7 +179,7 @@ public class BlackJackFXApp extends Application {
        this.PrimaryStage = primaryStage;
        PrimaryStage.setResizable(false);
        ScreenManager.GetInstance().getMainWinCr().getGameInitType().addListener(new ChangeMainMenu());
-       ScreenManager.GetInstance().getCreatePlayerCr().getFinishedInit().addListener(new StartGame());   
+       ScreenManager.GetInstance().getCreateGameCr().getFinishedInit().addListener(new StartGame());   
        ScreenManager.GetInstance().getGameScCr().GetHideBidWindow().addListener(new BidAmount());
        ScreenManager.GetInstance().getGameScCr().getGameEnded().addListener(new GameEnded());
        ScreenManager.GetInstance().getLoginScCr().GetConnected().addListener(new Connected());

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="blackjackfx.Controllers.CreateGameScreenController">
+  <children>
+    <Pane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
+      <children>
+        <Label id="" layoutX="8.0" layoutY="72.0" prefWidth="218.0" text="Choost Human Player Count" />
+        <Button id="BtnStart" fx:id="BtnCreateGame" layoutX="238.0" layoutY="348.0" mnemonicParsing="false" onAction="#OnCreateGame" prefHeight="31.484275000002526" prefWidth="101.0" text="Create Game" />
+        <FlowPane fx:id="PlayerIn" layoutX="14.0" layoutY="172.0" prefHeight="175.99997792968497" prefWidth="572.0" />
+        <Label fx:id="errorMessageLabel" layoutX="38.0" layoutY="150.0" prefHeight="21.9609375" prefWidth="511.0" text="" textAlignment="JUSTIFY" textFill="#ff3333" underline="true">
+          <font>
+            <Font size="12.0" />
+          </font>
+          <stylesheets>
+            <URL value="@resources/CSS/creategamescreen.css" />
+          </stylesheets>
+        </Label>
+        <Label layoutX="7.0" layoutY="28.0" prefWidth="218.0" text="Enter Game Name" />
+        <TextField fx:id="txtGameName" layoutX="235.0" layoutY="26.0" onAction="#TextNameAction" prefWidth="200.0" />
+        <ComboBox fx:id="cbHumanPlayerCount" layoutX="236.0" layoutY="72.0" minWidth="45.0" prefWidth="45.0" promptText="">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <Integer fx:value="1" />
+              <Integer fx:value="2" />
+              <Integer fx:value="3" />
+              <Integer fx:value="4" />
+              <Integer fx:value="5" />
+              <Integer fx:value="6" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <Label id="lblPlayerName" layoutX="9.0" layoutY="120.0" prefWidth="218.0" text="Choost Computer Player Count" />
+        <ComboBox fx:id="cbCompPlayerCount" layoutX="237.0" layoutY="116.0" minWidth="45.0" prefWidth="45.0" promptText="">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <Integer fx:value="1" />
+              <Integer fx:value="2" />
+              <Integer fx:value="3" />
+              <Integer fx:value="4" />
+              <Integer fx:value="5" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+      </children>
+    </Pane>
+  </children>
+  <stylesheets>
+    <URL value="@resources/CSS/creategamescreen.css" />
+  </stylesheets>
+</AnchorPane>

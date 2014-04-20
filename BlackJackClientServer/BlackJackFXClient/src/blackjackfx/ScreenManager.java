@@ -7,7 +7,7 @@
 package blackjackfx;
 
 import blackjackfx.Controllers.BidInputController;
-import blackjackfx.Controllers.CreatePlayersScreenController;
+import blackjackfx.Controllers.CreateGameScreenController;
 import blackjackfx.Controllers.GameScreenController;
 import blackjackfx.Controllers.JoinGameScreenController;
 import blackjackfx.Controllers.LoginScreenController;
@@ -25,7 +25,7 @@ import javafx.scene.Scene;
  */
 public class ScreenManager 
 {
-     private CreatePlayersScreenController CreatePlayerCr;
+     private CreateGameScreenController CreateGameCr;
      private GameScreenController  GameScCr;
      private MainWindowController  MainWinCr;
      private BidInputController    BidScCr;
@@ -34,7 +34,7 @@ public class ScreenManager
      private JoinGameScreenController JoinGameCr;
      
 
-     private Scene CreatePlayerSc;
+     private Scene CreateGameSc;
      private Scene GameSc;
      private Scene MainWinSc;
      private Scene BidSc;
@@ -64,9 +64,9 @@ public class ScreenManager
      
      private void LoadCreatePlayers() throws IOException
      {
-        LoadFxml("CreatePlayersScreen.fxml");
-        CreatePlayerSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
-        CreatePlayerCr = (CreatePlayersScreenController) fxmlLoader.getController();
+        LoadFxml("CreateGameScreen.fxml");
+        CreateGameSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
+        CreateGameCr = (CreateGameScreenController) fxmlLoader.getController();
      }
      
      private void LoadGameScreen() throws IOException
@@ -134,8 +134,8 @@ public class ScreenManager
          return Instance;
      }
 
-    public CreatePlayersScreenController getCreatePlayerCr() {
-        return CreatePlayerCr;
+    public CreateGameScreenController getCreateGameCr() {
+        return CreateGameCr;
     }
 
     public GameScreenController getGameScCr() {
@@ -158,8 +158,8 @@ public class ScreenManager
         return JoinGameCr;
     }
     
-    public Scene getCreatePlayerSc() {
-        return CreatePlayerSc;
+    public Scene getCreateGameSc() {
+        return CreateGameSc;
     }
 
     public Scene getGameSc() {
