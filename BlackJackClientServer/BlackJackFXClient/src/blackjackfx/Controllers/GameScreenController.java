@@ -7,7 +7,6 @@
 package blackjackfx.Controllers;
 
 
-import GameEnums.SaveOptions;
 import blackjackfx.Events;
 import blackjackfx.ParticipantContainer;
 import blackjackfx.PlayerContainer;
@@ -51,7 +50,6 @@ public class GameScreenController implements Initializable
     private Events GameEvents;
     private HashMap<PlayerDetails, ParticipantContainer> Players;
     private SimpleObjectProperty<Action> plAction;
-    private SimpleObjectProperty<SaveOptions> plSave;
     private SimpleStringProperty FlPath;
     private SimpleBooleanProperty HideBidWindow;
     private SimpleBooleanProperty DoesPlayerContinue;
@@ -65,12 +63,7 @@ public class GameScreenController implements Initializable
     private Button btnSplit;
     @FXML
     private Button btnStay; 
-    @FXML
-    private Button btnContinue;
-    @FXML
-    private Button btnSaveGame;
-    @FXML
-    private Button btnExitGame;  
+
     @FXML
     private AnchorPane apPlayer1;
     @FXML
@@ -83,10 +76,6 @@ public class GameScreenController implements Initializable
     private Button btnPlayerExit;
     @FXML
     private Label lblPlayerEndRound;
-    @FXML
-    private Button btnSaveOption;
-    @FXML
-    private Button btnSaveAsOption;
 
     /**
      * Initializes the controller class.
@@ -97,16 +86,10 @@ public class GameScreenController implements Initializable
         btnHit.setVisible(false);
         btnSplit.setVisible(false);
         btnStay.setVisible(false);
-        btnContinue.setVisible(false);
-        btnSaveGame.setVisible(false);
-        btnExitGame.setVisible(false);
-        btnSaveOption.setVisible(false);
-        btnSaveAsOption.setVisible(false);
         btnPlayerContinue.setVisible(false);
         btnPlayerExit.setVisible(false);
         lblPlayerEndRound.setVisible(false);
         plAction = new SimpleObjectProperty<>();
-        plSave = new SimpleObjectProperty<>();
         DoesPlayerContinue = new SimpleBooleanProperty();
         FlPath = new SimpleStringProperty();
         Players = new HashMap<>();
@@ -132,12 +115,6 @@ public class GameScreenController implements Initializable
         btnStay.setVisible(!btnStay.isVisible());
     }
     
-    public void ChangeVisibleEnd()
-    {
-        btnContinue.setVisible(!btnContinue.isVisible());
-        btnSaveGame.setVisible(!btnSaveGame.isVisible());
-        btnExitGame.setVisible(!btnExitGame.isVisible());
-    }
     
     public void ChangeVisiblePlayerRoundEnd(){
         lblPlayerEndRound.setVisible(false);
@@ -153,13 +130,6 @@ public class GameScreenController implements Initializable
         btnSplit.setVisible(true);
         btnStay.setVisible(true); 
     }
-    
-    public void ShowRoundActions(){
-        btnContinue.setVisible(true);
-        btnSaveGame.setVisible(true);
-        btnExitGame.setVisible(true);
-    }
-    
     
     public void setGameEvents(Events BJGame) {
         this.GameEvents = BJGame;       
@@ -214,6 +184,7 @@ public class GameScreenController implements Initializable
     
     public void GetFilePathToSave()
     {
+        /*
         FileChooser flChose = new FileChooser();
         File flToSave = null;
         flChose.setTitle("Choose a path to save game");
@@ -225,7 +196,7 @@ public class GameScreenController implements Initializable
         if(flToSave.getPath().endsWith(".xml"))         
             this.FlPath.set(flToSave.getPath());      
         else
-            this.FlPath.set(flToSave.getPath() + ".xml");      
+            this.FlPath.set(flToSave.getPath() + ".xml");  */    
     }
     
     @FXML
@@ -395,44 +366,6 @@ public class GameScreenController implements Initializable
 
     public void PrintPlayerMessage(PlayerDetails ParPlayer, String Message) {
         Players.get(ParPlayer).PrintMessage(Message);
-    }
-
-    public SimpleObjectProperty<SaveOptions> getPlayerSaveType() {
-        return plSave;
-    }
-
-    public void ShowSaveOptions() {
-        btnSaveAsOption.setVisible(true);
-        btnSaveAsOption.toFront();
-        btnSaveOption.setVisible(true);
-        btnSaveOption.toFront();
-    }
-
-    @FXML
-    private void SaveOptionPress(ActionEvent event) {
-        synchronized(plSave)
-        {
-            plSave.set(SaveOptions.SAVE);
-            plSave.notify();
-        }
-        ChangeVisibleSaveOptions();
-    }
-
-    @FXML
-    private void SaveAsOptionPress(ActionEvent event) {
-        synchronized(plSave)
-        {
-            plSave.set(SaveOptions.SAVE_AS);
-            plSave.notify();
-        }
-        ChangeVisibleSaveOptions();
-    }
-
-    private void ChangeVisibleSaveOptions() {
-        btnSaveAsOption.setVisible(false);
-        btnSaveAsOption.toBack();
-        btnSaveOption.setVisible(false);
-        btnSaveOption.toBack();
     }
        
 }
