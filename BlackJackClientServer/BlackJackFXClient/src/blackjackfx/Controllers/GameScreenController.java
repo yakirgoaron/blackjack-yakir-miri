@@ -354,7 +354,8 @@ public class GameScreenController implements Initializable
        Label DealerMessage = (Label) scene.lookup("#lblDealerMessage");
        ParticipantContainer DealerCont =
             new ParticipantContainer(DealerHand, DealerImage, DealerMessage, DeckPlace);
-       Players.put(BJGame.getGameDealer(), DealerCont);
+       //TODO DEAL WITH DEALER WHEN WE GET ONE
+        //Players.put(BJGame.getGameDealer(), DealerCont);
     }
     
     public void DisplayMessage(String Msg)
