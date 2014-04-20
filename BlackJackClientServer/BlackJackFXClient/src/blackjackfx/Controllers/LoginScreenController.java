@@ -38,6 +38,10 @@ public class LoginScreenController implements Initializable {
     @FXML
     private Label ErrorDisplay;
     private Events GameWSConnection;
+
+    public Events getGameWSConnection() {
+        return GameWSConnection;
+    }
     
     
     private SimpleBooleanProperty Connected;

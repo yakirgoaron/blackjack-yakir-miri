@@ -9,6 +9,7 @@ package blackjackfx;
 import blackjackfx.Controllers.BidInputController;
 import blackjackfx.Controllers.CreatePlayersScreenController;
 import blackjackfx.Controllers.GameScreenController;
+import blackjackfx.Controllers.LoginScreenController;
 import blackjackfx.Controllers.MainWindowController;
 import java.io.IOException;
 import java.net.URL;
@@ -23,15 +24,16 @@ import javafx.scene.Scene;
 public class ScreenManager 
 {
      private CreatePlayersScreenController CreatePlayerCr;
-     private GameScreenController GameScCr;
-     private MainWindowController MainWinCr;
-     private BidInputController   BidScCr;
+     private GameScreenController  GameScCr;
+     private MainWindowController  MainWinCr;
+     private BidInputController    BidScCr;
+     private LoginScreenController LoginScCr;
      
      private Scene CreatePlayerSc;
      private Scene GameSc;
      private Scene MainWinSc;
      private Scene BidSc;
-     
+     private Scene LoginSc;
      
      private FXMLLoader fxmlLoader;
      private URL url;
@@ -71,6 +73,12 @@ public class ScreenManager
          LoadFxml("MainWindow.fxml");
          MainWinSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
          MainWinCr = (MainWindowController) fxmlLoader.getController();
+     }
+     private void LoadLoginWindow() throws IOException
+     {
+         LoadFxml("LoginScren.fxml");
+         LoginSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
+         LoginScCr = (LoginScreenController) fxmlLoader.getController();
      }
     
      private ScreenManager() throws IOException
@@ -112,7 +120,11 @@ public class ScreenManager
     public BidInputController getBidScCr() {
         return BidScCr;
     }
-
+    
+    public LoginScreenController getLoginScCr() {
+        return LoginScCr;
+    }
+    
     public Scene getCreatePlayerSc() {
         return CreatePlayerSc;
     }
@@ -129,4 +141,7 @@ public class ScreenManager
         return BidSc;
     }
      
+    public Scene getLoginSc() {
+        return LoginSc;
+    }
 }

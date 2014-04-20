@@ -35,6 +35,14 @@ public class BlackJackFXApp extends Application {
         }
     }
     
+    public class Connected implements ChangeListener<Boolean> {
+        @Override
+        public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+            if (t1)
+                GoToMainScreen();
+        }
+    }
+    
     public class ChangeMainMenu implements ChangeListener<MainMenu>{
 
         @Override
@@ -47,7 +55,7 @@ public class BlackJackFXApp extends Application {
                    case NEW_GAME:
                    {
                       
-                      BlackJackGame = new GameEngine(); 
+                      //BlackJackGame = new GameEngine(); 
                       ScreenManager.GetInstance().getCreatePlayerCr().setBjGame(BlackJackGame);
                       Scene scene = ScreenManager.GetInstance().getCreatePlayerSc();
                       PrimaryStage.setScene(scene); 
@@ -65,7 +73,7 @@ public class BlackJackFXApp extends Application {
 
                         try 
                         {
-                          BlackJackGame = new GameEngine(flOpen.getPath());
+                          //BlackJackGame = new GameEngine(flOpen.getPath());
                           StartGame();
                         } 
                         catch (Exception ex) 
@@ -115,7 +123,7 @@ public class BlackJackFXApp extends Application {
     }
     
     public void StartGame(){
-       ScreenManager.GetInstance().getGameScCr().setBJGame(BlackJackGame);
+       ScreenManager.GetInstance().getGameScCr().setGameEvents(BlackJackGame);
        Scene scene = ScreenManager.GetInstance().getGameSc();          
        PrimaryStage.setScene(scene); 
        PrimaryStage.centerOnScreen();
@@ -125,7 +133,16 @@ public class BlackJackFXApp extends Application {
     public void EndGame(){
         Platform.exit();
     }
-        
+    
+    public void GoToMainScreen()
+    {
+       BlackJackGame = ScreenManager.GetInstance().getLoginScCr().getGameWSConnection();
+       Scene scene = ScreenManager.GetInstance().getMainWinSc();
+       PrimaryStage.setScene(scene);
+       PrimaryStage.show();
+       PrimaryStage.setTitle("Welcome to BLACKJACK");
+    }
+    
     @Override
     public void start(Stage primaryStage) throws IOException
     {
@@ -135,10 +152,11 @@ public class BlackJackFXApp extends Application {
        ScreenManager.GetInstance().getCreatePlayerCr().getFinishedInit().addListener(new StartGame());   
        ScreenManager.GetInstance().getGameScCr().GetHideBidWindow().addListener(new BidAmount());
        ScreenManager.GetInstance().getGameScCr().getGameEnded().addListener(new GameEnded());
-       Scene scene = ScreenManager.GetInstance().getMainWinSc();
+       ScreenManager.GetInstance().getLoginScCr().GetConnected().addListener(new Connected());
+       Scene scene = ScreenManager.GetInstance().getLoginSc();
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
-       PrimaryStage.setTitle("Welcome to BLACKJACK");
+       PrimaryStage.setTitle("Login to server");
     }
 
     /**
