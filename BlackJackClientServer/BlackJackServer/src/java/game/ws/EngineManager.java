@@ -135,8 +135,10 @@ public class EngineManager {
     }
     
     
-    public static int PlayerJoinGame (String GameName, String PlayerName, float Money) throws GameDoesNotExists_Exception{
-        //TODO IS player name exsits? If does ERROR :P
+    public static int PlayerJoinGame (String GameName, String PlayerName, float Money) 
+                                        throws GameDoesNotExists_Exception, 
+                                               InvalidParameters_Exception{
+        
         if (!gamemanager.containsKey(GameName))
         {
             GameDoesNotExists faultInfo = new GameDoesNotExists();
@@ -145,22 +147,45 @@ public class EngineManager {
         }
         else
         {
-            uniqePlayerID++;
-            
-            GameDetails Game = gamemanager.get(GameName);
-            
-            PlayerDetails player = new PlayerDetails();
-            //player.setMoney(Money);
-            player.setType(PlayerType.HUMAN);
-            player.setStatus(PlayerStatus.ACTIVE);
-            player.setName(PlayerName);
-            
-            Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
-            
-            playerManager.put(uniqePlayerID, player);
-            IdToGame.put(uniqePlayerID, GameName);
+            if (CheckIfNameExists(GameName, PlayerName))
+            {
+                InvalidParameters faultInfo = new InvalidParameters();
+                faultInfo.setMessage("Error - name already exists");
+                throw new InvalidParameters_Exception(PlayerName, faultInfo);
+                
+            }
+            else{
+                uniqePlayerID++;
+
+                GameDetails Game = gamemanager.get(GameName);
+
+                PlayerDetails player = new PlayerDetails();
+                //player.setMoney(Money);
+                player.setType(PlayerType.HUMAN);
+                player.setStatus(PlayerStatus.ACTIVE);
+                player.setName(PlayerName);
+
+                Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
+
+                playerManager.put(uniqePlayerID, player);
+                IdToGame.put(uniqePlayerID, GameName);
+            }
         }
         return uniqePlayerID;
+    }
+    
+    private static boolean CheckIfNameExists(String GameName, String PlayerName) {
+       
+        boolean NameExists = false;
+        
+        for (Entry<Integer, PlayerDetails> entry : playerManager.entrySet()) {
+            PlayerDetails player = entry.getValue();
+            
+            if (player.getName().equals(PlayerName))
+                NameExists = true;        
+        }
+        
+        return NameExists;
     }
     
     public static List<String> GetActiveGames(){
@@ -169,7 +194,7 @@ public class EngineManager {
         
         for (Entry<String, GameDetails> game : gamemanager.entrySet())
         {
-            if (game.getValue().getStatus() == GameStatus.ACTIVE)
+            if (game.getValue().getStatus().equals(GameStatus.ACTIVE))
             {
                 ActiveGames.add(game.getKey());
             }
@@ -183,7 +208,7 @@ public class EngineManager {
         
         for (Entry<String, GameDetails> game : gamemanager.entrySet())
         {
-            if (game.getValue().getStatus() == GameStatus.WAITING)
+            if (game.getValue().getStatus().equals(GameStatus.WAITING))
             {
                 WaitingGames.add(game.getKey());
             }
