@@ -40,20 +40,20 @@ public class Events extends Thread
     private String FilePath;
     private int PlayerID;
     private String GameName;
-
-   
     private int EventID;
     
     
-    public Events(String serverAddress ,String  serverPort,String GameName) throws MalformedURLException
+    public Events(String serverAddress ,String  serverPort) throws MalformedURLException
     {
         URL url = new URL("http://" + serverAddress + ":" + serverPort + "/webapi/BlackJackWebService");
         BlackJackWebService_Service WSForConnect = new BlackJackWebService_Service(url);
         GameWS = WSForConnect.getBlackJackWebServicePort();
         EventID = 0;
+        
+    }
+    public void setGameName(String GameName) {
         this.GameName = GameName;
     }
-    
     public void setPlayerID(int SetPlayerID) {
         this.PlayerID = SetPlayerID;
     }
