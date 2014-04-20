@@ -105,6 +105,8 @@ public class BlackJackFXApp extends Application {
         public void changed(ObservableValue<? extends JoinGame> ov, JoinGame t, JoinGame t1) {
             if (t1.equals(JoinGame.CREATE_GAME))
                 GoToMainScreen();
+            else
+                GoToWaitingGamesScreen();
         }
         
     }
@@ -160,6 +162,15 @@ public class BlackJackFXApp extends Application {
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
        PrimaryStage.setTitle("Welcome to BLACKJACK");
+    }
+    
+    public void GoToWaitingGamesScreen()
+    {
+       Scene scene = ScreenManager.GetInstance().getWaitGameSc();
+       ScreenManager.GetInstance().getWaitGameCr().setGameWS(BlackJackGame);
+       PrimaryStage.setScene(scene);
+       PrimaryStage.show();
+       PrimaryStage.setTitle("Waiting Games");
     }
     
     @Override

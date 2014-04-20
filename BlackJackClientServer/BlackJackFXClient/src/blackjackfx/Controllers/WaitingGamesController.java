@@ -93,23 +93,23 @@ public class WaitingGamesController implements Initializable
     
     private void InITable()
     {
-        TableColumn firstNameCol = new TableColumn("Game Name");
-        firstNameCol.setMinWidth(100);
-        firstNameCol.setCellValueFactory(
+        TableColumn GameNameCol = new TableColumn("Game Name");
+        GameNameCol.setMinWidth(100);
+        GameNameCol.setCellValueFactory(
                 new PropertyValueFactory<GameDetailsRow, String>("GameName"));
  
-        TableColumn lastNameCol = new TableColumn("Amount Of Players");
-        lastNameCol.setMinWidth(100);
-        lastNameCol.setCellValueFactory(
+        TableColumn AmountPlayerCol = new TableColumn("Amount Of Players");
+        AmountPlayerCol.setMinWidth(200);
+        AmountPlayerCol.setCellValueFactory(
                 new PropertyValueFactory<GameDetailsRow, String>("AmountPlayersTotal"));
  
-        TableColumn emailCol = new TableColumn("Players Joined");
-        emailCol.setMinWidth(200);
-        emailCol.setCellValueFactory(
+        TableColumn PlayerJoinedGame = new TableColumn("Players Joined");
+        PlayerJoinedGame.setMinWidth(200);
+        PlayerJoinedGame.setCellValueFactory(
                 new PropertyValueFactory<GameDetailsRow, String>("AmountPlayersJoin"));
  
         WaitinGamesView.setItems(data);
-        WaitinGamesView.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        WaitinGamesView.getColumns().addAll(GameNameCol, AmountPlayerCol, PlayerJoinedGame);
     }
     
     
