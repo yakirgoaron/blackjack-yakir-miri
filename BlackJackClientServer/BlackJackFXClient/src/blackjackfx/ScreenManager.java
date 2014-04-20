@@ -12,6 +12,7 @@ import blackjackfx.Controllers.GameScreenController;
 import blackjackfx.Controllers.JoinGameScreenController;
 import blackjackfx.Controllers.LoginScreenController;
 import blackjackfx.Controllers.MainWindowController;
+import blackjackfx.Controllers.WaitingGamesController;
 import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXMLLoader;
@@ -29,14 +30,18 @@ public class ScreenManager
      private MainWindowController  MainWinCr;
      private BidInputController    BidScCr;
      private LoginScreenController LoginScCr;
+     private WaitingGamesController WaitGameCr;
      private JoinGameScreenController JoinGameCr;
      
+
      private Scene CreatePlayerSc;
      private Scene GameSc;
      private Scene MainWinSc;
      private Scene BidSc;
      private Scene LoginSc;
+     private Scene WaitGameSc;
      private Scene JoinSc;
+
      
      private FXMLLoader fxmlLoader;
      private URL url;
@@ -83,6 +88,15 @@ public class ScreenManager
          LoginSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
          LoginScCr = (LoginScreenController) fxmlLoader.getController();
      }
+
+     
+     private void LoadWaitingGameWindow() throws IOException
+     {
+         LoadFxml("WaitingGames.fxml");
+         WaitGameSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
+         WaitGameCr = (WaitingGamesController) fxmlLoader.getController();
+     }
+
      
      private void LoadJoinScreen() throws IOException
      {
@@ -91,6 +105,7 @@ public class ScreenManager
          JoinGameCr = (JoinGameScreenController) fxmlLoader.getController();
      }
      
+
     
      private ScreenManager() throws IOException
      {
@@ -99,6 +114,7 @@ public class ScreenManager
         LoadMainWindow();        
         LoadBidScreen();
         LoadLoginWindow();
+        LoadWaitingGameWindow();
         LoadJoinScreen();
      }
 
@@ -161,12 +177,17 @@ public class ScreenManager
     public Scene getLoginSc() {
         return LoginSc;
     }
+    
+    public WaitingGamesController getWaitGameCr() {
+        return WaitGameCr;
+    }
+
+    public Scene getWaitGameSc() {
+        return WaitGameSc;
+    }
+     
 
     public Scene getJoinSc() {
         return JoinSc;
     }
-
-    
-    
-    
 }
