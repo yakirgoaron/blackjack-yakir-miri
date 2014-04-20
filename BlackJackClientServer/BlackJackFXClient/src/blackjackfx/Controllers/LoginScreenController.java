@@ -78,8 +78,8 @@ public class LoginScreenController implements Initializable {
         try {
             GameWSConnection = new Events(txtServerName.getText(), txtPortValue.getText());
             Connected.set(true);
-        } catch (MalformedURLException ex) {
-            showError(ex.getMessage());
+        } catch (Exception ex) {
+            showError("Error cannot connect to server");
         }
     }
     
