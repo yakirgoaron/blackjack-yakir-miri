@@ -7,6 +7,7 @@
 package blackjackfx;
 
 
+import GameEnums.JoinGame;
 import GameEnums.MainMenu;
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class BlackJackFXApp extends Application {
         @Override
         public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
             if (t1)
-                GoToMainScreen();
+                GoToJoinScreen();
         }
     }
     
@@ -98,6 +99,16 @@ public class BlackJackFXApp extends Application {
         }
     }
     
+    public class JoinType implements ChangeListener<JoinGame>{
+
+        @Override
+        public void changed(ObservableValue<? extends JoinGame> ov, JoinGame t, JoinGame t1) {
+            if (t1.equals(JoinGame.CREATE_GAME))
+                GoToMainScreen();
+        }
+        
+    }
+    
     public class BidAmount implements ChangeListener<Boolean>{   
 
         Scene GameScene;
@@ -133,10 +144,18 @@ public class BlackJackFXApp extends Application {
     public void EndGame(){
         Platform.exit();
     }
+   
+    public void GoToJoinScreen(){
+        
+        BlackJackGame = ScreenManager.GetInstance().getLoginScCr().getGameWSConnection();
+        Scene scene = ScreenManager.GetInstance().getJoinSc();
+        PrimaryStage.setScene(scene);
+        PrimaryStage.show();
+        PrimaryStage.setTitle("Welcome to BLACKJACK");
+    }
     
     public void GoToMainScreen()
     {
-       BlackJackGame = ScreenManager.GetInstance().getLoginScCr().getGameWSConnection();
        Scene scene = ScreenManager.GetInstance().getMainWinSc();
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
@@ -153,6 +172,7 @@ public class BlackJackFXApp extends Application {
        ScreenManager.GetInstance().getGameScCr().GetHideBidWindow().addListener(new BidAmount());
        ScreenManager.GetInstance().getGameScCr().getGameEnded().addListener(new GameEnded());
        ScreenManager.GetInstance().getLoginScCr().GetConnected().addListener(new Connected());
+       ScreenManager.GetInstance().getJoinGameCr().getJoinGameType().addListener(new JoinType());
        Scene scene = ScreenManager.GetInstance().getLoginSc();
        PrimaryStage.setScene(scene);
        PrimaryStage.show();

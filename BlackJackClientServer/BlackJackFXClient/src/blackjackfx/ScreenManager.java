@@ -9,6 +9,7 @@ package blackjackfx;
 import blackjackfx.Controllers.BidInputController;
 import blackjackfx.Controllers.CreatePlayersScreenController;
 import blackjackfx.Controllers.GameScreenController;
+import blackjackfx.Controllers.JoinGameScreenController;
 import blackjackfx.Controllers.LoginScreenController;
 import blackjackfx.Controllers.MainWindowController;
 import java.io.IOException;
@@ -28,12 +29,14 @@ public class ScreenManager
      private MainWindowController  MainWinCr;
      private BidInputController    BidScCr;
      private LoginScreenController LoginScCr;
+     private JoinGameScreenController JoinGameCr;
      
      private Scene CreatePlayerSc;
      private Scene GameSc;
      private Scene MainWinSc;
      private Scene BidSc;
      private Scene LoginSc;
+     private Scene JoinSc;
      
      private FXMLLoader fxmlLoader;
      private URL url;
@@ -80,6 +83,14 @@ public class ScreenManager
          LoginSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
          LoginScCr = (LoginScreenController) fxmlLoader.getController();
      }
+     
+     private void LoadJoinScreen() throws IOException
+     {
+         LoadFxml("JoinGameScreen.fxml");
+         JoinSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
+         JoinGameCr = (JoinGameScreenController) fxmlLoader.getController();
+     }
+     
     
      private ScreenManager() throws IOException
      {
@@ -88,6 +99,7 @@ public class ScreenManager
         LoadMainWindow();        
         LoadBidScreen();
         LoadLoginWindow();
+        LoadJoinScreen();
      }
 
      public static ScreenManager GetInstance()
@@ -126,6 +138,10 @@ public class ScreenManager
         return LoginScCr;
     }
     
+    public JoinGameScreenController getJoinGameCr() {
+        return JoinGameCr;
+    }
+    
     public Scene getCreatePlayerSc() {
         return CreatePlayerSc;
     }
@@ -145,4 +161,12 @@ public class ScreenManager
     public Scene getLoginSc() {
         return LoginSc;
     }
+
+    public Scene getJoinSc() {
+        return JoinSc;
+    }
+
+    
+    
+    
 }
