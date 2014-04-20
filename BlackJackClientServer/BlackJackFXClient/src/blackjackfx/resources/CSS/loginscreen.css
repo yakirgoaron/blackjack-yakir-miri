@@ -5,3 +5,7 @@
 .mainFxmlClass {
 
 }
+
+#AnchorPane{
+    -fx-background-image: url('/blackjackfx/resources/Images/Background/bj_background.jpg');
+}

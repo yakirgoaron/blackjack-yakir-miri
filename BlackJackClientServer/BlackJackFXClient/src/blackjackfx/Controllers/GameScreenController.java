@@ -52,7 +52,6 @@ public class GameScreenController implements Initializable
     private HashMap<PlayerDetails, ParticipantContainer> Players;
     private SimpleObjectProperty<Action> plAction;
     private SimpleObjectProperty<SaveOptions> plSave;
-    private SimpleObjectProperty<RoundAction> RoundChoice;
     private SimpleStringProperty FlPath;
     private SimpleBooleanProperty HideBidWindow;
     private SimpleBooleanProperty DoesPlayerContinue;
@@ -109,7 +108,6 @@ public class GameScreenController implements Initializable
         plAction = new SimpleObjectProperty<>();
         plSave = new SimpleObjectProperty<>();
         DoesPlayerContinue = new SimpleBooleanProperty();
-        RoundChoice = new SimpleObjectProperty<>();
         FlPath = new SimpleStringProperty();
         Players = new HashMap<>();
         HideBidWindow = new SimpleBooleanProperty(true);
@@ -213,10 +211,6 @@ public class GameScreenController implements Initializable
     public SimpleObjectProperty<Action> getPlayerActionType() {
         return plAction;
     }
-
-    public SimpleObjectProperty<RoundAction> getRoundChoice() {
-        return RoundChoice;
-    }
     
     public void GetFilePathToSave()
     {
@@ -296,33 +290,6 @@ public class GameScreenController implements Initializable
              plAction.notify();
         }
         ChangeVisibleAction();
-    }
-
-    @FXML
-    private void ContinuePress(ActionEvent event) {
-        synchronized (RoundChoice){
-            RoundChoice.set(RoundAction.CONTINUE_GAME);
-            RoundChoice.notify();
-        }
-        ChangeVisibleEnd();
-    }
-
-    @FXML
-    private void SavePress(ActionEvent event) {
-         synchronized (RoundChoice){
-            RoundChoice.set(RoundAction.SAVE_GAME);
-            RoundChoice.notify();
-        }
-         ChangeVisibleEnd();
-    }
-
-    @FXML
-    private void ExitPress(ActionEvent event) {
-         synchronized (RoundChoice){
-            RoundChoice.set(RoundAction.EXIT_GAME);
-            RoundChoice.notify();
-        }
-        ChangeVisibleEnd();
     }
 
     private void InitPlayers() {
