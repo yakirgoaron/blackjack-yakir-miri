@@ -378,11 +378,11 @@ public class GameScreenController implements Initializable
             PlayerContainer playerCont = (PlayerContainer) Players.get(player);
             playerCont.PrintPlayerInfo(player);
             playerCont.ClearEffects();
-           
-            List<Bid> PlayerBids = player.getBids();
             
-            for (Bid bid: PlayerBids)
-                playerCont.PrintBidInfo(bid);
+            
+            playerCont.PrintBidInfo(player.getName() + "1", player.getFirstBet(),player.getFirstBetWage());
+            
+            playerCont.PrintBidInfo(player.getName() + "2", player.getSecondBet(),player.getSecondBetWage());
         }
     }
 
