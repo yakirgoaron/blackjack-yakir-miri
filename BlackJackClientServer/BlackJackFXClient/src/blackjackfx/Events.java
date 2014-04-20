@@ -84,6 +84,11 @@ public class Events extends Thread
        
     }
     
+    public List<String> GetWaitingGames()
+    {
+        return GameWS.getWaitingGames();
+    }
+    
     private PlayerDetails GetPlayerDetailsByName(String Name) 
     {
         try
