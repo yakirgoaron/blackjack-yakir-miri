@@ -44,7 +44,7 @@ public class Events extends Thread
     
     public Events(String serverAddress ,String  serverPort) throws MalformedURLException
     {
-        URL url = new URL("http://" + serverAddress + ":" + serverPort + "/webapi/BlackJackWebService");
+        URL url = new URL("http://" + serverAddress + ":" + serverPort + "/bjwebapi/BlackJackWebService");
         BlackJackWebService_Service WSForConnect = new BlackJackWebService_Service(url);
         GameWS = WSForConnect.getBlackJackWebServicePort();
         EventID = 0;
