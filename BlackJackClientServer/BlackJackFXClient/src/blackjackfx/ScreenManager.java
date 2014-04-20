@@ -76,7 +76,7 @@ public class ScreenManager
      }
      private void LoadLoginWindow() throws IOException
      {
-         LoadFxml("LoginScren.fxml");
+         LoadFxml("LoginScreen.fxml");
          LoginSc = new Scene((Parent)fxmlLoader.load(url.openStream()));     
          LoginScCr = (LoginScreenController) fxmlLoader.getController();
      }
