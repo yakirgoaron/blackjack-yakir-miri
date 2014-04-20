@@ -6,7 +6,6 @@
 
 package blackjackfx;
 
-import GameEnums.SaveOptions;
 import blackjackfx.Controllers.GameScreenController;
 import game.client.ws.Action;
 import game.client.ws.BlackJackWebService;
@@ -215,6 +214,7 @@ public class Events extends Thread
    
     public String GetFilePathForSave() 
     {
+        /*
        SaveOptions UserChoice;
         
         if (FilePath == null){
@@ -230,29 +230,11 @@ public class Events extends Thread
             }           
         }       
         return FilePath;
+         */
+        
+        return null;
     }
     
-    private SaveOptions SaveOrSaveAs() {       
-        
-        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                    scControoler.ShowSaveOptions();
-                                }});    
-        
-        try 
-        {
-            synchronized(scControoler.getPlayerSaveType())
-            {               
-                scControoler.getPlayerSaveType().wait();
-            }
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-        return scControoler.getPlayerSaveType().get();
-    }
 
     public List<PlayerDetails> getGamePlayers()
     {
