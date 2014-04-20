@@ -87,6 +87,7 @@ public class ScreenManager
         LoadGameScreen();             
         LoadMainWindow();        
         LoadBidScreen();
+        LoadLoginWindow();
      }
 
      public static ScreenManager GetInstance()
