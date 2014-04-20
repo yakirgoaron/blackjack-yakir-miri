@@ -8,9 +8,11 @@ package blackjackfx;
 
 import game.client.ws.Card;
 import game.client.ws.PlayerDetails;
+import game.client.ws.PlayerType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Queue;
 import javafx.animation.TranslateTransition;
@@ -34,7 +36,7 @@ public class ParticipantContainer
     private Pane ParticipantImage;
     private Queue<Pane> Hands;
     private Queue<Pane> OrderHand;
-    private HashMap<Hand,Pane> HandView;
+    private HashMap<String,Pane> HandView;
     private Pane pDeckPane;
     private Label lblMessage;
     private boolean IsDealer;
@@ -72,7 +74,7 @@ public class ParticipantContainer
     }
     public void PrintPlayerInfo(PlayerDetails plToPrint)
     {
-        PlayerView pl = new PlayerView(plToPrint.getName(), plToPrint instanceof HumanPlayer);
+        PlayerView pl = new PlayerView(plToPrint.getName(), plToPrint.getType().equals(PlayerType.HUMAN));
         ParticipantImage.getChildren().add(pl);
         SetParticipantEffect();
     }
@@ -84,38 +86,37 @@ public class ParticipantContainer
         ParticipantImage.setEffect( bl);  
     }
     
-    public void PrintHandInfo(Hand currHand)
+    public void PrintHandInfo(String HandName,List<Card> currHand)
     {
-        if(!HandView.containsKey(currHand))
+        if(!HandView.containsKey(HandName))
         {
             Pane Player = Hands.remove();
-            HandView.put(currHand, Player);           
+            HandView.put(HandName, Player);           
         }
-        addcards(currHand);
+        addcards(HandName,currHand);
     }
     
-    public void GlowHandInfo(Hand currHand)
+    public void GlowHandInfo(String HandName)
     {
-        HandView.get(currHand).setEffect(new DropShadow(35.0, Color.YELLOW));
+        HandView.get(HandName).setEffect(new DropShadow(35.0, Color.YELLOW));
     }
     
-    public void ClearGlowHandInfo(Hand currHand)
+    public void ClearGlowHandInfo(String HandName)
     {
-        if (HandView.get(currHand) != null)
-            HandView.get(currHand).setEffect(null);
+        if (HandView.get(HandName) != null)
+            HandView.get(HandName).setEffect(null);
     }
     
-    private void addcards(Hand currHand)
+    private void addcards(String HandName,List<Card> currHand)
     {      
         Pane curr = HandView.get(currHand);        
-        ArrayList<Card> HandCards = currHand.getCards();
          
-        if (curr.getChildren().size() > HandCards.size())
+        if (curr.getChildren().size() > currHand.size())
         {
            curr.getChildren().clear(); 
         }
         
-        for (Card curCard : HandCards) 
+        for (Card curCard : currHand) 
         {
             CardView cd = new CardView(curCard);
             if(!curr.getChildren().contains(cd))
@@ -159,7 +160,7 @@ public class ParticipantContainer
     }
     
     public void ClearCards() {
-        for (Entry<Hand,Pane> entry: HandView.entrySet()) {       
+        for (Entry<String,Pane> entry: HandView.entrySet()) {       
             entry.getValue().getChildren().clear();            
         }
         Hands.clear();
@@ -171,7 +172,7 @@ public class ParticipantContainer
 
     public void ClearEffects() {
     
-        for (Entry<Hand, Pane> entry : HandView.entrySet()) {         
+        for (Entry<String, Pane> entry : HandView.entrySet()) {         
             entry.getValue().setEffect(null);         
         }
         ParticipantImage.setEffect(null);

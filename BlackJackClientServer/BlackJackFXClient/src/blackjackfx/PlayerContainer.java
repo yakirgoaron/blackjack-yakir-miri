@@ -4,10 +4,12 @@
  */
 package blackjackfx;
 
+import game.client.ws.Card;
 import game.client.ws.PlayerDetails;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -24,7 +26,7 @@ public class PlayerContainer extends ParticipantContainer{
     private Label MoneyValue;
     private Queue<Label> Hands;
     private Queue<Label> OrderHand;
-    private HashMap<Bid,Label> BidView;
+    private HashMap<String,Label> BidView;
     
     public PlayerContainer(VBox Hand1,VBox Hand2,Pane ParticipantImage,
                            Label PlaceBid1,Label PlaceBid2, Label Money, 
@@ -44,15 +46,15 @@ public class PlayerContainer extends ParticipantContainer{
         Hands.addAll(OrderHand);
     }
     
-    public void PrintBidInfo(Bid currBid)
+    public void PrintBidInfo(String BidName, List<Card> currBid,Double BidMoney)
     {
-        PrintHandInfo(currBid);
-        if(!BidView.containsKey(currBid))
+        PrintHandInfo(BidName,currBid);
+        if(!BidView.containsKey(BidName))
         {
-            BidView.put(currBid, Hands.remove());
+            BidView.put(BidName, Hands.remove());
             
         }
-        BidView.get(currBid).setText(new DecimalFormat("####.##").format(((Bid)currBid).getTotalBid()));
+        BidView.get(BidName).setText(new DecimalFormat("####.##").format(BidMoney));
     }
     
     @Override
