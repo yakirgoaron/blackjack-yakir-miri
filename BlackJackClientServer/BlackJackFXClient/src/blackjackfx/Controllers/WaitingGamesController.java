@@ -76,8 +76,11 @@ public class WaitingGamesController implements Initializable
 
             @Override
             public void changed(ObservableValue<? extends GameDetailsRow> ov, GameDetailsRow t, GameDetailsRow t1) {
-                GameWS.setGameName(t1.getGameName());
-                GameChosen();
+                if(t1 != null)
+                {
+                    GameWS.setGameName(t1.getGameName());
+                    GameChosen();
+                }
                 
             }
             
@@ -90,9 +93,7 @@ public class WaitingGamesController implements Initializable
     
     public void setGameWS(Events GameWS) {
         this.GameWS = GameWS;
-        GamesData.add(new GameDetailsRow("1", "2", "3"));
-        GamesData.add(new GameDetailsRow("1", "2", "3"));
-        //CreateTimer();
+        CreateTimer();
     }
 
     private void GameChosen()
@@ -103,9 +104,7 @@ public class WaitingGamesController implements Initializable
         txtPlayerName.setDisable(false);
         btnJoin.setDisable(false);
         BackToWait.setDisable(false);
-        PlayerData.add(new PlayerDetailsRow("Yakir", PlayerType.HUMAN.toString(), "1000"));
-        PlayerData.add(new PlayerDetailsRow("Miri", PlayerType.HUMAN.toString(), "1000"));
-        
+        UpdatePlayersTable();
     }
     
     private void UpdatePlayersTable()
@@ -198,7 +197,7 @@ public class WaitingGamesController implements Initializable
             }
         };
         
-        //UpdateTable.schedule(taskUpdate,100, 2000);
+        UpdateTable.schedule(taskUpdate,100, 1000);
     }
 
     @FXML
@@ -206,11 +205,9 @@ public class WaitingGamesController implements Initializable
     {
         
         try {
-            if(false)
-            {
             GameWS.JoinGame(txtPlayerName.getText());
             FinishJoinGame.set(true);
-            }
+            
         } catch (GameDoesNotExists_Exception ex) {
             Logger.getLogger(WaitingGamesController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidParameters_Exception ex) {
