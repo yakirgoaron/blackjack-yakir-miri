@@ -9,6 +9,7 @@ package blackjackfx.Controllers;
 
 import blackjackfx.Events;
 import blackjackfx.PlayerView;
+import game.client.ws.DuplicateGameName_Exception;
 import game.client.ws.GameDoesNotExists_Exception;
 import game.client.ws.InvalidParameters_Exception;
 import java.net.URL;
@@ -241,10 +242,17 @@ public class CreateGameScreenController implements Initializable {
 
     @FXML
     private void OnCreateGame(ActionEvent event) {
-        finishedInit.set(true);
+        try 
+        {
+            BjGame.CreateGame(txtGameName.getText(), cbHumanPlayerCount.getValue(),
+                    cbCompPlayerCount.getValue());
+            finishedInit.set(true);
+        } 
+        catch (DuplicateGameName_Exception | InvalidParameters_Exception ex) 
+        {
+           showError(ex.getMessage());
+        }
         
-        BjGame.CreateGame(txtGameName.getText(), cbHumanPlayerCount.getValue(), 
-                          cbCompPlayerCount.getValue());
     }
     
 

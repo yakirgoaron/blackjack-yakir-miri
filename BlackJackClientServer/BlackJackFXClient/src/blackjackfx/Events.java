@@ -68,15 +68,9 @@ public class Events extends Thread
         return GameWS.getPlayersDetails(GameName);
     }
     
-    public void CreateGame(String GameName, int HumanPlayers, int ComputerizedPlayers )
+    public void CreateGame(String GameName, int HumanPlayers, int ComputerizedPlayers ) throws DuplicateGameName_Exception, InvalidParameters_Exception
     {
-        try {
-            GameWS.createGame(GameName, HumanPlayers, ComputerizedPlayers);
-        } catch (DuplicateGameName_Exception ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidParameters_Exception ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        GameWS.createGame(GameName, HumanPlayers, ComputerizedPlayers);
     }
     public void DoesPlayerContinue(final PlayerDetails player) 
     {
