@@ -153,7 +153,7 @@ public class GameEngineStart extends Thread implements Communicable
         Event envtBid = new Event();
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(BettingPlayer.getName());
-        envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
+        envtBid.setType(EventType.NEW_ROUND);
         EngineManager.getEvents().add(envtBid);
         try 
         {
