@@ -19,12 +19,16 @@ import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 import ws.blackjack.Event;
 import ws.blackjack.EventType;
+import ws.blackjack.PlayerDetails;
 import ws.blackjack.Rank;
 import ws.blackjack.Suit;
 
@@ -35,17 +39,19 @@ import ws.blackjack.Suit;
 public class GameEngineStart extends Thread implements Communicable
 {
     private GameEngine GameEngMang;
-    
+    private HashMap<String, PlayerDetails> PlayerByName ;
     
     
     public GameEngineStart()
     {
         GameEngMang = new GameEngine();
+        PlayerByName = new HashMap<>();
     }
     
     public GameEngineStart(String File) throws DuplicateCardException, SAXException, TooManyPlayersException, JAXBException
     {
-        GameEngMang = new  GameEngine(File);        
+        GameEngMang = new  GameEngine(File);  
+        PlayerByName = new HashMap<>();
     }
 
     public int GetHumanPlayers()
@@ -104,24 +110,56 @@ public class GameEngineStart extends Thread implements Communicable
         }
     }
     
+    private void SynchronyizeContiner(Player currentPlayer)
+    {
+        if(!PlayerByName.containsKey(currentPlayer.getName()))
+        {   
+            HashMap<Integer, PlayerDetails> playerManager = EngineManager.getPlayerManager();
+            for (Map.Entry<Integer, PlayerDetails> entry : playerManager.entrySet()) 
+            {
+                PlayerDetails playerDetails = entry.getValue();
+                if(playerDetails.getName().equals(currentPlayer.getName()))
+                {
+                    PlayerByName.put(currentPlayer.getName(), playerDetails);
+                }                
+            }
+        }
+    }
+    
+    private void SynchronyizeBidAndCards(Bid current,List<ws.blackjack.Card> Cards)
+    {
+        for (Card currCard : current.getCards()) 
+        {
+            ws.blackjack.Card newcd = new ws.blackjack.Card();
+            newcd.setRank(Rank.valueOf(currCard.getRank().name()));
+            newcd.setSuit(Suit.valueOf(currCard.getSuit().name()));
+            Cards.add(newcd);
+        }
+    }
+    
+    private void SynchronyizePlayerToPlayerDetails(Player currentPlayer)
+    {
+        SynchronyizeContiner(currentPlayer);
+        PlayerDetails playerDetails = PlayerByName.get(currentPlayer.getName());
+        SynchronyizeBidAndCards(currentPlayer.getBids().get(0),playerDetails.getFirstBet());
+        playerDetails.setFirstBetWage(currentPlayer.getBids().get(0).getTotalBid().floatValue());
+        if(currentPlayer.getBids().size() > 1)
+        {
+            SynchronyizeBidAndCards(currentPlayer.getBids().get(1),playerDetails.getSecondBet());
+            playerDetails.setSecondBetWage(currentPlayer.getBids().get(1).getTotalBid().floatValue());
+        }
+        
+        
+    }
     
     @Override
     public void PrintAllPlayers(ArrayList<Player> GamePlayers) 
     {
         for (Player player : GamePlayers) 
         {
+            SynchronyizePlayerToPlayerDetails(player);
             Event envtBid = new Event();
             envtBid.setId(EngineManager.getUniqeEventID());
-            for (Bid currbid : player.getBids()) 
-            {
-                for (Card currCard : currbid.getCards()) 
-                {
-                    ws.blackjack.Card newcd = new ws.blackjack.Card();
-                    newcd.setRank(Rank.valueOf(currCard.getRank().name()));
-                    newcd.setSuit(Suit.valueOf(currCard.getSuit().name()));
-                    envtBid.getCards().add(newcd);
-                }
-            }
             envtBid.setPlayerName(player.getName());
             envtBid.setType(EventType.CARDS_DEALT);
             EngineManager.getEvents().add(envtBid);

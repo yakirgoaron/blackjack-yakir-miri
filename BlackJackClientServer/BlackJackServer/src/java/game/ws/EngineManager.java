@@ -43,6 +43,7 @@ public class EngineManager {
     private static int uniqeEventID = 0;
     private static HashMap<String,GameDetails> gamemanager = new HashMap<>();
     private static HashMap<Integer, PlayerDetails> playerManager = new HashMap<>();
+
     private static HashMap<Integer, String> IdToGame = new HashMap<>();
     private static ArrayList<Event> Events = new ArrayList<>();
     private static Double Money;
@@ -64,6 +65,10 @@ public class EngineManager {
 
     public static int getUniqeEventID() {
         return uniqeEventID++;
+    }
+    
+    public static HashMap<Integer, PlayerDetails> getPlayerManager() {
+        return playerManager;
     }
     
     private static void ThrowInvalidParameter(String Message) throws InvalidParameters_Exception
