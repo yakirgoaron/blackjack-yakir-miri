@@ -121,6 +121,19 @@ public class EngineManager {
         gmDetail.setName(name);
         gmDetail.setStatus(GameStatus.WAITING);
         
+        for (int i = 0; i < computerizedPlayers; i++) 
+        {
+            uniqePlayerID++;
+            PlayerDetails player = new PlayerDetails();
+            //player.setMoney(Money);
+            player.setType(PlayerType.COMPUTER);
+            player.setStatus(PlayerStatus.ACTIVE);
+            player.setName("Comp" + uniqePlayerID);
+            playerManager.put(uniqePlayerID, player);
+            IdToGame.put(uniqePlayerID, name);
+        }
+        
+        
         CreateServerGame(name,gmDetail);
         Engine = new GameEngineStart();
         try 
