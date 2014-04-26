@@ -76,7 +76,7 @@ public class GameScreenController implements Initializable
     private Button btnPlayerExit;
     @FXML
     private Label lblPlayerEndRound;
-    private int CurrentPlayer;
+    
     /**
      * Initializes the controller class.
      */
@@ -95,7 +95,7 @@ public class GameScreenController implements Initializable
         Players = new HashMap<>();
         HideBidWindow = new SimpleBooleanProperty(true);
         GameEnded = new SimpleBooleanProperty();
-        CurrentPlayer = 0;
+       
     }  
     
     public SimpleBooleanProperty GetHideBidWindow()
@@ -133,7 +133,9 @@ public class GameScreenController implements Initializable
     }
     
     public void setGameEvents(Events BJGame) {
-        this.GameEvents = BJGame;       
+        GameEvents = BJGame; 
+        GameEvents.SetController(this);
+        GameEvents.start();
     }
     
     public void DisplayBid(String currBid,PlayerDetails currPlayer)
@@ -284,9 +286,13 @@ public class GameScreenController implements Initializable
     }
     public void AddPlayerToGame(List<PlayerDetails> GamePlayers)
     {
+        int CurrentPlayer = 0;
+        
         for (PlayerDetails playerDetails : GamePlayers)
         {
-            AssignPlayerToUI(playerDetails.getName(),CurrentPlayer);
+            String Name = playerDetails.getName();
+            AssignPlayerToUI(Name,CurrentPlayer);
+            Players.get(Name).PrintPlayerInfo(playerDetails);
             
             CurrentPlayer++;
         }
