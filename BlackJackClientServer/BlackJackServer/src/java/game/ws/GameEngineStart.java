@@ -7,6 +7,7 @@
 package game.ws;
 
 import EngineLogic.Bid;
+import EngineLogic.Card;
 import EngineLogic.Communicable;
 import EngineLogic.CompPlayer;
 import EngineLogic.Exception.DuplicateCardException;
@@ -24,6 +25,8 @@ import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 import ws.blackjack.Event;
 import ws.blackjack.EventType;
+import ws.blackjack.Rank;
+import ws.blackjack.Suit;
 
 /**
  *
@@ -103,8 +106,26 @@ public class GameEngineStart extends Thread implements Communicable
     
     
     @Override
-    public void PrintAllPlayers(ArrayList<Player> GamePlayers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void PrintAllPlayers(ArrayList<Player> GamePlayers) 
+    {
+        for (Player player : GamePlayers) 
+        {
+            Event envtBid = new Event();
+            envtBid.setId(EngineManager.getUniqeEventID());
+            for (Bid currbid : player.getBids()) 
+            {
+                for (Card currCard : currbid.getCards()) 
+                {
+                    ws.blackjack.Card newcd = new ws.blackjack.Card();
+                    newcd.setRank(Rank.valueOf(currCard.getRank().name()));
+                    newcd.setSuit(Suit.valueOf(currCard.getSuit().name()));
+                    envtBid.getCards().add(newcd);
+                }
+            }
+            envtBid.setPlayerName(player.getName());
+            envtBid.setType(EventType.CARDS_DEALT);
+            EngineManager.getEvents().add(envtBid);
+        }
     }
 
     @Override
