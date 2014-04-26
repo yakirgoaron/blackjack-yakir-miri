@@ -84,7 +84,7 @@ public class EngineManager {
         {
             ThrowInvalidParameter("Error eventid is incorrect");
         }
-        return Events.subList(eventId, Events.size() -1 );
+        return Events.subList(eventId, Events.size() );
     }
     
     private static void CreateServerGame(String GameName,GameDetails gmDetail) throws DuplicateGameName_Exception, InvalidParameters_Exception
