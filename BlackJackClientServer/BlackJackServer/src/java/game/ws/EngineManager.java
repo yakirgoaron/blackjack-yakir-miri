@@ -244,6 +244,8 @@ public class EngineManager {
                     StartGame.setId(getUniqeEventID());
                     StartGame.setType(EventType.GAME_START);
                     Events.add(StartGame);
+                    Engine.setDaemon(true);
+                    Engine.start();
                 }
                 
             }
