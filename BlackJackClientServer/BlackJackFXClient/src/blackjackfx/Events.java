@@ -49,6 +49,7 @@ public class Events extends Thread
         URL url = new URL("http://" + serverAddress + ":" + serverPort + "/bjwebapi/BlackJackWebService");
         BlackJackWebService_Service WSForConnect = new BlackJackWebService_Service(url);
         GameWS = WSForConnect.getBlackJackWebServicePort();
+        GameEnded = new SimpleBooleanProperty();
         EventID = 0;
         
     }
