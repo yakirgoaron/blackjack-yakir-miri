@@ -222,7 +222,17 @@ public class EngineManager {
                 player.setType(PlayerType.HUMAN);
                 player.setStatus(PlayerStatus.ACTIVE);
                 player.setName(PlayerName);
-
+                try 
+                {
+                    Engine.AddHumanPlayers(PlayerName);
+                } 
+                catch (TooManyPlayersException ex) 
+                {
+                    InvalidParameters faultInfo = new InvalidParameters();
+                    faultInfo.setMessage("Too mant players");
+                    throw new InvalidParameters_Exception(PlayerName, faultInfo);
+                }
+                
                 Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
 
                 playerManager.put(uniqePlayerID, player);
@@ -235,6 +245,7 @@ public class EngineManager {
                     StartGame.setType(EventType.GAME_START);
                     Events.add(StartGame);
                 }
+                
             }
         }
         return uniqePlayerID;
