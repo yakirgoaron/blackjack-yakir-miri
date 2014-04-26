@@ -41,8 +41,7 @@ public class BlackJackWS {
     }
 
     public java.lang.String createGameFromXML(java.lang.String xmlData) throws InvalidParameters_Exception, InvalidXML_Exception, DuplicateGameName_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return EngineManager.CreateGameFromXML(xmlData);
     }
 
     public ws.blackjack.GameDetails getGameDetails(java.lang.String gameName) throws GameDoesNotExists_Exception {

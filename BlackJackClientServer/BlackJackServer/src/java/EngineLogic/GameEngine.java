@@ -15,7 +15,9 @@ import EngineLogic.Exception.TooLowPlayers;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.XmlClasses.Blackjack;
 import EngineLogic.XmlClasses.Players;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.xml.XMLConstants;
@@ -39,6 +41,8 @@ public class GameEngine
     private Boolean IsInRound;
     private final int NUMBER_PLAYERS = 6;
     private final int NUMBER_OF_DECKS = 6;
+    private String GameName;
+
     public final static int BLACKJACK = 21;
     
     private void IniGameEngine()
@@ -58,8 +62,9 @@ public class GameEngine
         Schema schema = sf.newSchema(new File("blackjack.xsd"));
         Unmarshaller XmlParser = JaxReader.createUnmarshaller();
         XmlParser.setSchema(schema);
-        File XmlFile = new File(FileName);
-        Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(XmlFile);
+        InputStream InputFile = new ByteArrayInputStream(FileName.getBytes());
+        Blackjack BlackJackGame = (Blackjack) XmlParser.unmarshal(InputFile);
+        GameName = BlackJackGame.getName();
         CreatePlayers(BlackJackGame.getPlayers());
         GameDealer = XmlHandler.CreateDealer(BlackJackGame.getDealer(), this);
     }
@@ -89,6 +94,7 @@ public class GameEngine
     public GameEngine()
     {
         GameDealer = new Dealer();
+        GameName = "Game";
         IniGameEngine();
     }
     
@@ -368,6 +374,11 @@ public class GameEngine
     
     public Boolean GetIsInRound() {
         return IsInRound;
+    }
+    
+    
+    public String getGameName() {
+        return GameName;
     }
     
 }
