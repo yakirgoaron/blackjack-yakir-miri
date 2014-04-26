@@ -85,6 +85,10 @@ public class EngineManager {
             faultinfo.setMessage("Error Duplicate name");
             throw new DuplicateGameName_Exception("Error Duplicate name",faultinfo);
         }
+        if(gamemanager.keySet().size() > 0)
+        {
+            ThrowInvalidParameter("Too many Games");
+        }
         gamemanager.put(name, gmDetail);
     }
     
