@@ -94,8 +94,10 @@ public class BlackJackFXApp extends Application {
         @Override
         public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) 
         {
-            if (t1)
-                StartGame();
+            if (t1){
+              StartGame();  
+            }
+                
             
            
         }
@@ -147,11 +149,11 @@ public class BlackJackFXApp extends Application {
     }
     
     public void StartGame(){
-       ScreenManager.GetInstance().getGameScCr().setGameEvents(BlackJackGame);
+       ScreenManager.GetInstance().getGameScCr().setGameEvents(BlackJackGame);       
        Scene scene = ScreenManager.GetInstance().getGameSc();          
        PrimaryStage.setScene(scene); 
        PrimaryStage.centerOnScreen();
-       PrimaryStage.setTitle("Let's play BLACKJACK");           
+       PrimaryStage.setTitle("Let's play BLACKJACK");         
     }
         
     public void EndGame(){

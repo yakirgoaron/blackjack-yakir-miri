@@ -38,6 +38,7 @@ public class Events extends Thread
     private BlackJackWebService GameWS;
     private GameScreenController scControoler;
     private SimpleBooleanProperty GameEnded;
+    private Boolean GameStarted;
     private String FilePath;
     private int PlayerID;
     private String GameName;
@@ -50,9 +51,16 @@ public class Events extends Thread
         BlackJackWebService_Service WSForConnect = new BlackJackWebService_Service(url);
         GameWS = WSForConnect.getBlackJackWebServicePort();
         GameEnded = new SimpleBooleanProperty();
+        GameName = new String();
+        GameStarted = false;
         EventID = 0;
         
     }
+    
+    public void SetController(GameScreenController Controller){
+        scControoler = Controller;
+    }
+    
     public void setGameName(String GameName) {
         this.GameName = GameName;
     }
@@ -66,12 +74,13 @@ public class Events extends Thread
     
     public List<PlayerDetails> GetPlayersInGame() throws GameDoesNotExists_Exception
     {
-        return GameWS.getPlayersDetails(GameName);
+        return GameWS.getPlayersDetails(GameName); 
     }
     
     public void CreateGame(String GameName, int HumanPlayers, int ComputerizedPlayers ) throws DuplicateGameName_Exception, InvalidParameters_Exception
     {
         GameWS.createGame(GameName, HumanPlayers, ComputerizedPlayers);
+        this.GameName = GameName;
     }
     public void DoesPlayerContinue(final PlayerDetails player) 
     {
@@ -180,6 +189,8 @@ public class Events extends Thread
                 }
                 case GAME_START:
                 {
+                    PrintAllJoinedPlayers();
+                    GameStarted = true;
                     GameEnded.set(false);
                     break;
                 }
@@ -220,9 +231,12 @@ public class Events extends Thread
         {
             try 
             {
-                List<Event> EventsHappened = GameWS.getEvents(PlayerID, EventID);
-                DealWithEvents(EventsHappened);
+                if (!GameName.equals("")){
+                    List<Event> EventsHappened = GameWS.getEvents(PlayerID, EventID);
+                    DealWithEvents(EventsHappened);
+                }
                 Thread.sleep(30000);
+                
             
             } catch (InterruptedException ex) {
                 Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
@@ -303,7 +317,7 @@ public class Events extends Thread
     public void JoinGame(String Name) throws GameDoesNotExists_Exception, InvalidParameters_Exception
     {
         // MONEY SHOULD BE GET FROM USER ???
-        GameWS.joinGame(GameName, Name, 100);
+        PlayerID = GameWS.joinGame(GameName, Name, 100);
     }
    /* public void GetFinishRoundAction() {
        
@@ -435,6 +449,22 @@ public class Events extends Thread
                                 { 
                                      scControoler.PrintPlayerMessage(ParPlayer, Message);
                                 }});
+    }
+
+    private void PrintAllJoinedPlayers() {    
+               Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                     List<PlayerDetails> players;
+                                    try {
+                                        players = GetPlayersInGame();                                    
+                                        scControoler.AddPlayerToGame(players);
+                                     } catch (GameDoesNotExists_Exception ex) {
+                                        Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }});
+            
     }
    
 }
