@@ -102,7 +102,7 @@ public abstract class Player implements GameParticipant{
         
         if (CheckBJ()){
             Money +=  Bids.get(0).getTotalBid() * WIN_BJ_ONSTART; 
-            commInterface.PrintPlayerMessage(this, "BLACKJACK!!!!");
+            commInterface.GameWinner(this);
         }
         else {
             for (Bid bid: getBids()){
