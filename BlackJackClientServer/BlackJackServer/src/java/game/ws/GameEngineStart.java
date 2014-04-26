@@ -251,6 +251,7 @@ public class GameEngineStart extends Thread implements Communicable
         evntAction.setPlayerName(PlayerAct.getName());
         evntAction.setType(EventType.USER_ACTION);
         EngineManager.getEvents().add(evntAction);
+        // TODO SEND THE ACTION LOL!!!!!! :D
     }
 
     @Override
