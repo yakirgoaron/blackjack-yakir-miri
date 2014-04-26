@@ -21,9 +21,9 @@ public interface Communicable
 
    // public void PrintPlayerMessage(GameParticipant ParPlayer, String Message);
     
-    public void PrintPlayerAction(Player PlayerAct, PlayerAction Action);
+    public void PrintPlayerAction(AIPlayer PlayerAct, PlayerAction Action);
     
-    public void PlayerWinner(Player PlayerWin);
+    public void GameWinner(Player PlayerWin);
 
     public static enum PlayerAction{
         
