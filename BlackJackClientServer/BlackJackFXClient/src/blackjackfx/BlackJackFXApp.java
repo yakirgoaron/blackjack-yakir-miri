@@ -94,7 +94,9 @@ public class BlackJackFXApp extends Application {
         @Override
         public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) 
         {
-            StartGame();
+            if (t1)
+                StartGame();
+            
            
         }
     }
@@ -111,6 +113,15 @@ public class BlackJackFXApp extends Application {
         
     }
     
+        public class JoinNewGame implements ChangeListener<Boolean>{
+
+        @Override
+        public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+            if (t1)
+                GoToWaitingGamesScreen();
+        }
+        
+    }
     public class BidAmount implements ChangeListener<Boolean>{   
 
         Scene GameScene;
@@ -179,11 +190,12 @@ public class BlackJackFXApp extends Application {
        this.PrimaryStage = primaryStage;
        PrimaryStage.setResizable(false);
        ScreenManager.GetInstance().getMainWinCr().getGameInitType().addListener(new ChangeMainMenu());
-       ScreenManager.GetInstance().getCreateGameCr().getFinishedInit().addListener(new StartGame());   
+       ScreenManager.GetInstance().getCreateGameCr().getFinishedInit().addListener(new JoinNewGame());   
        ScreenManager.GetInstance().getGameScCr().GetHideBidWindow().addListener(new BidAmount());
        ScreenManager.GetInstance().getGameScCr().getGameEnded().addListener(new GameEnded());
        ScreenManager.GetInstance().getLoginScCr().GetConnected().addListener(new Connected());
        ScreenManager.GetInstance().getJoinGameCr().getJoinGameType().addListener(new JoinType());
+       ScreenManager.GetInstance().getWaitGameCr().getFinishJoinGame().addListener(new StartGame());
        Scene scene = ScreenManager.GetInstance().getLoginSc();
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
