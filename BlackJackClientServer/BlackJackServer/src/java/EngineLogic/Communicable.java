@@ -19,7 +19,11 @@ public interface Communicable
 
     public void RemovePlayer(Player player);
 
-    public void PrintPlayerMessage(GameParticipant ParPlayer, String Message);
+   // public void PrintPlayerMessage(GameParticipant ParPlayer, String Message);
+    
+    public void PrintPlayerAction(Player PlayerAct, PlayerAction Action);
+    
+    public void PlayerWinner(Player PlayerWin);
 
     public static enum PlayerAction{
         
