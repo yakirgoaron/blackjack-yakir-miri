@@ -48,7 +48,7 @@ import javafx.stage.FileChooser;
 public class GameScreenController implements Initializable
 {    
     private Events GameEvents;
-    private HashMap<PlayerDetails, ParticipantContainer> Players;
+    private HashMap<String, ParticipantContainer> Players;
     private SimpleObjectProperty<Action> plAction;
     private SimpleStringProperty FlPath;
     private SimpleBooleanProperty HideBidWindow;
@@ -76,7 +76,7 @@ public class GameScreenController implements Initializable
     private Button btnPlayerExit;
     @FXML
     private Label lblPlayerEndRound;
-
+    private int CurrentPlayer;
     /**
      * Initializes the controller class.
      */
@@ -95,6 +95,7 @@ public class GameScreenController implements Initializable
         Players = new HashMap<>();
         HideBidWindow = new SimpleBooleanProperty(true);
         GameEnded = new SimpleBooleanProperty();
+        CurrentPlayer = 0;
     }  
     
     public SimpleBooleanProperty GetHideBidWindow()
@@ -173,7 +174,7 @@ public class GameScreenController implements Initializable
     }
     
     public void ClearEffects(){
-        for (Entry<PlayerDetails, ParticipantContainer> entry: Players.entrySet()){
+        for (Entry<String, ParticipantContainer> entry: Players.entrySet()){
             entry.getValue().ClearEffects();
         }
     }
@@ -203,14 +204,14 @@ public class GameScreenController implements Initializable
     private void StartRound(ActionEvent event) 
     {
        InitPlayers();       
-       GameEvents.getGameEnded().addListener(new ChangeListener<Boolean>() {
+       /*GameEvents.getGameEnded().addListener(new ChangeListener<Boolean>() {
 
            @Override
            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
                if (t1)
                    GameEnded.set(true);
            }
-       });
+       });*/
        GameEvents.setDaemon(true);
        GameEvents.start();       
        HideBidWindow.set(false);
@@ -263,27 +264,42 @@ public class GameScreenController implements Initializable
         ChangeVisibleAction();
     }
 
+    private void AssignPlayerToUI(String Name,int Index)
+    {
+        Scene scene = apPlayer1.getScene();
+        VBox FirstBid = (VBox) scene.lookup("#vbxPlayerBid" + (Index+1) + "a");
+        VBox SecondBid = (VBox) scene.lookup("#vbxPlayerBid" + (Index+1) + "b");
+        Pane PlayerImage = (Pane) scene.lookup("#pPlayerPane" + (Index+1));
+        Label Bid1 = (Label) scene.lookup("#pPlayerBid" + (Index+1));
+        Label Bid2 = (Label) scene.lookup("#pPlayerBid" + (Index+1) + "2");
+        Label Money = (Label) scene.lookup("#lblPlayerMoney" + (Index+1));
+        Pane DeckPlace = (Pane) scene.lookup("#pDeckPlace" + (Index+1));
+        Label PlayerMessage = (Label) scene.lookup("#lblPlayerMessage" + (Index+1));
+           
+        PlayerContainer playerCont = 
+                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,
+                                       Bid1,Bid2, Money, 
+                                       PlayerMessage, DeckPlace);
+        Players.put(Name, playerCont); 
+    }
+    public void AddPlayerToGame(List<PlayerDetails> GamePlayers)
+    {
+        for (PlayerDetails playerDetails : GamePlayers)
+        {
+            AssignPlayerToUI(playerDetails.getName(),CurrentPlayer);
+            
+            CurrentPlayer++;
+        }
+    }
+    
     private void InitPlayers() {
        List<PlayerDetails> GamePlayers = GameEvents.getGamePlayers();
       
        Scene scene = apPlayer1.getScene();
        
-       for (int i=0; i< GamePlayers.size(); i++){
-                   
-           VBox FirstBid = (VBox) scene.lookup("#vbxPlayerBid" + (i+1) + "a");
-           VBox SecondBid = (VBox) scene.lookup("#vbxPlayerBid" + (i+1) + "b");
-           Pane PlayerImage = (Pane) scene.lookup("#pPlayerPane" + (i+1));
-           Label Bid1 = (Label) scene.lookup("#pPlayerBid" + (i+1));
-           Label Bid2 = (Label) scene.lookup("#pPlayerBid" + (i+1) + "2");
-           Label Money = (Label) scene.lookup("#lblPlayerMoney" + (i+1));
-           Pane DeckPlace = (Pane) scene.lookup("#pDeckPlace" + (i+1));
-           Label PlayerMessage = (Label) scene.lookup("#lblPlayerMessage" + (i+1));
-           
-           PlayerContainer playerCont = 
-                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,
-                                       Bid1,Bid2, Money, 
-                                       PlayerMessage, DeckPlace);
-           Players.put(GamePlayers.get(i), playerCont);              
+       for (int i=0; i< GamePlayers.size(); i++)
+       {
+           AssignPlayerToUI(GamePlayers.get(i).getName(),i);           
        }
        
        HBox DealerHand = (HBox) scene.lookup("#vbxDealerHand");
@@ -303,7 +319,7 @@ public class GameScreenController implements Initializable
 
     public void ClearTable() {
         
-        for (Entry<PlayerDetails, ParticipantContainer> entry: Players.entrySet()){
+        for (Entry<String, ParticipantContainer> entry: Players.entrySet()){
             entry.getValue().ClearCards();
         }
         
