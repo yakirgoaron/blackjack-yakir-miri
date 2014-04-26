@@ -197,8 +197,14 @@ public class GameEngineStart extends Thread implements Communicable
     }
 
     @Override
-    public void PrintBasicPlayerInfo(Player PlayerToPrint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void PrintBasicPlayerInfo(Player PlayerToPrint) 
+    {
+        SynchronyizePlayerToPlayerDetails(PlayerToPrint);
+        Event envtBid = new Event();
+        envtBid.setId(EngineManager.getUniqeEventID());
+        envtBid.setPlayerName(PlayerToPrint.getName());
+        envtBid.setType(EventType.PLAYER_TURN);
+        EngineManager.getEvents().add(envtBid);
     }
 
     @Override
