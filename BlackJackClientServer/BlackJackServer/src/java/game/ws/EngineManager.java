@@ -214,6 +214,14 @@ public class EngineManager {
 
                 playerManager.put(uniqePlayerID, player);
                 IdToGame.put(uniqePlayerID, GameName);
+                
+                if(Game.getJoinedHumanPlayers() == Game.getHumanPlayers())
+                {
+                    Event StartGame = new Event();
+                    StartGame.setId(getUniqeEventID());
+                    StartGame.setType(EventType.GAME_START);
+                    Events.add(StartGame);
+                }
             }
         }
         return uniqePlayerID;
