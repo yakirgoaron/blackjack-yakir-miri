@@ -6,6 +6,7 @@
 
 package game.ws;
 
+import EngineLogic.AIPlayer;
 import EngineLogic.Bid;
 import EngineLogic.Card;
 import EngineLogic.Communicable;
@@ -171,11 +172,7 @@ public class GameEngineStart extends Thread implements Communicable
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void PrintPlayerMessage(GameParticipant ParPlayer, String Message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public boolean DoesPlayerContinue(Player player) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -244,6 +241,26 @@ public class GameEngineStart extends Thread implements Communicable
     @Override
     public void PrintMessage(String Message) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void PrintPlayerAction(AIPlayer PlayerAct, PlayerAction Action) 
+    {
+        Event evntAction = new Event();
+        evntAction.setId(EngineManager.getUniqeEventID());
+        evntAction.setPlayerName(PlayerAct.getName());
+        evntAction.setType(EventType.USER_ACTION);
+        EngineManager.getEvents().add(evntAction);
+    }
+
+    @Override
+    public void GameWinner(Player PlayerWin) 
+    {
+        Event evntWinner = new Event();
+        evntWinner.setId(EngineManager.getUniqeEventID());
+        evntWinner.setPlayerName(PlayerWin.getName());
+        evntWinner.setType(EventType.GAME_WINNER);
+        EngineManager.getEvents().add(evntWinner);
     }
     
 }
