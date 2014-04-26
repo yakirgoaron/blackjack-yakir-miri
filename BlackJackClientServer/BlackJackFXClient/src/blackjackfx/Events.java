@@ -41,6 +41,7 @@ public class Events extends Thread
     private Boolean GameStarted;
     private String FilePath;
     private int PlayerID;
+    private String PlayerName;
     private String GameName;
     private int EventID;
     
@@ -134,7 +135,7 @@ public class Events extends Thread
     }
     private void DisplayPlayerCards(Event event)
     {
-        PrintBasicPlayerInfo(GetPlayerDetailsByName(event.getPlayerName()));        
+        PrintBidInfo(GetPlayerDetailsByName(event.getPlayerName()));        
     }
     
     private void DisplayPlayerEffect(final Event event)
@@ -143,7 +144,7 @@ public class Events extends Thread
                                 @Override
                                 public void run() 
                                 { 
-                                    scControoler.DiplayEffect(GetPlayerDetailsByName(event.getPlayerName()));
+                                    scControoler.DiplayEffect(event.getPlayerName());
                                 }});  
     }
     
@@ -197,7 +198,17 @@ public class Events extends Thread
                 case GAME_WINNER:
                     break;
                 case NEW_ROUND:
+                {
+                    if (event.getPlayerName().equals(PlayerName))
+                        try {
+                            GetBidForPlayer(GameWS.getPlayerDetails(GameName, PlayerID));
+                        } catch (GameDoesNotExists_Exception ex) {
+                            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InvalidParameters_Exception ex) {
+                            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     break;
+                }
                 case PLAYER_RESIGNED:
                 {
                     RemovePlayer(GetPlayerDetailsByName(event.getPlayerName()));
@@ -235,7 +246,7 @@ public class Events extends Thread
                     List<Event> EventsHappened = GameWS.getEvents(PlayerID, EventID);
                     DealWithEvents(EventsHappened);
                 }
-                Thread.sleep(30000);
+                Thread.sleep(3000);
                 
             
             } catch (InterruptedException ex) {
@@ -318,6 +329,7 @@ public class Events extends Thread
     {
         // MONEY SHOULD BE GET FROM USER ???
         PlayerID = GameWS.joinGame(GameName, Name, 100);
+        PlayerName = Name;
     }
    /* public void GetFinishRoundAction() {
        
@@ -369,22 +381,29 @@ public class Events extends Thread
         } 
         
         Double BidValue = ScreenManager.GetInstance().getBidScCr().GetNumberBid().getValue();
+              
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                      scControoler.GetHideBidWindow().set(true);
+                                }}); 
         
         // TODO UPDATE USER BID AT THE START
     }
 
     
-   /* TODO: CHECK IF NEED WE PRINT THE PLAYER FROM THE EVENT 
-    public void PrintBidInfo(final Bid BidForPrint, final Player PlayerBid) {
+   /* TODO: CHECK IF NEED WE PRINT THE PLAYER FROM THE EVENT*/ 
+    public void PrintBidInfo(final PlayerDetails PlayerBid) {
        Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
                                 { 
-                                    scControoler.DisplayBid(BidForPrint, PlayerBid);
+                                    scControoler.DisplayBid(PlayerBid.getName() + "1", PlayerBid);
                                 }}); 
     }
 
-   
+   /*
     public void PrintHandInfo(final Hand HandForPrint,final GameParticipant ParPlayer) {
         try {
             Platform.runLater(new Runnable(){

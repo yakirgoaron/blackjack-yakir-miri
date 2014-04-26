@@ -109,7 +109,7 @@ public class ParticipantContainer
     
     private void addcards(String HandName,List<Card> currHand)
     {      
-        Pane curr = HandView.get(currHand);        
+        Pane curr = HandView.get(HandName);        
          
         if (curr.getChildren().size() > currHand.size())
         {
