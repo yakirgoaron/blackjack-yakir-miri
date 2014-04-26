@@ -235,7 +235,13 @@ public class GameEngineStart extends Thread implements Communicable
 
     @Override
     public void PrintHandInfo(Hand HandForPrint, GameParticipant ParPlayer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(ParPlayer instanceof Player)
+            SynchronyizeContiner((Player)ParPlayer);
+        Event CardsDealt = new Event();
+        CardsDealt.setId(EngineManager.getUniqeEventID());
+        CardsDealt.setPlayerName(ParPlayer.getName());
+        CardsDealt.setType(EventType.CARDS_DEALT);
+        EngineManager.getEvents().add(CardsDealt);
     }
 
     @Override
