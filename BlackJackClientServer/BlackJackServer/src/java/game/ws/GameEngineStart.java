@@ -155,15 +155,15 @@ public class GameEngineStart extends Thread implements Communicable
         envtBid.setPlayerName(BettingPlayer.getName());
         envtBid.setType(EventType.NEW_ROUND);
         EngineManager.getEvents().add(envtBid);
-        try 
+        /*try 
         {
             EngineManager.getMoney().wait();
         }
         catch (InterruptedException ex) 
         {
             Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return EngineManager.getMoney();
+        }*/
+        return 50.0;
     }
 
     @Override
