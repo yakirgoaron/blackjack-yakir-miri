@@ -129,6 +129,8 @@ public class GameEngineStart extends Thread implements Communicable
     
     private void SynchronyizeBidAndCards(Bid current,List<ws.blackjack.Card> Cards)
     {
+        Cards.clear();
+        
         for (Card currCard : current.getCards()) 
         {
             ws.blackjack.Card newcd = new ws.blackjack.Card();
