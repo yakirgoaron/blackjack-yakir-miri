@@ -147,15 +147,15 @@ public class GameScreenController implements Initializable
         }
         
         
-        ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(currPlayer.getName() + "1", currPlayer.getFirstBet(),currPlayer.getFirstBetWage());
-        ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(currPlayer.getName() + "2", currPlayer.getSecondBet(),currPlayer.getSecondBetWage());
+        ((PlayerContainer)Players.get(currPlayer.getName())).PrintBidInfo(currPlayer.getName() + "1", currPlayer.getFirstBet(),currPlayer.getFirstBetWage());
+        ((PlayerContainer)Players.get(currPlayer.getName())).PrintBidInfo(currPlayer.getName() + "2", currPlayer.getSecondBet(),currPlayer.getSecondBetWage());
         /*for (Bid bid : currPlayer.getBids()) {
             ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(bid);
             
             Players.get(currPlayer).ClearGlowHandInfo(bid);
         }*/
         
-        Players.get(currPlayer).GlowHandInfo(currBid);
+        Players.get(currPlayer.getName()).GlowHandInfo(currBid);
     }
     
     public void DisplayHand(String currHand,List<Card> currPlayer)
@@ -166,10 +166,10 @@ public class GameScreenController implements Initializable
     public void DisplayPlayer(PlayerDetails dispPlayer)
     {       
         ClearEffects();
-        Players.get(dispPlayer).PrintPlayerInfo(dispPlayer);
+        Players.get(dispPlayer.getName()).PrintPlayerInfo(dispPlayer);
     }
     
-    public void DiplayEffect(PlayerDetails playerTurn)
+    public void DiplayEffect(String playerTurn)
     {
         ClearEffects();
         Players.get(playerTurn).SetParticipantEffect();
@@ -382,12 +382,12 @@ public class GameScreenController implements Initializable
     }
 
     public void RemovePlayer(PlayerDetails player) {
-        Players.get(player).RemovePlayer();
-        Players.remove(player);
+        Players.get(player.getName()).RemovePlayer();
+        Players.remove(player.getName());
     }
 
     public void PrintPlayerMessage(PlayerDetails ParPlayer, String Message) {
-        Players.get(ParPlayer).PrintMessage(Message);
+        Players.get(ParPlayer.getName()).PrintMessage(Message);
     }
        
 }

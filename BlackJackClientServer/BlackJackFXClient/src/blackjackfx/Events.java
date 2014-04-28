@@ -196,6 +196,7 @@ public class Events extends Thread
                     break;
                 }
                 case GAME_WINNER:
+                    PrintGameWinner(GetPlayerDetailsByName(event.getPlayerName()));
                     break;
                 case NEW_ROUND:
                 {
@@ -484,6 +485,15 @@ public class Events extends Thread
                                     }
                                 }});
             
+    }
+
+    private void PrintGameWinner(final PlayerDetails PlayerWin) {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                {                                     
+                                    scControoler.PrintPlayerMessage(PlayerWin, "WINNER!!!!!!");
+                                }});
     }
    
 }
