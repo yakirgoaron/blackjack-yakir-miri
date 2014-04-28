@@ -111,10 +111,13 @@ public class ParticipantContainer
     {      
         Pane curr = HandView.get(HandName);        
          
+        /*
         if (curr.getChildren().size() > currHand.size())
         {
            curr.getChildren().clear(); 
-        }
+        }*/
+        
+        curr.getChildren().clear(); 
         
         for (Card curCard : currHand) 
         {
