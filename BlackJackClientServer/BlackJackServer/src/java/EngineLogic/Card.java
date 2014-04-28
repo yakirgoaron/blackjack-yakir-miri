@@ -17,7 +17,7 @@ import java.util.List;
 public class Card 
 {
     public enum Rank {
-        DEUCE {
+        TWO {
             @Override
             int Value(){return 2;}},
         THREE {
