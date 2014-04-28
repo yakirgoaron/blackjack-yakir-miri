@@ -67,7 +67,7 @@ public interface Communicable
     
     public boolean DoesPlayerContinue(Player player);
     public String GetFilePathForSave();
-    public PlayerAction GetWantedAction();
+    public PlayerAction GetWantedAction(Player plyerDoesAction);
     public void PrintPlayerInfo(Player PlayerToPrint);
     public void PrintBasicPlayerInfo(Player PlayerToPrint);
     public RoundAction GetFinishRoundAction();

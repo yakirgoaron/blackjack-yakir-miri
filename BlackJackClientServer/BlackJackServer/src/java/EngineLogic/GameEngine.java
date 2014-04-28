@@ -209,7 +209,7 @@ public class GameEngine
                 CurrentBid.getSumCards() <= BLACKJACK)
         {
             commInterface.PrintBidInfo(CurrentBid,CurrentPlayer);
-            EnumAction = commInterface.GetWantedAction();    
+            EnumAction = commInterface.GetWantedAction(CurrentPlayer);    
             
             try 
             {
