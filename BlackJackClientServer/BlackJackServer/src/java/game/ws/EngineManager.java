@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
+import ws.blackjack.Action;
 import ws.blackjack.DuplicateGameName;
 import ws.blackjack.DuplicateGameName_Exception;
 import ws.blackjack.Event;
@@ -30,6 +31,7 @@ import ws.blackjack.InvalidParameters;
 import ws.blackjack.InvalidParameters_Exception;
 import ws.blackjack.InvalidXML;
 import ws.blackjack.InvalidXML_Exception;
+import ws.blackjack.PlayerAction;
 import ws.blackjack.PlayerDetails;
 import ws.blackjack.PlayerStatus;
 import ws.blackjack.PlayerType;
@@ -48,9 +50,9 @@ public class EngineManager {
     private static ArrayList<Event> Events = new ArrayList<>();
     private static Double Money;
     private static GameEngineStart Engine ;
-   
-    
-            
+    private static Action plPlayerAction = Action.STAND;
+
+               
     private EngineManager()
     {
     }
@@ -65,6 +67,10 @@ public class EngineManager {
 
     public static int getUniqeEventID() {
         return uniqeEventID++;
+    }
+    
+    public static Action getPlPlayerAction() {
+        return plPlayerAction;
     }
     
     public static HashMap<Integer, PlayerDetails> getPlayerManager() {
@@ -343,6 +349,26 @@ public class EngineManager {
             throw new InvalidXML_Exception("XML File is not valid", exXml);
         }
         return Engine.GetGameName();
+    }
+    
+    public static void Playeraction(int playerId, int eventId, ws.blackjack.Action action, float bet) throws InvalidParameters_Exception
+    {
+        if(!playerManager.containsKey(playerId))
+        {
+            InvalidParameters faultInfo = new InvalidParameters();
+            faultInfo.setMessage("Error - player doesn`t exist");
+            throw new InvalidParameters_Exception(((Integer)playerId).toString(), faultInfo);    
+        }
+        if(Events.size() != eventId)
+        {
+           InvalidParameters faultInfo = new InvalidParameters();
+           faultInfo.setMessage("Error - event id not last");
+           throw new InvalidParameters_Exception(((Integer)playerId).toString(), faultInfo);     
+        }
+        
+        plPlayerAction = action;
+        plPlayerAction.notifyAll();
+            
     }
     
     
