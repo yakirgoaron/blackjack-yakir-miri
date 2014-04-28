@@ -32,8 +32,7 @@ public class BlackJackWS {
     }
 
     public void playerAction(int playerId, int eventId, ws.blackjack.Action action, float bet) throws InvalidParameters_Exception {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        EngineManager.Playeraction(playerId, eventId, action, bet);
     }
 
     public void resign(int playerId) throws InvalidParameters_Exception {
