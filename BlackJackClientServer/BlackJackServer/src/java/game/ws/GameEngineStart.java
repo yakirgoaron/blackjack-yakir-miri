@@ -186,8 +186,22 @@ public class GameEngineStart extends Thread implements Communicable
     }
 
     @Override
-    public PlayerAction GetWantedAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PlayerAction GetWantedAction(Player CurrentPlayer) {
+       SynchronyizePlayerToPlayerDetails(CurrentPlayer);
+        Event envtBid = new Event();
+        envtBid.setId(EngineManager.getUniqeEventID());
+        envtBid.setPlayerName(CurrentPlayer.getName());
+        envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
+        EngineManager.getEvents().add(envtBid);
+        synchronized(EngineManager.getPlPlayerAction())
+        {
+            try {
+                EngineManager.getPlPlayerAction().wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return PlayerAction.valueOf(EngineManager.getPlPlayerAction().value());
     }
 
     @Override
@@ -232,7 +246,12 @@ public class GameEngineStart extends Thread implements Communicable
 
     @Override
     public void PrintBidInfo(Bid BidForPrint, Player PlayerBid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SynchronyizePlayerToPlayerDetails(PlayerBid);
+        Event envtBid = new Event();
+        envtBid.setId(EngineManager.getUniqeEventID());
+        envtBid.setPlayerName(PlayerBid.getName());
+        envtBid.setType(EventType.PLAYER_TURN);
+        EngineManager.getEvents().add(envtBid);
     }
 
     @Override
