@@ -6,7 +6,7 @@
 
 package blackjackfx.Controllers;
 
-import blackjackfx.Events;
+import blackjackfx.ServerClasses.Events;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;

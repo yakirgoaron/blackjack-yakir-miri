@@ -4,8 +4,9 @@
  */
 package blackjackfx;
 
+import blackjackfx.ServerClasses.Card;
 import javafx.scene.image.ImageView;
-import game.client.ws.Card;
+
 
 /**
  *

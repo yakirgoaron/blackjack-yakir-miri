@@ -6,7 +6,7 @@
 
 package blackjackfx.Controllers;
 
-import game.client.ws.PlayerDetails;
+import blackjackfx.ServerClasses.PlayerInfo;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
@@ -40,7 +40,7 @@ public class BidInputController implements Initializable {
     @FXML
     private TextField Amount;
     
-    private PlayerDetails plCurrent;
+    private PlayerInfo plCurrent;
     
     private SimpleDoubleProperty dblAmount;
     private SlideBarChange SdeventChange;
@@ -68,7 +68,7 @@ public class BidInputController implements Initializable {
         return this.dblAmount;
     }
     
-    public void SetPlayer(PlayerDetails current)
+    public void SetPlayer(PlayerInfo current)
     {
         this.plCurrent = current;
         lblPlayerName.setText(current.getName());

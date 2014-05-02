@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-package blackjackfx;
+package blackjackfx.ServerClasses;
 
 import blackjackfx.Controllers.GameScreenController;
+import blackjackfx.ScreenManager;
 import game.client.ws.Action;
 import game.client.ws.BlackJackWebService;
 import game.client.ws.BlackJackWebService_Service;
@@ -73,11 +74,7 @@ public class Events extends Thread
         return GameEnded;
     }
     
-    public List<PlayerDetails> GetPlayersInGame() throws GameDoesNotExists_Exception
-    {
-        return GameWS.getPlayersDetails(GameName); 
-    }
-    
+       
     public void CreateGame(String GameName, int HumanPlayers, int ComputerizedPlayers ) throws DuplicateGameName_Exception, InvalidParameters_Exception
     {
         GameWS.createGame(GameName, HumanPlayers, ComputerizedPlayers);
@@ -111,12 +108,12 @@ public class Events extends Thread
         return GameWS.getWaitingGames();
     }
     
-    public GameDetails GetGameDetails(String Name) throws GameDoesNotExists_Exception
+    public GameInfo GetGameDetails(String Name) throws GameDoesNotExists_Exception
     {
-        return GameWS.getGameDetails(Name);
+        return new GameInfo(GameWS.getGameDetails(Name));
     }
     
-    private PlayerDetails GetPlayerDetailsByName(String Name) 
+    private PlayerInfo GetPlayerDetailsByName(String Name) 
     {
         try
         {
@@ -125,7 +122,7 @@ public class Events extends Thread
             for (PlayerDetails playerDetails : Players) 
             {
                  if(playerDetails.getName().equals(Name))
-                     return playerDetails;
+                     return new PlayerInfo(playerDetails);
             }
         } 
         catch (GameDoesNotExists_Exception ex) {
@@ -202,7 +199,7 @@ public class Events extends Thread
                 {
                     if (event.getPlayerName().equals(PlayerName))
                         try {
-                            GetBidForPlayer(GameWS.getPlayerDetails(GameName, PlayerID));
+                            GetBidForPlayer(new PlayerInfo(GameWS.getPlayerDetails(GameName, PlayerID)));
                         } catch (GameDoesNotExists_Exception ex) {
                             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (InvalidParameters_Exception ex) {
@@ -283,15 +280,21 @@ public class Events extends Thread
         return null;
     }
     
-
-    public List<PlayerDetails> getGamePlayers()
+    public List<PlayerInfo> GetPlayersInGame()
     {
-        try {
-            return GameWS.getPlayersDetails(GameName);
-        } catch (GameDoesNotExists_Exception ex) {
+        List<PlayerInfo> players = new ArrayList<>();
+        try 
+        {
+            for (PlayerDetails playerInfo : GameWS.getPlayersDetails(GameName))
+            {
+                players.add(new PlayerInfo(playerInfo));
+            }
+        } 
+        catch (GameDoesNotExists_Exception ex) 
+        {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return players; 
     }
     
     public void GetWantedAction() 
@@ -304,7 +307,7 @@ public class Events extends Thread
                     scControoler.getPlayerActionType().wait();
                 }
             
-            Action actionchoosed = scControoler.getPlayerActionType().get();
+            Action actionchoosed = Action.valueOf(scControoler.getPlayerActionType().get().getDescription());
             // TODO DEAL WITH THE BET
             GameWS.playerAction(PlayerID, EventID, actionchoosed, 0);
         } catch (InvalidParameters_Exception ex) {
@@ -316,7 +319,7 @@ public class Events extends Thread
     }
 
         
-    public void PrintBasicPlayerInfo(final PlayerDetails PlayerToPrint) {
+    public void PrintBasicPlayerInfo(final PlayerInfo PlayerToPrint) {
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
@@ -359,7 +362,7 @@ public class Events extends Thread
     }*/
 
    
-    public void GetBidForPlayer(final PlayerDetails BettingPlayer) {
+    public void GetBidForPlayer(final PlayerInfo BettingPlayer) {
         
         Platform.runLater(new Runnable(){
                                 @Override
@@ -395,7 +398,7 @@ public class Events extends Thread
 
     
    /* TODO: CHECK IF NEED WE PRINT THE PLAYER FROM THE EVENT*/ 
-    public void PrintBidInfo(final PlayerDetails PlayerBid) {
+    public void PrintBidInfo(final PlayerInfo PlayerBid) {
        Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
@@ -452,7 +455,7 @@ public class Events extends Thread
     
 
     
-    public void RemovePlayer(final PlayerDetails player) {
+    public void RemovePlayer(final PlayerInfo player) {
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
@@ -462,7 +465,7 @@ public class Events extends Thread
     }
 
     
-    public void PrintPlayerMessage(final PlayerDetails ParPlayer, final String Message) {
+    public void PrintPlayerMessage(final PlayerInfo ParPlayer, final String Message) {
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
@@ -476,18 +479,14 @@ public class Events extends Thread
                                 @Override
                                 public void run() 
                                 { 
-                                     List<PlayerDetails> players;
-                                    try {
-                                        players = GetPlayersInGame();                                    
-                                        scControoler.AddPlayerToGame(players);
-                                     } catch (GameDoesNotExists_Exception ex) {
-                                        Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
+                                     List<PlayerInfo> players;
+                                     players = GetPlayersInGame();
+                                    scControoler.AddPlayerToGame(players);
                                 }});
             
     }
 
-    private void PrintGameWinner(final PlayerDetails PlayerWin) {
+    private void PrintGameWinner(final PlayerInfo PlayerWin) {
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 

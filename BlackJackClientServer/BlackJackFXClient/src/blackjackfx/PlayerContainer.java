@@ -4,8 +4,10 @@
  */
 package blackjackfx;
 
-import game.client.ws.Card;
-import game.client.ws.PlayerDetails;
+import blackjackfx.ServerClasses.PlayerBet;
+import blackjackfx.ServerClasses.PlayerInfo;
+
+
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -46,15 +48,15 @@ public class PlayerContainer extends ParticipantContainer{
         Hands.addAll(OrderHand);
     }
     
-    public void PrintBidInfo(String BidName, List<Card> currBid,float BidMoney)
+    public void PrintBidInfo(String BidName, PlayerBet currBid)
     {
-        PrintHandInfo(BidName,currBid);
+        PrintHandInfo(BidName,currBid.getBetCards());
         if(!BidView.containsKey(BidName))
         {
             BidView.put(BidName, Hands.remove());
             
         }
-        BidView.get(BidName).setText(new DecimalFormat("####.##").format(BidMoney));
+        BidView.get(BidName).setText(new DecimalFormat("####.##").format(currBid.getBetWage()));
     }
     
     @Override
@@ -67,9 +69,9 @@ public class PlayerContainer extends ParticipantContainer{
     }
     
     @Override
-    public void PrintPlayerInfo(PlayerDetails plToPrint){
+    public void PrintPlayerInfo(PlayerInfo plToPrint){
         // TODO SET MONEY WHEN PLaYER WIL HAVE IT
-        //MoneyValue.setText(plToPrint.getMoney().toString());
+        MoneyValue.setText(Double.toString(plToPrint.getMoney()));
         super.PrintPlayerInfo(plToPrint);
     }
     

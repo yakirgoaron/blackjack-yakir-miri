@@ -7,14 +7,12 @@
 package blackjackfx.Controllers;
 
 
-import blackjackfx.Events;
+import blackjackfx.ServerClasses.Events;
 import blackjackfx.ParticipantContainer;
 import blackjackfx.PlayerContainer;
-import game.client.ws.Action;
-import game.client.ws.Card;
-import game.client.ws.PlayerAction;
-import game.client.ws.PlayerDetails;
-import java.io.File;
+import blackjackfx.ServerClasses.Card;
+import blackjackfx.ServerClasses.PlayerAction;
+import blackjackfx.ServerClasses.PlayerInfo;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +47,7 @@ public class GameScreenController implements Initializable
 {    
     private Events GameEvents;
     private HashMap<String, ParticipantContainer> Players;
-    private SimpleObjectProperty<Action> plAction;
+    private SimpleObjectProperty<PlayerAction> plAction;
     private SimpleStringProperty FlPath;
     private SimpleBooleanProperty HideBidWindow;
     private SimpleBooleanProperty DoesPlayerContinue;
@@ -138,7 +136,7 @@ public class GameScreenController implements Initializable
         GameEvents.start();
     }
     
-    public void DisplayBid(String currBid,PlayerDetails currPlayer)
+    public void DisplayBid(String currBid,PlayerInfo currPlayer)
     {
         try {
             Thread.sleep(50);
@@ -147,8 +145,8 @@ public class GameScreenController implements Initializable
         }
         
         
-        ((PlayerContainer)Players.get(currPlayer.getName())).PrintBidInfo(currPlayer.getName() + "1", currPlayer.getFirstBet(),currPlayer.getFirstBetWage());
-        ((PlayerContainer)Players.get(currPlayer.getName())).PrintBidInfo(currPlayer.getName() + "2", currPlayer.getSecondBet(),currPlayer.getSecondBetWage());
+        ((PlayerContainer)Players.get(currPlayer.getName())).PrintBidInfo(currPlayer.getName() + "1", currPlayer.getBets().get(0));
+        ((PlayerContainer)Players.get(currPlayer.getName())).PrintBidInfo(currPlayer.getName() + "2", currPlayer.getBets().get(1));
         /*for (Bid bid : currPlayer.getBids()) {
             ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(bid);
             
@@ -163,7 +161,7 @@ public class GameScreenController implements Initializable
          Players.get(currPlayer).PrintHandInfo(currHand,currPlayer);   
     }
     
-    public void DisplayPlayer(PlayerDetails dispPlayer)
+    public void DisplayPlayer(PlayerInfo dispPlayer)
     {       
         ClearEffects();
         Players.get(dispPlayer.getName()).PrintPlayerInfo(dispPlayer);
@@ -181,7 +179,7 @@ public class GameScreenController implements Initializable
         }
     }
     
-    public SimpleObjectProperty<Action> getPlayerActionType() {
+    public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
         return plAction;
     }
     
@@ -229,7 +227,7 @@ public class GameScreenController implements Initializable
     private void DoublePress(ActionEvent event) {
         synchronized(plAction)
         {
-            plAction.set(Action.DOUBLE);
+            plAction.set(PlayerAction.DOUBLE);
             plAction.notify();
         }
         ChangeVisibleAction();
@@ -239,7 +237,7 @@ public class GameScreenController implements Initializable
     private void HitPress(ActionEvent event) {
         synchronized(plAction)
         {
-             plAction.set(Action.HIT);
+             plAction.set(PlayerAction.HIT);
              plAction.notify();
         }
         ChangeVisibleAction();
@@ -250,7 +248,7 @@ public class GameScreenController implements Initializable
     private void SplitPress(ActionEvent event) {
         synchronized(plAction)
         {
-             plAction.set(Action.SPLIT);
+             plAction.set(PlayerAction.SPLIT);
              plAction.notify();
         }
         ChangeVisibleAction();
@@ -260,7 +258,7 @@ public class GameScreenController implements Initializable
     private void StayPress(ActionEvent event) {
         synchronized(plAction)
         {
-             plAction.set(Action.STAND);
+             plAction.set(PlayerAction.STAND);
              plAction.notify();
         }
         ChangeVisibleAction();
@@ -284,11 +282,11 @@ public class GameScreenController implements Initializable
                                        PlayerMessage, DeckPlace);
         Players.put(Name, playerCont); 
     }
-    public void AddPlayerToGame(List<PlayerDetails> GamePlayers)
+    public void AddPlayerToGame(List<PlayerInfo> GamePlayers)
     {
         int CurrentPlayer = 0;
         
-        for (PlayerDetails playerDetails : GamePlayers)
+        for (PlayerInfo playerDetails : GamePlayers)
         {
             String Name = playerDetails.getName();
             AssignPlayerToUI(Name,CurrentPlayer);
@@ -299,7 +297,7 @@ public class GameScreenController implements Initializable
     }
     
     private void InitPlayers() {
-       List<PlayerDetails> GamePlayers = GameEvents.getGamePlayers();
+       List<PlayerInfo> GamePlayers = GameEvents.GetPlayersInGame();
       
        Scene scene = apPlayer1.getScene();
        
@@ -332,17 +330,17 @@ public class GameScreenController implements Initializable
         MsgLable.setText("");
     }
 
-    public void ShowPlayers(ArrayList<PlayerDetails> GamePlayers) {
+    public void ShowPlayers(ArrayList<PlayerInfo> GamePlayers) {
         
-        for (PlayerDetails player: GamePlayers){
+        for (PlayerInfo player: GamePlayers){
             PlayerContainer playerCont = (PlayerContainer) Players.get(player);
             playerCont.PrintPlayerInfo(player);
             playerCont.ClearEffects();
             
             
-            playerCont.PrintBidInfo(player.getName() + "1", player.getFirstBet(),player.getFirstBetWage());
+            playerCont.PrintBidInfo(player.getName() + "1", player.getBets().get(0));
             
-            playerCont.PrintBidInfo(player.getName() + "2", player.getSecondBet(),player.getSecondBetWage());
+            playerCont.PrintBidInfo(player.getName() + "2", player.getBets().get(1));
         }
     }
 
@@ -381,12 +379,12 @@ public class GameScreenController implements Initializable
         ChangeVisiblePlayerRoundEnd();
     }
 
-    public void RemovePlayer(PlayerDetails player) {
+    public void RemovePlayer(PlayerInfo player) {
         Players.get(player.getName()).RemovePlayer();
         Players.remove(player.getName());
     }
 
-    public void PrintPlayerMessage(PlayerDetails ParPlayer, String Message) {
+    public void PrintPlayerMessage(PlayerInfo ParPlayer, String Message) {
         Players.get(ParPlayer.getName()).PrintMessage(Message);
     }
        

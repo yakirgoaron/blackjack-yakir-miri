@@ -6,9 +6,10 @@
 
 package blackjackfx;
 
-import game.client.ws.Card;
-import game.client.ws.PlayerDetails;
-import game.client.ws.PlayerType;
+import blackjackfx.ServerClasses.Card;
+import blackjackfx.ServerClasses.PlayerInfo;
+import blackjackfx.ServerClasses.PlayerType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -72,7 +73,7 @@ public class ParticipantContainer
         pDeckPane = CardsDeck;
         IsDealer = true;
     }
-    public void PrintPlayerInfo(PlayerDetails plToPrint)
+    public void PrintPlayerInfo(PlayerInfo plToPrint)
     {
         PlayerView pl = new PlayerView(plToPrint.getName(), plToPrint.getType().equals(PlayerType.HUMAN));
         ParticipantImage.getChildren().add(pl);

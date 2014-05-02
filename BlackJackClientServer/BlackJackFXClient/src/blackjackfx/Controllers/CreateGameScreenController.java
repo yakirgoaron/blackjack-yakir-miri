@@ -7,10 +7,9 @@
 package blackjackfx.Controllers;
 
 
-import blackjackfx.Events;
+import blackjackfx.ServerClasses.Events;
 import blackjackfx.PlayerView;
 import game.client.ws.DuplicateGameName_Exception;
-import game.client.ws.GameDoesNotExists_Exception;
 import game.client.ws.InvalidParameters_Exception;
 import java.net.URL;
 import java.util.ResourceBundle;

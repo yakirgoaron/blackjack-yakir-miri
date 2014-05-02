@@ -6,12 +6,12 @@
 
 package blackjackfx.Controllers;
 
-import blackjackfx.Events;
-import game.client.ws.GameDetails;
+import blackjackfx.ServerClasses.Events;
+import blackjackfx.ServerClasses.GameInfo;
+import blackjackfx.ServerClasses.PlayerInfo;
+import blackjackfx.ServerClasses.PlayerType;
 import game.client.ws.GameDoesNotExists_Exception;
 import game.client.ws.InvalidParameters_Exception;
-import game.client.ws.PlayerDetails;
-import game.client.ws.PlayerType;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -109,19 +109,12 @@ public class WaitingGamesController implements Initializable
     
     private void UpdatePlayersTable()
     {
-        try 
+        List<PlayerInfo> Players  = GameWS.GetPlayersInGame(); 
+        PlayerData.clear();
+        for (PlayerInfo playerDetails : Players)
         {
-            List<PlayerDetails> Players  = GameWS.GetPlayersInGame();
-            PlayerData.clear();
-            for (PlayerDetails playerDetails : Players) 
-            {
-               //TODO ADD MONEY WHEN CAN
-               PlayerData.add(new PlayerDetailsRow(playerDetails.getName(), playerDetails.getType().toString(), "1000"));
-            }
-        }
-        catch (GameDoesNotExists_Exception ex) 
-        {
-            Logger.getLogger(WaitingGamesController.class.getName()).log(Level.SEVERE, null, ex);
+            //TODO ADD MONEY WHEN CAN
+            PlayerData.add(new PlayerDetailsRow(playerDetails.getName(), playerDetails.getType().toString(),Double.toString(playerDetails.getMoney())));
         }
     }
     
@@ -182,7 +175,7 @@ public class WaitingGamesController implements Initializable
                 {
                     try
                     {
-                        GameDetails curr = GameWS.GetGameDetails(currGame);
+                        GameInfo curr = GameWS.GetGameDetails(currGame);
                         GameDetailsRow row = new GameDetailsRow(curr.getName(),Integer.toString(curr.getHumanPlayers()) ,
                                                         Integer.toString(curr.getJoinedHumanPlayers()));
                         GamesData.add(row);

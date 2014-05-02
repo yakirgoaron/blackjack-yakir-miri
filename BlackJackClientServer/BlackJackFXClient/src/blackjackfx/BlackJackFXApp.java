@@ -9,6 +9,7 @@ package blackjackfx;
 
 import GameEnums.JoinGame;
 import GameEnums.MainMenu;
+import blackjackfx.ServerClasses.Events;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
