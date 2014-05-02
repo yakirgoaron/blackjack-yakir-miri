@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
+import ws.blackjack.Action;
 import ws.blackjack.Event;
 import ws.blackjack.EventType;
 import ws.blackjack.PlayerDetails;
@@ -231,11 +232,11 @@ public class GameEngineStart extends Thread implements Communicable
         Event envtBid = new Event();
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(BettingPlayer.getName());
-        envtBid.setType(EventType.NEW_ROUND);
+        envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
         EngineManager.getEvents().add(envtBid);
         /*try 
         {
-            EngineManager.getMoney().wait();
+           EngineManager.getMoney().wait();
         }
         catch (InterruptedException ex) 
         {
@@ -277,8 +278,14 @@ public class GameEngineStart extends Thread implements Communicable
         evntAction.setId(EngineManager.getUniqeEventID());
         evntAction.setPlayerName(PlayerAct.getName());
         evntAction.setType(EventType.USER_ACTION);
+        evntAction.setPlayerAction(synActionToAction(Action));
         EngineManager.getEvents().add(evntAction);
-        // TODO SEND THE ACTION LOL!!!!!! :D
+        
+    }
+    
+    private ws.blackjack.Action synActionToAction(PlayerAction Action)
+    {
+      return ws.blackjack.Action.valueOf(Action.name());  
     }
 
     @Override

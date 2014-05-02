@@ -351,7 +351,7 @@ public class EngineManager {
         return Engine.GetGameName();
     }
     
-    public static void Playeraction(int playerId, int eventId, ws.blackjack.Action action, float bet) throws InvalidParameters_Exception
+    public static void Playeraction(int playerId, int eventId, ws.blackjack.Action action, float money, int bet) throws InvalidParameters_Exception
     {
         if(!playerManager.containsKey(playerId))
         {
@@ -365,6 +365,18 @@ public class EngineManager {
            faultInfo.setMessage("Error - event id not last");
            throw new InvalidParameters_Exception(((Integer)playerId).toString(), faultInfo);     
         }
+        
+        Event playerAction = new Event();
+        playerAction.setType(EventType.USER_ACTION);
+        playerAction.setId(getUniqeEventID());
+        playerAction.setPlayerName(playerManager.get(playerId).getName());
+        playerAction.setPlayerAction(action);
+        
+        /*
+        if (action.equals(Action.PLACE_BET)){
+            Money = (double) money;
+            Money.notify();
+        }*/
         
         plPlayerAction = action;
         plPlayerAction.notifyAll();
