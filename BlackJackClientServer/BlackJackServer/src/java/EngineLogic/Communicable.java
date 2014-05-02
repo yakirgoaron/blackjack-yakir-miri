@@ -27,7 +27,7 @@ public interface Communicable
 
     public static enum PlayerAction{
         
-        DOUBLE("Double"), HIT("Hit"), SPLIT("Split"), STAY("Stay");
+        DOUBLE("Double"), HIT("Hit"), SPLIT("Split"), STAND("Stand");
         
         private final String Description;
         private static final int Size = PlayerAction.values().length;

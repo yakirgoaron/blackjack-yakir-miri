@@ -196,7 +196,7 @@ public class GameEngine
                CurrentPlayer.Split();
                break;
            }
-           case STAY:
+           case STAND:
                break;
         }
     }
@@ -204,7 +204,7 @@ public class GameEngine
     private void MakePlayerMove(Communicable commInterface,Bid CurrentBid,Player CurrentPlayer)
     {
         PlayerAction EnumAction = PlayerAction.HIT; 
-        while (!EnumAction.equals(PlayerAction.STAY) &&
+        while (!EnumAction.equals(PlayerAction.STAND) &&
                 !EnumAction.equals(PlayerAction.DOUBLE) &&
                 CurrentBid.getSumCards() <= BLACKJACK)
         {
@@ -242,7 +242,7 @@ public class GameEngine
                 commInterface.PrintPlayerAction(CurrPlayer, actToDo);
                 DoPlayerMove(actToDo,CurrPlayer,CurrBid);
                 commInterface.PrintHandInfo(CurrBid,CurrPlayer);
-            }while (!actToDo.equals(PlayerAction.STAY));
+            }while (!actToDo.equals(PlayerAction.STAND));
         } 
         catch (RulesDosentAllowException ex) {
         } catch (TooLowMoneyException ex) {

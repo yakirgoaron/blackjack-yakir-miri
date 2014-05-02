@@ -36,7 +36,7 @@ public class CompPlayer extends Player implements AIPlayer
     {               
         if (hand.getSumCards() < 17)
             return PlayerAction.HIT;       
-        return PlayerAction.STAY;   
+        return PlayerAction.STAND;   
         
     }
     

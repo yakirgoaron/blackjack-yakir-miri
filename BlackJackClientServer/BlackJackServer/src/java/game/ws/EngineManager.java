@@ -48,17 +48,22 @@ public class EngineManager {
 
     private static HashMap<Integer, String> IdToGame = new HashMap<>();
     private static ArrayList<Event> Events = new ArrayList<>();
-    private static Double Money;
+    private static Double Money = 0.0;
     private static GameEngineStart Engine ;
     private static Action plPlayerAction = Action.STAND;
+    private static Boolean StopWait = false;
 
-               
+              
     private EngineManager()
     {
     }
     
     public static ArrayList<Event> getEvents() {
         return Events;
+    }
+    
+    public static Boolean isStopWait() {
+        return StopWait;
     }
     
     public static Double getMoney() {
@@ -372,14 +377,20 @@ public class EngineManager {
         playerAction.setPlayerName(playerManager.get(playerId).getName());
         playerAction.setPlayerAction(action);
         
-        /*
+        
         if (action.equals(Action.PLACE_BET)){
             Money = (double) money;
-            Money.notify();
-        }*/
+            synchronized(StopWait)
+            {
+                StopWait.notifyAll();
+            }
+        }
         
         plPlayerAction = action;
-        plPlayerAction.notifyAll();
+        synchronized(StopWait)
+        {
+            StopWait.notifyAll();
+        }
             
     }
     
