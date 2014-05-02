@@ -15,27 +15,6 @@
   <message name="InvalidParameters">
     <part name="fault" element="tns:InvalidParameters"/>
   </message>
-  <message name="getPlayersDetails">
-    <part name="parameters" element="tns:getPlayersDetails"/>
-  </message>
-  <message name="getPlayersDetailsResponse">
-    <part name="parameters" element="tns:getPlayersDetailsResponse"/>
-  </message>
-  <message name="GameDoesNotExists">
-    <part name="fault" element="tns:GameDoesNotExists"/>
-  </message>
-  <message name="getPlayerDetails">
-    <part name="parameters" element="tns:getPlayerDetails"/>
-  </message>
-  <message name="getPlayerDetailsResponse">
-    <part name="parameters" element="tns:getPlayerDetailsResponse"/>
-  </message>
-  <message name="getWaitingGames">
-    <part name="parameters" element="tns:getWaitingGames"/>
-  </message>
-  <message name="getWaitingGamesResponse">
-    <part name="parameters" element="tns:getWaitingGamesResponse"/>
-  </message>
   <message name="createGameFromXML">
     <part name="parameters" element="tns:createGameFromXML"/>
   </message>
@@ -54,11 +33,32 @@
   <message name="getGameDetailsResponse">
     <part name="parameters" element="tns:getGameDetailsResponse"/>
   </message>
+  <message name="GameDoesNotExists">
+    <part name="fault" element="tns:GameDoesNotExists"/>
+  </message>
+  <message name="getWaitingGames">
+    <part name="parameters" element="tns:getWaitingGames"/>
+  </message>
+  <message name="getWaitingGamesResponse">
+    <part name="parameters" element="tns:getWaitingGamesResponse"/>
+  </message>
   <message name="getActiveGames">
     <part name="parameters" element="tns:getActiveGames"/>
   </message>
   <message name="getActiveGamesResponse">
     <part name="parameters" element="tns:getActiveGamesResponse"/>
+  </message>
+  <message name="getPlayersDetails">
+    <part name="parameters" element="tns:getPlayersDetails"/>
+  </message>
+  <message name="getPlayersDetailsResponse">
+    <part name="parameters" element="tns:getPlayersDetailsResponse"/>
+  </message>
+  <message name="getPlayerDetails">
+    <part name="parameters" element="tns:getPlayerDetails"/>
+  </message>
+  <message name="getPlayerDetailsResponse">
+    <part name="parameters" element="tns:getPlayerDetailsResponse"/>
   </message>
   <message name="createGame">
     <part name="parameters" element="tns:createGame"/>
@@ -90,21 +90,6 @@
       <output wsam:Action="http://blackjack.ws/BlackJackWebService/getEventsResponse" message="tns:getEventsResponse"/>
       <fault message="tns:InvalidParameters" name="InvalidParameters" wsam:Action="http://blackjack.ws/BlackJackWebService/getEvents/Fault/InvalidParameters"/>
     </operation>
-    <operation name="getPlayersDetails">
-      <input wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayersDetailsRequest" message="tns:getPlayersDetails"/>
-      <output wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayersDetailsResponse" message="tns:getPlayersDetailsResponse"/>
-      <fault message="tns:GameDoesNotExists" name="GameDoesNotExists" wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayersDetails/Fault/GameDoesNotExists"/>
-    </operation>
-    <operation name="getPlayerDetails">
-      <input wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayerDetailsRequest" message="tns:getPlayerDetails"/>
-      <output wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayerDetailsResponse" message="tns:getPlayerDetailsResponse"/>
-      <fault message="tns:GameDoesNotExists" name="GameDoesNotExists" wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayerDetails/Fault/GameDoesNotExists"/>
-      <fault message="tns:InvalidParameters" name="InvalidParameters" wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayerDetails/Fault/InvalidParameters"/>
-    </operation>
-    <operation name="getWaitingGames">
-      <input wsam:Action="http://blackjack.ws/BlackJackWebService/getWaitingGamesRequest" message="tns:getWaitingGames"/>
-      <output wsam:Action="http://blackjack.ws/BlackJackWebService/getWaitingGamesResponse" message="tns:getWaitingGamesResponse"/>
-    </operation>
     <operation name="createGameFromXML">
       <input wsam:Action="http://blackjack.ws/BlackJackWebService/createGameFromXMLRequest" message="tns:createGameFromXML"/>
       <output wsam:Action="http://blackjack.ws/BlackJackWebService/createGameFromXMLResponse" message="tns:createGameFromXMLResponse"/>
@@ -117,9 +102,24 @@
       <output wsam:Action="http://blackjack.ws/BlackJackWebService/getGameDetailsResponse" message="tns:getGameDetailsResponse"/>
       <fault message="tns:GameDoesNotExists" name="GameDoesNotExists" wsam:Action="http://blackjack.ws/BlackJackWebService/getGameDetails/Fault/GameDoesNotExists"/>
     </operation>
+    <operation name="getWaitingGames">
+      <input wsam:Action="http://blackjack.ws/BlackJackWebService/getWaitingGamesRequest" message="tns:getWaitingGames"/>
+      <output wsam:Action="http://blackjack.ws/BlackJackWebService/getWaitingGamesResponse" message="tns:getWaitingGamesResponse"/>
+    </operation>
     <operation name="getActiveGames">
       <input wsam:Action="http://blackjack.ws/BlackJackWebService/getActiveGamesRequest" message="tns:getActiveGames"/>
       <output wsam:Action="http://blackjack.ws/BlackJackWebService/getActiveGamesResponse" message="tns:getActiveGamesResponse"/>
+    </operation>
+    <operation name="getPlayersDetails">
+      <input wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayersDetailsRequest" message="tns:getPlayersDetails"/>
+      <output wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayersDetailsResponse" message="tns:getPlayersDetailsResponse"/>
+      <fault message="tns:GameDoesNotExists" name="GameDoesNotExists" wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayersDetails/Fault/GameDoesNotExists"/>
+    </operation>
+    <operation name="getPlayerDetails">
+      <input wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayerDetailsRequest" message="tns:getPlayerDetails"/>
+      <output wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayerDetailsResponse" message="tns:getPlayerDetailsResponse"/>
+      <fault message="tns:GameDoesNotExists" name="GameDoesNotExists" wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayerDetails/Fault/GameDoesNotExists"/>
+      <fault message="tns:InvalidParameters" name="InvalidParameters" wsam:Action="http://blackjack.ws/BlackJackWebService/getPlayerDetails/Fault/InvalidParameters"/>
     </operation>
     <operation name="createGame">
       <input wsam:Action="http://blackjack.ws/BlackJackWebService/createGameRequest" message="tns:createGame"/>
@@ -158,42 +158,6 @@
         <soap:fault name="InvalidParameters" use="literal"/>
       </fault>
     </operation>
-    <operation name="getPlayersDetails">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-      <fault name="GameDoesNotExists">
-        <soap:fault name="GameDoesNotExists" use="literal"/>
-      </fault>
-    </operation>
-    <operation name="getPlayerDetails">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-      <fault name="GameDoesNotExists">
-        <soap:fault name="GameDoesNotExists" use="literal"/>
-      </fault>
-      <fault name="InvalidParameters">
-        <soap:fault name="InvalidParameters" use="literal"/>
-      </fault>
-    </operation>
-    <operation name="getWaitingGames">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
     <operation name="createGameFromXML">
       <soap:operation soapAction=""/>
       <input>
@@ -224,6 +188,15 @@
         <soap:fault name="GameDoesNotExists" use="literal"/>
       </fault>
     </operation>
+    <operation name="getWaitingGames">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
     <operation name="getActiveGames">
       <soap:operation soapAction=""/>
       <input>
@@ -232,6 +205,33 @@
       <output>
         <soap:body use="literal"/>
       </output>
+    </operation>
+    <operation name="getPlayersDetails">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="GameDoesNotExists">
+        <soap:fault name="GameDoesNotExists" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="getPlayerDetails">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="GameDoesNotExists">
+        <soap:fault name="GameDoesNotExists" use="literal"/>
+      </fault>
+      <fault name="InvalidParameters">
+        <soap:fault name="InvalidParameters" use="literal"/>
+      </fault>
     </operation>
     <operation name="createGame">
       <soap:operation soapAction=""/>

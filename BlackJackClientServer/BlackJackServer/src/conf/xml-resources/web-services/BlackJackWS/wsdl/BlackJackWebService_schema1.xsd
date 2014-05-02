@@ -93,7 +93,8 @@
       <xs:element name="playerId" type="xs:int"/>
       <xs:element name="eventId" type="xs:int"/>
       <xs:element name="action" type="tns:action" minOccurs="0"/>
-      <xs:element name="bet" type="xs:float"/>
+      <xs:element name="money" type="xs:float"/>
+      <xs:element name="bet" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -147,19 +148,10 @@
       <xs:element name="computerizedPlayers" type="xs:int"/>
       <xs:element name="humanPlayers" type="xs:int"/>
       <xs:element name="joinedHumanPlayers" type="xs:int"/>
+      <xs:element name="loadedFromXML" type="xs:boolean"/>
       <xs:element name="money" type="xs:double"/>
       <xs:element name="name" type="xs:string" minOccurs="0"/>
       <xs:element name="status" type="tns:gameStatus" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="getWaitingGames">
-    <xs:sequence/>
-  </xs:complexType>
-
-  <xs:complexType name="getWaitingGamesResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -179,6 +171,7 @@
     <xs:sequence>
       <xs:element name="firstBet" type="tns:card" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="firstBetWage" type="xs:float"/>
+      <xs:element name="money" type="xs:float"/>
       <xs:element name="name" type="xs:string" minOccurs="0"/>
       <xs:element name="secondBet" type="tns:card" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="secondBetWage" type="xs:float"/>
@@ -194,11 +187,11 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="getActiveGames">
+  <xs:complexType name="getWaitingGames">
     <xs:sequence/>
   </xs:complexType>
 
-  <xs:complexType name="getActiveGamesResponse">
+  <xs:complexType name="getWaitingGamesResponse">
     <xs:sequence>
       <xs:element name="return" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
@@ -206,7 +199,6 @@
 
   <xs:complexType name="getPlayerDetails">
     <xs:sequence>
-      <xs:element name="gameName" type="xs:string" minOccurs="0"/>
       <xs:element name="playerId" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
@@ -214,6 +206,16 @@
   <xs:complexType name="getPlayerDetailsResponse">
     <xs:sequence>
       <xs:element name="return" type="tns:playerDetails" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getActiveGames">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getActiveGamesResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -254,6 +256,7 @@
       <xs:element name="cards" type="tns:card" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="id" type="xs:int"/>
       <xs:element name="money" type="xs:float"/>
+      <xs:element name="playerAction" type="tns:action" minOccurs="0"/>
       <xs:element name="playerName" type="xs:string" minOccurs="0"/>
       <xs:element name="timeout" type="xs:int"/>
       <xs:element name="type" type="tns:eventType" minOccurs="0"/>
@@ -262,6 +265,7 @@
 
   <xs:simpleType name="action">
     <xs:restriction base="xs:string">
+      <xs:enumeration value="PlaceBet"/>
       <xs:enumeration value="Double"/>
       <xs:enumeration value="Hit"/>
       <xs:enumeration value="Split"/>
@@ -306,6 +310,7 @@
 
   <xs:simpleType name="playerStatus">
     <xs:restriction base="xs:string">
+      <xs:enumeration value="JOINED"/>
       <xs:enumeration value="ACTIVE"/>
       <xs:enumeration value="RETIRED"/>
     </xs:restriction>
