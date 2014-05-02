@@ -74,8 +74,8 @@ public class BidInputController implements Initializable {
         lblPlayerName.setText(current.getName());
         
         // TODO ADD TOTAL AFTER ADD MONEY
-        //lblPlayerMoney.setText(current.getMoney().toString());
-        //SdBidAmount.setMax(current.getMoney());
+        lblPlayerMoney.setText(Double.toString(current.getMoney()));
+        SdBidAmount.setMax(current.getMoney());
         lblPlayerMoney.setText("1000");
         SdBidAmount.setMax(100);
         

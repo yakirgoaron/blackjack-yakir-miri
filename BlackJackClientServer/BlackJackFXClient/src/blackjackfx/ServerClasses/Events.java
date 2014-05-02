@@ -151,10 +151,23 @@ public class Events extends Thread
     {
         try
         {
-            PlayerDetails MyInfo = GameWS.getPlayerDetails(GameName, PlayerID);
+            PlayerDetails MyInfo = GameWS.getPlayerDetails(PlayerID);
             if(MyInfo.getName().equals(event.getPlayerName()))
             {
-                GetWantedAction();
+                if(MyInfo.getFirstBetWage() <= 0.0)
+                {
+                    try {
+                            GetBidForPlayer(new PlayerInfo(GameWS.getPlayerDetails(PlayerID)));
+                        } catch (GameDoesNotExists_Exception ex) {
+                            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InvalidParameters_Exception ex) {
+                            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                }
+                else
+                {
+                    GetWantedAction();
+                }
             }
         }
         catch (GameDoesNotExists_Exception ex) {
@@ -197,14 +210,14 @@ public class Events extends Thread
                     break;
                 case NEW_ROUND:
                 {
-                    if (event.getPlayerName().equals(PlayerName))
+                    /*if (event.getPlayerName().equals(PlayerName))
                         try {
                             GetBidForPlayer(new PlayerInfo(GameWS.getPlayerDetails(GameName, PlayerID)));
                         } catch (GameDoesNotExists_Exception ex) {
                             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (InvalidParameters_Exception ex) {
                             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        }*/
                     break;
                 }
                 case PLAYER_RESIGNED:
@@ -224,8 +237,7 @@ public class Events extends Thread
                 }
                 case USER_ACTION:
                 {
-                    // TODO change the action that given
-                    PrintPlayerMessage(GetPlayerDetailsByName(event.getPlayerName()),"NULL ACTION");
+                    PrintPlayerMessage(GetPlayerDetailsByName(event.getPlayerName()),event.getPlayerAction().value());
                     break;
                 }
             }
@@ -309,7 +321,7 @@ public class Events extends Thread
             
             Action actionchoosed = Action.valueOf(scControoler.getPlayerActionType().get().getDescription());
             // TODO DEAL WITH THE BET
-            GameWS.playerAction(PlayerID, EventID, actionchoosed, 0);
+            GameWS.playerAction(PlayerID, EventID, actionchoosed, 0,1);
         } catch (InvalidParameters_Exception ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -362,7 +374,7 @@ public class Events extends Thread
     }*/
 
    
-    public void GetBidForPlayer(final PlayerInfo BettingPlayer) {
+    public void GetBidForPlayer(final PlayerInfo BettingPlayer) throws InvalidParameters_Exception {
         
         Platform.runLater(new Runnable(){
                                 @Override
@@ -385,7 +397,7 @@ public class Events extends Thread
         } 
         
         Double BidValue = ScreenManager.GetInstance().getBidScCr().GetNumberBid().getValue();
-              
+        GameWS.playerAction(PlayerID, EventID, Action.PLACE_BET,BidValue.floatValue(),1);
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
