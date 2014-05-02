@@ -22,8 +22,8 @@ public class PlayerBet {
    
     public PlayerBet(List<Card> BetCards,float BetWage)    
     {
-        this.BetCards = new ArrayList<>(BetCards.size() + 1);
-        Collections.copy(this.BetCards, BetCards);
+        this.BetCards = new ArrayList<>();
+        this.BetCards.addAll(BetCards);
         this.BetWage = BetWage;
     }
     
