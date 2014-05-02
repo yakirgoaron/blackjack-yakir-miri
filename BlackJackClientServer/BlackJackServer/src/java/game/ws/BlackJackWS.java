@@ -31,8 +31,8 @@ public class BlackJackWS {
         return EngineManager.PlayerJoinGame(gameName, playerName, money);
     }
 
-    public void playerAction(int playerId, int eventId, ws.blackjack.Action action, float bet) throws InvalidParameters_Exception {
-        EngineManager.Playeraction(playerId, eventId, action, bet);
+    public void playerAction(int playerId, int eventId, ws.blackjack.Action action, float money, int bet) throws InvalidParameters_Exception {
+        EngineManager.Playeraction(playerId, eventId, action, money, bet);
     }
 
     public void resign(int playerId) throws InvalidParameters_Exception {
@@ -59,7 +59,7 @@ public class BlackJackWS {
         return EngineManager.GetPlayersDetails(gameName);
     }
 
-    public ws.blackjack.PlayerDetails getPlayerDetails(java.lang.String gameName, int playerId) throws GameDoesNotExists_Exception, InvalidParameters_Exception {
+    public ws.blackjack.PlayerDetails getPlayerDetails(int playerId) throws GameDoesNotExists_Exception, InvalidParameters_Exception {
         return EngineManager.GetPlayerDetails(playerId);
     }
     
