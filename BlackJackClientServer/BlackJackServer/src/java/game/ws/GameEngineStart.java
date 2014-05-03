@@ -87,12 +87,21 @@ public class GameEngineStart extends Thread implements Communicable
         GameEngMang.AddPlayer(Name);
     }
     
+    public void SyncAllPlayers()
+    {
+        for (Player player : GameEngMang.getGamePlayers()) 
+        {
+            SynchronyizePlayerToPlayerDetails(player);
+        }
+    }
+    
     public void AddCompPlayers(int nNumberComps) throws TooManyPlayersException
     {
         for (int i = 0; i < nNumberComps; i++) 
         {
             GameEngMang.AddPlayer();
         }
+        SyncAllPlayers();
     }
     
     @Override
@@ -145,12 +154,15 @@ public class GameEngineStart extends Thread implements Communicable
     {
         SynchronyizeContiner(currentPlayer);
         PlayerDetails playerDetails = PlayerByName.get(currentPlayer.getName());
-        SynchronyizeBidAndCards(currentPlayer.getBids().get(0),playerDetails.getFirstBet());
-        playerDetails.setFirstBetWage(currentPlayer.getBids().get(0).getTotalBid().floatValue());
-        if(currentPlayer.getBids().size() > 1)
+        if(currentPlayer.getBids().size() > 0)
         {
-            SynchronyizeBidAndCards(currentPlayer.getBids().get(1),playerDetails.getSecondBet());
-            playerDetails.setSecondBetWage(currentPlayer.getBids().get(1).getTotalBid().floatValue());
+            SynchronyizeBidAndCards(currentPlayer.getBids().get(0),playerDetails.getFirstBet());
+            playerDetails.setFirstBetWage(currentPlayer.getBids().get(0).getTotalBid().floatValue());
+            if(currentPlayer.getBids().size() > 1)
+            {
+                SynchronyizeBidAndCards(currentPlayer.getBids().get(1),playerDetails.getSecondBet());
+                playerDetails.setSecondBetWage(currentPlayer.getBids().get(1).getTotalBid().floatValue());
+            }
         }
         playerDetails.setMoney(currentPlayer.getMoney().floatValue());
         
