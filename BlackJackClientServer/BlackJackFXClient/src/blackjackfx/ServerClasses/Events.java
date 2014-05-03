@@ -16,6 +16,7 @@ import game.client.ws.Event;
 import game.client.ws.GameDetails;
 import game.client.ws.GameDoesNotExists_Exception;
 import game.client.ws.InvalidParameters_Exception;
+import game.client.ws.InvalidXML_Exception;
 import game.client.ws.PlayerAction;
 import game.client.ws.PlayerDetails;
 import java.net.MalformedURLException;
@@ -80,6 +81,11 @@ public class Events extends Thread
         GameWS.createGame(GameName, HumanPlayers, ComputerizedPlayers);
         this.GameName = GameName;
     }
+    public void CreateGameFromXML(String xmlData ) throws DuplicateGameName_Exception, InvalidParameters_Exception, InvalidXML_Exception
+    {
+        this.GameName = GameWS.createGameFromXML(xmlData);        
+    }
+    
     public void DoesPlayerContinue(final PlayerInfo player) 
     {
         Platform.runLater(new Runnable(){
