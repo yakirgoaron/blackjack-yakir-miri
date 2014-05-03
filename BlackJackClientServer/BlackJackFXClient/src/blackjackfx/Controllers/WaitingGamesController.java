@@ -9,6 +9,7 @@ package blackjackfx.Controllers;
 import blackjackfx.ServerClasses.Events;
 import blackjackfx.ServerClasses.GameInfo;
 import blackjackfx.ServerClasses.PlayerInfo;
+import blackjackfx.ServerClasses.PlayerStatus;
 import blackjackfx.ServerClasses.PlayerType;
 import game.client.ws.GameDoesNotExists_Exception;
 import game.client.ws.InvalidParameters_Exception;
@@ -30,6 +31,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -52,13 +54,15 @@ public class WaitingGamesController implements Initializable
     @FXML
     private TableView<PlayerDetailsRow> PlayersJoined;
     private ObservableList<PlayerDetailsRow> PlayerData;
-    
+    private GameInfo chosen;
     @FXML
     private TextField txtPlayerName;
     @FXML
     private Button btnJoin;
     @FXML
     private Button BackToWait;
+    @FXML
+    private ChoiceBox<String> ChosePlayer;
 
     
      /**
@@ -79,6 +83,7 @@ public class WaitingGamesController implements Initializable
                 if(t1 != null)
                 {
                     GameWS.setGameName(t1.getGameName());
+                    chosen = t1.getGameChosen();
                     GameChosen();
                 }
                 
@@ -101,7 +106,13 @@ public class WaitingGamesController implements Initializable
         this.WaitinGamesView.setVisible(false);
         InITablePlayer();
         this.PlayersJoined.setVisible(true);
-        txtPlayerName.setDisable(false);
+        if(!chosen.isLoadedFromXml())
+            txtPlayerName.setDisable(false);
+        else
+        {
+            ChosePlayer.setVisible(true);
+            
+        }
         btnJoin.setDisable(false);
         BackToWait.setDisable(false);
         UpdatePlayersTable();
@@ -109,12 +120,14 @@ public class WaitingGamesController implements Initializable
     
     private void UpdatePlayersTable()
     {
+        ChosePlayer.getItems().clear();
         List<PlayerInfo> Players  = GameWS.GetPlayersInGame(); 
         PlayerData.clear();
         for (PlayerInfo playerDetails : Players)
         {
-            //TODO ADD MONEY WHEN CAN
             PlayerData.add(new PlayerDetailsRow(playerDetails.getName(), playerDetails.getType().toString(),Double.toString(playerDetails.getMoney())));
+            if(playerDetails.getStatus().equals(PlayerStatus.ACTIVE) && !playerDetails.getType().equals(PlayerType.COMPUTER))
+                ChosePlayer.getItems().add(playerDetails.getName());
         }
     }
     
@@ -177,7 +190,7 @@ public class WaitingGamesController implements Initializable
                     {
                         GameInfo curr = GameWS.GetGameDetails(currGame);
                         GameDetailsRow row = new GameDetailsRow(curr.getName(),Integer.toString(curr.getHumanPlayers()) ,
-                                                        Integer.toString(curr.getJoinedHumanPlayers()));
+                                                        Integer.toString(curr.getJoinedHumanPlayers()),curr);
                         GamesData.add(row);
                 
                 
@@ -198,7 +211,10 @@ public class WaitingGamesController implements Initializable
     {
         
         try {
-            GameWS.JoinGame(txtPlayerName.getText());
+            if(chosen.isLoadedFromXml())
+                GameWS.JoinGame(ChosePlayer.getValue());
+            else               
+                GameWS.JoinGame(txtPlayerName.getText());
             FinishJoinGame.set(true);
             
         } catch (GameDoesNotExists_Exception ex) {
@@ -227,12 +243,17 @@ public class WaitingGamesController implements Initializable
         private SimpleStringProperty GameName;
         private SimpleStringProperty AmountPlayersTotal;
         private SimpleStringProperty AmountPlayersJoin;
-
-        public GameDetailsRow(String GameName,String PlayersAmount,String AmountPlayerJoin)
+        private GameInfo GameChosen;
+        public GameDetailsRow(String GameName,String PlayersAmount,String AmountPlayerJoin,GameInfo GameChosen)
         {
             this.GameName = new SimpleStringProperty(GameName);
             this.AmountPlayersTotal = new SimpleStringProperty(PlayersAmount); 
             this.AmountPlayersJoin = new SimpleStringProperty(AmountPlayerJoin);
+            this.GameChosen = GameChosen;
+        }
+
+        public GameInfo getGameChosen() {
+            return GameChosen;
         }
         
        
