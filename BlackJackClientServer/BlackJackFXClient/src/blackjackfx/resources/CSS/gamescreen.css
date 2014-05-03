@@ -63,19 +63,19 @@
  -fx-image: url('/blackjackfx/resources/Images/Cards/10Spades.png');   
 }
 
-.DEUCECLUBS{
+.TWOCLUBS{
  -fx-image: url('/blackjackfx/resources/Images/Cards/2Clubs.png');   
 }
 
-.DEUCEDIAMONDS{
+.TWODIAMONDS{
  -fx-image: url('/blackjackfx/resources/Images/Cards/2Dimond.png');   
 }
 
-.DEUCEHEARTS{
+.TWOHEARTS{
  -fx-image: url('/blackjackfx/resources/Images/Cards/2Hearts.png');   
 }
 
-.DEUCESPADES{
+.TWOSPADES{
  -fx-image: url('/blackjackfx/resources/Images/Cards/2Spades.png');   
 }
 
