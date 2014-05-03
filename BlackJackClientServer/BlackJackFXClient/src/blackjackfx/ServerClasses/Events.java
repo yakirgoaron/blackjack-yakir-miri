@@ -80,7 +80,7 @@ public class Events extends Thread
         GameWS.createGame(GameName, HumanPlayers, ComputerizedPlayers);
         this.GameName = GameName;
     }
-    public void DoesPlayerContinue(final PlayerDetails player) 
+    public void DoesPlayerContinue(final PlayerInfo player) 
     {
         Platform.runLater(new Runnable(){
                                 @Override
@@ -98,8 +98,13 @@ public class Events extends Thread
         } catch (InterruptedException ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // TODO CReaTe eveNT AND SEND TO THE SERVER 
-        scControoler.getDoesPlayerContinue().get();
+         
+        if (!scControoler.getDoesPlayerContinue().get())
+            try {
+            GameWS.resign(PlayerID);
+        } catch (InvalidParameters_Exception ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
     }
     
@@ -209,15 +214,10 @@ public class Events extends Thread
                     PrintGameWinner(GetPlayerDetailsByName(event.getPlayerName()));
                     break;
                 case NEW_ROUND:
-                {
-                    /*if (event.getPlayerName().equals(PlayerName))
-                        try {
-                            GetBidForPlayer(new PlayerInfo(GameWS.getPlayerDetails(GameName, PlayerID)));
-                        } catch (GameDoesNotExists_Exception ex) {
-                            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (InvalidParameters_Exception ex) {
-                            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-                        }*/
+                {                   
+                    if (event.getPlayerName().equals(PlayerName))
+                        DoesPlayerContinue(GetPlayerDetailsByName(PlayerName));
+                        
                     break;
                 }
                 case PLAYER_RESIGNED:
@@ -347,32 +347,6 @@ public class Events extends Thread
         PlayerID = GameWS.joinGame(GameName, Name, 100);
         PlayerName = Name;
     }
-   /* public void GetFinishRoundAction() {
-       
-        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                      scControoler.GetHideBidWindow().set(true);
-                                }});
-        
-        try 
-        {
-            synchronized(scControoler.getRoundChoice())
-            {
-                ClearTable();
-                scControoler.ShowRoundActions();
-                
-                scControoler.getRoundChoice().wait();
-                
-            }
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
-         scControoler.getRoundChoice().get();
-    }*/
-
    
     public void GetBidForPlayer(final PlayerInfo BettingPlayer) throws InvalidParameters_Exception {
         
