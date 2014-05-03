@@ -267,20 +267,33 @@ public class GameScreenController implements Initializable
     private void AssignPlayerToUI(String Name,int Index)
     {
         Scene scene = apPlayer1.getScene();
-        VBox FirstBid = (VBox) scene.lookup("#vbxPlayerBid" + (Index+1) + "a");
-        VBox SecondBid = (VBox) scene.lookup("#vbxPlayerBid" + (Index+1) + "b");
-        Pane PlayerImage = (Pane) scene.lookup("#pPlayerPane" + (Index+1));
-        Label Bid1 = (Label) scene.lookup("#pPlayerBid" + (Index+1));
-        Label Bid2 = (Label) scene.lookup("#pPlayerBid" + (Index+1) + "2");
-        Label Money = (Label) scene.lookup("#lblPlayerMoney" + (Index+1));
-        Pane DeckPlace = (Pane) scene.lookup("#pDeckPlace" + (Index+1));
-        Label PlayerMessage = (Label) scene.lookup("#lblPlayerMessage" + (Index+1));
-           
-        PlayerContainer playerCont = 
-                   new PlayerContainer(FirstBid, SecondBid, PlayerImage,
-                                       Bid1,Bid2, Money, 
-                                       PlayerMessage, DeckPlace);
-        Players.put(Name, playerCont); 
+        
+        if (Name.equals("Dealer")){                 
+            HBox DealerHand = (HBox) scene.lookup("#vbxDealerHand");
+            Pane DealerImage = (Pane) scene.lookup("#pDealerPane");
+            Pane DeckPlace = (Pane) scene.lookup("#pDeckPlaceD");
+            Label DealerMessage = (Label) scene.lookup("#lblDealerMessage");
+            ParticipantContainer DealerCont =
+                 new ParticipantContainer(DealerHand, DealerImage, DealerMessage, DeckPlace);
+            Players.put(Name, DealerCont);
+        }
+        else{
+            VBox FirstBid = (VBox) scene.lookup("#vbxPlayerBid" + (Index+1) + "a");
+            VBox SecondBid = (VBox) scene.lookup("#vbxPlayerBid" + (Index+1) + "b");
+            Pane PlayerImage = (Pane) scene.lookup("#pPlayerPane" + (Index+1));
+            Label Bid1 = (Label) scene.lookup("#pPlayerBid" + (Index+1));
+            Label Bid2 = (Label) scene.lookup("#pPlayerBid" + (Index+1) + "2");
+            Label Money = (Label) scene.lookup("#lblPlayerMoney" + (Index+1));
+            Pane DeckPlace = (Pane) scene.lookup("#pDeckPlace" + (Index+1));
+            Label PlayerMessage = (Label) scene.lookup("#lblPlayerMessage" + (Index+1));
+
+            PlayerContainer playerCont = 
+                       new PlayerContainer(FirstBid, SecondBid, PlayerImage,
+                                           Bid1,Bid2, Money, 
+                                           PlayerMessage, DeckPlace);
+        
+            Players.put(Name, playerCont); 
+        }
     }
     public void AddPlayerToGame(List<PlayerInfo> GamePlayers)
     {
@@ -292,7 +305,8 @@ public class GameScreenController implements Initializable
             AssignPlayerToUI(Name,CurrentPlayer);
             Players.get(Name).PrintPlayerInfo(playerDetails);
             
-            CurrentPlayer++;
+            if (!playerDetails.getName().equals("Dealer"))
+                CurrentPlayer++;
         }
     }
     
