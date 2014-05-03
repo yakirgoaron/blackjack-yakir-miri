@@ -12,6 +12,7 @@ import GameEnums.MainMenu;
 import blackjackfx.ServerClasses.Events;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -75,12 +76,14 @@ public class BlackJackFXApp extends Application {
 
                         try 
                         {
-                          //BlackJackGame = new GameEngine(flOpen.getPath());
+                            
+                          String xmlData = new String(Files.readAllBytes(flOpen.toPath()));
+                          BlackJackGame.CreateGameFromXML(xmlData);
                           StartGame();
                         } 
                         catch (Exception ex) 
                         {
-                            ScreenManager.GetInstance().getMainWinCr().SetErrorMessage("Error choose another file");
+                            ScreenManager.GetInstance().getMainWinCr().SetErrorMessage(ex.getMessage());
                         } 
                         break;
                    }
