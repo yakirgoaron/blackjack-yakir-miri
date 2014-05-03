@@ -326,11 +326,9 @@ public class GameEngine
         for (Iterator<Player> it = GamePlayers.iterator(); it.hasNext();) 
         {
             Player player = it.next();
-            if(player instanceof HumanPlayer && 
-               !commInterface.DoesPlayerContinue(player))
+            if(player instanceof HumanPlayer)               
             {
-                it.remove();
-                commInterface.RemovePlayer(player);
+                commInterface.DoesPlayerContinue(player);
             }               
             
         }

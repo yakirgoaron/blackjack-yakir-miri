@@ -65,7 +65,7 @@ public interface Communicable
         }       
     }
     
-    public boolean DoesPlayerContinue(Player player);
+    public void DoesPlayerContinue(Player player);
     public String GetFilePathForSave();
     public PlayerAction GetWantedAction(Player plyerDoesAction);
     public void PrintPlayerInfo(Player PlayerToPrint);

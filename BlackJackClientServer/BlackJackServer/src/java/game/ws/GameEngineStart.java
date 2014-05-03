@@ -184,13 +184,21 @@ public class GameEngineStart extends Thread implements Communicable
 
     @Override
     public void RemovePlayer(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Event evntPlayerResign = new Event();
+        evntPlayerResign.setId(EngineManager.getUniqeEventID());
+        evntPlayerResign.setType(EventType.PLAYER_RESIGNED);
+        evntPlayerResign.setPlayerName(player.getName());
+        EngineManager.getEvents().add(evntPlayerResign);
     }
 
     
     @Override
-    public boolean DoesPlayerContinue(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void DoesPlayerContinue(Player player) {
+        Event evntNewRound = new Event();
+        evntNewRound.setId(EngineManager.getUniqeEventID());
+        evntNewRound.setType(EventType.NEW_ROUND);
+        evntNewRound.setPlayerName(player.getName());
+        EngineManager.getEvents().add(evntNewRound);
     }
 
     @Override
