@@ -59,7 +59,7 @@ public class GameEngine
     {
         JAXBContext JaxReader = JAXBContext.newInstance(Blackjack.class);
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
-        Schema schema = sf.newSchema(new File("blackjack.xsd"));
+        Schema schema = sf.newSchema(new File(GameEngine.class.getResource("blackjack.xsd").getPath()));
         Unmarshaller XmlParser = JaxReader.createUnmarshaller();
         XmlParser.setSchema(schema);
         InputStream InputFile = new ByteArrayInputStream(FileName.getBytes());
