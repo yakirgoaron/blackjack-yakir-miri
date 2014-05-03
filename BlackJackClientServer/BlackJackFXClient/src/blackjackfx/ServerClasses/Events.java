@@ -319,7 +319,7 @@ public class Events extends Thread
                     scControoler.getPlayerActionType().wait();
                 }
             
-            Action actionchoosed = Action.valueOf(scControoler.getPlayerActionType().get().getDescription());
+            Action actionchoosed = Action.valueOf(scControoler.getPlayerActionType().get().name());
             // TODO DEAL WITH THE BET
             GameWS.playerAction(PlayerID, EventID, actionchoosed, 0,1);
         } catch (InvalidParameters_Exception ex) {
