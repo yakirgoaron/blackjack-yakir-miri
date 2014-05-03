@@ -286,22 +286,24 @@ public class GameEngine
     {
         if(GamePlayers.isEmpty())
             throw new TooLowPlayers();
-        RoundAction NewRoundAction = RoundAction.CONTINUE_GAME;
+        /*
+        RoundAction NewRoundAction = RoundAction.CONTINUE_GAME;*/
         
         if (!IsInRound)
             InitAndDealCards(commInterface);
                     
-        while(!NewRoundAction.equals(RoundAction.EXIT_GAME))
+        while(!GamePlayers.isEmpty())
         {
             commInterface.PrintAllPlayers(GamePlayers);
             HandleRoundPlay(commInterface);
             EndRound(commInterface);
+            
             if(GamePlayers.isEmpty())
                 break;
             InitAndDealCards(commInterface);
-            NewRoundAction = commInterface.GetFinishRoundAction();
+            /*
             if(NewRoundAction.equals(RoundAction.SAVE_GAME))
-                XMLJAXBWrite(commInterface.GetFilePathForSave());
+                XMLJAXBWrite(commInterface.GetFilePathForSave());*/
         }
         
         if (GamePlayers.isEmpty())

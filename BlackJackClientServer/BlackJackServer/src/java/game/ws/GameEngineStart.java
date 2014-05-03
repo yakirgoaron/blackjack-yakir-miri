@@ -143,7 +143,7 @@ public class GameEngineStart extends Thread implements Communicable
         }
     }
     
-    private void SynchronyizeContiner(Player currentPlayer)
+    private void SynchronyizeContiner(GameParticipant currentPlayer)
     {
         if(!PlayerByName.containsKey(currentPlayer.getName()))
         {   
@@ -159,7 +159,7 @@ public class GameEngineStart extends Thread implements Communicable
         }
     }
     
-    private void SynchronyizeBidAndCards(Bid current,List<ws.blackjack.Card> Cards)
+    private void SynchronyizeHandAndCards(Hand current,List<ws.blackjack.Card> Cards)
     {
         Cards.clear();
         
@@ -178,16 +178,24 @@ public class GameEngineStart extends Thread implements Communicable
         PlayerDetails playerDetails = PlayerByName.get(currentPlayer.getName());
         if(currentPlayer.getBids().size() > 0)
         {
-            SynchronyizeBidAndCards(currentPlayer.getBids().get(0),playerDetails.getFirstBet());
+            SynchronyizeHandAndCards(currentPlayer.getBids().get(0),playerDetails.getFirstBet());
             playerDetails.setFirstBetWage(currentPlayer.getBids().get(0).getTotalBid().floatValue());
             if(currentPlayer.getBids().size() > 1)
             {
-                SynchronyizeBidAndCards(currentPlayer.getBids().get(1),playerDetails.getSecondBet());
+                SynchronyizeHandAndCards(currentPlayer.getBids().get(1),playerDetails.getSecondBet());
                 playerDetails.setSecondBetWage(currentPlayer.getBids().get(1).getTotalBid().floatValue());
             }
         }
         playerDetails.setMoney(currentPlayer.getMoney().floatValue());
         
+    }
+    
+    private void SynchronyizeHandToPlayerDetails(Hand HandToSync, 
+                                                 GameParticipant ParPlayer){
+    
+        SynchronyizeContiner(ParPlayer);
+        PlayerDetails playerDetails = PlayerByName.get(ParPlayer.getName());
+        SynchronyizeHandAndCards(HandToSync, playerDetails.getFirstBet());      
     }
     
     @Override
@@ -296,14 +304,13 @@ public class GameEngineStart extends Thread implements Communicable
         Event envtBid = new Event();
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(PlayerBid.getName());
-        envtBid.setType(EventType.PLAYER_TURN);
+        envtBid.setType(EventType.CARDS_DEALT);
         EngineManager.getEvents().add(envtBid);
     }
 
     @Override
     public void PrintHandInfo(Hand HandForPrint, GameParticipant ParPlayer) {
-        if(ParPlayer instanceof Player)
-            SynchronyizeContiner((Player)ParPlayer);
+        SynchronyizeHandToPlayerDetails(HandForPrint, ParPlayer);
         Event CardsDealt = new Event();
         CardsDealt.setId(EngineManager.getUniqeEventID());
         CardsDealt.setPlayerName(ParPlayer.getName());

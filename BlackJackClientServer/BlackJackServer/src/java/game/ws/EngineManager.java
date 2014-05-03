@@ -157,7 +157,15 @@ public class EngineManager {
             IdToGame.put(uniqePlayerID, name);
         }
         
-        
+        uniqePlayerID++;
+        PlayerDetails Dealer = new PlayerDetails();
+        Dealer.setStatus(PlayerStatus.ACTIVE);
+        Dealer.setName("Dealer");
+        Dealer.setType(PlayerType.COMPUTER);
+        Dealer.setMoney(0);
+        playerManager.put(uniqePlayerID, Dealer);
+        IdToGame.put(uniqePlayerID, name);
+          
         CreateServerGame(name,gmDetail);
         Engine = new GameEngineStart();
         try 
