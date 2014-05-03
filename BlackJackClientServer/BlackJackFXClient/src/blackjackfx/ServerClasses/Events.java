@@ -221,8 +221,13 @@ public class Events extends Thread
                     break;
                 case NEW_ROUND:
                 {                   
-                    if (event.getPlayerName().equals(PlayerName))
-                        DoesPlayerContinue(GetPlayerDetailsByName(PlayerName));
+                    if (event.getPlayerName().equals(PlayerName)){
+                        PlayerInfo player = GetPlayerDetailsByName(PlayerName);
+                        DisplayPlayer(player);
+                        DoesPlayerContinue(player);
+                    }
+                    ClearTable();
+                    
                         
                     break;
                 }
@@ -262,7 +267,7 @@ public class Events extends Thread
                     List<Event> EventsHappened = GameWS.getEvents(PlayerID, EventID);
                     DealWithEvents(EventsHappened);
                 }
-                Thread.sleep(3000);
+                Thread.sleep(1000);
                 
             
             } catch (InterruptedException ex) {
@@ -484,6 +489,15 @@ public class Events extends Thread
                                 public void run() 
                                 {                                     
                                     scControoler.PrintPlayerMessage(PlayerWin, "WINNER!!!!!!");
+                                }});
+    }
+
+    private void DisplayPlayer(final PlayerInfo player) {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    scControoler.DisplayPlayer(player);
                                 }});
     }
    

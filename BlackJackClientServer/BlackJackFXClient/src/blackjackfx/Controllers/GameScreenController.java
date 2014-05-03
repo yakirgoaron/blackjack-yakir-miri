@@ -144,9 +144,14 @@ public class GameScreenController implements Initializable
             Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        if (currPlayer.getName().equals("Dealer"))
+        {
+            Players.get("Dealer").PrintHandInfo(currBid, currPlayer.getBets().get(0).getBetCards());
+        }
+        else{
         ((PlayerContainer)Players.get(currPlayer.getName())).PrintBidInfo(currPlayer.getName() + "1", currPlayer.getBets().get(0));
         ((PlayerContainer)Players.get(currPlayer.getName())).PrintBidInfo(currPlayer.getName() + "2", currPlayer.getBets().get(1));
+        }
         /*for (Bid bid : currPlayer.getBids()) {
             ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(bid);
             
@@ -302,11 +307,12 @@ public class GameScreenController implements Initializable
         for (PlayerInfo playerDetails : GamePlayers)
         {
             String Name = playerDetails.getName();
-            AssignPlayerToUI(Name,CurrentPlayer);
-            Players.get(Name).PrintPlayerInfo(playerDetails);
+            AssignPlayerToUI(Name,CurrentPlayer);            
             
-            if (!playerDetails.getName().equals("Dealer"))
+            if (!playerDetails.getName().equals("Dealer")){
+                Players.get(Name).PrintPlayerInfo(playerDetails);
                 CurrentPlayer++;
+            }
         }
     }
     
