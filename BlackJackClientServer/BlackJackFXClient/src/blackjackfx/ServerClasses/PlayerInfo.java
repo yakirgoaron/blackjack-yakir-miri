@@ -44,8 +44,7 @@ public class PlayerInfo
         name = plSource.getName();
         status = PlayerStatus.valueOf(plSource.getStatus().value());
         type = PlayerType.valueOf(plSource.getType().value());
-        // ADD MONEY
-        //money = plSource.
+        money = plSource.getMoney();
         InsertBets(plSource);
         
     }
