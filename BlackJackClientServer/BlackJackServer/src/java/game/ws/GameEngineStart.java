@@ -152,7 +152,7 @@ public class GameEngineStart extends Thread implements Communicable
             SynchronyizeBidAndCards(currentPlayer.getBids().get(1),playerDetails.getSecondBet());
             playerDetails.setSecondBetWage(currentPlayer.getBids().get(1).getTotalBid().floatValue());
         }
-        
+        playerDetails.setMoney(currentPlayer.getMoney().floatValue());
         
     }
     
