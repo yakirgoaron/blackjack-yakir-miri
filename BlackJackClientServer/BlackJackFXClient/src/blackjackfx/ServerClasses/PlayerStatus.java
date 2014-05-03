@@ -6,7 +6,8 @@ import javax.xml.bind.annotation.XmlType;
 
 
 public enum PlayerStatus {
-
+    
+    JOINED,
     ACTIVE,
     RETIRED;
 
