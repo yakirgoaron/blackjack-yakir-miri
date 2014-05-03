@@ -303,6 +303,7 @@ public class GameEngineStart extends Thread implements Communicable
         evntAction.setType(EventType.USER_ACTION);
         evntAction.setPlayerAction(synActionToAction(Action));
         EngineManager.getEvents().add(evntAction);
+        SyncAllPlayers();
         
     }
     
