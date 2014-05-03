@@ -381,10 +381,6 @@ public class EngineManager {
         
         if (action.equals(Action.PLACE_BET)){
             Money = (double) money;
-            synchronized(StopWait)
-            {
-                StopWait.notifyAll();
-            }
         }
         
         plPlayerAction = action;

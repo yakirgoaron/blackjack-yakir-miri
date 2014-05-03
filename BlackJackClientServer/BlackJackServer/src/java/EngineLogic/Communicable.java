@@ -75,5 +75,6 @@ public interface Communicable
     public void PrintBidInfo(Bid BidForPrint, Player PlayerBid);
     public void PrintHandInfo(Hand HandForPrint,GameParticipant ParPlayer);
     public void PrintMessage(String Message);
+    public void GameEnded();
     
 }

@@ -305,14 +305,11 @@ public class GameEngine
         }
         
         if (GamePlayers.isEmpty())
-            commInterface.PrintMessage
-                    ("******No Playes Left Start New Game********"); 
+            commInterface.GameEnded();
     }
     
     private void EndRound(Communicable commInterface)
-    {
-        commInterface.PrintMessage("******ROUND ENDED AND SCORE IS********");
-        
+    {        
         for (Player player : GamePlayers) 
         {
            player.HandleEndOfRound(commInterface, GameDealer.getSumofCards());

@@ -206,15 +206,15 @@ public class GameEngineStart extends Thread implements Communicable
         envtBid.setPlayerName(CurrentPlayer.getName());
         envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
         EngineManager.getEvents().add(envtBid);
-        synchronized(EngineManager.getPlPlayerAction())
+        synchronized(EngineManager.isStopWait())
         {
             try {
-                EngineManager.getPlPlayerAction().wait();
+                EngineManager.isStopWait().wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return PlayerAction.valueOf(EngineManager.getPlPlayerAction().value());
+        return PlayerAction.valueOf(EngineManager.getPlPlayerAction().name());
     }
 
     @Override
@@ -311,6 +311,14 @@ public class GameEngineStart extends Thread implements Communicable
         evntWinner.setPlayerName(PlayerWin.getName());
         evntWinner.setType(EventType.GAME_WINNER);
         EngineManager.getEvents().add(evntWinner);
+    }
+
+    @Override
+    public void GameEnded() {
+        Event evntGameEnded = new Event();
+        evntGameEnded.setId(EngineManager.getUniqeEventID());
+        evntGameEnded.setType(EventType.GAME_OVER);
+        EngineManager.getEvents().add(evntGameEnded);
     }
     
 }
