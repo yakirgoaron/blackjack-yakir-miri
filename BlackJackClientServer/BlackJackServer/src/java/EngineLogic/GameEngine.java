@@ -9,6 +9,7 @@ package EngineLogic;
 import EngineLogic.Communicable.PlayerAction;
 import EngineLogic.Communicable.RoundAction;
 import EngineLogic.Exception.DuplicateCardException;
+import EngineLogic.Exception.PlayerResigned;
 import EngineLogic.Exception.RulesDosentAllowException;
 import EngineLogic.Exception.TooLowMoneyException;
 import EngineLogic.Exception.TooLowPlayers;
@@ -20,6 +21,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -138,11 +141,18 @@ public class GameEngine
     
     private void InsertBidForRound(Communicable commGetBid )
     {
-        for (Player player : GamePlayers) 
-        {
-            player.GivePlayerCards(PullCard(), 
-                                   PullCard(),
-                                   player.GetBidForPlayer(commGetBid));
+        for (Iterator<Player> it = GamePlayers.iterator(); it.hasNext();) {
+            Player player = it.next();
+            try 
+            {
+                player.GivePlayerCards(PullCard(),
+                        PullCard(),
+                        player.GetBidForPlayer(commGetBid));
+            }
+            catch (PlayerResigned ex) 
+            {
+                it.remove();
+            }
         }
         GameDealer.HitBid(GameDealer.getDealerCards(), PullCard());
     }
@@ -201,7 +211,7 @@ public class GameEngine
         }
     }
     
-    private void MakePlayerMove(Communicable commInterface,Bid CurrentBid,Player CurrentPlayer)
+    private void MakePlayerMove(Communicable commInterface,Bid CurrentBid,Player CurrentPlayer) throws PlayerResigned
     {
         PlayerAction EnumAction = PlayerAction.HIT; 
         while (!EnumAction.equals(PlayerAction.STAND) &&
@@ -251,15 +261,22 @@ public class GameEngine
     
     private void HandleRoundPlay(Communicable commInterface) 
     {
-        for (Player player : GamePlayers)
-        {
+        for (Iterator<Player> it = GamePlayers.iterator(); it.hasNext();) {
+            Player player = it.next();
             commInterface.PrintBasicPlayerInfo(player);
-            for (int i = 0; i < player.getBids().size(); i++)                
-            {     
-                if(player instanceof CompPlayer)
-                    HandleAIPlayers((CompPlayer)player,player.getBids().get(i),commInterface); 
-                else
-                    MakePlayerMove(commInterface,player.getBids().get(i),player);
+            try 
+            {
+                for (int i = 0; i < player.getBids().size(); i++)
+                {     
+                    if(player instanceof CompPlayer)
+                        HandleAIPlayers((CompPlayer)player,player.getBids().get(i),commInterface);
+                    else
+                        MakePlayerMove(commInterface,player.getBids().get(i),player);                
+                }
+            }
+            catch (PlayerResigned ex) 
+            {
+                it.remove();
             }
         }
         HandleAIPlayers(GameDealer,GameDealer.getDealerCards(),commInterface);

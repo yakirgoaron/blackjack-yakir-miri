@@ -12,6 +12,7 @@ import EngineLogic.Card;
 import EngineLogic.Communicable;
 import EngineLogic.CompPlayer;
 import EngineLogic.Exception.DuplicateCardException;
+import EngineLogic.Exception.PlayerResigned;
 import EngineLogic.Exception.TooManyPlayersException;
 import EngineLogic.GameEngine;
 import EngineLogic.GameParticipant;
@@ -237,8 +238,10 @@ public class GameEngineStart extends Thread implements Communicable
     }
 
     @Override
-    public PlayerAction GetWantedAction(Player CurrentPlayer) {
-       SynchronyizePlayerToPlayerDetails(CurrentPlayer);
+    public PlayerAction GetWantedAction(Player CurrentPlayer) throws PlayerResigned {
+        if(PlayerByName.get(CurrentPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
+            throw new PlayerResigned();
+        SynchronyizePlayerToPlayerDetails(CurrentPlayer);
         Event envtBid = new Event();
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(CurrentPlayer.getName());
@@ -277,8 +280,10 @@ public class GameEngineStart extends Thread implements Communicable
     }
 
     @Override
-    public Double GetBidForPlayer(Player BettingPlayer) 
+    public Double GetBidForPlayer(Player BettingPlayer) throws PlayerResigned 
     {
+        if(PlayerByName.get(BettingPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
+            throw new PlayerResigned();
         Event envtBid = new Event();
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(BettingPlayer.getName());

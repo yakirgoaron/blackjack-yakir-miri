@@ -6,6 +6,7 @@
 
 package EngineLogic;
 
+import EngineLogic.Exception.PlayerResigned;
 import java.util.ArrayList;
 
 /**
@@ -67,11 +68,11 @@ public interface Communicable
     
     public void DoesPlayerContinue(Player player);
     public String GetFilePathForSave();
-    public PlayerAction GetWantedAction(Player plyerDoesAction);
+    public PlayerAction GetWantedAction(Player plyerDoesAction) throws PlayerResigned;
     public void PrintPlayerInfo(Player PlayerToPrint);
     public void PrintBasicPlayerInfo(Player PlayerToPrint);
-    public RoundAction GetFinishRoundAction();
-    public Double GetBidForPlayer(Player BettingPlayer);    
+    public RoundAction GetFinishRoundAction() throws PlayerResigned;
+    public Double GetBidForPlayer(Player BettingPlayer) throws PlayerResigned;    
     public void PrintBidInfo(Bid BidForPrint, Player PlayerBid);
     public void PrintHandInfo(Hand HandForPrint,GameParticipant ParPlayer);
     public void PrintMessage(String Message);

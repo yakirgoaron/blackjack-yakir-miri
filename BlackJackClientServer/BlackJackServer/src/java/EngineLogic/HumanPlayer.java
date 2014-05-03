@@ -6,6 +6,7 @@
 
 package EngineLogic;
 
+import EngineLogic.Exception.PlayerResigned;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +29,7 @@ public class HumanPlayer extends Player
     }
     
     @Override
-    public Double GetBidForPlayer(Communicable commGetBid)
+    public Double GetBidForPlayer(Communicable commGetBid) throws PlayerResigned
     {
         boolean ValidBid = false;
         

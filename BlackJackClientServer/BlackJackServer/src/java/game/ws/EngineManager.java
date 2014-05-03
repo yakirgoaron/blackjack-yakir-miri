@@ -366,7 +366,6 @@ public class EngineManager {
             playerResign.setPlayerName(player.getName());      
             playerResign.setType(EventType.PLAYER_RESIGNED);
             Events.add(playerResign);
-            //TODO: remove player from engine
         }
             
         

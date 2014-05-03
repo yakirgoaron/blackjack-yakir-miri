@@ -6,6 +6,7 @@
 
 package EngineLogic;
 
+import EngineLogic.Exception.PlayerResigned;
 import EngineLogic.Exception.RulesDosentAllowException;
 import EngineLogic.Exception.TooLowMoneyException;
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public abstract class Player implements GameParticipant{
         Bids.add(NewBid);  
     }
     
-    abstract public Double GetBidForPlayer(Communicable commGetBid); 
+    abstract public Double GetBidForPlayer(Communicable commGetBid) throws PlayerResigned; 
     
     public void HandleEndOfRound(Communicable commInterface, 
                                  int DealerSumOfCards){
