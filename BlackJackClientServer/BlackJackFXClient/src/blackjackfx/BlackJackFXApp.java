@@ -57,8 +57,6 @@ public class BlackJackFXApp extends Application {
                 {
                    case NEW_GAME:
                    {
-                      
-                      //BlackJackGame = new GameEngine(); 
                       ScreenManager.GetInstance().getCreateGameCr().setBjGame(BlackJackGame);
                       Scene scene = ScreenManager.GetInstance().getCreateGameSc();
                       PrimaryStage.setScene(scene); 
@@ -79,7 +77,7 @@ public class BlackJackFXApp extends Application {
                             
                           String xmlData = new String(Files.readAllBytes(flOpen.toPath()));
                           BlackJackGame.CreateGameFromXML(xmlData);
-                          StartGame();
+                          GoToWaitingGamesScreen();
                         } 
                         catch (Exception ex) 
                         {
