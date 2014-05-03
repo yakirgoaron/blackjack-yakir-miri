@@ -151,7 +151,7 @@ public class EngineManager {
             PlayerDetails player = new PlayerDetails();
             //player.setMoney(Money);
             player.setType(PlayerType.COMPUTER);
-            player.setStatus(PlayerStatus.ACTIVE);
+            player.setStatus(PlayerStatus.JOINED);
             player.setName("Comp" + uniqePlayerID);
             playerManager.put(uniqePlayerID, player);
             IdToGame.put(uniqePlayerID, name);
@@ -220,7 +220,7 @@ public class EngineManager {
     public static int PlayerJoinGame (String GameName, String PlayerName, float Money) 
                                         throws GameDoesNotExists_Exception, 
                                                InvalidParameters_Exception{
-        
+        PlayerDetails player;
         if (!gamemanager.containsKey(GameName))
         {
             GameDoesNotExists faultInfo = new GameDoesNotExists();
@@ -229,19 +229,31 @@ public class EngineManager {
         }
         else
         {
-            if (CheckIfNameExists(GameName, PlayerName))
+            GameDetails Game = gamemanager.get(GameName);
+            player = CheckIfNameExists(PlayerName);
+            if (player != null && !gamemanager.get(GameName).isLoadedFromXML())
             {
                 InvalidParameters faultInfo = new InvalidParameters();
                 faultInfo.setMessage("Error - name already exists");
                 throw new InvalidParameters_Exception(PlayerName, faultInfo);
                 
             }
-            else{
+            else if(gamemanager.get(GameName).isLoadedFromXML() && player != null && player.getStatus().equals(PlayerStatus.ACTIVE))
+            {
+                 Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
+                 player.setStatus(PlayerStatus.JOINED);
+            }
+            else if(gamemanager.get(GameName).isLoadedFromXML() && player != null && player.getStatus().equals(PlayerStatus.JOINED))
+            {
+                InvalidParameters faultInfo = new InvalidParameters();
+                faultInfo.setMessage("Error - the player is taken");
+                throw new InvalidParameters_Exception(PlayerName, faultInfo);
+            }
+            else
+            {
                 uniqePlayerID++;
 
-                GameDetails Game = gamemanager.get(GameName);
-
-                PlayerDetails player = new PlayerDetails();
+                player = new PlayerDetails();
                 player.setMoney(Money);
                 player.setType(PlayerType.HUMAN);
                 player.setStatus(PlayerStatus.ACTIVE);
@@ -260,36 +272,45 @@ public class EngineManager {
                 Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
 
                 playerManager.put(uniqePlayerID, player);
-                IdToGame.put(uniqePlayerID, GameName);
-                
-                if(Game.getJoinedHumanPlayers() == Game.getHumanPlayers())
-                {
-                    Event StartGame = new Event();
-                    StartGame.setId(getUniqeEventID());
-                    StartGame.setType(EventType.GAME_START);
-                    Events.add(StartGame);
-                    Engine.setDaemon(true);
-                    Engine.start();
-                }
-                
+                IdToGame.put(uniqePlayerID, GameName); 
+            }
+            if(Game.getJoinedHumanPlayers() == Game.getHumanPlayers())
+            {
+                Event StartGame = new Event();
+                StartGame.setId(getUniqeEventID());
+                StartGame.setType(EventType.GAME_START);
+                Events.add(StartGame);
+                Engine.setDaemon(true);
+                Engine.start();
             }
         }
         Engine.SyncAllPlayers();
-        return uniqePlayerID;
+        return PlayerIDFromName(player.getName());
     }
     
-    private static boolean CheckIfNameExists(String GameName, String PlayerName) {
+    
+    private static int PlayerIDFromName(String Name)
+    {
+        for (Entry<Integer, PlayerDetails> entry : playerManager.entrySet()) {
+            PlayerDetails player = entry.getValue();
+            
+            if (player.getName().equals(Name))
+                return entry.getKey();        
+        }
+        
+        return -1;
+    }
+    private static PlayerDetails CheckIfNameExists(String PlayerName) {
        
-        boolean NameExists = false;
         
         for (Entry<Integer, PlayerDetails> entry : playerManager.entrySet()) {
             PlayerDetails player = entry.getValue();
             
             if (player.getName().equals(PlayerName))
-                NameExists = true;        
+                return player;        
         }
         
-        return NameExists;
+        return null;
     }
     
     public static List<String> GetActiveGames(){
