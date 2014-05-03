@@ -392,6 +392,14 @@ public class EngineManager {
             InvalidXML exXml = new InvalidXML();
             throw new InvalidXML_Exception("XML File is not valid", exXml);
         }
+        uniqePlayerID++;
+        PlayerDetails Dealer = new PlayerDetails();
+        Dealer.setStatus(PlayerStatus.ACTIVE);
+        Dealer.setName("Dealer");
+        Dealer.setType(PlayerType.COMPUTER);
+        Dealer.setMoney(0);
+        playerManager.put(uniqePlayerID, Dealer);
+        IdToGame.put(uniqePlayerID, Engine.GetGameName());
         return Engine.GetGameName();
     }
     
