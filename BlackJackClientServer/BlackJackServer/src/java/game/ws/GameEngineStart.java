@@ -31,6 +31,8 @@ import ws.blackjack.Action;
 import ws.blackjack.Event;
 import ws.blackjack.EventType;
 import ws.blackjack.PlayerDetails;
+import ws.blackjack.PlayerStatus;
+import ws.blackjack.PlayerType;
 import ws.blackjack.Rank;
 import ws.blackjack.Suit;
 
@@ -93,6 +95,26 @@ public class GameEngineStart extends Thread implements Communicable
         {
             SynchronyizePlayerToPlayerDetails(player);
         }
+    }
+    
+    public void CreatePlayerDetailsEngMng(String GameName)
+    {
+        for (Player curr : GameEngMang.getGamePlayers())
+        {
+           PlayerDetails player = new PlayerDetails();
+           player.setMoney(curr.getMoney().floatValue());
+           if (curr instanceof HumanPlayer)
+                   player.setType(PlayerType.HUMAN);
+           else
+               player.setType(PlayerType.COMPUTER);
+           player.setStatus(PlayerStatus.ACTIVE);
+           player.setName(curr.getName()); 
+           int PlayerID = EngineManager.getUniqePlayerID();
+           EngineManager.getPlayerManager().put(PlayerID, player);
+           EngineManager.getIdToGame().put(PlayerID, GameName);
+        }
+        
+        
     }
     
     public void AddCompPlayers(int nNumberComps) throws TooManyPlayersException

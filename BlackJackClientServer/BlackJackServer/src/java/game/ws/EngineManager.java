@@ -81,6 +81,14 @@ public class EngineManager {
     public static HashMap<Integer, PlayerDetails> getPlayerManager() {
         return playerManager;
     }
+
+    public static int getUniqePlayerID() {
+        return uniqePlayerID++;
+    }
+
+    public static HashMap<Integer, String> getIdToGame() {
+        return IdToGame;
+    }
     
     private static void ThrowInvalidParameter(String Message) throws InvalidParameters_Exception
     {
@@ -346,8 +354,9 @@ public class EngineManager {
             gmDetail.setJoinedHumanPlayers(0);
             gmDetail.setName(Engine.GetGameName());
             gmDetail.setStatus(GameStatus.WAITING);
-        
+            gmDetail.setLoadedFromXML(true);
             CreateServerGame(Engine.GetGameName(),gmDetail);
+            Engine.CreatePlayerDetailsEngMng(Engine.GetGameName());
         }
         catch (DuplicateCardException | SAXException | TooManyPlayersException | JAXBException ex) 
         {
