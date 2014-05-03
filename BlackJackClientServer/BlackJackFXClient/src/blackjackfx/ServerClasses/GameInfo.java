@@ -21,7 +21,7 @@ public class GameInfo {
     private double money;
     private String name;
     private GameStatus status;
-    
+    private boolean LoadedFromXml;
     public GameInfo(GameDetails gamesrc)
     {
         this.computerizedPlayers = gamesrc.getComputerizedPlayers();
@@ -30,6 +30,7 @@ public class GameInfo {
         this.money = gamesrc.getMoney();
         this.name = gamesrc.getName();
         this.status = GameStatus.valueOf(gamesrc.getStatus().value());
+        LoadedFromXml = gamesrc.isLoadedFromXML();
     }
 
     public int getComputerizedPlayers() {
@@ -54,6 +55,10 @@ public class GameInfo {
 
     public GameStatus getStatus() {
         return status;
+    }
+
+    public boolean isLoadedFromXml() {
+        return LoadedFromXml;
     }
     
     
