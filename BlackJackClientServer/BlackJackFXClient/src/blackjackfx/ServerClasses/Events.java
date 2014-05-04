@@ -144,7 +144,9 @@ public class Events extends Thread
     }
     private void DisplayPlayerCards(Event event)
     {
-        PrintBidInfo(GetPlayerDetailsByName(event.getPlayerName()));        
+        PlayerInfo player = GetPlayerDetailsByName(event.getPlayerName());
+        if(player != null)
+            PrintBidInfo(player);        
     }
     
     private void DisplayPlayerEffect(final Event event)
