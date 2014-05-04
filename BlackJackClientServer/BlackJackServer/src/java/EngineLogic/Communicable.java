@@ -66,15 +66,15 @@ public interface Communicable
         }       
     }
     
-    public void DoesPlayerContinue(Player player);
+    public void DoesPlayerContinue(Player player) throws PlayerResigned;
     public String GetFilePathForSave();
     public PlayerAction GetWantedAction(Player plyerDoesAction) throws PlayerResigned;
-    public void PrintPlayerInfo(Player PlayerToPrint);
-    public void PrintBasicPlayerInfo(Player PlayerToPrint);
+    public void PrintPlayerInfo(Player PlayerToPrint)throws PlayerResigned;
+    public void PrintBasicPlayerInfo(Player PlayerToPrint)throws PlayerResigned;
     public RoundAction GetFinishRoundAction() throws PlayerResigned;
     public Double GetBidForPlayer(Player BettingPlayer) throws PlayerResigned;    
-    public void PrintBidInfo(Bid BidForPrint, Player PlayerBid);
-    public void PrintHandInfo(Hand HandForPrint,GameParticipant ParPlayer);
+    public void PrintBidInfo(Bid BidForPrint, Player PlayerBid)throws PlayerResigned;
+    public void PrintHandInfo(Hand HandForPrint,GameParticipant ParPlayer)throws PlayerResigned;
     public void PrintMessage(String Message);
     public void GameEnded();
     

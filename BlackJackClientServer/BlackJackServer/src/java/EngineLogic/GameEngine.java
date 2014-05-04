@@ -254,8 +254,9 @@ public class GameEngine
                 commInterface.PrintHandInfo(CurrBid,CurrPlayer);
             }while (!actToDo.equals(PlayerAction.STAND));
         } 
-        catch (RulesDosentAllowException ex) {
-        } catch (TooLowMoneyException ex) {
+        catch (RulesDosentAllowException | TooLowMoneyException ex) {
+        } catch (PlayerResigned ex) {
+            Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -263,9 +264,11 @@ public class GameEngine
     {
         for (Iterator<Player> it = GamePlayers.iterator(); it.hasNext();) {
             Player player = it.next();
-            commInterface.PrintBasicPlayerInfo(player);
+           
             try 
             {
+                commInterface.PrintBasicPlayerInfo(player);
+                 
                 for (int i = 0; i < player.getBids().size(); i++)
                 {     
                     if(player instanceof CompPlayer)
@@ -309,13 +312,13 @@ public class GameEngine
         if (!IsInRound)
             InitAndDealCards(commInterface);
                     
-        while(!GamePlayers.isEmpty())
+        while(HumanPlayerCount() > 0)
         {
             commInterface.PrintAllPlayers(GamePlayers);
             HandleRoundPlay(commInterface);
             EndRound(commInterface);
             
-            if(GamePlayers.isEmpty())
+            if(HumanPlayerCount() == 0)
                 break;
             InitAndDealCards(commInterface);
             /*
@@ -323,16 +326,20 @@ public class GameEngine
                 XMLJAXBWrite(commInterface.GetFilePathForSave());*/
         }
         
-        if (GamePlayers.isEmpty())
+        if (HumanPlayerCount() == 0)
             commInterface.GameEnded();
     }
     
     private void EndRound(Communicable commInterface)
     {        
-        for (Player player : GamePlayers) 
-        {
-           player.HandleEndOfRound(commInterface, GameDealer.getSumofCards());
-           commInterface.PrintBasicPlayerInfo(player);
+        for (Iterator<Player> it = GamePlayers.iterator(); it.hasNext();) {
+            Player player = it.next();
+            player.HandleEndOfRound(commInterface, GameDealer.getSumofCards());
+            try {
+                commInterface.PrintBasicPlayerInfo(player);
+            } catch (PlayerResigned ex) {
+                it.remove();
+            }
         }
         IsInRound = false;
         GameDealer.HandleEndOfRound();
@@ -347,7 +354,11 @@ public class GameEngine
             Player player = it.next();
             if(player instanceof HumanPlayer)               
             {
-                commInterface.DoesPlayerContinue(player);
+                try {
+                    commInterface.DoesPlayerContinue(player);
+                } catch (PlayerResigned ex) {
+                    it.remove();
+                }
             }               
             
         }
@@ -391,6 +402,17 @@ public class GameEngine
     
     public String getGameName() {
         return GameName;
+    }
+
+    private int HumanPlayerCount() {
+        int HumanCount = 0;
+        
+        for (Player player : GamePlayers) {
+            if (player instanceof HumanPlayer)
+                HumanCount++;
+        }
+                
+        return HumanCount;
     }
     
 }

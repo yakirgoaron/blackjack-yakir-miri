@@ -227,7 +227,9 @@ public class GameEngineStart extends Thread implements Communicable
 
     
     @Override
-    public void DoesPlayerContinue(Player player) {
+    public void DoesPlayerContinue(Player player) throws PlayerResigned{
+        if(PlayerByName.get(player.getName()).getStatus().equals(PlayerStatus.RETIRED))
+            throw new PlayerResigned();
         Event evntNewRound = new Event();
         evntNewRound.setId(EngineManager.getUniqeEventID());
         evntNewRound.setType(EventType.NEW_ROUND);
@@ -242,9 +244,12 @@ public class GameEngineStart extends Thread implements Communicable
 
     @Override
     public PlayerAction GetWantedAction(Player CurrentPlayer) throws PlayerResigned {
+        
+        SynchronyizePlayerToPlayerDetails(CurrentPlayer);
+        
         if(PlayerByName.get(CurrentPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
             throw new PlayerResigned();
-        SynchronyizePlayerToPlayerDetails(CurrentPlayer);
+        
         Event envtBid = new Event();
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(CurrentPlayer.getName());
@@ -262,14 +267,18 @@ public class GameEngineStart extends Thread implements Communicable
     }
 
     @Override
-    public void PrintPlayerInfo(Player PlayerToPrint) {
+    public void PrintPlayerInfo(Player PlayerToPrint) throws PlayerResigned{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void PrintBasicPlayerInfo(Player PlayerToPrint) 
+    public void PrintBasicPlayerInfo(Player PlayerToPrint) throws PlayerResigned
     {
         SynchronyizePlayerToPlayerDetails(PlayerToPrint);
+        
+        if(PlayerByName.get(PlayerToPrint.getName()).getStatus().equals(PlayerStatus.RETIRED))
+            throw new PlayerResigned();
+        
         Event envtBid = new Event();
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(PlayerToPrint.getName());
@@ -307,8 +316,12 @@ public class GameEngineStart extends Thread implements Communicable
     }
 
     @Override
-    public void PrintBidInfo(Bid BidForPrint, Player PlayerBid) {
+    public void PrintBidInfo(Bid BidForPrint, Player PlayerBid) throws PlayerResigned{
         SynchronyizePlayerToPlayerDetails(PlayerBid);
+        
+        if(PlayerByName.get(PlayerBid.getName()).getStatus().equals(PlayerStatus.RETIRED))
+            throw new PlayerResigned();
+        
         Event envtBid = new Event();
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(PlayerBid.getName());
@@ -317,8 +330,12 @@ public class GameEngineStart extends Thread implements Communicable
     }
 
     @Override
-    public void PrintHandInfo(Hand HandForPrint, GameParticipant ParPlayer) {
+    public void PrintHandInfo(Hand HandForPrint, GameParticipant ParPlayer) throws PlayerResigned{
         SynchronyizeHandToPlayerDetails(HandForPrint, ParPlayer);
+        
+        if(PlayerByName.get(ParPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
+            throw new PlayerResigned();
+                
         Event CardsDealt = new Event();
         CardsDealt.setId(EngineManager.getUniqeEventID());
         CardsDealt.setPlayerName(ParPlayer.getName());
