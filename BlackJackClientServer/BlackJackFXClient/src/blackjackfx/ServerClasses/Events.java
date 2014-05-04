@@ -166,7 +166,7 @@ public class Events extends Thread
         try
         {
             PlayerDetails MyInfo = GameWS.getPlayerDetails(PlayerID);
-            if(MyInfo.getName().equals(event.getPlayerName()) && !MyInfo.getStatus().equals(PlayerStatus.RETIRED) )
+            if(MyInfo.getName().equals(event.getPlayerName()) && !MyInfo.getStatus().value().equals(PlayerStatus.RETIRED.value()) )
             {
                 if(MyInfo.getFirstBetWage() <= 0.0)
                 {
