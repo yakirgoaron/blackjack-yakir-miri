@@ -112,6 +112,7 @@ public class GameScreenController implements Initializable
         btnHit.setVisible(!btnHit.isVisible());
         btnSplit.setVisible(!btnSplit.isVisible());
         btnStay.setVisible(!btnStay.isVisible());
+        btnRResign.setDisable(false);
     }
     
     public void ShowActions()
@@ -120,6 +121,7 @@ public class GameScreenController implements Initializable
         btnHit.setVisible(true);
         btnSplit.setVisible(true);
         btnStay.setVisible(true); 
+        btnRResign.setDisable(true);
     }
     
     public void setGameEvents(Events BJGame) {
@@ -230,6 +232,7 @@ public class GameScreenController implements Initializable
 
     @FXML
     private void HitPress(ActionEvent event) {
+        
         synchronized(plAction)
         {
              plAction.set(PlayerAction.HIT);
