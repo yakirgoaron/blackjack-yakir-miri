@@ -224,7 +224,8 @@ public class Events extends Thread
                 {                   
                     if (event.getPlayerName().equals(PlayerName)){
                         PlayerInfo player = GetPlayerDetailsByName(PlayerName);
-                        DisplayPlayer(player);
+                        if(player != null)
+                            DisplayPlayer(player);
                         PrintNewRound();
                     }
                     try {
