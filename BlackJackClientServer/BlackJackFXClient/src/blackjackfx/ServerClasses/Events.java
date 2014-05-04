@@ -86,6 +86,7 @@ public class Events extends Thread
         this.GameName = GameWS.createGameFromXML(xmlData);        
     }
     
+    /*
     public void DoesPlayerContinue(final PlayerInfo player) 
     {
         Platform.runLater(new Runnable(){
@@ -112,7 +113,7 @@ public class Events extends Thread
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
         }
        
-    }
+    }*/
     
     public List<String> GetWaitingGames()
     {
@@ -224,7 +225,12 @@ public class Events extends Thread
                     if (event.getPlayerName().equals(PlayerName)){
                         PlayerInfo player = GetPlayerDetailsByName(PlayerName);
                         DisplayPlayer(player);
-                        DoesPlayerContinue(player);
+                        PrintNewRound();
+                    }
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     ClearTable();
                     
@@ -233,7 +239,7 @@ public class Events extends Thread
                 }
                 case PLAYER_RESIGNED:
                 {
-                    RemovePlayer(GetPlayerDetailsByName(event.getPlayerName()));
+                    RemovePlayer(event.getPlayerName());
                     break;
                 }
                 case PLAYER_TURN:
@@ -452,12 +458,12 @@ public class Events extends Thread
     
 
     
-    public void RemovePlayer(final PlayerInfo player) {
+    public void RemovePlayer(final String playerName) {
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
                                 { 
-                                     scControoler.RemovePlayer(player);
+                                     scControoler.RemovePlayer(playerName);
                                 }}); 
     }
 
@@ -499,6 +505,23 @@ public class Events extends Thread
                                 { 
                                     scControoler.DisplayPlayer(player);
                                 }});
+    }
+
+    private void PrintNewRound() {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                {                                       
+                                    scControoler.DisplayMessage("New Round");
+                                }});    
+    }
+    
+    public void PlayerResign() {
+        try {
+            GameWS.resign(PlayerID);
+        } catch (InvalidParameters_Exception ex) {
+            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
    
 }
