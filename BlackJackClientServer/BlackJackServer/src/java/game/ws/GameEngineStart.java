@@ -22,6 +22,7 @@ import EngineLogic.Player;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -205,8 +206,13 @@ public class GameEngineStart extends Thread implements Communicable
     @Override
     public void PrintAllPlayers(ArrayList<Player> GamePlayers) 
     {
-        for (Player player : GamePlayers) 
-        {
+        for (Iterator<Player> it = GamePlayers.iterator(); it.hasNext();) {
+            Player player = it.next();
+            if(PlayerByName.get(player.getName()).getStatus().equals(PlayerStatus.RETIRED))
+            {
+                it.remove();
+                continue;
+            }
             SynchronyizePlayerToPlayerDetails(player);
             Event envtBid = new Event();
             envtBid.setId(EngineManager.getUniqeEventID());
