@@ -220,8 +220,12 @@ public class Events extends Thread
                     break;
                 }
                 case GAME_WINNER:
-                    PrintGameWinner(GetPlayerDetailsByName(event.getPlayerName()));
+                {
+                    PlayerInfo player = GetPlayerDetailsByName(event.getPlayerName());
+                    if(player != null)
+                        PrintGameWinner(player);
                     break;
+                }
                 case NEW_ROUND:
                 {                   
                     if (event.getPlayerName().equals(PlayerName)){
