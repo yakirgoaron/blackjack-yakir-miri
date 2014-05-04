@@ -63,17 +63,19 @@ public class GameScreenController implements Initializable
     private Button btnStay; 
 
     @FXML
-    private AnchorPane apPlayer1;
-    @FXML
     private Label MsgLable;
+      //  private Label lblPlayerEndRound;
     @FXML
-    private Button btnStartRound;
+    private Button btnRResign;
+
     @FXML
-    private Button btnPlayerContinue;
-    @FXML
-    private Button btnPlayerExit;
-    @FXML
-    private Label lblPlayerEndRound;
+    private Pane apPlayer1;
+
+
+
+
+
+
     
     /**
      * Initializes the controller class.
@@ -84,9 +86,7 @@ public class GameScreenController implements Initializable
         btnHit.setVisible(false);
         btnSplit.setVisible(false);
         btnStay.setVisible(false);
-        btnPlayerContinue.setVisible(false);
-        btnPlayerExit.setVisible(false);
-        lblPlayerEndRound.setVisible(false);
+   //     lblPlayerEndRound.setVisible(false);
         plAction = new SimpleObjectProperty<>();
         DoesPlayerContinue = new SimpleBooleanProperty();
         FlPath = new SimpleStringProperty();
@@ -112,14 +112,6 @@ public class GameScreenController implements Initializable
         btnHit.setVisible(!btnHit.isVisible());
         btnSplit.setVisible(!btnSplit.isVisible());
         btnStay.setVisible(!btnStay.isVisible());
-    }
-    
-    
-    public void ChangeVisiblePlayerRoundEnd(){
-        lblPlayerEndRound.setVisible(false);
-        lblPlayerEndRound.toBack();
-        btnPlayerContinue.setVisible(false);
-        btnPlayerExit.setVisible(false);
     }
     
     public void ShowActions()
@@ -205,8 +197,7 @@ public class GameScreenController implements Initializable
             this.FlPath.set(flToSave.getPath() + ".xml");  */    
     }
     
-    @FXML
-    private void StartRound(ActionEvent event) 
+        private void StartRound(ActionEvent event) 
     {
        InitPlayers();       
        /*GameEvents.getGameEnded().addListener(new ChangeListener<Boolean>() {
@@ -220,7 +211,6 @@ public class GameScreenController implements Initializable
        GameEvents.setDaemon(true);
        GameEvents.start();       
        HideBidWindow.set(false);
-       btnStartRound.setDisable(true);
     }
 
     public SimpleBooleanProperty getGameEnded() {
@@ -364,6 +354,7 @@ public class GameScreenController implements Initializable
         }
     }
 
+    /*
     public void ShowPlayerContGame(String playerName) {
         lblPlayerEndRound.setVisible(true);
         lblPlayerEndRound.toFront();
@@ -372,14 +363,14 @@ public class GameScreenController implements Initializable
         lblPlayerEndRound.setText(text);
         btnPlayerContinue.setVisible(true);
         btnPlayerExit.setVisible(true);
-    }
+    }*/
 
     public SimpleBooleanProperty getDoesPlayerContinue() {
         return DoesPlayerContinue;
     }
 
-    @FXML
-    private void PlayerContGame(ActionEvent event) {
+    /*
+        private void PlayerContGame(ActionEvent event) {
         
         synchronized(DoesPlayerContinue)
         {
@@ -389,23 +380,27 @@ public class GameScreenController implements Initializable
         ChangeVisiblePlayerRoundEnd();
     }
 
-    @FXML
-    private void PlayerExitGame(ActionEvent event) {
+        private void PlayerExitGame(ActionEvent event) {
         synchronized(DoesPlayerContinue)
         {
             DoesPlayerContinue.set(false);
             DoesPlayerContinue.notify();
         }
         ChangeVisiblePlayerRoundEnd();
-    }
+    }*/
 
-    public void RemovePlayer(PlayerInfo player) {
-        Players.get(player.getName()).RemovePlayer();
-        Players.remove(player.getName());
+    public void RemovePlayer(String PlayerName) {
+        Players.get(PlayerName).RemovePlayer();
+        Players.remove(PlayerName);
     }
 
     public void PrintPlayerMessage(PlayerInfo ParPlayer, String Message) {
         Players.get(ParPlayer.getName()).PrintMessage(Message);
+    }
+
+    @FXML
+    private void Resign(ActionEvent event) {
+        GameEvents.PlayerResign();
     }
        
 }
