@@ -344,16 +344,28 @@ public class Events extends Thread
         try {
                 synchronized(scControoler.getPlayerActionType())
                 {
-                    scControoler.ShowActions();
-                    
+                    scControoler.ShowActions();                    
                     scControoler.getPlayerActionType().wait();
                 }
             
             Action actionchoosed = Action.valueOf(scControoler.getPlayerActionType().get().name());
             // TODO DEAL WITH THE BET
             GameWS.playerAction(PlayerID, EventID, actionchoosed, 0,1);
+            
+            Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                      scControoler.DisplayMessage("");
+                                }}); 
+            
         } catch (InvalidParameters_Exception ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+            Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                      scControoler.DisplayMessage("Rules does not allow this action");
+                                }});
         } catch (InterruptedException ex) {
                 Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
                 
