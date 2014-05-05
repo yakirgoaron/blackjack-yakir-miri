@@ -46,9 +46,9 @@ public class GameEngineStart extends Thread implements Communicable
 {
     private GameEngine GameEngMang;
     private HashMap<String, PlayerDetails> PlayerByName ;
-    private Boolean ErrorFound = false;
-    private Boolean WaitEnd = true;
-    private String Message;
+    private static Boolean ErrorFound = false;
+    private static final Boolean WaitEnd = true;
+    private static String Message;
     
     public GameEngineStart()
     {
