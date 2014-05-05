@@ -230,12 +230,12 @@ public class Events extends Thread
                 }
                 case NEW_ROUND:
                 {                   
-                    if (event.getPlayerName().equals(PlayerName)){
-                        PlayerInfo player = GetPlayerDetailsByName(PlayerName);
-                        if(player != null)
-                            DisplayPlayer(player);
-                        PrintNewRound();
-                    }
+                    
+                    PlayerInfo player = GetPlayerDetailsByName(PlayerName);
+                    if(player != null)
+                        DisplayPlayer(player);
+                    PrintNewRound();
+                    
                     try {
                         Thread.sleep(4000);
                     } catch (InterruptedException ex) {
@@ -376,6 +376,7 @@ public class Events extends Thread
    
     public void GetBidForPlayer(final PlayerInfo BettingPlayer) throws InvalidParameters_Exception {
         
+            
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
