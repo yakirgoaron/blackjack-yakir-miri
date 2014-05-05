@@ -39,7 +39,6 @@ public class Events extends Thread
 {
     private BlackJackWebService GameWS;
     private GameScreenController scControoler;
-    private SimpleBooleanProperty GameEnded;
     private Boolean GameStarted;
     private String FilePath;
     private int PlayerID;
@@ -53,7 +52,6 @@ public class Events extends Thread
         URL url = new URL("http://" + serverAddress + ":" + serverPort + "/bjwebapi/BlackJackWebService");
         BlackJackWebService_Service WSForConnect = new BlackJackWebService_Service(url);
         GameWS = WSForConnect.getBlackJackWebServicePort();
-        GameEnded = new SimpleBooleanProperty();
         GameName = new String();
         GameStarted = false;
         EventID = 0;
@@ -71,9 +69,6 @@ public class Events extends Thread
         this.PlayerID = SetPlayerID;
     }
     
-    public SimpleBooleanProperty getGameEnded() {
-        return GameEnded;
-    }
     
        
     public void CreateGame(String GameName, int HumanPlayers, int ComputerizedPlayers ) throws DuplicateGameName_Exception, InvalidParameters_Exception
@@ -209,14 +204,21 @@ public class Events extends Thread
                 }
                 case GAME_OVER:
                 {
-                    GameEnded.set(true);
+                    //GameEnded.set(true);
+                    Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                       scControoler.getGameEnded().set(true);
+                                }});   
+                   
                     break;
                 }
                 case GAME_START:
                 {
                     PrintAllJoinedPlayers();
                     GameStarted = true;
-                    GameEnded.set(false);
+                    //GameEnded.set(false);
                     break;
                 }
                 case GAME_WINNER:
