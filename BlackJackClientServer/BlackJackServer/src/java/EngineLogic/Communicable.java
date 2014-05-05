@@ -77,5 +77,6 @@ public interface Communicable
     public void PrintHandInfo(Hand HandForPrint,GameParticipant ParPlayer)throws PlayerResigned;
     public void PrintMessage(String Message);
     public void GameEnded();
-    
+    public void ActionOK();
+    public void ActionError(String ex);
 }
