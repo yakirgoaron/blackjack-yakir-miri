@@ -83,4 +83,9 @@ public class LoginScreenController implements Initializable {
         }
     }
     
+    @FXML
+    private void ActionLogin(ActionEvent event){
+       ConnectToServer(event);
+    }
+    
 }
