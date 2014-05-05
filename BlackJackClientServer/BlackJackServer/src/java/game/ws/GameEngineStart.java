@@ -190,6 +190,9 @@ public class GameEngineStart extends Thread implements Communicable
         }
         else{
             playerDetails.setFirstBetWage(0);
+            playerDetails.getFirstBet().clear();
+            playerDetails.setSecondBetWage(0);
+            playerDetails.getSecondBet().clear();           
         }
         playerDetails.setMoney(currentPlayer.getMoney().floatValue());
         
