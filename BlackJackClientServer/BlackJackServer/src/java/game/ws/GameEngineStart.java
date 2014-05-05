@@ -318,6 +318,8 @@ public class GameEngineStart extends Thread implements Communicable
                 Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        if(PlayerByName.get(BettingPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
+            throw new PlayerResigned();
         return EngineManager.getMoney();
     }
 

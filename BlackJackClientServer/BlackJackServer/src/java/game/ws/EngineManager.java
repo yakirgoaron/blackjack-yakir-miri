@@ -368,6 +368,10 @@ public class EngineManager {
             Events.add(playerResign);
         }
             
+        synchronized(StopWait)
+        {
+            StopWait.notifyAll();
+        }
         
     }
     
