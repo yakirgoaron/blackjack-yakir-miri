@@ -407,7 +407,7 @@ public class GameScreenController implements Initializable
     }
 
     public void DisableResign() {
-        btnRResign.setDisable(true);
+        btnRResign.setVisible(false);
     }
        
 }
