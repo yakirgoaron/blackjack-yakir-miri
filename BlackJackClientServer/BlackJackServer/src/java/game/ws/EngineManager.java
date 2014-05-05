@@ -370,7 +370,8 @@ public class EngineManager {
             
         synchronized(StopWait)
         {
-            StopWait.notifyAll();
+            if(Engine.getCurrPlayer().equals(playerManager.get(PlayerId)))
+                StopWait.notifyAll();
         }
         
     }

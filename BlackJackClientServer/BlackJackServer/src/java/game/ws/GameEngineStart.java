@@ -46,6 +46,7 @@ public class GameEngineStart extends Thread implements Communicable
 {
     private GameEngine GameEngMang;
     private HashMap<String, PlayerDetails> PlayerByName ;
+    private PlayerDetails CurrPlayer;
     private static Boolean ErrorFound = false;
     private static final Boolean WaitEnd = true;
     private static String Message;
@@ -60,6 +61,10 @@ public class GameEngineStart extends Thread implements Communicable
     {
         GameEngMang = new  GameEngine(File);  
         PlayerByName = new HashMap<>();
+    }
+
+    public PlayerDetails getCurrPlayer() {
+        return CurrPlayer;
     }
 
     public int GetHumanPlayers()
@@ -260,7 +265,7 @@ public class GameEngineStart extends Thread implements Communicable
         
         if(PlayerByName.get(CurrentPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
             throw new PlayerResigned();
-        
+        CurrPlayer = PlayerByName.get(CurrentPlayer.getName());
         Event envtBid = new Event();
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(CurrentPlayer.getName());
@@ -307,6 +312,7 @@ public class GameEngineStart extends Thread implements Communicable
     {
         if(PlayerByName.get(BettingPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
             throw new PlayerResigned();
+        CurrPlayer = PlayerByName.get(BettingPlayer.getName());
         Event envtBid = new Event();
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(BettingPlayer.getName());
