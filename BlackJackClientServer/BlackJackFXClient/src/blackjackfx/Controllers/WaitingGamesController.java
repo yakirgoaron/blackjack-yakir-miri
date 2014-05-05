@@ -203,7 +203,7 @@ public class WaitingGamesController implements Initializable
             }
         };
         
-        UpdateTable.schedule(taskUpdate,100, 1000);
+        UpdateTable.schedule(taskUpdate,1000, 1000);
     }
 
     @FXML
@@ -215,6 +215,7 @@ public class WaitingGamesController implements Initializable
                 GameWS.JoinGame(ChosePlayer.getValue());
             else               
                 GameWS.JoinGame(txtPlayerName.getText());
+            UpdateTable.cancel();
             FinishJoinGame.set(true);
             
         } catch (GameDoesNotExists_Exception ex) {
@@ -229,7 +230,7 @@ public class WaitingGamesController implements Initializable
     @FXML
     private void GoToWaiting(ActionEvent event) {
         this.WaitinGamesView.setVisible(true);
-        InitTableGames();
+        InitTableGames();        
         this.PlayersJoined.setVisible(false);
         txtPlayerName.setDisable(true);
         btnJoin.setDisable(true);
