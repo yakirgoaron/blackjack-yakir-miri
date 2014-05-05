@@ -248,7 +248,11 @@ public class Events extends Thread
                 }
                 case PLAYER_RESIGNED:
                 {
-                    RemovePlayer(event.getPlayerName());
+                    String Name = event.getPlayerName();
+                    RemovePlayer(Name);
+                    
+                    if (Name.equals(PlayerName))
+                        DisableResign();
                     break;
                 }
                 case PLAYER_TURN:
@@ -532,6 +536,15 @@ public class Events extends Thread
         } catch (InvalidParameters_Exception ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void DisableResign() {
+        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                {                                       
+                                    scControoler.DisableResign();
+                                }});    
     }
    
 }

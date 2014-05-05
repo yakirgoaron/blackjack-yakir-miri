@@ -405,5 +405,9 @@ public class GameScreenController implements Initializable
     private void Resign(ActionEvent event) {
         GameEvents.PlayerResign();
     }
+
+    public void DisableResign() {
+        btnRResign.setDisable(true);
+    }
        
 }
