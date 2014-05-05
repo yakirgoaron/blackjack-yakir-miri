@@ -43,6 +43,7 @@ import ws.blackjack.PlayerType;
 public class EngineManager {
     private static int uniqePlayerID = 0;
     private static int uniqeEventID = 0;
+    private static int CompIdGen=1;
     private static HashMap<String,GameDetails> gamemanager = new HashMap<>();
     private static HashMap<Integer, PlayerDetails> playerManager = new HashMap<>();
 
@@ -57,7 +58,11 @@ public class EngineManager {
     private EngineManager()
     {
     }
-    
+    public static void ClearData()
+    {
+        IdToGame.clear();
+        gamemanager.clear();
+    }
     public static ArrayList<Event> getEvents() {
         return Events;
     }
@@ -152,9 +157,10 @@ public class EngineManager {
             //player.setMoney(Money);
             player.setType(PlayerType.COMPUTER);
             player.setStatus(PlayerStatus.JOINED);
-            player.setName("Comp" + uniqePlayerID);
+            player.setName("Comp" + CompIdGen);
             playerManager.put(uniqePlayerID, player);
             IdToGame.put(uniqePlayerID, name);
+            CompIdGen++;
         }
         
         uniqePlayerID++;
@@ -176,6 +182,7 @@ public class EngineManager {
         {
             ThrowInvalidParameter("Too many players");
         }
+        Events.clear();
     }
     
     public static GameDetails GetGameDetails(String name ) throws GameDoesNotExists_Exception
@@ -193,10 +200,10 @@ public class EngineManager {
         
         if (playerManager.containsKey(PlayerId))      
             return playerManager.get(PlayerId);      
-        else{
-            InvalidParameters faultInfo = new InvalidParameters();
-            faultInfo.setMessage("Error - player doesn`t exist");
-            throw new InvalidParameters_Exception(((Integer)PlayerId).toString(), faultInfo);
+        else
+        {
+            ThrowInvalidParameter("Error - player doesn`t exist");
+            return null;
         }
     }
     
@@ -241,9 +248,7 @@ public class EngineManager {
             player = CheckIfNameExists(PlayerName);
             if (player != null && !gamemanager.get(GameName).isLoadedFromXML())
             {
-                InvalidParameters faultInfo = new InvalidParameters();
-                faultInfo.setMessage("Error - name already exists");
-                throw new InvalidParameters_Exception(PlayerName, faultInfo);
+                ThrowInvalidParameter("Error - name already exists");
                 
             }
             else if(gamemanager.get(GameName).isLoadedFromXML() && player != null && player.getStatus().equals(PlayerStatus.ACTIVE))
@@ -253,9 +258,7 @@ public class EngineManager {
             }
             else if(gamemanager.get(GameName).isLoadedFromXML() && player != null && player.getStatus().equals(PlayerStatus.JOINED))
             {
-                InvalidParameters faultInfo = new InvalidParameters();
-                faultInfo.setMessage("Error - the player is taken");
-                throw new InvalidParameters_Exception(PlayerName, faultInfo);
+                ThrowInvalidParameter("Error - the player is taken");
             }
             else
             {
@@ -272,9 +275,7 @@ public class EngineManager {
                 } 
                 catch (TooManyPlayersException ex) 
                 {
-                    InvalidParameters faultInfo = new InvalidParameters();
-                    faultInfo.setMessage("Too mant players");
-                    throw new InvalidParameters_Exception(PlayerName, faultInfo);
+                    ThrowInvalidParameter("Too many players");
                 }
                 
                 Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
@@ -352,9 +353,7 @@ public class EngineManager {
     public static void PlayerResign(int PlayerId) throws InvalidParameters_Exception
     {
         if (!playerManager.containsKey(PlayerId)){
-            InvalidParameters faultInfo = new InvalidParameters();
-            faultInfo.setMessage("Error - player doesn`t exist");
-            throw new InvalidParameters_Exception(((Integer)PlayerId).toString(), faultInfo);    
+            ThrowInvalidParameter("Error - player doesn`t exist");  
         }                 
         else{
             PlayerDetails player = playerManager.get(PlayerId);
@@ -404,6 +403,7 @@ public class EngineManager {
         Dealer.setMoney(0);
         playerManager.put(uniqePlayerID, Dealer);
         IdToGame.put(uniqePlayerID, Engine.GetGameName());
+        Events.clear();
         return Engine.GetGameName();
     }
     
@@ -411,15 +411,11 @@ public class EngineManager {
     {
         if(!playerManager.containsKey(playerId))
         {
-            InvalidParameters faultInfo = new InvalidParameters();
-            faultInfo.setMessage("Error - player doesn`t exist");
-            throw new InvalidParameters_Exception(((Integer)playerId).toString(), faultInfo);    
+            ThrowInvalidParameter("Error - player doesn`t exist");  
         }
         if(Events.size() != eventId)
         {
-           InvalidParameters faultInfo = new InvalidParameters();
-           faultInfo.setMessage("Error - event id not last");
-           throw new InvalidParameters_Exception(((Integer)playerId).toString(), faultInfo);     
+           ThrowInvalidParameter("Error - event id not last");
         }
         
         Event playerAction = new Event();
@@ -446,15 +442,11 @@ public class EngineManager {
             }
             catch (InterruptedException ex) 
             {
-                InvalidParameters faultInfo = new InvalidParameters();
-                faultInfo.setMessage("Action chosen was not valid");
-                throw new InvalidParameters_Exception(((Integer)playerId).toString(), faultInfo);  
+                ThrowInvalidParameter("Action chosen was not valid");
             }
             if(Engine.isErrorFound())
             {
-                InvalidParameters faultInfo = new InvalidParameters();
-                faultInfo.setMessage("Action chosen was not valid");
-                throw new InvalidParameters_Exception(((Integer)playerId).toString(), faultInfo);  
+                ThrowInvalidParameter("Action chosen was not valid");
             }
         }
     }

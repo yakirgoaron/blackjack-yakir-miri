@@ -46,10 +46,10 @@ public class GameEngineStart extends Thread implements Communicable
 {
     private GameEngine GameEngMang;
     private HashMap<String, PlayerDetails> PlayerByName ;
+    private Boolean ErrorFound = false;
+    private final Boolean WaitEnd = true;
+    private Boolean isInEndRound = false;
     private PlayerDetails CurrPlayer;
-    private static Boolean ErrorFound = false;
-    private static final Boolean WaitEnd = true;
-    private static String Message;
     
     public GameEngineStart()
     {
@@ -228,6 +228,8 @@ public class GameEngineStart extends Thread implements Communicable
             envtBid.setId(EngineManager.getUniqeEventID());
             envtBid.setPlayerName(player.getName());
             envtBid.setType(EventType.CARDS_DEALT);
+            envtBid.setMoney(player.getBids().get(0).getTotalBid().floatValue());
+            envtBid.getCards().addAll(ConvertCardsFromEngineToWSDL(player.getBids().get(0).getCards()));
             EngineManager.getEvents().add(envtBid);
         }
     }
@@ -246,6 +248,15 @@ public class GameEngineStart extends Thread implements Communicable
     public void DoesPlayerContinue(Player player) throws PlayerResigned{
         if(PlayerByName.get(player.getName()).getStatus().equals(PlayerStatus.RETIRED))
             throw new PlayerResigned();
+        if(!isInEndRound)
+        {
+            isInEndRound = true;
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         Event evntNewRound = new Event();
         evntNewRound.setId(EngineManager.getUniqeEventID());
         evntNewRound.setType(EventType.NEW_ROUND);
@@ -333,7 +344,20 @@ public class GameEngineStart extends Thread implements Communicable
             throw new PlayerResigned();
         return EngineManager.getMoney();
     }
-
+    
+    private List<ws.blackjack.Card> ConvertCardsFromEngineToWSDL(List<Card> Cards)
+    {
+        List<ws.blackjack.Card> newlist = new ArrayList<>();
+        for (Card curr : Cards) 
+        {
+            ws.blackjack.Card newcard = new ws.blackjack.Card();
+            newcard.setRank(Rank.valueOf(curr.getRank().name()));
+            newcard.setSuit(Suit.valueOf(curr.getSuit().name()));
+            newlist.add(newcard);
+        }
+        return newlist;
+    }
+    
     @Override
     public void PrintBidInfo(Bid BidForPrint, Player PlayerBid) throws PlayerResigned{
         SynchronyizePlayerToPlayerDetails(PlayerBid);
@@ -345,13 +369,16 @@ public class GameEngineStart extends Thread implements Communicable
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(PlayerBid.getName());
         envtBid.setType(EventType.CARDS_DEALT);
+        envtBid.setMoney(BidForPrint.getTotalBid().floatValue());
+        envtBid.getCards().addAll(ConvertCardsFromEngineToWSDL(BidForPrint.getCards()));
+        
         EngineManager.getEvents().add(envtBid);
     }
 
     @Override
     public void PrintHandInfo(Hand HandForPrint, GameParticipant ParPlayer) throws PlayerResigned{
         SynchronyizeHandToPlayerDetails(HandForPrint, ParPlayer);
-        
+        isInEndRound = false;
         if(PlayerByName.get(ParPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
             throw new PlayerResigned();
                 
@@ -359,6 +386,7 @@ public class GameEngineStart extends Thread implements Communicable
         CardsDealt.setId(EngineManager.getUniqeEventID());
         CardsDealt.setPlayerName(ParPlayer.getName());
         CardsDealt.setType(EventType.CARDS_DEALT);
+        CardsDealt.getCards().addAll(ConvertCardsFromEngineToWSDL(HandForPrint.getCards()));
         EngineManager.getEvents().add(CardsDealt);
     }
 
@@ -401,6 +429,7 @@ public class GameEngineStart extends Thread implements Communicable
         evntGameEnded.setId(EngineManager.getUniqeEventID());
         evntGameEnded.setType(EventType.GAME_OVER);
         EngineManager.getEvents().add(evntGameEnded);
+        EngineManager.ClearData();
     }
 
     @Override
@@ -419,7 +448,7 @@ public class GameEngineStart extends Thread implements Communicable
     {
         synchronized(WaitEnd)
         {
-            Message = ex;            
+            //Message = ex;            
             ErrorFound = Boolean.TRUE;
             WaitEnd.notifyAll();
         }
@@ -429,9 +458,6 @@ public class GameEngineStart extends Thread implements Communicable
         return ErrorFound;
     }
 
-    public String getMessage() {
-        return Message;
-    }
 
     public Boolean isWaitEnd() {
         return WaitEnd;
