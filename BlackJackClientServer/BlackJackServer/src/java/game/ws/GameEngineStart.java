@@ -47,6 +47,7 @@ public class GameEngineStart extends Thread implements Communicable
     private GameEngine GameEngMang;
     private HashMap<String, PlayerDetails> PlayerByName ;
     private Boolean ErrorFound = false;
+    private Boolean WaitEnd = true;
     private String Message;
     
     public GameEngineStart()
@@ -399,10 +400,10 @@ public class GameEngineStart extends Thread implements Communicable
     @Override
     public void ActionOK() 
     {
-        synchronized(ErrorFound)
+        synchronized(WaitEnd)
         {            
             ErrorFound = Boolean.FALSE;
-            ErrorFound.notifyAll();
+            WaitEnd.notifyAll();
         }
     }
 
@@ -410,11 +411,11 @@ public class GameEngineStart extends Thread implements Communicable
     @Override
     public void ActionError(String ex) 
     {
-        synchronized(ErrorFound)
+        synchronized(WaitEnd)
         {
             Message = ex;            
             ErrorFound = Boolean.TRUE;
-            ErrorFound.notifyAll();
+            WaitEnd.notifyAll();
         }
     }
 
@@ -424,6 +425,10 @@ public class GameEngineStart extends Thread implements Communicable
 
     public String getMessage() {
         return Message;
+    }
+
+    public Boolean isWaitEnd() {
+        return WaitEnd;
     }
     
     

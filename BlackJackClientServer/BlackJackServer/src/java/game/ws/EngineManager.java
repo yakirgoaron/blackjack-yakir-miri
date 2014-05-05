@@ -437,11 +437,11 @@ public class EngineManager {
         {
             StopWait.notifyAll();
         }
-        synchronized(Engine.isErrorFound())    
+        synchronized(Engine.isWaitEnd())    
         {
             try 
             {
-                Engine.isErrorFound().wait();
+                Engine.isWaitEnd().wait();
             }
             catch (InterruptedException ex) 
             {
