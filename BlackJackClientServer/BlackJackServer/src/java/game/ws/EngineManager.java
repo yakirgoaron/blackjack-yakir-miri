@@ -437,7 +437,25 @@ public class EngineManager {
         {
             StopWait.notifyAll();
         }
-            
+        synchronized(Engine.isErrorFound())    
+        {
+            try 
+            {
+                Engine.isErrorFound().wait();
+            }
+            catch (InterruptedException ex) 
+            {
+                InvalidParameters faultInfo = new InvalidParameters();
+                faultInfo.setMessage("Action chosen was not valid");
+                throw new InvalidParameters_Exception(((Integer)playerId).toString(), faultInfo);  
+            }
+            if(Engine.isErrorFound())
+            {
+                InvalidParameters faultInfo = new InvalidParameters();
+                faultInfo.setMessage("Action chosen was not valid");
+                throw new InvalidParameters_Exception(((Integer)playerId).toString(), faultInfo);  
+            }
+        }
     }
     
     
