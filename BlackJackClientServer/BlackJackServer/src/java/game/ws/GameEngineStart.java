@@ -46,7 +46,8 @@ public class GameEngineStart extends Thread implements Communicable
 {
     private GameEngine GameEngMang;
     private HashMap<String, PlayerDetails> PlayerByName ;
-    
+    private Boolean ErrorFound = false;
+    private String Message;
     
     public GameEngineStart()
     {
@@ -394,5 +395,38 @@ public class GameEngineStart extends Thread implements Communicable
         evntGameEnded.setType(EventType.GAME_OVER);
         EngineManager.getEvents().add(evntGameEnded);
     }
+
+    @Override
+    public void ActionOK() 
+    {
+        synchronized(ErrorFound)
+        {
+            ErrorFound.notifyAll();
+            ErrorFound = Boolean.FALSE;
+        }
+    }
+
+    
+    @Override
+    public void ActionError(String ex) 
+    {
+        synchronized(ErrorFound)
+        {
+            Message = ex;
+            ErrorFound.notifyAll();
+            ErrorFound = Boolean.TRUE;
+        }
+    }
+
+    public Boolean isErrorFound() {
+        return ErrorFound;
+    }
+
+    public String getMessage() {
+        return Message;
+    }
+    
+    
+    
     
 }
