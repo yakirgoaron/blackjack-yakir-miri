@@ -148,11 +148,13 @@ public class GameEngine
                 player.GivePlayerCards(PullCard(),
                         PullCard(),
                         player.GetBidForPlayer(commGetBid));
+                
             }
             catch (PlayerResigned ex) 
             {
                 it.remove();
             }
+            commGetBid.ActionOK();
         }
         GameDealer.HitBid(GameDealer.getDealerCards(), PullCard());
     }
@@ -224,14 +226,17 @@ public class GameEngine
             try 
             {
                 DoPlayerMove(EnumAction, CurrentPlayer, CurrentBid);
+                commInterface.ActionOK();
             } 
             catch (RulesDosentAllowException ex) 
             {
-                commInterface.PrintMessage(ex.getMessage());
+                commInterface.ActionError(ex.getMessage());
+                //commInterface.PrintMessage(ex.getMessage());
             }
             catch (TooLowMoneyException ex) 
             {
-                commInterface.PrintMessage(ex.toString());
+                commInterface.ActionError(ex.getMessage());
+                //commInterface.PrintMessage(ex.toString());
             }
         }  
         commInterface.PrintBidInfo(CurrentBid,CurrentPlayer);
