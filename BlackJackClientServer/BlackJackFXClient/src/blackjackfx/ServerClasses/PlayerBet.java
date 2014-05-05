@@ -34,6 +34,14 @@ public class PlayerBet {
     public float getBetWage() {
         return BetWage;
     }
+
+    public void setBetCards(List<Card> BetCards) {
+        this.BetCards = BetCards;
+    }
+
+    public void setBetWage(float BetWage) {
+        this.BetWage = BetWage;
+    }
     
     
 }

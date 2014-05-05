@@ -5,3 +5,9 @@
 .mainFxmlClass {
 
 }
+#errorMessageLabel{
+    -fx-alignment: center;
+    -fx-text-fill: red;
+    -fx-font-size: 20 px;
+    
+}

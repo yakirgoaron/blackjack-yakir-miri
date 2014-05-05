@@ -20,6 +20,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
+import javafx.animation.FadeTransitionBuilder;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -32,11 +34,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -63,6 +67,8 @@ public class WaitingGamesController implements Initializable
     private Button BackToWait;
     @FXML
     private ChoiceBox<String> ChosePlayer;
+    @FXML
+    private Label errorMessageLabel;
 
     
      /**
@@ -219,9 +225,9 @@ public class WaitingGamesController implements Initializable
             FinishJoinGame.set(true);
             
         } catch (GameDoesNotExists_Exception ex) {
-            Logger.getLogger(WaitingGamesController.class.getName()).log(Level.SEVERE, null, ex);
+            showError(ex.getMessage());
         } catch (InvalidParameters_Exception ex) {
-            Logger.getLogger(WaitingGamesController.class.getName()).log(Level.SEVERE, null, ex);
+            showError(ex.getMessage());
         }
         // TODO CHANGE MONEY 
         PlayerData.add(new PlayerDetailsRow(txtPlayerName.getText(), PlayerType.HUMAN.toString(), "1000"));
@@ -321,6 +327,17 @@ public class WaitingGamesController implements Initializable
         }
 
         
+    }
+    private void showError(String message) 
+    {
+        errorMessageLabel.textProperty().setValue(message);
+        FadeTransition animation = FadeTransitionBuilder.create()
+                    .node(errorMessageLabel)
+                    .duration(Duration.seconds(0.3))
+                    .fromValue(0.0)
+                    .toValue(1.0)
+                    .build();
+        animation.play();       
     }
 
 

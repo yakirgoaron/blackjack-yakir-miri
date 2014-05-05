@@ -151,7 +151,8 @@ public class GameScreenController implements Initializable
             
             Players.get(currPlayer).ClearGlowHandInfo(bid);
         }*/
-        
+        Players.get(currPlayer.getName()).ClearGlowHandInfo(currPlayer.getName() + "1");
+        Players.get(currPlayer.getName()).ClearGlowHandInfo(currPlayer.getName() + "2");
         Players.get(currPlayer.getName()).GlowHandInfo(currBid);
     }
     
@@ -199,7 +200,7 @@ public class GameScreenController implements Initializable
             this.FlPath.set(flToSave.getPath() + ".xml");  */    
     }
     
-        private void StartRound(ActionEvent event) 
+    private void StartRound(ActionEvent event) 
     {
        InitPlayers();       
        /*GameEvents.getGameEnded().addListener(new ChangeListener<Boolean>() {

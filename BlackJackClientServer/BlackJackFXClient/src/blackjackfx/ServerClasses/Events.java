@@ -45,7 +45,8 @@ public class Events extends Thread
     private String PlayerName;
     private String GameName;
     private int EventID;
-    
+    private int HandToTake = 0;
+    private boolean IsSplitChosen = false;
     
     public Events(String serverAddress ,String  serverPort) throws MalformedURLException
     {
@@ -54,6 +55,7 @@ public class Events extends Thread
         GameWS = WSForConnect.getBlackJackWebServicePort();
         GameName = new String();
         GameStarted = false;
+        setDaemon(true);
         EventID = 0;
         
     }
@@ -81,34 +83,7 @@ public class Events extends Thread
         this.GameName = GameWS.createGameFromXML(xmlData);        
     }
     
-    /*
-    public void DoesPlayerContinue(final PlayerInfo player) 
-    {
-        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                    scControoler.ShowPlayerContGame(player.getName());
-                                }});      
-         try 
-        {
-            synchronized(scControoler.getDoesPlayerContinue())
-            {               
-
-                scControoler.getDoesPlayerContinue().wait();
-            }
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-        if (!scControoler.getDoesPlayerContinue().get())
-            try {
-            GameWS.resign(PlayerID);
-        } catch (InvalidParameters_Exception ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-    }*/
+  
     
     public List<String> GetWaitingGames()
     {
@@ -133,7 +108,7 @@ public class Events extends Thread
             }
         } 
         catch (GameDoesNotExists_Exception ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         return null;
     }
@@ -141,7 +116,14 @@ public class Events extends Thread
     {
         PlayerInfo player = GetPlayerDetailsByName(event.getPlayerName());
         if(player != null)
+        {
+            if(event.getPlayerName().equals(PlayerName))
+            {
+                player.getBets().get(HandToTake).setBetCards(player.ConvertPlayerCards(event.getCards()));
+                player.getBets().get(HandToTake).setBetWage(event.getMoney());
+            }
             PrintBidInfo(player);        
+        }
     }
     
     private void DisplayPlayerEffect(final Event event)
@@ -235,12 +217,7 @@ public class Events extends Thread
                     if(player != null)
                         DisplayPlayer(player);
                     PrintNewRound();
-                    
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    HandToTake =0;
                     ClearTable();
                     
                         
@@ -301,23 +278,7 @@ public class Events extends Thread
    
     public String GetFilePathForSave() 
     {
-        /*
-       SaveOptions UserChoice;
-        
-        if (FilePath == null){
-            scControoler.GetFilePathToSave();
-            FilePath = scControoler.GetPath().get();
-        }
-        else {
-            UserChoice = SaveOrSaveAs();
-            
-            if (UserChoice.equals(SaveOptions.SAVE_AS)){
-                scControoler.GetFilePathToSave();
-                FilePath = scControoler.GetPath().get();
-            }           
-        }       
-        return FilePath;
-         */
+       
         
         return null;
     }
@@ -350,26 +311,29 @@ public class Events extends Thread
             
             Action actionchoosed = Action.valueOf(scControoler.getPlayerActionType().get().name());
             // TODO DEAL WITH THE BET
-            GameWS.playerAction(PlayerID, EventID, actionchoosed, 0,1);
-            
+            GameWS.playerAction(PlayerID, EventID, actionchoosed, 0,HandToTake+1);
+            if(actionchoosed.equals(Action.SPLIT))
+                IsSplitChosen = true;
+            if(!actionchoosed.equals(Action.SPLIT) && !actionchoosed.equals(Action.HIT) && HandToTake < 1 && IsSplitChosen)
+                HandToTake++;
             Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
                                 { 
                                       scControoler.DisplayMessage("");
                                 }}); 
-            
-        } catch (InvalidParameters_Exception ex) {
+        } catch (final InvalidParameters_Exception ex) {
             Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
                                 { 
-                                      scControoler.DisplayMessage("Rules does not allow this action");
+                                      scControoler.DisplayMessage(ex.getMessage());
                                 }});
         } catch (InterruptedException ex) {
                 Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
                 
-            }
+            } 
+        
     }
 
         
@@ -432,36 +396,11 @@ public class Events extends Thread
                                 @Override
                                 public void run() 
                                 { 
-                                    scControoler.DisplayBid(PlayerBid.getName() + "1", PlayerBid);
+                                    scControoler.DisplayBid(PlayerBid.getName() + (HandToTake + 1), PlayerBid);
                                 }}); 
     }
 
-   /*
-    public void PrintHandInfo(final Hand HandForPrint,final GameParticipant ParPlayer) {
-        try {
-            Platform.runLater(new Runnable(){
-                @Override
-                public void run()
-                {
-                    scControoler.DisplayHand(HandForPrint, ParPlayer);
-                }});
-            if(ParPlayer instanceof CompPlayer || ParPlayer instanceof Dealer)
-                Thread.sleep(2100);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
-
-   /*public void PrintAllPlayers(final ArrayList<Player> GamePlayers) {
-       
-        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                     scControoler.GetHideBidWindow().set(true);
-                                     scControoler.ShowPlayers(GamePlayers);
-                                }});
-    }*/
+   
     public void PrintMessage(final String Message) {
         Platform.runLater(new Runnable(){
                                 @Override
@@ -558,5 +497,11 @@ public class Events extends Thread
                                     scControoler.DisableResign();
                                 }});    
     }
+
+    public int getHandToTake() {
+        return HandToTake;
+    }
+    
+    
    
 }

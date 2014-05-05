@@ -22,7 +22,7 @@ public class PlayerInfo
     private List<PlayerBet> Bets;
     private double money;
     
-    private List<Card> ConvertPlayerCards(List<game.client.ws.Card> BetCards)
+    public List<Card> ConvertPlayerCards(List<game.client.ws.Card> BetCards)
     {
         List<Card> TempBet = new ArrayList<>();
         for (game.client.ws.Card card : BetCards) 
@@ -67,6 +67,10 @@ public class PlayerInfo
 
     public double getMoney() {
         return money;
+    }
+
+    public void setBets(List<PlayerBet> Bets) {
+        this.Bets = Bets;
     }
     
     
