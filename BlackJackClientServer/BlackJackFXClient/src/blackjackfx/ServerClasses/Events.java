@@ -231,7 +231,7 @@ public class Events extends Thread
                 case NEW_ROUND:
                 {                   
                     
-                    PlayerInfo player = GetPlayerDetailsByName(PlayerName);
+                    PlayerInfo player = GetPlayerDetailsByName(event.getPlayerName());
                     if(player != null)
                         DisplayPlayer(player);
                     PrintNewRound();
