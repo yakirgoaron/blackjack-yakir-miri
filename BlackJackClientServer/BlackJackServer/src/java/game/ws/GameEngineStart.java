@@ -400,9 +400,9 @@ public class GameEngineStart extends Thread implements Communicable
     public void ActionOK() 
     {
         synchronized(ErrorFound)
-        {
-            ErrorFound.notifyAll();
+        {            
             ErrorFound = Boolean.FALSE;
+            ErrorFound.notifyAll();
         }
     }
 
@@ -412,9 +412,9 @@ public class GameEngineStart extends Thread implements Communicable
     {
         synchronized(ErrorFound)
         {
-            Message = ex;
-            ErrorFound.notifyAll();
+            Message = ex;            
             ErrorFound = Boolean.TRUE;
+            ErrorFound.notifyAll();
         }
     }
 
