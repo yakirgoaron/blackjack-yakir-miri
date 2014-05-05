@@ -84,8 +84,9 @@ public class LoginScreenController implements Initializable {
     }
     
     @FXML
-    private void ActionLogin(ActionEvent event){
-       ConnectToServer(event);
+    private void ActionLogin(ActionEvent event){      
+        if ((!txtServerName.getText().isEmpty()) && (!txtPortValue.getText().isEmpty()))
+            ConnectToServer(event);
     }
     
 }
