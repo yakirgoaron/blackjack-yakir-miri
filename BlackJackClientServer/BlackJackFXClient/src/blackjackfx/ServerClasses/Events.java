@@ -212,15 +212,13 @@ public class Events extends Thread
                 }
                 case NEW_ROUND:
                 {                   
-                    
-                    PlayerInfo player = GetPlayerDetailsByName(event.getPlayerName());
-                    if(player != null)
-                        DisplayPlayer(player);
-                    PrintNewRound();
-                    HandToTake =0;
-                    ClearTable();
-                    
+                    if (event.getPlayerName().equals(PlayerName)){
                         
+                        DisplayPlayers();
+                        PrintNewRound();
+                        HandToTake =0;
+                        ClearTable();
+                    }                       
                     break;
                 }
                 case PLAYER_RESIGNED:
@@ -463,12 +461,18 @@ public class Events extends Thread
                                 }});
     }
 
-    private void DisplayPlayer(final PlayerInfo player) {
+    private void DisplayPlayers() {
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
                                 { 
-                                    scControoler.DisplayPlayer(player);
+                                    List<PlayerInfo> players = GetPlayersInGame();
+                                    
+                                    for (PlayerInfo player : players) { 
+                                        
+                                        if(!player.getName().equals("Dealer"))                                       
+                                            scControoler.DisplayPlayer(player);
+                                    }                                                                        
                                 }});
     }
 
