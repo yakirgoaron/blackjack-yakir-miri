@@ -95,6 +95,10 @@ public class GameScreenController implements Initializable
         GameEnded = new SimpleBooleanProperty();
        
     }  
+
+    public Events getGameEvents() {
+        return GameEvents;
+    }
     
     public SimpleBooleanProperty GetHideBidWindow()
     {

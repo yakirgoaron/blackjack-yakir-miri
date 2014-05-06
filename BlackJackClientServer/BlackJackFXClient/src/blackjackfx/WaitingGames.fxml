@@ -12,11 +12,11 @@
   <children>
     <TableView fx:id="WaitinGamesView" editable="false" layoutX="0.0" layoutY="0.0" prefHeight="356.0" prefWidth="472.0000999999975" tableMenuButtonVisible="false" />
     <TableView id="WaitinGamesView" fx:id="PlayersJoined" editable="false" layoutX="0.0" layoutY="0.0" prefHeight="356.0" prefWidth="472.0000999999975" tableMenuButtonVisible="false" visible="false" />
-    <Label layoutX="14.0" layoutY="382.0" text="Player Name" />
-    <TextField fx:id="txtPlayerName" disable="true" layoutX="88.0" layoutY="380.0" prefWidth="118.0" />
-    <Button fx:id="btnJoin" disable="true" layoutX="216.0" layoutY="380.0" mnemonicParsing="false" onAction="#JoinToTheGame" text="Join" />
+    <Label id="PlayerName" layoutX="14.0" layoutY="382.0" text="Player Name" />
+    <TextField fx:id="txtPlayerName" disable="true" layoutX="110.0" layoutY="380.0" prefWidth="118.0" />
+    <Button fx:id="btnJoin" disable="true" layoutX="240.0" layoutY="380.0" mnemonicParsing="false" onAction="#JoinToTheGame" text="Join" />
     <Button fx:id="BackToWait" disable="false" layoutX="402.0" layoutY="380.0" mnemonicParsing="false" onAction="#GoToWaiting" text="Back" />
-    <ChoiceBox fx:id="ChosePlayer" layoutX="88.0" layoutY="380.0" prefWidth="118.0" visible="false">
+    <ChoiceBox fx:id="ChosePlayer" layoutX="110.0" layoutY="380.0" prefWidth="118.0" visible="false">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />

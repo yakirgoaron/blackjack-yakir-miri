@@ -17,9 +17,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -140,14 +142,26 @@ public class BlackJackFXApp extends Application {
                 PrimaryStage.setScene(scene); 
                 PrimaryStage.centerOnScreen();
                 PrimaryStage.setTitle("Enter Bid");
+                PrimaryStage.setOnCloseRequest(new HandleClose());
             }
             else
             {
                 PrimaryStage.setScene(GameScene); 
                 PrimaryStage.centerOnScreen();
-                PrimaryStage.setTitle("Let's play BLACKJACK");              
+                PrimaryStage.setTitle("Let's play BLACKJACK"); 
+                
+                PrimaryStage.setOnCloseRequest(new HandleClose());
             }
         }
+    }
+    
+    public class HandleClose implements EventHandler<WindowEvent>{
+
+        @Override
+        public void handle(WindowEvent t) {
+            ScreenManager.GetInstance().getGameScCr().getGameEvents().PlayerResign();
+        }
+        
     }
     
     public void StartGame(){
@@ -155,7 +169,8 @@ public class BlackJackFXApp extends Application {
        Scene scene = ScreenManager.GetInstance().getGameSc();          
        PrimaryStage.setScene(scene); 
        PrimaryStage.centerOnScreen();
-       PrimaryStage.setTitle("Let's play BLACKJACK");         
+       PrimaryStage.setTitle("Let's play BLACKJACK");   
+       PrimaryStage.setOnCloseRequest(new HandleClose());
     }
         
     public void EndGame(){
