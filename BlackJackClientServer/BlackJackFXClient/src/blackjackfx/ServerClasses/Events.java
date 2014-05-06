@@ -220,6 +220,7 @@ public class Events extends Thread
                         DisplayPlayers();
                         PrintNewRound();
                         HandToTake =0;
+                        IsSplitChosen = false;
                         ClearTable();
                     }                       
                     break;
