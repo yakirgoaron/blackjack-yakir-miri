@@ -334,20 +334,25 @@ public class GameEngineStart extends Thread implements Communicable
         envtBid.setPlayerName(BettingPlayer.getName());
         envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
         EngineManager.getEvents().add(envtBid);
+        Double Money = EngineManager.getMoney();
         synchronized(EngineManager.isStopWait())
         {
             try 
             {
-               EngineManager.isStopWait().wait();
+                if(Money == null)
+                    EngineManager.isStopWait().wait();
             }
             catch (InterruptedException ex) 
             {
                 Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        Money = EngineManager.getMoney();
+        EngineManager.setMoney(null);
+        EngineManager.setPlPlayerAction(null);
         if(PlayerByName.get(BettingPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
             throw new PlayerResigned();
-        return EngineManager.getMoney();
+        return Money;
     }
     
     private List<ws.blackjack.Card> ConvertCardsFromEngineToWSDL(List<Card> Cards)

@@ -49,7 +49,7 @@ public class EngineManager {
 
     private static HashMap<Integer, String> IdToGame = new HashMap<>();
     private static ArrayList<Event> Events = new ArrayList<>();
-    private static Double Money = 0.0;
+    private static Double Money = null;
     private static GameEngineStart Engine ;
     private static Action plPlayerAction = null;
     private static Boolean StopWait = false;
@@ -75,6 +75,11 @@ public class EngineManager {
         return Money;
     }
 
+    public static void setMoney(Double Money) {
+        EngineManager.Money = Money;
+    }
+
+    
     public static int getUniqeEventID() {
         return uniqeEventID++;
     }
