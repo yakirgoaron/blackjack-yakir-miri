@@ -51,7 +51,7 @@ public class EngineManager {
     private static ArrayList<Event> Events = new ArrayList<>();
     private static Double Money = 0.0;
     private static GameEngineStart Engine ;
-    private static Action plPlayerAction = Action.STAND;
+    private static Action plPlayerAction = null;
     private static Boolean StopWait = false;
 
               
@@ -81,6 +81,10 @@ public class EngineManager {
     
     public static Action getPlPlayerAction() {
         return plPlayerAction;
+    }
+
+    public static void setPlPlayerAction(Action plPlayerAction) {
+        EngineManager.plPlayerAction = plPlayerAction;
     }
     
     public static HashMap<Integer, PlayerDetails> getPlayerManager() {

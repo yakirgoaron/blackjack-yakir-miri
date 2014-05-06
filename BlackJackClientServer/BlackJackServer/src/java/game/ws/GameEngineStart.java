@@ -282,15 +282,20 @@ public class GameEngineStart extends Thread implements Communicable
         envtBid.setPlayerName(CurrentPlayer.getName());
         envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
         EngineManager.getEvents().add(envtBid);
+        Action act = EngineManager.getPlPlayerAction();
         synchronized(EngineManager.isStopWait())
         {
-            try {
-                EngineManager.isStopWait().wait();
+            try 
+            {
+                if(act == null)
+                    EngineManager.isStopWait().wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
             }
+            act = EngineManager.getPlPlayerAction();
         }
-        return PlayerAction.valueOf(EngineManager.getPlPlayerAction().name());
+        EngineManager.setPlPlayerAction(null);
+        return PlayerAction.valueOf(act.name());
     }
 
     @Override
