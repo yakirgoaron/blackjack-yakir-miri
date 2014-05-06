@@ -50,6 +50,7 @@ public class GameEngineStart extends Thread implements Communicable
     private final Boolean WaitEnd = true;
     private Boolean isInEndRound = false;
     private PlayerDetails CurrPlayer;
+    private final int Timeout = 10000;
     
     public GameEngineStart()
     {
@@ -281,6 +282,7 @@ public class GameEngineStart extends Thread implements Communicable
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(CurrentPlayer.getName());
         envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
+        envtBid.setTimeout(Timeout);
         EngineManager.getEvents().add(envtBid);
         Action act = EngineManager.getPlPlayerAction();
         synchronized(EngineManager.isStopWait())
@@ -288,11 +290,16 @@ public class GameEngineStart extends Thread implements Communicable
             try 
             {
                 if(act == null)
-                    EngineManager.isStopWait().wait();
+                    EngineManager.isStopWait().wait(Timeout);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
             }
             act = EngineManager.getPlPlayerAction();
+            
+            if (act == null){
+                RemovePlayer(CurrentPlayer);
+                throw new PlayerResigned();
+            }
         }
         EngineManager.setPlPlayerAction(null);
         return PlayerAction.valueOf(act.name());
@@ -333,6 +340,7 @@ public class GameEngineStart extends Thread implements Communicable
         envtBid.setId(EngineManager.getUniqeEventID());
         envtBid.setPlayerName(BettingPlayer.getName());
         envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
+        envtBid.setTimeout(Timeout);
         EngineManager.getEvents().add(envtBid);
         Double Money = EngineManager.getMoney();
         synchronized(EngineManager.isStopWait())
@@ -340,7 +348,7 @@ public class GameEngineStart extends Thread implements Communicable
             try 
             {
                 if(Money == null)
-                    EngineManager.isStopWait().wait();
+                    EngineManager.isStopWait().wait(Timeout);
             }
             catch (InterruptedException ex) 
             {
@@ -348,6 +356,12 @@ public class GameEngineStart extends Thread implements Communicable
             }
         }
         Money = EngineManager.getMoney();
+        
+        if (Money == null){
+            RemovePlayer(BettingPlayer);
+            throw new PlayerResigned();           
+        }
+            
         EngineManager.setMoney(null);
         EngineManager.setPlPlayerAction(null);
         if(PlayerByName.get(BettingPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
@@ -472,6 +486,8 @@ public class GameEngineStart extends Thread implements Communicable
     public Boolean isWaitEnd() {
         return WaitEnd;
     }
+
+   
     
     
     
