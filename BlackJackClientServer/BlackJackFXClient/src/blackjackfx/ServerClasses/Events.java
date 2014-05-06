@@ -308,7 +308,8 @@ public class Events extends Thread
                 }
             
             Action actionchoosed = Action.valueOf(scControoler.getPlayerActionType().get().name());
-            // TODO DEAL WITH THE BET
+            List<Event> eventdone = GameWS.getEvents(PlayerID, EventID);
+            DealWithEvents(eventdone);
             GameWS.playerAction(PlayerID, EventID, actionchoosed, 0,HandToTake+1);
             if(actionchoosed.equals(Action.SPLIT))
                 IsSplitChosen = true;

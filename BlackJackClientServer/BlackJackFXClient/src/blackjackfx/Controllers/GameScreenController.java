@@ -183,34 +183,9 @@ public class GameScreenController implements Initializable
         return plAction;
     }
     
-    public void GetFilePathToSave()
-    {
-        /*
-        FileChooser flChose = new FileChooser();
-        File flToSave = null;
-        flChose.setTitle("Choose a path to save game");
-        flChose.getExtensionFilters().addAll(
-                                new FileChooser.ExtensionFilter("XML Files", "*.xml"));
-        while (flToSave == null)
-            flToSave = flChose.showSaveDialog(apPlayer1.getScene().getWindow());
-        
-        if(flToSave.getPath().endsWith(".xml"))         
-            this.FlPath.set(flToSave.getPath());      
-        else
-            this.FlPath.set(flToSave.getPath() + ".xml");  */    
-    }
-    
     private void StartRound(ActionEvent event) 
     {
-       InitPlayers();       
-       /*GameEvents.getGameEnded().addListener(new ChangeListener<Boolean>() {
-
-           @Override
-           public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
-               if (t1)
-                   GameEnded.set(true);
-           }
-       });*/
+       InitPlayers();
        GameEvents.setDaemon(true);
        GameEvents.start();       
        HideBidWindow.set(false);
