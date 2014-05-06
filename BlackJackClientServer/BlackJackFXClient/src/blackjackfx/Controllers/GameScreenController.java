@@ -87,7 +87,7 @@ public class GameScreenController implements Initializable
         btnSplit.setVisible(false);
         btnStay.setVisible(false);
    //     lblPlayerEndRound.setVisible(false);
-        plAction = new SimpleObjectProperty<>();
+        plAction = new SimpleObjectProperty<>(PlayerAction.STAND);
         DoesPlayerContinue = new SimpleBooleanProperty();
         FlPath = new SimpleStringProperty();
         Players = new HashMap<>();

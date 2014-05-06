@@ -28,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 
@@ -47,6 +48,7 @@ public class Events extends Thread
     private int EventID;
     private int HandToTake = 0;
     private boolean IsSplitChosen = false;
+    private double InvalidBid;
     
     public Events(String serverAddress ,String  serverPort) throws MalformedURLException
     {
@@ -57,6 +59,7 @@ public class Events extends Thread
         GameStarted = false;
         setDaemon(true);
         EventID = 0;
+        InvalidBid = ScreenManager.GetInstance().getBidScCr().getInvalidBid();
         
     }
     
@@ -148,7 +151,7 @@ public class Events extends Thread
                 if(MyInfo.getFirstBetWage() <= 0.0)
                 {
                     try {
-                            GetBidForPlayer(new PlayerInfo(GameWS.getPlayerDetails(PlayerID)));
+                            GetBidForPlayer(new PlayerInfo(GameWS.getPlayerDetails(PlayerID)), event.getTimeout());
                         } catch (GameDoesNotExists_Exception ex) {
                             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (InvalidParameters_Exception ex) {
@@ -157,7 +160,7 @@ public class Events extends Thread
                 }
                 else
                 {
-                    GetWantedAction();
+                    GetWantedAction(event.getTimeout());
                 }
             }
         }
@@ -226,8 +229,16 @@ public class Events extends Thread
                     String Name = event.getPlayerName();
                     RemovePlayer(Name);
                     
-                    if (Name.equals(PlayerName))
+                    if (Name.equals(PlayerName)){
                         DisableResign();
+                        
+                        Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                       scControoler.getGameEnded().set(true);
+                                }});  
+                    }
                     break;
                 }
                 case PLAYER_TURN:
@@ -298,13 +309,13 @@ public class Events extends Thread
         return players; 
     }
     
-    public void GetWantedAction() 
+    public void GetWantedAction(int Timeout) 
     {
         try {
                 synchronized(scControoler.getPlayerActionType())
                 {
                     scControoler.ShowActions();                    
-                    scControoler.getPlayerActionType().wait();
+                    scControoler.getPlayerActionType().wait(Timeout);
                 }
             
             Action actionchoosed = Action.valueOf(scControoler.getPlayerActionType().get().name());
@@ -353,7 +364,7 @@ public class Events extends Thread
         PlayerName = Name;
     }
    
-    public void GetBidForPlayer(final PlayerInfo BettingPlayer) throws InvalidParameters_Exception {
+    public void GetBidForPlayer(final PlayerInfo BettingPlayer, int Timeout) throws InvalidParameters_Exception {
         
             
         Platform.runLater(new Runnable(){
@@ -368,7 +379,7 @@ public class Events extends Thread
         {
             synchronized(ScreenManager.GetInstance().getBidScCr().GetNumberBid())
             {
-                ScreenManager.GetInstance().getBidScCr().GetNumberBid().wait();
+                ScreenManager.GetInstance().getBidScCr().GetNumberBid().wait(Timeout);
                 
             }
         } catch (InterruptedException ex) {
@@ -376,15 +387,20 @@ public class Events extends Thread
             
         } 
         
-        Double BidValue = ScreenManager.GetInstance().getBidScCr().GetNumberBid().getValue();
-        GameWS.playerAction(PlayerID, EventID, Action.PLACE_BET,BidValue.floatValue(),1);
-        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                      scControoler.GetHideBidWindow().set(true);
-                                }}); 
+        Double BidValue = ScreenManager.GetInstance().getBidScCr().GetNumberBid().getValue();;
         
+        if (BidValue != InvalidBid){
+            
+            GameWS.playerAction(PlayerID, EventID, Action.PLACE_BET,BidValue.floatValue(),1);
+            ScreenManager.GetInstance().getBidScCr().SetNumberBid(InvalidBid);
+        }
+            Platform.runLater(new Runnable(){
+                                    @Override
+                                    public void run() 
+                                    { 
+                                          scControoler.GetHideBidWindow().set(true);
+                                    }});     
+                                   
         // TODO UPDATE USER BID AT THE START
     }
 
@@ -433,12 +449,15 @@ public class Events extends Thread
 
     
     public void PrintPlayerMessage(final PlayerInfo ParPlayer, final String Message) {
-        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                     scControoler.PrintPlayerMessage(ParPlayer, Message);
-                                }});
+        
+        if (ParPlayer != null){
+            Platform.runLater(new Runnable(){
+                                    @Override
+                                    public void run() 
+                                    { 
+                                         scControoler.PrintPlayerMessage(ParPlayer, Message);
+                                    }});
+        }
     }
 
     private void PrintAllJoinedPlayers() {    

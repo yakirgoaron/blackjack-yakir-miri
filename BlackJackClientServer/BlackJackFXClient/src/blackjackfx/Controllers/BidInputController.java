@@ -50,23 +50,34 @@ public class BidInputController implements Initializable {
     @FXML
     private Label lblError;
     
+    private final double InvalidBid = -5;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        dblAmount = new SimpleDoubleProperty();
+        dblAmount = new SimpleDoubleProperty(InvalidBid);
         Amount.setText("1");
         SdeventChange = new SlideBarChange();
         TxteventChange = new TextBoxValueChange();
         SdBidAmount.valueProperty().addListener(SdeventChange);
         Amount.textProperty().addListener(TxteventChange);      
     }    
+
+    public double getInvalidBid() {
+        return InvalidBid;
+    }
     
     public SimpleDoubleProperty GetNumberBid()
     {
         return this.dblAmount;
     }
+
+    public void SetNumberBid(double dblAmount) {
+        this.dblAmount.set(dblAmount);
+    }
+    
     
     public void SetPlayer(PlayerInfo current)
     {
