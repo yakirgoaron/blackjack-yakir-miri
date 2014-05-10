@@ -20,6 +20,7 @@
     <Label fx:id="lblPlayerMoney" layoutX="95.0" layoutY="40.0" text="Label" />
     <Label layoutX="13.0" layoutY="40.0" text="Total Money" />
     <Label fx:id="lblError" layoutX="20.0" layoutY="94.0" prefWidth="329.0" text="" />
+    <ProgressBar fx:id="TimeCountDown" layoutX="13.0" layoutY="165.0" prefWidth="336.0" progress="1.0" />
   </children>
   <stylesheets>
     <URL value="@resources/CSS/bidinput.css" />
