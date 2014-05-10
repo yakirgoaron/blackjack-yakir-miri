@@ -19,8 +19,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -32,6 +35,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -71,9 +75,9 @@ public class GameScreenController implements Initializable
     @FXML
     private Pane apPlayer1;
 
-
-
-
+    @FXML
+    private ProgressBar TimerToAct;
+    private Timer UpdateTimer;
 
 
     
@@ -86,7 +90,7 @@ public class GameScreenController implements Initializable
         btnHit.setVisible(false);
         btnSplit.setVisible(false);
         btnStay.setVisible(false);
-   //     lblPlayerEndRound.setVisible(false);
+        TimerToAct.setVisible(false);
         plAction = new SimpleObjectProperty<>(PlayerAction.STAND);
         DoesPlayerContinue = new SimpleBooleanProperty();
         FlPath = new SimpleStringProperty();
@@ -122,10 +126,12 @@ public class GameScreenController implements Initializable
     public void ShowActions()
     {
        btnDouble.setVisible(true);
-        btnHit.setVisible(true);
-        btnSplit.setVisible(true);
-        btnStay.setVisible(true); 
-        btnRResign.setDisable(true);
+       btnHit.setVisible(true);
+       btnSplit.setVisible(true);
+       btnStay.setVisible(true); 
+       btnRResign.setDisable(true);
+       TimerToAct.setVisible(true);
+       CreateTimer();
     }
     
     public void setGameEvents(Events BJGame) {
@@ -338,40 +344,9 @@ public class GameScreenController implements Initializable
         }
     }
 
-    /*
-    public void ShowPlayerContGame(String playerName) {
-        lblPlayerEndRound.setVisible(true);
-        lblPlayerEndRound.toFront();
-        String text = "player " + playerName + "\n" + "what do you "
-                       + "\n wish to do?";
-        lblPlayerEndRound.setText(text);
-        btnPlayerContinue.setVisible(true);
-        btnPlayerExit.setVisible(true);
-    }*/
-
     public SimpleBooleanProperty getDoesPlayerContinue() {
         return DoesPlayerContinue;
     }
-
-    /*
-        private void PlayerContGame(ActionEvent event) {
-        
-        synchronized(DoesPlayerContinue)
-        {
-            DoesPlayerContinue.set(true);
-            DoesPlayerContinue.notify();
-        }
-        ChangeVisiblePlayerRoundEnd();
-    }
-
-        private void PlayerExitGame(ActionEvent event) {
-        synchronized(DoesPlayerContinue)
-        {
-            DoesPlayerContinue.set(false);
-            DoesPlayerContinue.notify();
-        }
-        ChangeVisiblePlayerRoundEnd();
-    }*/
 
     public void RemovePlayer(String PlayerName) {
         Players.get(PlayerName).RemovePlayer();
@@ -389,6 +364,26 @@ public class GameScreenController implements Initializable
 
     public void DisableResign() {
         btnRResign.setVisible(false);
+    }
+    
+    private void CreateTimer()
+    {
+        UpdateTimer = new Timer(true);
+        TimerTask taskUpdate = new TimerTask() {
+
+            @Override
+            public void run() 
+            {
+                    Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    TimerToAct.setProgress(TimerToAct.getProgress()-0.01);
+                                }});  
+            }
+        };
+        
+        UpdateTimer.schedule(taskUpdate,0, 100);
     }
        
 }
