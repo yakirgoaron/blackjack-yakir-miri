@@ -107,12 +107,14 @@ public class BidInputController implements Initializable {
         SdBidAmount.setValue(1.0);
                
         Amount.setText(Integer.toString((int)SdBidAmount.getValue()));
+        TimeCountDown.setProgress(1);
         CreateTimer();
        
     }
     
     @FXML
     private void Finish(ActionEvent event) {
+        UpdateTimer.cancel();
         synchronized(this.dblAmount)
         {
             this.dblAmount.set(SdBidAmount.getValue());

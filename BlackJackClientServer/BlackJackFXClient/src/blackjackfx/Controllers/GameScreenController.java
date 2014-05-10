@@ -131,6 +131,7 @@ public class GameScreenController implements Initializable
        btnStay.setVisible(true); 
        btnRResign.setDisable(true);
        TimerToAct.setVisible(true);
+       TimerToAct.setProgress(1);
        CreateTimer();
     }
     
@@ -209,6 +210,8 @@ public class GameScreenController implements Initializable
 
     @FXML
     private void DoublePress(ActionEvent event) {
+        TimerToAct.setVisible(false);
+        UpdateTimer.cancel();
         synchronized(plAction)
         {
             plAction.set(PlayerAction.DOUBLE);
@@ -219,7 +222,8 @@ public class GameScreenController implements Initializable
 
     @FXML
     private void HitPress(ActionEvent event) {
-        
+        TimerToAct.setVisible(false);
+        UpdateTimer.cancel();
         synchronized(plAction)
         {
              plAction.set(PlayerAction.HIT);
@@ -231,6 +235,8 @@ public class GameScreenController implements Initializable
 
     @FXML
     private void SplitPress(ActionEvent event) {
+        TimerToAct.setVisible(false);
+        UpdateTimer.cancel();
         synchronized(plAction)
         {
              plAction.set(PlayerAction.SPLIT);
@@ -241,6 +247,8 @@ public class GameScreenController implements Initializable
 
     @FXML
     private void StayPress(ActionEvent event) {
+        TimerToAct.setVisible(false);
+        UpdateTimer.cancel();
         synchronized(plAction)
         {
              plAction.set(PlayerAction.STAND);
