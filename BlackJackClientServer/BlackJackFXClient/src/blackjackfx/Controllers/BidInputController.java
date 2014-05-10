@@ -6,12 +6,18 @@
 
 package blackjackfx.Controllers;
 
+import blackjackfx.ServerClasses.GameInfo;
 import blackjackfx.ServerClasses.PlayerInfo;
+import game.client.ws.GameDoesNotExists_Exception;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.animation.FadeTransition;
 import javafx.animation.FadeTransitionBuilder;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
@@ -51,7 +58,9 @@ public class BidInputController implements Initializable {
     private Label lblError;
     
     private final double InvalidBid = -5;
-    
+    @FXML
+    private ProgressBar TimeCountDown;
+    private Timer UpdateTimer;
     /**
      * Initializes the controller class.
      */
@@ -62,7 +71,8 @@ public class BidInputController implements Initializable {
         SdeventChange = new SlideBarChange();
         TxteventChange = new TextBoxValueChange();
         SdBidAmount.valueProperty().addListener(SdeventChange);
-        Amount.textProperty().addListener(TxteventChange);      
+        Amount.textProperty().addListener(TxteventChange);  
+        
     }    
 
     public double getInvalidBid() {
@@ -97,6 +107,8 @@ public class BidInputController implements Initializable {
         SdBidAmount.setValue(1.0);
                
         Amount.setText(Integer.toString((int)SdBidAmount.getValue()));
+        CreateTimer();
+       
     }
     
     @FXML
@@ -106,6 +118,7 @@ public class BidInputController implements Initializable {
             this.dblAmount.set(SdBidAmount.getValue());
             this.dblAmount.notify();
         }      
+        
     }
     
     private void UpdateText(DragEvent event) {
@@ -168,6 +181,25 @@ public class BidInputController implements Initializable {
                  animation.play();
        btnFinish.setDisable(true);
             
+    }
+    private void CreateTimer()
+    {
+        UpdateTimer = new Timer(true);
+        TimerTask taskUpdate = new TimerTask() {
+
+            @Override
+            public void run() 
+            {
+                    Platform.runLater(new Runnable(){
+                                @Override
+                                public void run() 
+                                { 
+                                    TimeCountDown.setProgress(TimeCountDown.getProgress()-0.01);
+                                }});  
+            }
+        };
+        
+        UpdateTimer.schedule(taskUpdate,0, 100);
     }
     
 }
