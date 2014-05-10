@@ -223,14 +223,15 @@ public class WaitingGamesController implements Initializable
                 GameWS.JoinGame(txtPlayerName.getText());
             UpdateTable.cancel();
             FinishJoinGame.set(true);
+            // TODO CHANGE MONEY 
+            PlayerData.add(new PlayerDetailsRow(txtPlayerName.getText(), PlayerType.HUMAN.toString(), "1000"));
             
         } catch (GameDoesNotExists_Exception ex) {
             showError(ex.getMessage());
         } catch (InvalidParameters_Exception ex) {
             showError(ex.getMessage());
         }
-        // TODO CHANGE MONEY 
-        PlayerData.add(new PlayerDetailsRow(txtPlayerName.getText(), PlayerType.HUMAN.toString(), "1000"));
+        
     }
 
     @FXML
