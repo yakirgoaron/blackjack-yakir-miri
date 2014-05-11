@@ -12,19 +12,19 @@
 
 
 #AnchorPane{
-    -fx-background-image: url('/blackjackfx/resources/Images/Background/bj_background.jpg');
+    -fx-background-image: url('/blackjackfx/resources/Images/Background/Join.png');
 }
 
 .button {
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
     -fx-font-size: 14 px;
-    -fx-background-color: linear-gradient(#cc9900,#cc6600);
+    -fx-background-color: linear-gradient(#0022CC,#3CA2FF);
     -fx-effect: dropshadow(one-pass-box, black, 8, 0, 2, 2);
 }
 
 .button:hover{
- -fx-background-color: linear-gradient(#cc6600,#cc9900);   
+ -fx-background-color: linear-gradient(#3CA2FF,#0022CC);   
 }
 
 
