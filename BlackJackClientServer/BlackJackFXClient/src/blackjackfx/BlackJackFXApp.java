@@ -62,6 +62,7 @@ public class BlackJackFXApp extends Application {
                       ScreenManager.GetInstance().getCreateGameCr().setBjGame(BlackJackGame);
                       Scene scene = ScreenManager.GetInstance().getCreateGameSc();
                       PrimaryStage.setScene(scene); 
+                      PrimaryStage.centerOnScreen();
                       PrimaryStage.setTitle("Create Players");
                       break;
                    }
@@ -183,6 +184,7 @@ public class BlackJackFXApp extends Application {
         Scene scene = ScreenManager.GetInstance().getJoinSc();
         PrimaryStage.setScene(scene);
         PrimaryStage.show();
+        PrimaryStage.centerOnScreen();
         PrimaryStage.setTitle("Welcome to BLACKJACK");
     }
     
@@ -191,6 +193,7 @@ public class BlackJackFXApp extends Application {
        Scene scene = ScreenManager.GetInstance().getMainWinSc();
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
+       PrimaryStage.centerOnScreen();
        PrimaryStage.setTitle("Welcome to BLACKJACK");
     }
     
@@ -200,6 +203,7 @@ public class BlackJackFXApp extends Application {
        ScreenManager.GetInstance().getWaitGameCr().setGameWS(BlackJackGame);
        PrimaryStage.setScene(scene);
        PrimaryStage.show();
+       PrimaryStage.centerOnScreen();
        PrimaryStage.setTitle("Waiting Games");
     }
     
