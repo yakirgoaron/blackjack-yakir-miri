@@ -101,10 +101,10 @@ public class BidInputController implements Initializable {
         SdBidAmount.setMax(current.getMoney());
         
         SdBidAmount.setMin(0.0);
-        SdBidAmount.setMajorTickUnit(25);
-        SdBidAmount.setMinorTickCount(50);
-        SdBidAmount.setBlockIncrement(10);
-        SdBidAmount.setValue(1.0);
+        SdBidAmount.setMajorTickUnit(0.25);
+        //SdBidAmount.setMinorTickCount(50);
+        SdBidAmount.setBlockIncrement(0.1);
+        SdBidAmount.setValue(0.0);
                
         Amount.setText(Integer.toString((int)SdBidAmount.getValue()));
         TimeCountDown.setProgress(1);
@@ -159,8 +159,7 @@ public class BidInputController implements Initializable {
             {
                 Double Temp = Double.parseDouble(t1);
                 
-                //TODO : CHECK MONEY AFTER ADDED
-                if(/*Temp > plCurrent.getMoney() ||*/ Temp < 0)
+                if(Temp > plCurrent.getMoney() || Temp < 0)
                     throw new Error();
                 SdBidAmount.setValue(Temp);                
                 lblError.textProperty().setValue("");
