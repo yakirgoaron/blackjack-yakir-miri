@@ -175,8 +175,11 @@ public class GameScreenController implements Initializable
     public void DisplayPlayer(PlayerInfo dispPlayer)
     {  
         ClearEffects();
-        if (dispPlayer != null)           
-            Players.get(dispPlayer.getName()).PrintPlayerInfo(dispPlayer);
+        if (dispPlayer != null){
+            ParticipantContainer player = Players.get(dispPlayer.getName());
+            if (player != null)      
+                player.PrintPlayerInfo(dispPlayer);
+        }
     }
     
     public void DiplayEffect(String playerTurn)
