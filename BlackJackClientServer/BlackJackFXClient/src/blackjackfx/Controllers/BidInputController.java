@@ -157,7 +157,7 @@ public class BidInputController implements Initializable {
             SdBidAmount.valueProperty().removeListener(SdeventChange);
             try
             {
-                int Temp = Integer.parseInt(t1);
+                Double Temp = Double.parseDouble(t1);
                 
                 //TODO : CHECK MONEY AFTER ADDED
                 if(/*Temp > plCurrent.getMoney() ||*/ Temp < 0)
