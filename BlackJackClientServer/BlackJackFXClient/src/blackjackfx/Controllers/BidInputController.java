@@ -100,7 +100,7 @@ public class BidInputController implements Initializable {
         lblPlayerMoney.setText(Double.toString(current.getMoney()));
         SdBidAmount.setMax(current.getMoney());
         
-        SdBidAmount.setMin(1.0);
+        SdBidAmount.setMin(0.0);
         SdBidAmount.setMajorTickUnit(25);
         SdBidAmount.setMinorTickCount(50);
         SdBidAmount.setBlockIncrement(10);
@@ -114,12 +114,19 @@ public class BidInputController implements Initializable {
     
     @FXML
     private void Finish(ActionEvent event) {
-        UpdateTimer.cancel();
-        synchronized(this.dblAmount)
+        if(SdBidAmount.getValue() > 0)
         {
-            this.dblAmount.set(SdBidAmount.getValue());
-            this.dblAmount.notify();
-        }      
+            UpdateTimer.cancel();
+            synchronized(this.dblAmount)
+            {
+                this.dblAmount.set(SdBidAmount.getValue());
+                this.dblAmount.notify();
+            }
+        }
+        else
+        {
+            showError("Must enter bid that more than zero");
+        }
         
     }
     
