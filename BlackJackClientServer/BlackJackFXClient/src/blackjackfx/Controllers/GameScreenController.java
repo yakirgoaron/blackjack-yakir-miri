@@ -357,8 +357,10 @@ public class GameScreenController implements Initializable
     }
 
     public void RemovePlayer(String PlayerName) {
-        Players.get(PlayerName).RemovePlayer();
-        Players.remove(PlayerName);
+        if (Players.containsKey(PlayerName)){
+            Players.get(PlayerName).RemovePlayer();
+            Players.remove(PlayerName);
+        }
     }
 
     public void PrintPlayerMessage(PlayerInfo ParPlayer, String Message) {
