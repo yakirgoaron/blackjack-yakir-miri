@@ -253,7 +253,7 @@ public class GameEngineStart extends Thread implements Communicable
         {
             isInEndRound = true;
             try {
-                Thread.sleep(4000);
+                Thread.sleep(8000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
             }
