@@ -19,8 +19,6 @@ public interface Communicable
     public void PrintAllPlayers(ArrayList<Player> GamePlayers);
 
     public void RemovePlayer(Player player);
-
-   // public void PrintPlayerMessage(GameParticipant ParPlayer, String Message);
     
     public void PrintPlayerAction(AIPlayer PlayerAct, PlayerAction Action);
     

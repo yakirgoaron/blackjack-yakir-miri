@@ -7,7 +7,6 @@
 package EngineLogic;
 
 import EngineLogic.Communicable.PlayerAction;
-import EngineLogic.Communicable.RoundAction;
 import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.Exception.PlayerResigned;
 import EngineLogic.Exception.RulesDosentAllowException;
@@ -232,12 +231,10 @@ public class GameEngine
             catch (RulesDosentAllowException ex) 
             {
                 commInterface.ActionError(ex.getMessage());
-                //commInterface.PrintMessage(ex.getMessage());
             }
             catch (TooLowMoneyException ex) 
             {
                 commInterface.ActionError(ex.getMessage());
-                //commInterface.PrintMessage(ex.toString());
             }
         }  
         commInterface.PrintBidInfo(CurrentBid,CurrentPlayer);
@@ -312,8 +309,6 @@ public class GameEngine
     {
         if(GamePlayers.isEmpty())
             throw new TooLowPlayers();
-        /*
-        RoundAction NewRoundAction = RoundAction.CONTINUE_GAME;*/
         
         if (!IsInRound)
             InitAndDealCards(commInterface);
@@ -327,9 +322,6 @@ public class GameEngine
             if(HumanPlayerCount() == 0)
                 break;
             InitAndDealCards(commInterface);
-            /*
-            if(NewRoundAction.equals(RoundAction.SAVE_GAME))
-                XMLJAXBWrite(commInterface.GetFilePathForSave());*/
         }
         
         if (HumanPlayerCount() == 0)

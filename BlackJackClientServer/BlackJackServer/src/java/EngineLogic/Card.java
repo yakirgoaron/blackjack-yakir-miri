@@ -77,18 +77,6 @@ public class Card
 
     private static final List<Card> deck = new ArrayList<>();
 
-	// Initialize the static deck
-    /*static 
-    {		
-        for (Suit suit : Suit.values())
-        {
-            for (Rank rank : Rank.values())
-            {
-                deck.add(new Card(rank, suit));
-            }
-        }
-    }*/
-
     public static ArrayList<Card> newDeck() 
     {	
         ArrayList<Card> newDeck = new ArrayList<>();

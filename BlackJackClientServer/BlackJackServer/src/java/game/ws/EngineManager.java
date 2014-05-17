@@ -8,14 +8,10 @@ package game.ws;
 
 import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.Exception.TooManyPlayersException;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.List;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 import ws.blackjack.Action;
@@ -31,7 +27,6 @@ import ws.blackjack.InvalidParameters;
 import ws.blackjack.InvalidParameters_Exception;
 import ws.blackjack.InvalidXML;
 import ws.blackjack.InvalidXML_Exception;
-import ws.blackjack.PlayerAction;
 import ws.blackjack.PlayerDetails;
 import ws.blackjack.PlayerStatus;
 import ws.blackjack.PlayerType;
@@ -166,7 +161,6 @@ public class EngineManager {
         {
             uniqePlayerID++;
             PlayerDetails player = new PlayerDetails();
-            //player.setMoney(Money);
             player.setType(PlayerType.COMPUTER);
             player.setStatus(PlayerStatus.JOINED);
             player.setName("Comp" + CompIdGen);

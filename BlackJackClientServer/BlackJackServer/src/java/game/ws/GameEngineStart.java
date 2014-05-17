@@ -19,7 +19,6 @@ import EngineLogic.GameParticipant;
 import EngineLogic.Hand;
 import EngineLogic.HumanPlayer;
 import EngineLogic.Player;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -471,8 +470,7 @@ public class GameEngineStart extends Thread implements Communicable
     public void ActionError(String ex) 
     {
         synchronized(WaitEnd)
-        {
-            //Message = ex;            
+        {           
             ErrorFound = Boolean.TRUE;
             WaitEnd.notifyAll();
         }
@@ -486,10 +484,5 @@ public class GameEngineStart extends Thread implements Communicable
     public Boolean isWaitEnd() {
         return WaitEnd;
     }
-
-   
-    
-    
-    
-    
+  
 }
