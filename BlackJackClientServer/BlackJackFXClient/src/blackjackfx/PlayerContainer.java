@@ -11,7 +11,6 @@ import blackjackfx.ServerClasses.PlayerInfo;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -70,7 +69,6 @@ public class PlayerContainer extends ParticipantContainer{
     
     @Override
     public void PrintPlayerInfo(PlayerInfo plToPrint){
-        // TODO SET MONEY WHEN PLaYER WIL HAVE IT
         MoneyValue.setText(Double.toString(plToPrint.getMoney()));
         super.PrintPlayerInfo(plToPrint);
     }
