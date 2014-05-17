@@ -8,13 +8,10 @@ package blackjackfx.Controllers;
 
 
 import blackjackfx.ServerClasses.Events;
-import blackjackfx.PlayerView;
 import game.client.ws.DuplicateGameName_Exception;
 import game.client.ws.InvalidParameters_Exception;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.FadeTransitionBuilder;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -41,15 +38,11 @@ public class CreateGameScreenController implements Initializable {
      * Initializes the controller class.
      */
     private Events BjGame;
-    private final int MaxCompPlayers = 5;
     private final int MaxPlayerCount = 6;
     private SimpleBooleanProperty finishedInit;
-    
-    @FXML
-    private Pane PlayerIn;
+
     @FXML
     private Label errorMessageLabel;
-    private int CompPlayersCounter;
     private final int MaxPlayerName = 10;
     @FXML
     private Button BtnCreateGame;
@@ -97,25 +90,7 @@ public class CreateGameScreenController implements Initializable {
 
        });
     }
-    
-   /*
-        public void SetPlayerType(ActionEvent t) {      
-             
-        if (cbPlayerType.getValue().toString().equals("Human")){
-            IsHuman = true; 
-            BtnAdd.disableProperty().set(true);
-            EnableTextName();
-            TextName.requestFocus();
-            EnableLblPlayerName();
-        }
-        else{
-            IsHuman = false; 
-            BtnAdd.disableProperty().set(false); 
-            DisableTextName();
-            DisableLblPlayerName();
-        }
-    }*/
-    
+   
     private void onGameNameChanged() {
         txtGameName.setText(txtGameName.getText().trim());
         
@@ -125,7 +100,6 @@ public class CreateGameScreenController implements Initializable {
         {
             HandleLength();
             HandleCreateGameBtn();
-            //BtnAdd.disableProperty().set(false); 
         }
     }
     
@@ -155,51 +129,6 @@ public class CreateGameScreenController implements Initializable {
     public SimpleBooleanProperty getFinishedInit() {
         return finishedInit;
     }
-    
-    /*
-        public void AddPlayer(ActionEvent event)
-    {
-        String PlayerName = "";
-        try 
-        {
-            PlayerName = TextName.getText();
-            BjGame.JoinGame(PlayerName);
-            /*try
-            {
-            if(IsHuman)
-            {
-            PlayerName = TextName.getText();
-            BjGame.AddPlayer(PlayerName);
-            HumanPlayersCounter++;                              
-            }
-            else
-            {
-            BjGame.AddPlayer();
-            CompPlayersCounter++;              
-            }
-            
-            PlayerView playerView = new PlayerView(PlayerName, this.IsHuman);
-            PlayerIn.getChildren().add(playerView);
-            this.TextName.clear();
-            if(HumanPlayersCounter > 0)
-            BtnStart.disableProperty().set(false);
-            }
-            catch (TooManyPlayersException ex)
-            {
-            showError("Too many players!!");
-            }
-            if(CompPlayersCounter == MaxCompPlayers)
-            {
-            cbPlayerType.getItems().remove("Computer");
-            }    
-        }
-        catch (GameDoesNotExists_Exception ex) 
-        {
-           showError(ex.getMessage());
-        } catch (InvalidParameters_Exception ex) {
-             showError(ex.getMessage());
-        }
-    }*/
     
     @FXML
     public void TextNameAction(ActionEvent event){
@@ -254,5 +183,4 @@ public class CreateGameScreenController implements Initializable {
         
     }
     
-
 }

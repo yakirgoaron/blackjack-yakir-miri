@@ -22,10 +22,6 @@ public class JoinGameScreenController implements Initializable {
     
     private SimpleObjectProperty<JoinGame> JoinGameType;
     
-    @FXML
-    private Button btnCreateGame;
-    @FXML
-    private Button btnJoinGame;
 
     /**
      * Initializes the controller class.
@@ -48,6 +44,5 @@ public class JoinGameScreenController implements Initializable {
     public SimpleObjectProperty<JoinGame> getJoinGameType() {
         return JoinGameType;
     }
-    
-    
+      
 }

@@ -6,12 +6,9 @@
 
 package blackjackfx.Controllers;
 
-import blackjackfx.ServerClasses.GameInfo;
 import blackjackfx.ServerClasses.PlayerInfo;
-import game.client.ws.GameDoesNotExists_Exception;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -158,7 +155,7 @@ public class BidInputController implements Initializable {
             try
             {
                 Double Temp = Double.parseDouble(t1);
-                
+               
                 if(Temp > plCurrent.getMoney() || Temp < 0)
                     throw new Error();
                 SdBidAmount.setValue(Temp);                

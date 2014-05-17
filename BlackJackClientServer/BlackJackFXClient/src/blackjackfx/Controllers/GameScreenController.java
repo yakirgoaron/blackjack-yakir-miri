@@ -27,8 +27,6 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,11 +34,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -69,7 +65,6 @@ public class GameScreenController implements Initializable
 
     @FXML
     private Label MsgLable;
-      //  private Label lblPlayerEndRound;
     @FXML
     private Button btnRResign;
 
@@ -159,19 +154,10 @@ public class GameScreenController implements Initializable
         ((PlayerContainer)Players.get(currPlayer.getName())).PrintBidInfo(currPlayer.getName() + "1", currPlayer.getBets().get(0));
         ((PlayerContainer)Players.get(currPlayer.getName())).PrintBidInfo(currPlayer.getName() + "2", currPlayer.getBets().get(1));
         }
-        /*for (Bid bid : currPlayer.getBids()) {
-            ((PlayerContainer)Players.get(currPlayer)).PrintBidInfo(bid);
-            
-            Players.get(currPlayer).ClearGlowHandInfo(bid);
-        }*/
+
         Players.get(currPlayer.getName()).ClearGlowHandInfo(currPlayer.getName() + "1");
         Players.get(currPlayer.getName()).ClearGlowHandInfo(currPlayer.getName() + "2");
         Players.get(currPlayer.getName()).GlowHandInfo(currBid);
-    }
-    
-    public void DisplayHand(String currHand,List<Card> currPlayer)
-    {
-         Players.get(currPlayer).PrintHandInfo(currHand,currPlayer);   
     }
     
     public void DisplayPlayer(PlayerInfo dispPlayer)
@@ -337,8 +323,6 @@ public class GameScreenController implements Initializable
        Label DealerMessage = (Label) scene.lookup("#lblDealerMessage");
        ParticipantContainer DealerCont =
             new ParticipantContainer(DealerHand, DealerImage, DealerMessage, DeckPlace);
-       //TODO DEAL WITH DEALER WHEN WE GET ONE
-        //Players.put(BJGame.getGameDealer(), DealerCont);
     }
     
     public void DisplayMessage(String Msg)
@@ -361,8 +345,7 @@ public class GameScreenController implements Initializable
             PlayerContainer playerCont = (PlayerContainer) Players.get(player);
             playerCont.PrintPlayerInfo(player);
             playerCont.ClearEffects();
-            
-            
+                       
             playerCont.PrintBidInfo(player.getName() + "1", player.getBets().get(0));
             
             playerCont.PrintBidInfo(player.getName() + "2", player.getBets().get(1));

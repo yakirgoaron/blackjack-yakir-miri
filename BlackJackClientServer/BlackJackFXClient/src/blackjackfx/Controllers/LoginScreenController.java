@@ -7,11 +7,8 @@
 package blackjackfx.Controllers;
 
 import blackjackfx.ServerClasses.Events;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.FadeTransitionBuilder;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -33,8 +30,6 @@ public class LoginScreenController implements Initializable {
     private TextField txtServerName;
     @FXML
     private TextField txtPortValue;
-    @FXML
-    private Button Connect;
     @FXML
     private Label ErrorDisplay;
     private Events GameWSConnection;
