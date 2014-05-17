@@ -1,10 +1,6 @@
 
 package blackjackfx.ServerClasses;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
-
-
 public enum PlayerType {
 
     HUMAN,

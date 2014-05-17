@@ -13,24 +13,17 @@ import game.client.ws.BlackJackWebService;
 import game.client.ws.BlackJackWebService_Service;
 import game.client.ws.DuplicateGameName_Exception;
 import game.client.ws.Event;
-import game.client.ws.GameDetails;
 import game.client.ws.GameDoesNotExists_Exception;
 import game.client.ws.InvalidParameters_Exception;
 import game.client.ws.InvalidXML_Exception;
-import game.client.ws.PlayerAction;
 import game.client.ws.PlayerDetails;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javax.xml.bind.JAXBException;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -40,8 +33,6 @@ public class Events extends Thread
 {
     private BlackJackWebService GameWS;
     private GameScreenController scControoler;
-    private Boolean GameStarted;
-    private String FilePath;
     private int PlayerID;
     private String PlayerName;
     private String GameName;
@@ -57,7 +48,6 @@ public class Events extends Thread
         BlackJackWebService_Service WSForConnect = new BlackJackWebService_Service(url);
         GameWS = WSForConnect.getBlackJackWebServicePort();
         GameName = new String();
-        GameStarted = false;
         setDaemon(true);
         EventID = 0;
         InvalidBid = ScreenManager.GetInstance().getBidScCr().getInvalidBid();
@@ -73,9 +63,7 @@ public class Events extends Thread
     }
     public void setPlayerID(int SetPlayerID) {
         this.PlayerID = SetPlayerID;
-    }
-    
-    
+    }   
        
     public void CreateGame(String GameName, int HumanPlayers, int ComputerizedPlayers ) throws DuplicateGameName_Exception, InvalidParameters_Exception
     {
@@ -86,8 +74,6 @@ public class Events extends Thread
     {
         this.GameName = GameWS.createGameFromXML(xmlData);        
     }
-    
-  
     
     public List<String> GetWaitingGames()
     {
@@ -185,7 +171,6 @@ public class Events extends Thread
                 }
                 case GAME_OVER:
                 {
-                    //GameEnded.set(true);
                     GameOver(); 
                    
                     break;
@@ -193,8 +178,6 @@ public class Events extends Thread
                 case GAME_START:
                 {
                     PrintAllJoinedPlayers();
-                    GameStarted = true;
-                    //GameEnded.set(false);
                     break;
                 }
                 case GAME_WINNER:
@@ -270,15 +253,6 @@ public class Events extends Thread
         }
     }
     
-    
-   
-    public String GetFilePathForSave() 
-    {
-       
-        
-        return null;
-    }
-    
     public List<PlayerInfo> GetPlayersInGame()
     {
         List<PlayerInfo> players = new ArrayList<>();
@@ -348,14 +322,12 @@ public class Events extends Thread
 
     public void JoinGame(String Name) throws GameDoesNotExists_Exception, InvalidParameters_Exception
     {
-        // MONEY SHOULD BE GET FROM USER ???
         PlayerID = GameWS.joinGame(GameName, Name, 100);
         PlayerName = Name;
     }
    
     public void GetBidForPlayer(final PlayerInfo BettingPlayer, int Timeout) throws InvalidParameters_Exception {
-        
-            
+                   
         Platform.runLater(new Runnable(){
                                 @Override
                                 public void run() 
@@ -390,11 +362,8 @@ public class Events extends Thread
                                           scControoler.GetHideBidWindow().set(true);
                                     }});     
                                    
-        // TODO UPDATE USER BID AT THE START
     }
-
-    
-   /* TODO: CHECK IF NEED WE PRINT THE PLAYER FROM THE EVENT*/ 
+ 
     public void PrintBidInfo(final PlayerInfo PlayerBid) {
        Platform.runLater(new Runnable(){
                                 @Override
@@ -422,9 +391,6 @@ public class Events extends Thread
                                      scControoler.ClearTable();
                                 }});        
     }
-
-    
-    
 
     
     public void RemovePlayer(final String playerName) {
@@ -524,8 +490,6 @@ public class Events extends Thread
             { 
                    scControoler.getGameEnded().set(true);
             }});  
-    }
-    
-    
+    }   
    
 }

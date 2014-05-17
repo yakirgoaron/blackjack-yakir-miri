@@ -60,8 +60,6 @@ public class GameInfo {
     public boolean isLoadedFromXml() {
         return LoadedFromXml;
     }
-    
-    
-    
+ 
     
 }
