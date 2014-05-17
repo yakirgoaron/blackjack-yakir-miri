@@ -52,6 +52,7 @@ public class GameScreenController implements Initializable
     private Events GameEvents;
     private HashMap<String, ParticipantContainer> Players;
     private SimpleObjectProperty<PlayerAction> plAction;
+    private boolean IsActionChosen;
     private SimpleStringProperty FlPath;
     private SimpleBooleanProperty HideBidWindow;
     private SimpleBooleanProperty DoesPlayerContinue;
@@ -92,6 +93,7 @@ public class GameScreenController implements Initializable
         btnStay.setVisible(false);
         TimerToAct.setVisible(false);
         plAction = new SimpleObjectProperty<>(PlayerAction.STAND);
+        IsActionChosen = false;
         DoesPlayerContinue = new SimpleBooleanProperty();
         FlPath = new SimpleStringProperty();
         Players = new HashMap<>();
@@ -197,6 +199,14 @@ public class GameScreenController implements Initializable
     public SimpleObjectProperty<PlayerAction> getPlayerActionType() {
         return plAction;
     }
+
+    public boolean getIsActionChosen() {
+        return IsActionChosen;
+    }
+
+    public void setIsActionChosen(boolean IsActionChosen) {
+        this.IsActionChosen = IsActionChosen;
+    }
     
     private void StartRound(ActionEvent event) 
     {
@@ -218,6 +228,7 @@ public class GameScreenController implements Initializable
         synchronized(plAction)
         {
             plAction.set(PlayerAction.DOUBLE);
+            IsActionChosen = true;
             plAction.notify();
         }
         ChangeVisibleAction();
@@ -230,6 +241,7 @@ public class GameScreenController implements Initializable
         synchronized(plAction)
         {
              plAction.set(PlayerAction.HIT);
+             IsActionChosen = true;
              plAction.notify();
         }
         ChangeVisibleAction();
@@ -243,6 +255,7 @@ public class GameScreenController implements Initializable
         synchronized(plAction)
         {
              plAction.set(PlayerAction.SPLIT);
+             IsActionChosen = true;
              plAction.notify();
         }
         ChangeVisibleAction();
@@ -255,6 +268,7 @@ public class GameScreenController implements Initializable
         synchronized(plAction)
         {
              plAction.set(PlayerAction.STAND);
+             IsActionChosen = true;
              plAction.notify();
         }
         ChangeVisibleAction();

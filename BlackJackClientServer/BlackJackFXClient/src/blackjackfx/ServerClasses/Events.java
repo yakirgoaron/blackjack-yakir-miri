@@ -49,6 +49,7 @@ public class Events extends Thread
     private int HandToTake = 0;
     private boolean IsSplitChosen = false;
     private double InvalidBid;
+    private boolean IsResigned = false;
     
     public Events(String serverAddress ,String  serverPort) throws MalformedURLException
     {
@@ -129,14 +130,9 @@ public class Events extends Thread
         }
     }
     
-    private void DisplayPlayerEffect(final Event event)
+    private void DisplayPlayerAndEffect(final Event event)
     {
-        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                    scControoler.DiplayEffect(event.getPlayerName());
-                                }});  
+        PrintBasicPlayerInfo(GetPlayerDetailsByName(event.getPlayerName())); 
     }
     
     
@@ -190,12 +186,7 @@ public class Events extends Thread
                 case GAME_OVER:
                 {
                     //GameEnded.set(true);
-                    Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                       scControoler.getGameEnded().set(true);
-                                }});   
+                    GameOver(); 
                    
                     break;
                 }
@@ -231,20 +222,15 @@ public class Events extends Thread
                     RemovePlayer(Name);
                     
                     if (Name.equals(PlayerName)){
-                        DisableResign();
-                        
-                        Platform.runLater(new Runnable(){
-                                @Override
-                                public void run() 
-                                { 
-                                       scControoler.getGameEnded().set(true);
-                                }});  
+                        IsResigned = true;
+                        DisableResign();                       
+                        GameOver();
                     }
                     break;
                 }
                 case PLAYER_TURN:
                 {
-                   DisplayPlayerEffect(event);
+                   DisplayPlayerAndEffect(event);
                    break;
                 }
                 case PROMPT_PLAYER_TO_TAKE_ACTION:
@@ -269,7 +255,7 @@ public class Events extends Thread
         {
             try 
             {
-                if (!GameName.equals("")){
+                if (!GameName.equals("") && !IsResigned){
                     List<Event> EventsHappened = GameWS.getEvents(PlayerID, EventID);
                     DealWithEvents(EventsHappened);
                 }
@@ -318,7 +304,9 @@ public class Events extends Thread
                     scControoler.ShowActions();                    
                     scControoler.getPlayerActionType().wait(Timeout);
                 }
-            
+            if (!scControoler.getIsActionChosen())
+                PlayerResign();
+            scControoler.setIsActionChosen(false);
             Action actionchoosed = Action.valueOf(scControoler.getPlayerActionType().get().name());
             List<Event> eventdone = GameWS.getEvents(PlayerID, EventID);
             DealWithEvents(eventdone);
@@ -509,6 +497,8 @@ public class Events extends Thread
     public void PlayerResign() {
         try {
             GameWS.resign(PlayerID);
+            GameOver();
+            
         } catch (InvalidParameters_Exception ex) {
             Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -525,6 +515,15 @@ public class Events extends Thread
 
     public int getHandToTake() {
         return HandToTake;
+    }
+
+    private void GameOver() {
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() 
+            { 
+                   scControoler.getGameEnded().set(true);
+            }});  
     }
     
     
