@@ -216,9 +216,9 @@ public class GameEngine
     private void MakePlayerMove(Communicable commInterface,Bid CurrentBid,Player CurrentPlayer) throws PlayerResigned
     {
         PlayerAction EnumAction = PlayerAction.HIT; 
+        boolean ActionInvalid = true;
         while (!EnumAction.equals(PlayerAction.STAND) &&
-                !EnumAction.equals(PlayerAction.DOUBLE) &&
-                CurrentBid.getSumCards() <= BLACKJACK)
+                CurrentBid.getSumCards() <= BLACKJACK && ActionInvalid)
         {
             commInterface.PrintBidInfo(CurrentBid,CurrentPlayer);
             EnumAction = commInterface.GetWantedAction(CurrentPlayer);    
@@ -227,6 +227,7 @@ public class GameEngine
             {
                 DoPlayerMove(EnumAction, CurrentPlayer, CurrentBid);
                 commInterface.ActionOK();
+                ActionInvalid = false;
             } 
             catch (RulesDosentAllowException ex) 
             {
