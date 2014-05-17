@@ -101,10 +101,7 @@ public class BlackJackFXApp extends Application {
         {
             if (t1){
               StartGame();  
-            }
-                
-            
-           
+            }     
         }
     }
     
@@ -126,9 +123,9 @@ public class BlackJackFXApp extends Application {
         public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
             if (t1)
                 GoToWaitingGamesScreen();
-        }
-        
+        }       
     }
+        
     public class BidAmount implements ChangeListener<Boolean>{   
 
         Scene GameScene;
