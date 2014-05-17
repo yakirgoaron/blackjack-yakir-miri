@@ -9,8 +9,6 @@ package blackjackfx;
 import blackjackfx.ServerClasses.Card;
 import blackjackfx.ServerClasses.PlayerInfo;
 import blackjackfx.ServerClasses.PlayerType;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -111,12 +109,6 @@ public class ParticipantContainer
     private void addcards(String HandName,List<Card> currHand)
     {      
         Pane curr = HandView.get(HandName);        
-         
-        /*
-        if (curr.getChildren().size() > currHand.size())
-        {
-           curr.getChildren().clear(); 
-        }*/
         
         curr.getChildren().clear(); 
         
