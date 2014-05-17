@@ -58,8 +58,8 @@ public class EngineManager {
         IdToGame.clear();
         gamemanager.clear();
         playerManager.clear();
-        CompIdGen = 1;
         Events.clear();
+        uniqeEventID = 0;
     }
     public static ArrayList<Event> getEvents() {
         return Events;
