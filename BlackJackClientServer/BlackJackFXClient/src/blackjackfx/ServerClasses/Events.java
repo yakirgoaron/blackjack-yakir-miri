@@ -248,7 +248,7 @@ public class Events extends Thread
             } catch (InterruptedException ex) {
                 Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InvalidParameters_Exception ex) {
-                Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+                GameOver();
             }
         }
     }
@@ -466,7 +466,7 @@ public class Events extends Thread
             GameOver();
             
         } catch (InvalidParameters_Exception ex) {
-            Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+            GameOver();
         }
     }
 
