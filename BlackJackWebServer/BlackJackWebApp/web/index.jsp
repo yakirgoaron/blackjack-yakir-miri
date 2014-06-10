@@ -12,6 +12,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form action="/bjwebapi/CreateGame">
+             Game Name: <input type="text" name="GameName"><br>
+             Comp Players: <input type="text" name="CompPlayersNumber"><br>
+             Human Players: <input type="text" name="HumanPlayers"><br>
+            <input type="submit" value="Submit">
+        </form>
+        <form method="post" action="/bjwebapi/CreateGame" enctype="multipart/form-data">
+            <input type="file" name="XMLFile"><br /><br />
+            <input type="submit" name="submit" value="Submit">
+       </form>
     </body>
 </html>
