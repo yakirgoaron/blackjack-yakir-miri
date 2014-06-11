@@ -6,6 +6,9 @@
 
 package game.servlets;
 
+import game.ws.client.BlackJackWebService;
+import game.ws.client.GameDetails;
+import game.ws.client.GameDoesNotExists_Exception;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -34,8 +37,10 @@ public class GamesStatus extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        List<String> WaitingGames = EngineManager.GetWaitingGames();
-        try (PrintWriter out = response.getWriter()) {
+        
+        try (PrintWriter out = response.getWriter()){
+            BlackJackWebService GameWS = (BlackJackWebService)request.getSession().getAttribute("GameWS");
+            List<String> WaitingGames = GameWS.getWaitingGames();
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -48,7 +53,7 @@ public class GamesStatus extends HttpServlet {
             {
                 try 
                 {
-                    ws.blackjack.GameDetails gm = EngineManager.GetGameDetails(string);
+                    GameDetails gm = GameWS.getGameDetails(string);
                     out.println("<tr>");
                     out.println("<td><input type=\"radio\" name=\"game\" value=\"string\"></td>");
                     out.println("<td>"+gm.getName()+"</td>");

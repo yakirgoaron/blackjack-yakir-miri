@@ -6,6 +6,10 @@
 
 package game.servlets;
 
+import game.ws.client.BlackJackWebService;
+import game.ws.client.DuplicateGameName_Exception;
+import game.ws.client.InvalidParameters_Exception;
+import game.ws.client.InvalidXML_Exception;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -41,7 +45,7 @@ public class CreateGame extends HttpServlet {
         //response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) 
         {
-            
+            BlackJackWebService GameWS = (BlackJackWebService)request.getSession().getAttribute("GameWS");
             /*out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -65,7 +69,7 @@ public class CreateGame extends HttpServlet {
                     int CompPlayers = Integer.parseInt(request.getParameter("CompPlayersNumber"));
                     
                     try {
-                        EngineManager.CreateGame(GameName, HumanPlayers, CompPlayers);
+                        GameWS.createGame(GameName, HumanPlayers, CompPlayers);
                     } catch (DuplicateGameName_Exception ex) {
                         Message = ex.getMessage();
                     } catch (InvalidParameters_Exception ex) {
@@ -80,7 +84,7 @@ public class CreateGame extends HttpServlet {
                 Scanner s = new Scanner(Xmlfile.getInputStream()).useDelimiter("\\A");
                 try 
                 {
-                    Name = EngineManager.CreateGameFromXML(s.next());
+                    Name = GameWS.createGameFromXML(s.next());
                 } catch (DuplicateGameName_Exception ex) {
                     Message = ex.getMessage();
                 } catch (InvalidParameters_Exception ex) {

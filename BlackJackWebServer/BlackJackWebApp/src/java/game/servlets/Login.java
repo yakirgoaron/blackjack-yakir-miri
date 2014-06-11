@@ -6,20 +6,20 @@
 
 package game.servlets;
 
+import game.ws.client.BlackJackWebService_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Yakir
+ * @author miri
  */
-@WebServlet(name = "GameDetails", urlPatterns = {"/GameDetails"})
-public class GameDetails extends HttpServlet {
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,18 +33,19 @@ public class GameDetails extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GameDetails</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GameDetails at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try (PrintWriter out = response.getWriter()) {           
+            String Host= request.getParameter("Host");
+            String Port= request.getParameter("Port");
+            
+            URL url = new URL("http://" + Host + ":" + Port + "/bjwebapi/BlackJackWebService");
+            BlackJackWebService_Service WSForConnect = new BlackJackWebService_Service(url);
+            request.getSession(true).setAttribute("GameWS", WSForConnect.getBlackJackWebServicePort());
+           // request.getRequestDispatcher("CreateGame.html").forward(request, response);
+            response.sendRedirect("CreateGame.html");
         }
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
