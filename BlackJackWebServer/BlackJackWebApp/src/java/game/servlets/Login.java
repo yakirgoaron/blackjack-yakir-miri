@@ -38,8 +38,7 @@ public class Login extends HttpServlet {
             String Port= request.getParameter("Port");
             
             URL url = new URL("http://" + Host + ":" + Port + "/bjwebapi/BlackJackWebService");
-            BlackJackWebService_Service WSForConnect = new BlackJackWebService_Service(url);
-            request.getSession(true).setAttribute("GameWS", WSForConnect.getBlackJackWebServicePort());
+            request.getSession(true).setAttribute("GameWS", url);
            // request.getRequestDispatcher("CreateGame.html").forward(request, response);
             response.sendRedirect("CreateGame.html");
         }

@@ -4,9 +4,25 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>game.servlets.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateGame</servlet-name>
+        <servlet-class>game.servlets.CreateGame</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GamesStatus</servlet-name>
+        <servlet-class>game.servlets.GamesStatus</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateGame</servlet-name>
+        <url-pattern>/CreateGame</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GamesStatus</servlet-name>
+        <url-pattern>/GamesStatus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

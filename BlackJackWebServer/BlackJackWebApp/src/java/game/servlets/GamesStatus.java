@@ -6,11 +6,14 @@
 
 package game.servlets;
 
+import BlackJack.Utils.SessionUtils;
+import com.google.gson.Gson;
 import game.ws.client.BlackJackWebService;
 import game.ws.client.GameDetails;
 import game.ws.client.GameDoesNotExists_Exception;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,30 +39,18 @@ public class GamesStatus extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         
         try (PrintWriter out = response.getWriter()){
-            BlackJackWebService GameWS = (BlackJackWebService)request.getSession().getAttribute("GameWS");
+            BlackJackWebService GameWS = SessionUtils.getBJWSClient(request);
             List<String> WaitingGames = GameWS.getWaitingGames();
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GamesStatus</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<table border=\"1\" style=\"width:300px\"><tr><td></td><td>Name</td><td>Players</td><td>Joined</td></tr>");
+            List<GameDetail> GamesForJoin = new ArrayList<>();
             for (String string : WaitingGames) 
             {
                 try 
                 {
                     GameDetails gm = GameWS.getGameDetails(string);
-                    out.println("<tr>");
-                    out.println("<td><input type=\"radio\" name=\"game\" value=\"string\"></td>");
-                    out.println("<td>"+gm.getName()+"</td>");
-                    out.println("<td>"+gm.getHumanPlayers()+"</td>");
-                    out.println("<td>"+gm.getJoinedHumanPlayers()+"</td>");
-                    out.println("</tr>");
+                    GamesForJoin.add(new GameDetail(gm.getName(),gm.getHumanPlayers(),gm.getJoinedHumanPlayers()));
                     
                 }
                 catch (GameDoesNotExists_Exception ex) 
@@ -67,14 +58,24 @@ public class GamesStatus extends HttpServlet {
                     Logger.getLogger(GamesStatus.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            out.println("</table>");
-            out.println("<input type=\"submit\" name=\"submit\" value=\"Submit\">");
-            out.println("<h1>Servlet GamesStatus at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            Gson gson = new Gson();
+            String jsonResponse = gson.toJson(GamesForJoin);
+            out.print(jsonResponse);
+            out.flush();
         }
     }
+    class GameDetail {
 
+        final private String Name;
+        final private int HumanPlayers;
+        final private int JoinedPlayers;
+        
+        public GameDetail(String Name, int HumanPlayers,int JoinedPlayers) {
+            this.Name = Name;
+            this.HumanPlayers = HumanPlayers;
+            this.JoinedPlayers = JoinedPlayers;
+        }
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

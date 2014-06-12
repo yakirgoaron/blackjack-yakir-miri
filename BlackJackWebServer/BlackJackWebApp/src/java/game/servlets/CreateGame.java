@@ -6,6 +6,7 @@
 
 package game.servlets;
 
+import BlackJack.Utils.SessionUtils;
 import game.ws.client.BlackJackWebService;
 import game.ws.client.DuplicateGameName_Exception;
 import game.ws.client.InvalidParameters_Exception;
@@ -45,13 +46,13 @@ public class CreateGame extends HttpServlet {
         //response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) 
         {
-            BlackJackWebService GameWS = (BlackJackWebService)request.getSession().getAttribute("GameWS");
+            BlackJackWebService GameWS = SessionUtils.getBJWSClient(request);
 
             String Message = "SUCCESS";
             String Name  = "";
-            request.getSession().getAttribute("HostName");
-            Part Xmlfile = request.getPart("XMLFile");
-            if(Xmlfile == null)
+            String Tab = request.getParameter("tab").toString();
+           
+            if(Tab.equals("1"))
             {
                 String GameName= request.getParameter("GameName");
                 int HumanPlayers = Integer.parseInt(request.getParameter("HumanPlayers"));
@@ -69,6 +70,7 @@ public class CreateGame extends HttpServlet {
             }
             else
             {
+                Part Xmlfile = request.getPart("XMLFile");
                 Scanner s = new Scanner(Xmlfile.getInputStream()).useDelimiter("\\A");
                 try 
                 {
