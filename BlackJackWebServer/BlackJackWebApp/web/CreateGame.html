@@ -28,8 +28,8 @@ and open the template in the editor.
                     <form class="form-signin-heading" action="CreateGame">
                         
                         Game Name: <input class="form-control" type="text" name="GameName" autofocus required><br>
-                         Comp Players: <input class="form-control" type="number" name="CompPlayersNumber" required><br>
-                         Human Players: <input class="form-control" type="number" name="HumanPlayers" required><br>
+                         Comp Players: <input class="form-control" type="number" name="CompPlayersNumber"  max="5" value = "1" min="0" required><br>
+                         Human Players: <input class="form-control" type="number" name="HumanPlayers" max="6" value = "1" min="1" required><br>
                          <button class="btn btn-lg btn-primary btn-block" type="submit" >Create</button>
                         <!-- input type="submit" value="Submit" -->
                     </form>
