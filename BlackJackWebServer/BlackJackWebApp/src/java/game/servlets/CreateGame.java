@@ -46,12 +46,7 @@ public class CreateGame extends HttpServlet {
         try (PrintWriter out = response.getWriter()) 
         {
             BlackJackWebService GameWS = (BlackJackWebService)request.getSession().getAttribute("GameWS");
-            /*out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CreateGame</title>");            
-            out.println("</head>");
-            out.println("<body>");*/
+
             String Message = "SUCCESS";
             String Name  = "";
             request.getSession().getAttribute("HostName");
@@ -59,24 +54,17 @@ public class CreateGame extends HttpServlet {
             if(Xmlfile == null)
             {
                 String GameName= request.getParameter("GameName");
-                if(request.getParameter("HumanPlayers") == null || request.getParameter("CompPlayersNumber") == null )
-                {
-                    Message = "ERROR";
+                int HumanPlayers = Integer.parseInt(request.getParameter("HumanPlayers"));
+                int CompPlayers = Integer.parseInt(request.getParameter("CompPlayersNumber"));
+
+                try {
+                    GameWS.createGame(GameName, HumanPlayers, CompPlayers);
+                } catch (DuplicateGameName_Exception ex) {
+                    Message = ex.getMessage();
+                } catch (InvalidParameters_Exception ex) {
+                    Message = ex.getMessage();
                 }
-                else
-                {
-                    int HumanPlayers = Integer.parseInt(request.getParameter("HumanPlayers"));
-                    int CompPlayers = Integer.parseInt(request.getParameter("CompPlayersNumber"));
-                    
-                    try {
-                        GameWS.createGame(GameName, HumanPlayers, CompPlayers);
-                    } catch (DuplicateGameName_Exception ex) {
-                        Message = ex.getMessage();
-                    } catch (InvalidParameters_Exception ex) {
-                        Message = ex.getMessage();
-                    }
-                }
-                //out.println("<h1>Servlet CreateGame at " + Message + "</h1>");
+
                 Name = GameName;
             }
             else
@@ -92,16 +80,10 @@ public class CreateGame extends HttpServlet {
                 } catch (InvalidXML_Exception ex) {
                     Message = ex.getMessage();
                 }
-                //out.println("<h1>Servlet CreateGame at " + s.next() + "</h1>");
-                /* TODO output your page here. You may use following sample code. */
-
-               
 
             }
             request.getSession().setAttribute("GameName", Name);
-            //out.println("</body>");
-            //out.println("</html>");
-            response.sendRedirect("GamesStatus");
+            response.sendRedirect("GameList.html");
         }
         
     }
