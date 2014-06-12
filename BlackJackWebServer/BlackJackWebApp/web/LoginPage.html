@@ -6,15 +6,20 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Login Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        
     </head>
     <body>
-        <div>
-            <form action="Login"> Host: <input type="text" name="Host" value="localhost" />
-                Port: <input type="text" name="Port" value="8084" />
-                <input type="submit" value="Login"/>
+        <div class="container">
+            <form class="form-signin-heading" action="Login" > 
+                <h2 class="form-signin-heading">Please login</h2>
+                Host: <input type="text" class="form-control" name="Host" value="localhost" required autofocus>
+                Port: <input type="number" class="form-control" name="Port" value="8084" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" >Login</button>
+                <!-- input type="submit" value="Login"/ -->
             </form>
         </div>
     </body>
