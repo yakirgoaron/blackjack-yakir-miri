@@ -12,6 +12,10 @@
         <servlet-name>GamesStatus</servlet-name>
         <servlet-class>game.servlets.GamesStatus</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GamePlayers</servlet-name>
+        <servlet-class>game.servlets.GamePlayers</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>GamesStatus</servlet-name>
         <url-pattern>/GamesStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GamePlayers</servlet-name>
+        <url-pattern>/GamePlayers</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

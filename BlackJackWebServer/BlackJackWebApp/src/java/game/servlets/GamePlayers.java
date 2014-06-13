@@ -9,8 +9,8 @@ package game.servlets;
 import BlackJack.Utils.SessionUtils;
 import com.google.gson.Gson;
 import game.ws.client.BlackJackWebService;
-import game.ws.client.GameDetails;
 import game.ws.client.GameDoesNotExists_Exception;
+import game.ws.client.PlayerDetails;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Yakir
  */
-public class GamesStatus extends HttpServlet {
+public class GamePlayers extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,41 +40,36 @@ public class GamesStatus extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        
-        try (PrintWriter out = response.getWriter()){
+        try (PrintWriter out = response.getWriter()) {
+            String GameName = request.getParameter("GameName").toString();
             BlackJackWebService GameWS = SessionUtils.getBJWSClient(request);
-            List<String> WaitingGames = GameWS.getWaitingGames();
-            List<GameDetail> GamesForJoin = new ArrayList<>();
-            for (String string : WaitingGames) 
+            List<PlayerInfo> Players = new ArrayList<>();
+            List<PlayerDetails> GamePlayers = null;
+            try {
+                GamePlayers = GameWS.getPlayersDetails(GameName);
+            } catch (GameDoesNotExists_Exception ex) {
+                Logger.getLogger(GamePlayers.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            for (PlayerDetails playerDetails : GamePlayers) 
             {
-                try 
-                {
-                    GameDetails gm = GameWS.getGameDetails(string);
-                    GamesForJoin.add(new GameDetail(gm.getName(),gm.getHumanPlayers(),gm.getJoinedHumanPlayers(),gm.isLoadedFromXML()));
-                    
-                }
-                catch (GameDoesNotExists_Exception ex) 
-                {
-                    Logger.getLogger(GamesStatus.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                 Players.add(new PlayerInfo(playerDetails.getName(), playerDetails.getStatus().name(),playerDetails.getType().name()));
             }
             Gson gson = new Gson();
-            String jsonResponse = gson.toJson(GamesForJoin);
+            String jsonResponse = gson.toJson(Players);
             out.print(jsonResponse);
             out.flush();
-        }
+        } 
     }
-    class GameDetail {
+
+    class PlayerInfo {
 
         final private String Name;
-        final private int HumanPlayers;
-        final private int JoinedPlayers;
-        final private boolean Loaded;
-        public GameDetail(String Name, int HumanPlayers,int JoinedPlayers,boolean Loaded) {
+        final private String Status;
+        final private String Type;
+        public PlayerInfo(String Name,String Status,String Type) {
             this.Name = Name;
-            this.HumanPlayers = HumanPlayers;
-            this.JoinedPlayers = JoinedPlayers;
-            this.Loaded = Loaded;
+            this.Status = Status;
+            this.Type = Type;
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
