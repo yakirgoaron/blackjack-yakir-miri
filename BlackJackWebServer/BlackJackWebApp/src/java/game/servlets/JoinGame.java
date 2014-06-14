@@ -54,7 +54,7 @@ public class JoinGame extends HttpServlet {
             } catch (InvalidParameters_Exception ex) {
                 Logger.getLogger(JoinGame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+            response.sendRedirect("Game.html");
         }
     }
 
