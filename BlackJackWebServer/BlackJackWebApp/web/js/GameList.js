@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var refreshRate = 7000;
+
 function refreshWaitingGames(users) {
     $("#Gamelist").empty();
     $.each(users || [], function(index, val) 
@@ -20,6 +22,7 @@ function AddUsersToList(users)
     $("#dataCombo").empty();
     $.each(users || [], function(index, val) 
     {
+        console.log(val);
         if(val.Status === 'ACTIVE' && val.Type !== 'COMPUTER')
         $('<option value="'+val.Name+'">'+val.Name+'</option>').appendTo($("#dataCombo"));
     });
@@ -53,12 +56,14 @@ function ChangeTextToCombo(e)
         $("#PlayerName").show();
         $("#PlayerName").prop('required',true);
     }
-    
+    $("#GameName").prop("value",$("#"+e.target.id).parent().next().text());
     
 }
+function triggerAjaxTableContent() {
+    setTimeout(ajaxTableContent, refreshRate);
+}
 
-$(function() 
-    { 
+function ajaxTableContent() {
     jQuery.ajax({
             dataType: 'json',
             url: "GamesStatus",
@@ -73,6 +78,13 @@ $(function()
             }
         });
         $("#dataCombo").hide();
+        triggerAjaxTableContent();
+}
+
+$(function() 
+    { 
+        ajaxTableContent();
+      
       
     }
 );

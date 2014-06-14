@@ -16,6 +16,10 @@
         <servlet-name>GamePlayers</servlet-name>
         <servlet-class>game.servlets.GamePlayers</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JoinGame</servlet-name>
+        <servlet-class>game.servlets.JoinGame</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>GamePlayers</servlet-name>
         <url-pattern>/GamePlayers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JoinGame</servlet-name>
+        <url-pattern>/JoinGame</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
