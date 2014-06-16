@@ -18,7 +18,7 @@ and open the template in the editor.
     <body>
         <div class="container-fluid">
             <button type="button" class="btn btn-warning" id="btnResign">Resign</button>
-            <div id="gamePlayers">
+         <div id="gamePlayers">
           <div class="row" id="Dealer">
             <div class="col-md-3 col-xs-3"><img src="images/players/Dealer.png"/></div>
             <div class="col-md-1 col-xs-1"><img  src="images/Cards/10Clubs.png"/></div>
@@ -40,6 +40,13 @@ and open the template in the editor.
             <div class="col-md-1 col-xs-1"><img src="images/Cards/2Spades.png"/></div>
           </div>
         </div>
+        </div>
+            <div id ="BetValue">
+                <form class="form-signin-heading" method="post" action="PlayerActions" >
+                    Place Bet: <input class="form-control" id="PlaceBet" type="range" min="1" max="1000" autofocus ><br>
+                   <button class="btn btn-lg btn-primary btn-block" type="submit" >Finish</button>
+               </form>   
+            </div>
         </div>
     </body>
 </html>

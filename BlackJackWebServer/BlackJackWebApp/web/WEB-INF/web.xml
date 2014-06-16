@@ -24,6 +24,14 @@
         <servlet-name>EventsHappened</servlet-name>
         <servlet-class>game.servlets.EventsHappened</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlayerDetails</servlet-name>
+        <servlet-class>game.servlets.PlayerDetails</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlayerActions</servlet-name>
+        <servlet-class>game.servlets.PlayerActions</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>EventsHappened</servlet-name>
         <url-pattern>/EventsHappened</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlayerDetails</servlet-name>
+        <url-pattern>/PlayerDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlayerActions</servlet-name>
+        <url-pattern>/PlayerActions</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -3,7 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var CurrPlayerName;
 var IsResigned = false;
+
+var GAME_START = "GameStart";
+var GAME_OVER = "GameOver";
+var GAME_WINNER = "GameWinner";
+var PLAYER_RESIGNED = "PlayerResigned";
+var NEW_ROUND = "NewRound";
+var PLAYER_TURN = "PlayerTurn";
+var CARDS_DEALT = "CardsDealt";
+var PROMPT_PLAYER_TO_TAKE_ACTION = "PromptPlayerToTakeAction";
+var USER_ACTION = "UserAction";
+var PLACE_BET = "PlaceBet";
+var DOUBLE = "Double";
+var HIT = "Hit";
+var SPLIT = "Split";
+var STAND = "Stand";
 
 function refreshPlayers(users) {
     $("#players").empty();
@@ -29,41 +45,47 @@ function RemovePlayer(name){
     $('"#"'+name);
 }
 
+function GameOver(){
+    window.location = "GameOver.html";
+}
+
 function DisableResign(){
     document.getElementById("btnResign").setAttribute("disabled", "disabled");
 }
 
-function refreshPlayers(events) {
+function DealWithEvents(events) {
     $("#players").empty();
     $.each(events|| [], function(index,val){
     
         switch(val.type){
-            case CARDS_DEALT:
+            case "CARDS_DEALT":
                 break;
-            case GAME_OVER:
+            case "GAME_OVER":
+                GameOver();
                 break;
-            case GAME_START:
+            case "GAME_START":
+                ajaxShowPlayers();
                 break;
-            case GAME_WINNER:
+            case "GAME_WINNER":
                 break;
-            case NEW_ROUND:
+            case "NEW_ROUND":
                 break;
-            case PLAYER_RESIGNED:
+            case "PLAYER_RESIGNED":
                 var Name = event.PlayerName;
                 RemovePlayer(Name);
-                
-                //todo: handle
-                if (Name.equals(PlayerName)){
+                              
+                if (Name === CurrPlayerName){
                         IsResigned = true;
-                        DisableResign();                       
+                        DisableResign(); 
+                        //todo: handle
                         GameOver();
                  }
                 break;
-            case PLAYER_TURN:
+            case "PLAYER_TURN":
                 break;
-            case PROMPT_PLAYER_TO_TAKE_ACTION:
+            case "PROMPT_PLAYER_TO_TAKE_ACTION":
                 break;
-            case USER_ACTION:
+            case "USER_ACTION":
                 break;       
                     
         }
@@ -100,11 +122,24 @@ function ajaxHandleEvents() {
         });
 }
 
+function ajaxCurrPlayer() {
+    jQuery.ajax({
+            dataType: 'json',
+            url: "PlayerDetails",
+            timeout: 2000,
+            error: function() {
+                console.log("Failed to submit");
+            },
+            success: function(PlayerName) 
+            {
+                   CurrPlayerName = PlayerName;
+            }
+        });
+}
+
 $(function() 
-    { 
-        ajaxShowPlayers();
+    {        
+        ajaxCurrPlayer();
         ajaxHandleEvents();
-      
-      
     }
 );

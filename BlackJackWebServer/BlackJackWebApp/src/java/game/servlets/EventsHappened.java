@@ -92,8 +92,15 @@ public class EventsHappened extends HttpServlet {
             this.money = event.getMoney();
             this.playerName = event.getPlayerName();
             this.timeout = event.getTimeout();
-            this.playerAction =ActionJson.valueOf(event.getPlayerAction().value());
-            this.type = EventTypeJson.valueOf(event.getType().value());
+            if (event.getPlayerAction() != null)
+                this.playerAction =ActionJson.fromValue(event.getPlayerAction().value());
+            else
+                this.playerAction = null;
+            
+            if (event.getType() != null)
+                this.type = EventTypeJson.fromValue(event.getType().value());
+            else
+                this.type = null;
             InsertCards(event);
             
         }

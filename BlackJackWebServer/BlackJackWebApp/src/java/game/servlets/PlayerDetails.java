@@ -79,22 +79,31 @@ public class PlayerDetails extends HttpServlet{
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String PlayerName = request.getParameter("PlayerName");
-            if(PlayerName == null)
-                PlayerName = (String)request.getSession().getAttribute("PlayerName");
-            
+            String ID = request.getParameter("PlayerID");
+            Integer PlayerID;
+            if(ID == null)
+                PlayerID = (Integer)request.getSession().getAttribute("PlayerID");
+            else
+                PlayerID = Integer.parseInt(ID);
+            /*
             String GameName = request.getParameter("GameName");            
             if (GameName == null)
-                GameName = (String)request.getSession().getAttribute("GameName");
+                GameName = (String)request.getSession().getAttribute("GameName");*/
             
             BlackJackWebService GameWS = SessionUtils.getBJWSClient(request);
-            PlayerData Player = GetPlayerDetailsByName(GameWS, GameName, PlayerName);
-          
-            Gson gson = new Gson();
-            String jsonResponse = gson.toJson(Player);
-            out.print(jsonResponse);
-            out.flush();
-
+           // PlayerData Player = GetPlayerDetailsByName(GameWS, GameName, PlayerName);
+            try {
+                game.ws.client.PlayerDetails PlayerByID= GameWS.getPlayerDetails(PlayerID);
+                PlayerData Player = new PlayerData(PlayerByID);
+                Gson gson = new Gson();
+                String jsonResponse = gson.toJson(Player);
+                out.print(jsonResponse);
+                out.flush();
+            } catch (GameDoesNotExists_Exception ex) {
+                Logger.getLogger(PlayerDetails.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidParameters_Exception ex) {
+                Logger.getLogger(PlayerDetails.class.getName()).log(Level.SEVERE, null, ex);
+            }    
         }
     }
 
