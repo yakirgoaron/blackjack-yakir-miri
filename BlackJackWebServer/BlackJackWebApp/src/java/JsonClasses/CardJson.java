@@ -6,6 +6,8 @@
 
 package JsonClasses;
 
+import game.ws.client.Card;
+
 /**
  *
  * @author Yakir
@@ -35,6 +37,12 @@ public class CardJson {
 
     public void setSuit(SuitJson value) {
         this.suit = value;
+    }
+    
+    public static CardJson ConvertToLocal(Card ServerCard)
+    {
+        return new CardJson(RankJson.valueOf(ServerCard.getRank().value()),
+                        SuitJson.valueOf(ServerCard.getSuit().value()));
     }
 
 }

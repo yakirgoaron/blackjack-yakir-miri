@@ -6,10 +6,14 @@
 
 package game.servlets;
 
+import BlackJack.Utils.SessionUtils;
 import game.ws.client.BlackJackWebService_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,8 +41,15 @@ public class Login extends HttpServlet {
             String Host= request.getParameter("Host");
             String Port= request.getParameter("Port");
             
-            URL url = new URL("http://" + Host + ":" + Port + "/bjwebapi/BlackJackWebService");
-            request.getSession(true).setAttribute("GameWS", url);
+            URL url;
+            try {
+                url = new URL("http://" + Host + ":" + Port + "/bjwebapi/BlackJackWebService");
+                request.getSession(true).setAttribute("GameWS", url);
+                SessionUtils.getBJWSClient(request);
+            } catch (IOException ex) {
+                request.setAttribute("LoginError", "Cannot connect");
+                    getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
+            }           
            // request.getRequestDispatcher("CreateGame.html").forward(request, response);
             response.sendRedirect("CreateGame.html");
         }

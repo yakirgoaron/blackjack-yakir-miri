@@ -7,10 +7,13 @@
 package game.servlets;
 
 import BlackJack.Utils.SessionUtils;
+import JsonClasses.BetJson;
+import JsonClasses.CardJson;
 import com.google.gson.Gson;
 import game.ws.client.BlackJackWebService;
 import game.ws.client.GameDoesNotExists_Exception;
-import game.ws.client.PlayerDetails;
+import game.ws.client.InvalidParameters_Exception;
+import game.ws.client.Card;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -26,8 +29,43 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Yakir
  */
-public class GamePlayers extends HttpServlet {
+public class PlayerDetails extends HttpServlet{
 
+        class PlayerData{
+        private String name;
+        private String status;
+        private String type;
+        private List<BetJson> Bets;
+        private double money;
+        
+        public List<CardJson> ConvertPlayerCards(List<Card> BetCards)
+        {
+            List<CardJson> TempBet = new ArrayList<>();
+            for (Card card : BetCards) 
+            {
+                TempBet.add(CardJson.ConvertToLocal(card));
+            }
+            return TempBet;
+        }
+    
+        private void InsertBets(game.ws.client.PlayerDetails plSource)
+        {
+            Bets = new ArrayList<>();
+            Bets.add(new BetJson(ConvertPlayerCards(plSource.getFirstBet()), plSource.getFirstBetWage()));
+            Bets.add(new BetJson(ConvertPlayerCards(plSource.getSecondBet()), plSource.getSecondBetWage()));   
+        }
+
+        public PlayerData(game.ws.client.PlayerDetails plSource)
+        {
+            name = plSource.getName();
+            status = plSource.getStatus().toString();
+            type = plSource.getType().toString();
+            money = plSource.getMoney();
+            InsertBets(plSource);
+
+        }
+    }
+        
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,40 +79,28 @@ public class GamePlayers extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String GameName = request.getParameter("GameName");
+            String PlayerName = request.getParameter("PlayerName");
+            if(PlayerName == null)
+                PlayerName = (String)request.getSession().getAttribute("PlayerName");
             
-            if(GameName == null)
+            String GameName = request.getParameter("GameName");            
+            if (GameName == null)
                 GameName = (String)request.getSession().getAttribute("GameName");
+            
             BlackJackWebService GameWS = SessionUtils.getBJWSClient(request);
-            List<PlayerInfo> Players = new ArrayList<>();
-            List<PlayerDetails> GamePlayers = null;
-            try {
-                GamePlayers = GameWS.getPlayersDetails(GameName);
-            } catch (GameDoesNotExists_Exception ex) {
-                Logger.getLogger(GamePlayers.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            for (PlayerDetails playerDetails : GamePlayers) 
-            {
-                 Players.add(new PlayerInfo(playerDetails.getName(), playerDetails.getStatus().name(),playerDetails.getType().name()));
-            }
+            PlayerData Player = GetPlayerDetailsByName(GameWS, GameName, PlayerName);
+          
             Gson gson = new Gson();
-            String jsonResponse = gson.toJson(Players);
+            String jsonResponse = gson.toJson(Player);
             out.print(jsonResponse);
             out.flush();
-        } 
-    }
 
-    class PlayerInfo {
-
-        final private String Name;
-        final private String Status;
-        final private String Type;
-        public PlayerInfo(String Name,String Status,String Type) {
-            this.Name = Name;
-            this.Status = Status;
-            this.Type = Type;
         }
     }
+
+   
+    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -114,4 +140,21 @@ public class GamePlayers extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private PlayerData GetPlayerDetailsByName(BlackJackWebService GameWS, String GameName, String PlayerName) { 
+        try
+        {
+            List<game.ws.client.PlayerDetails> Players =  GameWS.getPlayersDetails(GameName);
+
+            for (game.ws.client.PlayerDetails playerDetails : Players) 
+            {
+                 if(playerDetails.getName().equals(PlayerName))
+                     return new PlayerData(playerDetails);              
+            }
+            
+        } 
+        catch (GameDoesNotExists_Exception ex) {
+            
+        }
+        return null; 
+    }
 }

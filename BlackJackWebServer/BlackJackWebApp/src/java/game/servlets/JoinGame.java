@@ -49,6 +49,7 @@ public class JoinGame extends HttpServlet {
             {
                 int PlayerID = GameWS.joinGame(GameName,PlayerName,1000);
                 request.getSession().setAttribute("PlayerID",PlayerID );
+                request.getSession().setAttribute("GameName", GameName);
             } catch (GameDoesNotExists_Exception ex) {
                 Logger.getLogger(JoinGame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InvalidParameters_Exception ex) {

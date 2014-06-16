@@ -43,7 +43,7 @@ public class CreateGame extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/plain;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) 
         {
             BlackJackWebService GameWS = SessionUtils.getBJWSClient(request);
@@ -60,13 +60,20 @@ public class CreateGame extends HttpServlet {
 
                 try {
                     GameWS.createGame(GameName, HumanPlayers, CompPlayers);
-                } catch (DuplicateGameName_Exception ex) {
+                    Name = GameName;
+                    request.getSession().setAttribute("GameName", Name);
+                    response.sendRedirect("GameList.html");
+                } catch (DuplicateGameName_Exception ex ){
                     Message = ex.getMessage();
+                    request.setAttribute("Error", Message);
+                    getServletContext().getRequestDispatcher("/CreateGame.jsp").forward(request, response);
                 } catch (InvalidParameters_Exception ex) {
                     Message = ex.getMessage();
+                    request.setAttribute("Error", Message);
+                    getServletContext().getRequestDispatcher("/GameList.jsp").forward(request, response);
                 }
 
-                Name = GameName;
+                
             }
             else
             {
@@ -75,17 +82,24 @@ public class CreateGame extends HttpServlet {
                 try 
                 {
                     Name = GameWS.createGameFromXML(s.next());
-                } catch (DuplicateGameName_Exception ex) {
+                    request.getSession().setAttribute("GameName", Name);
+                    response.sendRedirect("GameList.html");
+                } catch (DuplicateGameName_Exception | InvalidXML_Exception ex) {
                     Message = ex.getMessage();
+                    request.setAttribute("Error", Message);
+                    getServletContext().getRequestDispatcher("/CreateGame.jsp").forward(request, response);
                 } catch (InvalidParameters_Exception ex) {
                     Message = ex.getMessage();
-                } catch (InvalidXML_Exception ex) {
-                    Message = ex.getMessage();
+                    request.setAttribute("Error", Message);
+                    getServletContext().getRequestDispatcher("/GameList.jsp").forward(request, response);
                 }
 
             }
-            request.getSession().setAttribute("GameName", Name);
-            response.sendRedirect("GameList.html");
+           
+            out.write(Message);
+          //  out.flush();
+          //  request.getSession().setAttribute("GameName", Name);
+           // response.sendRedirect("GameList.html");
         }
         
     }

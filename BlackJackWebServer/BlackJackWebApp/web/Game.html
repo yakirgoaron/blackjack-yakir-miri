@@ -13,22 +13,20 @@ and open the template in the editor.
         <link href="css/Game.css" rel="stylesheet">
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/Game.js"></script>
     </head>
     <body>
         <div class="container-fluid">
-          <div class="row">
+            <button type="button" class="btn btn-warning" id="btnResign">Resign</button>
+            <div id="gamePlayers">
+          <div class="row" id="Dealer">
             <div class="col-md-3 col-xs-3"><img src="images/players/Dealer.png"/></div>
-            <div class="col-md-3 col-xs-3"><label>BET 1000</label></div>
             <div class="col-md-1 col-xs-1"><img  src="images/Cards/10Clubs.png"/></div>
             <div class="col-md-1 col-xs-1"><img src="images/Cards/2Spades.png"/></div>
-          </div>
-          <div class="row">
-              <div class="col-md-3 col-xs-3"><label>MONEY 1000</label></div>
-              <div class="col-md-3 col-xs-3"><label>BET 1000</label></div>
+          
             
-            <div class="col-md-1 col-xs-1"><img src="images/Cards/10Clubs.png"/></div>
-            <div class="col-md-1 col-xs-1"><img  src="images/Cards/2Spades.png"/></div>
           </div>
+            <div id="players">
           <div class="row">
               <div class="col-md-1 col-xs-1"><img src="images/players/CompPlayer.png"/></div>
                 <div class="col-md-1 col-xs-1"><label>BET 1000</label></div>
@@ -41,6 +39,7 @@ and open the template in the editor.
             <div class="col-md-1 col-xs-1"><img src="images/Cards/10Clubs.png"/></div>
             <div class="col-md-1 col-xs-1"><img src="images/Cards/2Spades.png"/></div>
           </div>
-          <div class="row">
+        </div>
+        </div>
     </body>
 </html>
