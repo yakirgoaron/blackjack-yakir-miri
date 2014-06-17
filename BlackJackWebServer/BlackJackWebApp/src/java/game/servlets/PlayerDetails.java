@@ -99,6 +99,8 @@ public class PlayerDetails extends HttpServlet{
                 String jsonResponse = gson.toJson(Player);
                 out.print(jsonResponse);
                 out.flush();
+                System.out.println(PlayerByID.getFirstBetWage());
+                
             } catch (GameDoesNotExists_Exception ex) {
                 Logger.getLogger(PlayerDetails.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InvalidParameters_Exception ex) {

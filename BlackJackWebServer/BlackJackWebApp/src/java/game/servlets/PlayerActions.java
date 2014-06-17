@@ -6,8 +6,14 @@
 
 package game.servlets;
 
+import BlackJack.Utils.SessionUtils;
+import game.ws.client.Action;
+import game.ws.client.BlackJackWebService;
+import game.ws.client.InvalidParameters_Exception;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,18 +36,23 @@ public class PlayerActions extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PlayerActions</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PlayerActions at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+             BlackJackWebService GameWS = SessionUtils.getBJWSClient(request);
+             int PlayerId = (int)request.getSession().getAttribute("PlayerID");
+             int EventId = (int)request.getSession().getAttribute("EventID");
+             String Bet = request.getParameter("PlaceBet");
+             if(Bet != null && !Bet.equals(""))
+                GameWS.playerAction(PlayerId, EventId, Action.PLACE_BET, Integer.parseInt(Bet),1 );
+             else
+             {
+                 String PlayerAction = request.getParameter("Action");
+                 
+                 GameWS.playerAction(PlayerId, EventId, Action.fromValue(PlayerAction), 0,1 );
+             }
+             
+        } catch (InvalidParameters_Exception ex) {
+            Logger.getLogger(PlayerActions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -17,36 +17,70 @@ and open the template in the editor.
     </head>
     <body>
         <div class="container-fluid">
-            <button type="button" class="btn btn-warning" id="btnResign">Resign</button>
-         <div id="gamePlayers">
-          <div class="row" id="Dealer">
-            <div class="col-md-3 col-xs-3"><img src="images/players/Dealer.png"/></div>
-            <div class="col-md-1 col-xs-1"><img  src="images/Cards/10Clubs.png"/></div>
-            <div class="col-md-1 col-xs-1"><img src="images/Cards/2Spades.png"/></div>
-          
-            
-          </div>
-            <div id="players">
-          <div class="row">
-              <div class="col-md-1 col-xs-1"><img src="images/players/CompPlayer.png"/></div>
-                <div class="col-md-1 col-xs-1"><label>BET 1000</label></div>
-            <div class="col-md-1 col-xs-1"><img src="images/Cards/10Clubs.png"/></div>
-            <div class="col-md-1 col-xs-1"><img src="images/Cards/2Spades.png"/></div>
-          </div>
-          <div class="row">
-              <div class="col-md-1 col-xs-1"><label>MONEY 1000</label></div>
-            <div class="col-md-1 col-xs-1"><label>BET 1000</label></div>
-            <div class="col-md-1 col-xs-1"><img src="images/Cards/10Clubs.png"/></div>
-            <div class="col-md-1 col-xs-1"><img src="images/Cards/2Spades.png"/></div>
-          </div>
+         <div class="col-md-8 col-xs-8">
+            <div id="gamePlayers">
+             <div class="row" id="Dealer">
+               <div class="col-md-1 col-xs-1"><img src="images/players/Dealer.png"/></div>
+               <div class="Cards">
+                    <div class="col-md-1 col-xs-1">
+                        <img class="TENCLUBS" />
+                    </div>
+                    <div class="col-md-1 col-xs-1">
+                        <img class="TWOSPADES" />
+                    </div>
+               </div>
+             </div>
+             <div id="players">
+               <div class="row">
+                   <div class="col-md-1 col-xs-1"><img src="images/players/CompPlayer.png"/></div>
+                     <div class="col-md-1 col-xs-1"><label>BET 1000</label></div>
+                 <div class="col-md-1 col-xs-1"><img src="images/Cards/10Clubs.png"/></div>
+                 <div class="col-md-1 col-xs-1"><img src="images/Cards/2Spades.png"/></div>
+               </div>
+               <div class="row">
+                   <div class="col-md-1 col-xs-1"><label>MONEY 1000</label></div>
+                 <div class="col-md-1 col-xs-1"><label>BET 1000</label></div>
+                 <div class="col-md-1 col-xs-1"><img src="images/Cards/10Clubs.png"/></div>
+                 <div class="col-md-1 col-xs-1"><img src="images/Cards/2Spades.png"/></div>
+               </div>
+             </div>
+           </div>
         </div>
-        </div>
-            <div id ="BetValue">
-                <form class="form-signin-heading" method="post" action="PlayerActions" >
-                    Place Bet: <input class="form-control" id="PlaceBet" type="range" min="1" max="1000" autofocus ><br>
-                   <button class="btn btn-lg btn-primary btn-block" type="submit" >Finish</button>
-               </form>   
+        <div  class="col-md-3 col-xs-3" id ="BetValue">
+             <div class="row">
+                <button type="button" class="btn btn-warning" id="btnResign">Resign</button>
+             </div>
+             <div class="row">
+                 <img src="images/Background/Deck.png" />
+             </div>
+             <div class="row">
+                <form id="PlaceBetfrm" class="form-signin-heading" method="post" action="PlayerActions" Hidden>
+                       Place Bet: <input class="form-control" name="PlaceBet" id="PlaceBet" type="range" min="1" max="1000" autofocus ><br>
+                      <button class="btn btn-lg btn-primary btn-block" type="submit" >Finish</button>
+                </form>
+             </div>
+             <div class="row">
+                 <form id="DoAction" class="form-signin-heading" method="post" action="PlayerActions" Hidden>                       
+                      <input class="btn btn-lg btn-primary btn-block" name="Action" value="Hit" type="submit" />
+                      <input name="Action" value="Hit" type="hidden" />
+                </form>
+                <form id="DoAction" class="form-signin-heading" method="post" action="PlayerActions" Hidden>                       
+                      <input class="btn btn-lg btn-primary btn-block" name="Action" value="Double" type="submit" />
+                      <input name="Action" value="Double" type="hidden" />
+                </form>
+                 <form id="DoAction" class="form-signin-heading" method="post" action="PlayerActions" Hidden>                       
+                      <input class="btn btn-lg btn-primary btn-block" name="Action" value="Split" type="submit" />
+                      <input name="Action" value="Split" type="hidden" />
+                </form>
+                 
+                 <form id="DoAction" class="form-signin-heading" method="post" action="PlayerActions" Hidden>                       
+                      <input class="btn btn-lg btn-primary btn-block" name="Action" value="Stand" type="submit" />
+                      <input name="Action" value="Stand" type="hidden" />
+                </form>
+
+             </div>
             </div>
-        </div>
+        
+       </div>
     </body>
 </html>
