@@ -17,6 +17,10 @@ body {
  -o-background-size: cover;
  background-size: cover;
 }
+
+.Effect{
+    box-shadow: red 2px 2px 2px;
+}
 .TENCLUBS{
  content: url('../images/Cards/10Clubs.png');   
 }

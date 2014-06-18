@@ -23,8 +23,7 @@ var STAND = "Stand";
 var refreshRate = 2000;
 
 function refreshPlayers(users) {
-    $("#players").empty();
-  
+    RemovePlayers();  
     
     $.each(users || [], function(index, val) 
     {
@@ -36,7 +35,7 @@ function refreshPlayers(users) {
        else
            image = 'HumanPlayer.png';
         $('<div class="row" id="'+val.Name+'">' + 
-                '<div class="col-md-1 col-xs-1"><img src="images/players/'+image+'"/></div></div>').appendTo($("#players"));
+                '<div class="col-md-1 col-xs-1"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div></div>').appendTo($("#players"));
         $('<div class="Bet1"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
     }
     });
@@ -46,10 +45,19 @@ function RemovePlayer(name){
     $('"#"'+name);
 }
 
+function AddEffect(playerName){
+ 
+    $('#img'+playerName).addClass("Effect");
+}
+function RemoveDealerCards(){
+    $("#DealerCards").empty();
+}
 function GameOver(){
     window.location = "GameOver.html";
 }
-
+function RemovePlayers(){
+    $("#players").empty();
+}
 function DisableResign(){
     document.getElementById("btnResign").setAttribute("disabled", "disabled");
 }
@@ -62,9 +70,9 @@ function CardsDealt(event)
     {
         //var end = $("#Deck").position().left;
         var card = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(CardsTag);
-        //var temp = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo($("#Deck"));
+       //var temp = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo($("#Deck"));
         //console.log(card);
-       // temp.animate({right: card.offset().left + 500,bot: card.offset().bot + 500}, 3000);
+        //temp.animate({right: card.offset().left + 500,bot: card.offset().bot + 500}, 3000);
         
         
     });
@@ -88,6 +96,9 @@ function DealWithEvents(events) {
             case "GAME_WINNER":
                 break;
             case "NEW_ROUND":
+                RemovePlayers();
+                RemoveDealerCards();
+                ajaxShowPlayers();
                 break;
             case "PLAYER_RESIGNED":
                 var Name = val.playerName;
@@ -101,6 +112,7 @@ function DealWithEvents(events) {
                  }
                 break;
             case "PLAYER_TURN":
+                AddEffect(val.playerName);
                 break;
             case "PROMPT_PLAYER_TO_TAKE_ACTION":                
                 ajaxCurrPlayer();
