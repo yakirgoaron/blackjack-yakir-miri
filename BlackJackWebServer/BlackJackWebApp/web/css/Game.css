@@ -19,7 +19,8 @@ body {
 }
 
 .Effect{
-    box-shadow: red 2px 2px 2px;
+    box-shadow: red 0px 0px 5px;
+   
 }
 .TENCLUBS{
  content: url('../images/Cards/10Clubs.png');   
