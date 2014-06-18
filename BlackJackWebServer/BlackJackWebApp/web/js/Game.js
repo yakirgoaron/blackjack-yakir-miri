@@ -60,7 +60,13 @@ function CardsDealt(event)
     CardsTag.empty();
     $.each(arraycards, function(index, val)
     {
-        $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(CardsTag);
+        //var end = $("#Deck").position().left;
+        var card = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(CardsTag);
+        //var temp = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo($("#Deck"));
+        //console.log(card);
+       // temp.animate({right: card.offset().left + 500,bot: card.offset().bot + 500}, 3000);
+        
+        
     });
 }
 function DealWithEvents(events) {
@@ -202,29 +208,32 @@ $(function()
             return false;
         });
         
-        $("#DoAction").submit(function() {
-            jQuery.ajax({
-                data: $(this).serialize(),
-                url: this.action,
-                timeout: 2000,
-                error: function() {
-                    console.log("Failed to submit");
-                     console.log($(this).serialize());
-                },
-                success: function(r) {
-                    //do not add the user string to the chat area
-                    //since it's going to be retrieved from the server
-                    //$("#result h1").text(r);
-                     console.log($(this).serialize());
-                    triggerAjaxHandleEvents();
-                }
-               
-            });
-
-            $("#DoAction").hide();
-            // by default - we'll always return false so it doesn't redirect the user.
-            
-            return false;
-        });
+        $("#ActionHit").submit(DoPlayerAction);
+        $("#ActionDouble").submit(DoPlayerAction);
+        $("#ActionSplit").submit(DoPlayerAction);
+        $("#ActionStand").submit(DoPlayerAction);
     }
 );
+function DoPlayerAction() {
+    jQuery.ajax({
+        data: $(this).serialize(),
+        url: this.action,
+        timeout: 2000,
+        error: function() {
+            console.log("Failed to submit");
+        },
+        success: function(r) {
+            //do not add the user string to the chat area
+            //since it's going to be retrieved from the server
+            //$("#result h1").text(r);
+             console.log($(this).serialize());
+            triggerAjaxHandleEvents();
+        }
+
+    });
+
+    $("#DoAction").hide();
+    // by default - we'll always return false so it doesn't redirect the user.
+
+    return false;
+}

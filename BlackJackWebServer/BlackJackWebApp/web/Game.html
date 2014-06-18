@@ -50,7 +50,7 @@ and open the template in the editor.
              <div class="row">
                 <button type="button" class="btn btn-warning" id="btnResign">Resign</button>
              </div>
-             <div class="row">
+             <div id="Deck" class="row">
                  <img src="images/Background/Deck.png" />
              </div>
              <div class="row">
@@ -59,21 +59,21 @@ and open the template in the editor.
                       <button class="btn btn-lg btn-primary btn-block" type="submit" >Finish</button>
                 </form>
              </div>
-             <div class="row">
-                 <form id="DoAction" class="form-signin-heading" method="post" action="PlayerActions" Hidden>                       
+             <div id="DoAction" class="row" Hidden>
+                 <form id="ActionHit" class="form-signin-heading" method="post" action="PlayerActions" >                       
                       <input class="btn btn-lg btn-primary btn-block" name="Action" value="Hit" type="submit" />
                       <input name="Action" value="Hit" type="hidden" />
                 </form>
-                <form id="DoAction" class="form-signin-heading" method="post" action="PlayerActions" Hidden>                       
+                <form id="ActionDouble" class="form-signin-heading" method="post" action="PlayerActions" >                       
                       <input class="btn btn-lg btn-primary btn-block" name="Action" value="Double" type="submit" />
                       <input name="Action" value="Double" type="hidden" />
                 </form>
-                 <form id="DoAction" class="form-signin-heading" method="post" action="PlayerActions" Hidden>                       
+                 <form id="ActionSplit" class="form-signin-heading" method="post" action="PlayerActions" >                       
                       <input class="btn btn-lg btn-primary btn-block" name="Action" value="Split" type="submit" />
                       <input name="Action" value="Split" type="hidden" />
                 </form>
                  
-                 <form id="DoAction" class="form-signin-heading" method="post" action="PlayerActions" Hidden>                       
+                 <form id="ActionStand" class="form-signin-heading" method="post" action="PlayerActions" >                       
                       <input class="btn btn-lg btn-primary btn-block" name="Action" value="Stand" type="submit" />
                       <input name="Action" value="Stand" type="hidden" />
                 </form>
