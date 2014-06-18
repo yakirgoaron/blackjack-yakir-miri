@@ -37,11 +37,9 @@ public class HumanPlayer extends Player
         while (!ValidBid)
         {
             if (Playerbid < 0){
-                commGetBid.PrintMessage("You can`t insert negetive bid!!");
                 Playerbid = commGetBid.GetBidForPlayer(this);
             }
-            else if (Playerbid > Money){
-                commGetBid.PrintMessage("Too much money");           
+            else if (Playerbid > Money){   
                 Playerbid = commGetBid.GetBidForPlayer(this);
             }
             else

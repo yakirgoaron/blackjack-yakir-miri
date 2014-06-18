@@ -226,6 +226,8 @@ public class GameEngine
             {
                 DoPlayerMove(EnumAction, CurrentPlayer, CurrentBid);
                 commInterface.ActionOK();
+                if(EnumAction.equals(PlayerAction.HIT))
+                    continue;
                 ActionInvalid = false;
             } 
             catch (RulesDosentAllowException ex) 
