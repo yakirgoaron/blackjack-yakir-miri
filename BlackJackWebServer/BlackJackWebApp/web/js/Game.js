@@ -35,7 +35,7 @@ function refreshPlayers(users) {
        else
            image = 'HumanPlayer.png';
         $('<div class="row" id="'+val.Name+'">' + 
-                '<div class="col-md-1 col-xs-1"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div></div>').appendTo($("#players"));
+                '<div class="col-md-1 col-xs-1"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div></div>').appendTo($("#players")).fadeIn(4000);
         $('<div class="Bet1"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
     }
     });
@@ -69,10 +69,17 @@ function CardsDealt(event)
     $.each(arraycards, function(index, val)
     {
         //var end = $("#Deck").position().left;
-        var card = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(CardsTag);
-       //var temp = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo($("#Deck"));
-        //console.log(card);
+
+        var card = $("#"+event.playerName);
+        //var temp = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo($("#Deck"));
+        
+        //var card = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(CardsTag);
+        //var temp = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo($("#Deck"));
+
+        $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(CardsTag);
+        
         //temp.animate({right: card.offset().left + 500,bot: card.offset().bot + 500}, 3000);
+
         
         
     });
@@ -142,7 +149,6 @@ function DealWithEvents(events) {
     {
         triggerAjaxHandleEvents();
     }
-    
 }
 function ajaxShowPlayers() {
     jQuery.ajax({
