@@ -5,6 +5,8 @@
  */
 var CurrPlayer;
 var IsResigned = false;
+var IsSplitChosen = false;
+var HandToTake = 1;
 
 var GAME_START = "GameStart";
 var GAME_OVER = "GameOver";
@@ -37,6 +39,7 @@ function refreshPlayers(users) {
         $('<div class="row" id="'+val.Name+'">' + 
                 '<div class="col-md-1 col-xs-1"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div></div>').appendTo($("#players")).fadeIn(4000);
         $('<div class="Bet1"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
+        $('<div class="Bet2"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
     }
     });
 }
@@ -48,6 +51,7 @@ function RemovePlayer(name){
 function AddEffect(playerName){
  
     $('#img'+playerName).addClass("Effect");
+    $(playerName).children("Bet"+ HandToTake).addClass("Effect");
 }
 function RemoveDealerCards(){
     $("#DealerCards").empty();
@@ -57,7 +61,7 @@ function GameOver(){
 }
 
 function GameWinner(Name){
-    $('<div> winner is: '+ Name+'</div>').appendTo("#gamePlayers");
+    $('<div> winner is: '+ Name+'</div>').appendTo('#'+Name);
 }
 function RemovePlayers(){
     $("#players").empty();
@@ -65,9 +69,18 @@ function RemovePlayers(){
 function DisableResign(){
     document.getElementById("btnResign").setAttribute("disabled", "disabled");
 }
+
+function ShowUserAction(Name, Action){
+    $('<div> action:'+Action+'</div>').appendTo('#'+Name);
+}
 function CardsDealt(event)
 {
-    var CardsTag = $("#"+event.playerName).children(".Bet1").children(".Cards");
+    var CardsTag;
+    
+    if (event.playerName === "Dealer")   
+        CardsTag = $("#Dealer").children(".Cards");
+    else
+        CardsTag = $("#"+event.playerName).children(".Bet1").children(".Cards");
     var arraycards = event.cards;
     var PlayerCards;
     if($('Deck'+event.playerName).length > 0)
@@ -81,14 +94,16 @@ function CardsDealt(event)
     }
     CardsTag.empty();
     var card = $("#"+event.playerName);
-    $.each(arraycards, function(index, val)
+    console.log(card);
+    console.log(card.offset());
+    $.each(arraycards || [], function(index, val)
     {   
         $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(PlayerCards);        
         
     });
     PlayerCards.show(
                 function(){
-                    $(this).animate({right: $(this).offset().left - card.offset().left ,bot:$(this).offset().top - card.offset().top }, 3000,function(){
+               //     $(this).animate({right: $(this).offset().left - card.offset().left ,bot:$(this).offset().top - card.offset().top }, 3000,function(){
                            
                             CardsTag.empty();
                             $(this).children().appendTo(CardsTag);
@@ -96,7 +111,7 @@ function CardsDealt(event)
                              
                         });
                     
-                    });
+                  //  });
 }
 function DealWithEvents(events) {
     
@@ -122,6 +137,8 @@ function DealWithEvents(events) {
                 RemovePlayers();
                 RemoveDealerCards();
                 ajaxShowPlayers();
+                HandToTake = 1;
+                IsSplitChosen = false;
                 break;
             case "PLAYER_RESIGNED":
                 var Name = val.playerName;
@@ -156,7 +173,17 @@ function DealWithEvents(events) {
                     IsTrriger = false;
                 }
                 break;
-            case "USER_ACTION":
+            case "USER_ACTION":               
+                if(val.playerName === CurrPlayer.name)
+                {
+                    if (val.playerAction === "SPLIT")
+                        IsSplitChosen = true;
+                    else if ((IsSplitChosen === true) && 
+                             (val.playerAction !== "HIT") && (HandToTake < 2))
+                        HandToTake++;
+                }
+                
+                ShowUserAction(val.playerName, val.playerAction);
                 break;       
                     
         }

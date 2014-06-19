@@ -16,7 +16,9 @@ body {
  -moz-background-size: cover;
  -o-background-size: cover;
  background-size: cover;
+ color: white;
 }
+
 
 .Effect{
     box-shadow: red 0px 0px 5px;
