@@ -55,6 +55,10 @@ function RemoveDealerCards(){
 function GameOver(){
     window.location = "GameOver.html";
 }
+
+function GameWinner(Name){
+    $('<div> winner is: '+ Name+'</div>').appendTo("#gamePlayers");
+}
 function RemovePlayers(){
     $("#players").empty();
 }
@@ -101,6 +105,7 @@ function DealWithEvents(events) {
                 ajaxShowPlayers();
                 break;
             case "GAME_WINNER":
+                GameWinner(val.playerName);
                 break;
             case "NEW_ROUND":
                 RemovePlayers();
