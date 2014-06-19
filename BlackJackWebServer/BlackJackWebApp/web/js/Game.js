@@ -69,24 +69,34 @@ function CardsDealt(event)
 {
     var CardsTag = $("#"+event.playerName).children(".Bet1").children(".Cards");
     var arraycards = event.cards;
-    CardsTag.empty();
-    $.each(arraycards, function(index, val)
+    var PlayerCards;
+    if($('Deck'+event.playerName).length > 0)
     {
-        //var end = $("#Deck").position().left;
-
-        var card = $("#"+event.playerName);
-        //var temp = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo($("#Deck"));
-        
-        //var card = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(CardsTag);
-        //var temp = $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo($("#Deck"));
-
-        $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(CardsTag);
-        
-        //temp.animate({right: card.offset().left + 500,bot: card.offset().bot + 500}, 3000);
-
-        
+       PlayerCards = $('Deck'+event.playerName);
+       PlayerCards.empty();
+    }
+    else
+    {
+        PlayerCards = $('<div id="Deck'+event.playerName+'" class="col-md-1 col-xs-1"> </div>').appendTo($("#Deck"));
+    }
+    CardsTag.empty();
+    var card = $("#"+event.playerName);
+    $.each(arraycards, function(index, val)
+    {   
+        $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(PlayerCards);        
         
     });
+    PlayerCards.show(
+                function(){
+                    $(this).animate({right: $(this).offset().left - card.offset().left ,bot:$(this).offset().top - card.offset().top }, 3000,function(){
+                           
+                            CardsTag.empty();
+                            $(this).children().appendTo(CardsTag);
+                            $(this).remove();
+                             
+                        });
+                    
+                    });
 }
 function DealWithEvents(events) {
     
@@ -97,6 +107,7 @@ function DealWithEvents(events) {
         switch(val.type){
             case "CARDS_DEALT":
                 CardsDealt(val);
+               
                 break;
             case "GAME_OVER":
                 GameOver();
@@ -154,6 +165,14 @@ function DealWithEvents(events) {
     {
         triggerAjaxHandleEvents();
     }
+}
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
 }
 function ajaxShowPlayers() {
     jQuery.ajax({
