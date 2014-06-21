@@ -37,15 +37,14 @@ import ws.blackjack.PlayerType;
  */
 public class EngineManager {
     private static int uniqePlayerID = 0;
-    private static int uniqeEventID = 0;
+    //private static int uniqeEventID = 0;
     private static int CompIdGen=1;
-    private static HashMap<String,GameDetails> gamemanager = new HashMap<>();
+    private static HashMap<String,GameManager> gamemanager = new HashMap<>();
     private static HashMap<Integer, PlayerDetails> playerManager = new HashMap<>();
 
     private static HashMap<Integer, String> IdToGame = new HashMap<>();
-    private static ArrayList<Event> Events = new ArrayList<>();
+    
     private static Double Money = null;
-    private static GameEngineStart Engine ;
     private static Action plPlayerAction = null;
     private static Boolean StopWait = false;
 
@@ -53,17 +52,12 @@ public class EngineManager {
     private EngineManager()
     {
     }
-    public static void ClearData()
+    /*public static void ClearData()
     {
         IdToGame.clear();
         gamemanager.clear();
-        playerManager.clear();
-        Events.clear();
         uniqeEventID = 0;
-    }
-    public static ArrayList<Event> getEvents() {
-        return Events;
-    }
+    }*/
     
     public static Boolean isStopWait() {
         return StopWait;
@@ -78,9 +72,9 @@ public class EngineManager {
     }
 
     
-    public static int getUniqeEventID() {
+    /*public static int getUniqeEventID() {
         return uniqeEventID++;
-    }
+    }*/
     
     public static Action getPlPlayerAction() {
         return plPlayerAction;
@@ -116,11 +110,12 @@ public class EngineManager {
         {
             ThrowInvalidParameter("Player id does not exsists");
         }
-        if(eventId > Events.size() || eventId < 0)
+        GameManager gm = gamemanager.get(IdToGame.get(playerId));
+        if(eventId > gm.GetEvents().size() || eventId < 0)
         {
             ThrowInvalidParameter("Error eventid is incorrect");
         }
-        return Events.subList(eventId, Events.size() );
+        return gm.GetEvents().subList(eventId, gm.GetEvents().size() );
     }
     
     private static void CreateServerGame(String GameName,GameDetails gmDetail) throws DuplicateGameName_Exception, InvalidParameters_Exception
@@ -131,11 +126,10 @@ public class EngineManager {
             faultinfo.setMessage("Error Duplicate name");
             throw new DuplicateGameName_Exception("Error Duplicate name",faultinfo);
         }
-        if(gamemanager.keySet().size() > 0)
-        {
-            ThrowInvalidParameter("Too many Games");
-        }
-        gamemanager.put(GameName, gmDetail);
+        
+        GameManager newGame = new GameManager();
+        newGame.setGmDetails(gmDetail);
+        gamemanager.put(GameName, newGame);
     }
     
     
@@ -179,16 +173,15 @@ public class EngineManager {
         IdToGame.put(uniqePlayerID, name);
           
         CreateServerGame(name,gmDetail);
-        Engine = new GameEngineStart();
+        
         try 
         {
-            Engine.AddCompPlayers(computerizedPlayers);
+            gamemanager.get(name).getEngine().AddCompPlayers(computerizedPlayers);
         } 
         catch (TooManyPlayersException ex) 
         {
             ThrowInvalidParameter("Too many players");
         }
-        Events.clear();
     }
     
     public static GameDetails GetGameDetails(String name ) throws GameDoesNotExists_Exception
@@ -199,7 +192,7 @@ public class EngineManager {
             throw new GameDoesNotExists_Exception("Game does not exists",gmInfo);
         }
         
-        return gamemanager.get(name);
+        return gamemanager.get(name).getGmDetails();
     }
     
     public static PlayerDetails GetPlayerDetails(int PlayerId) throws InvalidParameters_Exception{
@@ -230,6 +223,7 @@ public class EngineManager {
                 if (players.getValue().equals(GameName)){             
                     ID = players.getKey();
                     playersDetails.add(playerManager.get(ID));
+                    System.out.println("GAME IS "+ GameName +" PLAYER IS " + playerManager.get(ID).getName());
                 }
             }
 
@@ -250,19 +244,19 @@ public class EngineManager {
         }
         else
         {
-            GameDetails Game = gamemanager.get(GameName);
+            GameManager Game = gamemanager.get(GameName);
             player = CheckIfNameExists(PlayerName);
-            if (player != null && !gamemanager.get(GameName).isLoadedFromXML())
+            if (player != null && !Game.getGmDetails().isLoadedFromXML())
             {
                 ThrowInvalidParameter("Error - name already exists");
                 
             }
-            else if(gamemanager.get(GameName).isLoadedFromXML() && player != null && player.getStatus().equals(PlayerStatus.ACTIVE))
+            else if(Game.getGmDetails().isLoadedFromXML() && player != null && player.getStatus().equals(PlayerStatus.ACTIVE))
             {
-                 Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
+                 Game.getGmDetails().setJoinedHumanPlayers(Game.getGmDetails().getJoinedHumanPlayers() + 1);
                  player.setStatus(PlayerStatus.JOINED);
             }
-            else if(gamemanager.get(GameName).isLoadedFromXML() && player != null && player.getStatus().equals(PlayerStatus.JOINED))
+            else if(Game.getGmDetails().isLoadedFromXML() && player != null && player.getStatus().equals(PlayerStatus.JOINED))
             {
                 ThrowInvalidParameter("Error - the player is taken");
             }
@@ -277,29 +271,30 @@ public class EngineManager {
                 player.setName(PlayerName);
                 try 
                 {
-                    Engine.AddHumanPlayers(PlayerName);
+                    Game.getEngine().AddHumanPlayers(PlayerName);
                 } 
                 catch (TooManyPlayersException ex) 
                 {
                     ThrowInvalidParameter("Too many players");
                 }
                 
-                Game.setJoinedHumanPlayers(Game.getJoinedHumanPlayers() + 1);
+                Game.getGmDetails().setJoinedHumanPlayers(Game.getGmDetails().getJoinedHumanPlayers() + 1);
 
                 playerManager.put(uniqePlayerID, player);
                 IdToGame.put(uniqePlayerID, GameName); 
             }
-            if(Game.getJoinedHumanPlayers() == Game.getHumanPlayers())
+            if(Game.getGmDetails().getJoinedHumanPlayers() == Game.getGmDetails().getHumanPlayers())
             {
                 Event StartGame = new Event();
-                StartGame.setId(getUniqeEventID());
+                StartGame.setId(Game.GetEvents().size()+1);
+                Game.getGmDetails().setStatus(GameStatus.ACTIVE);
                 StartGame.setType(EventType.GAME_START);
-                Events.add(StartGame);
-                Engine.setDaemon(true);
-                Engine.start();
+                Game.GetEvents().add(StartGame);
+                Game.getEngine().setDaemon(true);
+                Game.getEngine().start();
             }
         }
-        Engine.SyncAllPlayers();
+        gamemanager.get(GameName).getEngine().SyncAllPlayers();
         return PlayerIDFromName(player.getName());
     }
     
@@ -332,9 +327,9 @@ public class EngineManager {
         
         List<String> ActiveGames = new ArrayList<>();
         
-        for (Entry<String, GameDetails> game : gamemanager.entrySet())
+        for (Entry<String, GameManager> game : gamemanager.entrySet())
         {
-            if (game.getValue().getStatus().equals(GameStatus.ACTIVE))
+            if (game.getValue().getGmDetails().getStatus().equals(GameStatus.ACTIVE))
             {
                 ActiveGames.add(game.getKey());
             }
@@ -342,13 +337,13 @@ public class EngineManager {
         return ActiveGames;
     }
     
-        public static List<String> GetWaitingGames(){
+    public static List<String> GetWaitingGames(){
         
         List<String> WaitingGames = new ArrayList<>();
         
-        for (Entry<String, GameDetails> game : gamemanager.entrySet())
+        for (Entry<String, GameManager> game : gamemanager.entrySet())
         {
-            if (game.getValue().getStatus().equals(GameStatus.WAITING))
+            if (game.getValue().getGmDetails().getStatus().equals(GameStatus.WAITING))
             {
                 WaitingGames.add(game.getKey());
             }
@@ -364,53 +359,60 @@ public class EngineManager {
         else{
             PlayerDetails player = playerManager.get(PlayerId);
             player.setStatus(PlayerStatus.RETIRED);
+            String Game = IdToGame.get(PlayerId);
             IdToGame.remove(PlayerId);
             
             Event playerResign  = new Event();
-            playerResign.setId(getUniqeEventID());          
+            playerResign.setId(gamemanager.get(Game).GetEvents().size()+1);          
             playerResign.setPlayerName(player.getName());      
             playerResign.setType(EventType.PLAYER_RESIGNED);
-            Events.add(playerResign);
+            gamemanager.get(Game).GetEvents().add(playerResign);
+            
+            synchronized(StopWait)
+            {
+                if(gamemanager.get(Game).getEngine().getCurrPlayer().equals(playerManager.get(PlayerId)))
+                    StopWait.notifyAll();
+            }
         }
             
-        synchronized(StopWait)
-        {
-            if(Engine.getCurrPlayer().equals(playerManager.get(PlayerId)))
-                StopWait.notifyAll();
-        }
+        
         
     }
     
     public static String CreateGameFromXML(String XMLData) throws DuplicateGameName_Exception, InvalidParameters_Exception, InvalidXML_Exception
     {
+        String GameName = null;
         try 
         {
-            Engine = new GameEngineStart(XMLData);
+            GameManager Game = new GameManager(XMLData);
             GameDetails gmDetail = new GameDetails();
-            gmDetail.setHumanPlayers(Engine.GetHumanPlayers());
-            gmDetail.setComputerizedPlayers(Engine.GetCompPlayers());
+            gmDetail.setHumanPlayers(Game.getEngine().GetHumanPlayers());
+            gmDetail.setComputerizedPlayers(Game.getEngine().GetCompPlayers());
             gmDetail.setJoinedHumanPlayers(0);
-            gmDetail.setName(Engine.GetGameName());
+            gmDetail.setName(Game.getEngine().GetGameName());
             gmDetail.setStatus(GameStatus.WAITING);
             gmDetail.setLoadedFromXML(true);
-            CreateServerGame(Engine.GetGameName(),gmDetail);
-            Engine.CreatePlayerDetailsEngMng(Engine.GetGameName());
+            CreateServerGame(Game.getEngine().GetGameName(),gmDetail);
+            Game.getEngine().CreatePlayerDetailsEngMng(Game.getEngine().GetGameName());
+            GameName = Game.getEngine().GetGameName();
         }
         catch (DuplicateCardException | SAXException | TooManyPlayersException | JAXBException ex) 
         {
             InvalidXML exXml = new InvalidXML();
             throw new InvalidXML_Exception("XML File is not valid", exXml);
         }
-        uniqePlayerID++;
-        PlayerDetails Dealer = new PlayerDetails();
-        Dealer.setStatus(PlayerStatus.ACTIVE);
-        Dealer.setName("Dealer");
-        Dealer.setType(PlayerType.COMPUTER);
-        Dealer.setMoney(0);
-        playerManager.put(uniqePlayerID, Dealer);
-        IdToGame.put(uniqePlayerID, Engine.GetGameName());
-        Events.clear();
-        return Engine.GetGameName();
+        if(GameName != null)
+        {
+            uniqePlayerID++;
+            PlayerDetails Dealer = new PlayerDetails();
+            Dealer.setStatus(PlayerStatus.ACTIVE);
+            Dealer.setName("Dealer");
+            Dealer.setType(PlayerType.COMPUTER);
+            Dealer.setMoney(0);
+            playerManager.put(uniqePlayerID, Dealer);
+            IdToGame.put(uniqePlayerID, GameName);
+        }
+        return GameName;
     }
     
     public static void Playeraction(int playerId, int eventId, ws.blackjack.Action action, float money, int bet) throws InvalidParameters_Exception
@@ -419,14 +421,15 @@ public class EngineManager {
         {
             ThrowInvalidParameter("Error - player doesn`t exist");  
         }
-        if(Events.size() != eventId)
+        GameManager Game = gamemanager.get(IdToGame.get(playerId));
+        if(Game.GetEvents().size() != eventId)
         {
            ThrowInvalidParameter("Error - event id not last");
         }
         
         Event playerAction = new Event();
         playerAction.setType(EventType.USER_ACTION);
-        playerAction.setId(getUniqeEventID());
+        playerAction.setId(Game.GetEvents().size()+1);
         playerAction.setPlayerName(playerManager.get(playerId).getName());
         playerAction.setPlayerAction(action);
         
@@ -440,17 +443,17 @@ public class EngineManager {
         {
             StopWait.notifyAll();
         }
-        synchronized(Engine.isWaitEnd())    
+        synchronized(Game.getEngine().isWaitEnd())    
         {
             try 
             {
-                Engine.isWaitEnd().wait();
+                Game.getEngine().isWaitEnd().wait();
             }
             catch (InterruptedException ex) 
             {
                 ThrowInvalidParameter("Action chosen was not valid");
             }
-            if(Engine.isErrorFound())
+            if(Game.getEngine().isErrorFound())
             {
                 ThrowInvalidParameter("Action chosen was not valid");
             }

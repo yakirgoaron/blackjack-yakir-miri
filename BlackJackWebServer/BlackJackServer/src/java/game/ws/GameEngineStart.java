@@ -50,23 +50,31 @@ public class GameEngineStart extends Thread implements Communicable
     private Boolean isInEndRound = false;
     private PlayerDetails CurrPlayer;
     private final int Timeout = 10000;
+    private ArrayList<Event> Events;
+
     
     public GameEngineStart()
     {
         GameEngMang = new GameEngine();
         PlayerByName = new HashMap<>();
+        Events = new ArrayList<>();
     }
     
     public GameEngineStart(String File) throws DuplicateCardException, SAXException, TooManyPlayersException, JAXBException
     {
         GameEngMang = new  GameEngine(File);  
         PlayerByName = new HashMap<>();
+        Events = new ArrayList<>();
     }
 
     public PlayerDetails getCurrPlayer() {
         return CurrPlayer;
     }
-
+    
+    public ArrayList<Event> getEvents() {
+        return Events;
+    }
+    
     public int GetHumanPlayers()
     {
         int counter = 0;
@@ -225,22 +233,22 @@ public class GameEngineStart extends Thread implements Communicable
             }
             SynchronyizePlayerToPlayerDetails(player);
             Event envtBid = new Event();
-            envtBid.setId(EngineManager.getUniqeEventID());
+            envtBid.setId(Events.size()+1);
             envtBid.setPlayerName(player.getName());
             envtBid.setType(EventType.CARDS_DEALT);
             envtBid.setMoney(player.getBids().get(0).getTotalBid().floatValue());
             envtBid.getCards().addAll(ConvertCardsFromEngineToWSDL(player.getBids().get(0).getCards()));
-            EngineManager.getEvents().add(envtBid);
+            Events.add(envtBid);
         }
     }
 
     @Override
     public void RemovePlayer(Player player) {
         Event evntPlayerResign = new Event();
-        evntPlayerResign.setId(EngineManager.getUniqeEventID());
+        evntPlayerResign.setId(Events.size()+1);
         evntPlayerResign.setType(EventType.PLAYER_RESIGNED);
         evntPlayerResign.setPlayerName(player.getName());
-        EngineManager.getEvents().add(evntPlayerResign);
+        Events.add(evntPlayerResign);
     }
 
     
@@ -258,10 +266,10 @@ public class GameEngineStart extends Thread implements Communicable
             }
         }
         Event evntNewRound = new Event();
-        evntNewRound.setId(EngineManager.getUniqeEventID());
+        evntNewRound.setId(Events.size()+1);
         evntNewRound.setType(EventType.NEW_ROUND);
         evntNewRound.setPlayerName(player.getName());
-        EngineManager.getEvents().add(evntNewRound);
+        Events.add(evntNewRound);
     }
 
     @Override
@@ -278,11 +286,11 @@ public class GameEngineStart extends Thread implements Communicable
             throw new PlayerResigned();
         CurrPlayer = PlayerByName.get(CurrentPlayer.getName());
         Event envtBid = new Event();
-        envtBid.setId(EngineManager.getUniqeEventID());
+        envtBid.setId(Events.size()+1);
         envtBid.setPlayerName(CurrentPlayer.getName());
         envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
         envtBid.setTimeout(Timeout);
-        EngineManager.getEvents().add(envtBid);
+        Events.add(envtBid);
         Action act = EngineManager.getPlPlayerAction();
         synchronized(EngineManager.isStopWait())
         {
@@ -318,10 +326,10 @@ public class GameEngineStart extends Thread implements Communicable
             throw new PlayerResigned();
         
         Event envtBid = new Event();
-        envtBid.setId(EngineManager.getUniqeEventID());
+        envtBid.setId(Events.size()+1);
         envtBid.setPlayerName(PlayerToPrint.getName());
         envtBid.setType(EventType.PLAYER_TURN);
-        EngineManager.getEvents().add(envtBid);
+        Events.add(envtBid);
     }
 
     @Override
@@ -336,11 +344,11 @@ public class GameEngineStart extends Thread implements Communicable
             throw new PlayerResigned();
         CurrPlayer = PlayerByName.get(BettingPlayer.getName());
         Event envtBid = new Event();
-        envtBid.setId(EngineManager.getUniqeEventID());
+        envtBid.setId(Events.size()+1);
         envtBid.setPlayerName(BettingPlayer.getName());
         envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
         envtBid.setTimeout(Timeout);
-        EngineManager.getEvents().add(envtBid);
+        Events.add(envtBid);
         Double Money = EngineManager.getMoney();
         synchronized(EngineManager.isStopWait())
         {
@@ -389,13 +397,13 @@ public class GameEngineStart extends Thread implements Communicable
             throw new PlayerResigned();
         
         Event envtBid = new Event();
-        envtBid.setId(EngineManager.getUniqeEventID());
+        envtBid.setId(Events.size()+1);
         envtBid.setPlayerName(PlayerBid.getName());
         envtBid.setType(EventType.CARDS_DEALT);
         envtBid.setMoney(BidForPrint.getTotalBid().floatValue());
         envtBid.getCards().addAll(ConvertCardsFromEngineToWSDL(BidForPrint.getCards()));
         
-        EngineManager.getEvents().add(envtBid);
+        Events.add(envtBid);
     }
 
     @Override
@@ -406,11 +414,11 @@ public class GameEngineStart extends Thread implements Communicable
             throw new PlayerResigned();
                 
         Event CardsDealt = new Event();
-        CardsDealt.setId(EngineManager.getUniqeEventID());
+        CardsDealt.setId(Events.size()+1);
         CardsDealt.setPlayerName(ParPlayer.getName());
         CardsDealt.setType(EventType.CARDS_DEALT);
         CardsDealt.getCards().addAll(ConvertCardsFromEngineToWSDL(HandForPrint.getCards()));
-        EngineManager.getEvents().add(CardsDealt);
+        Events.add(CardsDealt);
     }
 
     @Override
@@ -422,11 +430,11 @@ public class GameEngineStart extends Thread implements Communicable
     public void PrintPlayerAction(AIPlayer PlayerAct, PlayerAction Action) 
     {
         Event evntAction = new Event();
-        evntAction.setId(EngineManager.getUniqeEventID());
+        evntAction.setId(Events.size()+1);
         evntAction.setPlayerName(PlayerAct.getName());
         evntAction.setType(EventType.USER_ACTION);
         evntAction.setPlayerAction(synActionToAction(Action));
-        EngineManager.getEvents().add(evntAction);
+        Events.add(evntAction);
         SyncAllPlayers();
         
     }
@@ -440,19 +448,19 @@ public class GameEngineStart extends Thread implements Communicable
     public void GameWinner(Player PlayerWin) 
     {
         Event evntWinner = new Event();
-        evntWinner.setId(EngineManager.getUniqeEventID());
+        evntWinner.setId(Events.size()+1);
         evntWinner.setPlayerName(PlayerWin.getName());
         evntWinner.setType(EventType.GAME_WINNER);
-        EngineManager.getEvents().add(evntWinner);
+        Events.add(evntWinner);
     }
 
     @Override
     public void GameEnded() {
         Event evntGameEnded = new Event();
-        evntGameEnded.setId(EngineManager.getUniqeEventID());
+        evntGameEnded.setId(Events.size()+1);
         evntGameEnded.setType(EventType.GAME_OVER);
-        EngineManager.getEvents().add(evntGameEnded);
-        EngineManager.ClearData();
+        Events.add(evntGameEnded);
+        //EngineManager.ClearData();
     }
 
     @Override
