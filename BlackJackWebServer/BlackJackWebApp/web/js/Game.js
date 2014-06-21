@@ -37,9 +37,11 @@ function refreshPlayers(users) {
        else
            image = 'HumanPlayer.png';
         $('<div class="row" id="'+val.Name+'">' + 
-                '<div class="col-md-1 col-xs-1"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div></div>').appendTo($("#players")).fadeIn(4000);
-        $('<div class="Bet1"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
-        $('<div class="Bet2"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
+                '<div class="col-md-8 col-xs-8"><div class="col-md-1 col-xs-1"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div>'+
+                  '<div class="col-md-7 col-xs-7"><div class="row Bet1"><div class="Cards"></div></div><div class="row Bet2"><div class="Cards"></div></div></div></div>').appendTo($("#players")).fadeIn(4000);
+        
+     //   $('<div class="row Bet1"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
+      //  $('<div class="row Bet2"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
     }
     });
 }
@@ -51,7 +53,12 @@ function RemovePlayer(name){
 function AddEffect(playerName){
  
     $('#img'+playerName).addClass("Effect");
-    $(playerName).children("Bet"+ HandToTake).addClass("Effect");
+    var player  = $('#'+playerName).children(".Bet"+HandToTake);
+    console.log("player");
+    console.log(player);
+    console.log(player.offset());
+    
+    $('#'+playerName).children(".Bet"+HandToTake).addClass("Effect");
 }
 function RemoveDealerCards(){
     $("#DealerCards").empty();
@@ -73,15 +80,57 @@ function DisableResign(){
 function ShowUserAction(Name, Action){
     $('<div> action:'+Action+'</div>').appendTo('#'+Name);
 }
+
+function ShowDealtCards(playerName, CardsTag, arraycards, BetNum){
+
+    var PlayerCards;
+    if($('#Deck'+playerName+BetNum).length > 0)
+    {
+       PlayerCards = $('#Deck'+playerName+BetNum);
+       PlayerCards.empty();
+    }
+    else
+    {
+        PlayerCards = $('<div id="Deck'+playerName+BetNum+'" class="col-md-1 col-xs-1"> </div>').appendTo($("#Deck"));
+    }
+    CardsTag.empty();
+    var card = $("#"+playerName);
+    $.each(arraycards || [], function(index, val)
+    {   
+        $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(PlayerCards);        
+        
+    });
+    PlayerCards.show(
+                function(){
+                  $(this).animate({right: $(this).offset().left - card.offset().left ,bot:$(this).offset().top - card.offset().top }, 3000,function(){
+                           
+                            CardsTag.empty();
+                            $(this).children().appendTo(CardsTag);
+                            $(this).remove();
+                             
+                        });
+                    
+                    });    
+}
+
 function CardsDealt(event)
 {
     var CardsTag;
-    
+    var arraycards;
+    var PlayerData = ajaxPlayerDetails(event.playerName);
     if (event.playerName === "Dealer")   
         CardsTag = $("#Dealer").children(".Cards");
-    else
-        CardsTag = $("#"+event.playerName).children(".Bet1").children(".Cards");
-    var arraycards = event.cards;
+    else{
+        console.log($("#"+event.playerName).children());
+        CardsTag = $("#"+event.playerName).children().children().children(".Bet1").children(".Cards");
+        var CardsTag2 = $("#"+event.playerName).children().children().children(".Bet2").children(".Cards");
+        arraycards = PlayerData.Bets[1].BetCards;
+        ShowDealtCards(event.playerName, CardsTag2, arraycards, "2");
+    }
+    arraycards = PlayerData.Bets[0].BetCards;
+    ShowDealtCards(event.playerName, CardsTag, arraycards, "1");
+    
+    /*
     var PlayerCards;
     if($('Deck'+event.playerName).length > 0)
     {
@@ -94,8 +143,6 @@ function CardsDealt(event)
     }
     CardsTag.empty();
     var card = $("#"+event.playerName);
-    console.log(card);
-    console.log(card.offset());
     $.each(arraycards || [], function(index, val)
     {   
         $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(PlayerCards);        
@@ -103,7 +150,7 @@ function CardsDealt(event)
     });
     PlayerCards.show(
                 function(){
-               //     $(this).animate({right: $(this).offset().left - card.offset().left ,bot:$(this).offset().top - card.offset().top }, 3000,function(){
+                  $(this).animate({right: $(this).offset().left - card.offset().left ,bot:$(this).offset().top - card.offset().top }, 3000,function(){
                            
                             CardsTag.empty();
                             $(this).children().appendTo(CardsTag);
@@ -111,7 +158,8 @@ function CardsDealt(event)
                              
                         });
                     
-                  //  });
+                    });*/
+    
 }
 function DealWithEvents(events) {
     
@@ -205,6 +253,7 @@ function ajaxShowPlayers() {
     jQuery.ajax({
             dataType: 'json',
             url: "GamePlayers",
+            async: false,
             timeout: 2000,
             error: function() {
                 console.log("Failed to submit");
@@ -220,6 +269,7 @@ function ajaxHandleEvents() {
     jQuery.ajax({
             dataType: 'json',
             url: "EventsHappened",
+            async:false,
             timeout: 2000,
             error: function() {
                 console.log("Failed to submit");
@@ -234,6 +284,26 @@ function ajaxHandleEvents() {
 
 function triggerAjaxHandleEvents() {
     setTimeout(ajaxHandleEvents, refreshRate);
+}
+
+function ajaxPlayerDetails(PlayerName) 
+{
+var Temp; 
+ jQuery.ajax({
+            type:'post',
+            dataType: 'json',
+            url: "PlayerDetails?PlayerName="+PlayerName,
+            async: false,
+            timeout: 2000,
+            error: function() {
+                console.log("Failed to submit");
+            },
+            success: function(Player) 
+            {
+                Temp = Player;                              
+            }
+        });   
+        return Temp;
 }
 
 function ajaxCurrPlayer() {

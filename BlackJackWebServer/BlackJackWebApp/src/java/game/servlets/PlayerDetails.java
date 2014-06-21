@@ -78,34 +78,43 @@ public class PlayerDetails extends HttpServlet{
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String ID = request.getParameter("PlayerID");
-            Integer PlayerID;
-            if(ID == null)
-                PlayerID = (Integer)request.getSession().getAttribute("PlayerID");
-            else
-                PlayerID = Integer.parseInt(ID);
-            /*
-            String GameName = request.getParameter("GameName");            
-            if (GameName == null)
-                GameName = (String)request.getSession().getAttribute("GameName");*/
-            
+        try (PrintWriter out = response.getWriter()) {           
             BlackJackWebService GameWS = SessionUtils.getBJWSClient(request);
-           // PlayerData Player = GetPlayerDetailsByName(GameWS, GameName, PlayerName);
-            try {
-                game.ws.client.PlayerDetails PlayerByID= GameWS.getPlayerDetails(PlayerID);
-                PlayerData Player = new PlayerData(PlayerByID);
-                Gson gson = new Gson();
+            PlayerData Player = null;
+            
+            String PlayerName = request.getParameter("PlayerName");          
+            if ((PlayerName!= null) && (!PlayerName.equals(""))){
+                
+                String GameName = request.getParameter("GameName");            
+                if (GameName == null)
+                    GameName = (String)request.getSession().getAttribute("GameName");
+                 Player = GetPlayerDetailsByName(GameWS, GameName, PlayerName);
+            }
+            else{
+                String ID = request.getParameter("PlayerID");
+                Integer PlayerID;
+
+                if(ID == null)
+                    PlayerID = (Integer)request.getSession().getAttribute("PlayerID");
+                else
+                    PlayerID = Integer.parseInt(ID);
+
+                try {
+                    game.ws.client.PlayerDetails PlayerByID= GameWS.getPlayerDetails(PlayerID);
+                    Player = new PlayerData(PlayerByID);
+
+                    System.out.println(PlayerByID.getFirstBetWage());
+
+                } catch (GameDoesNotExists_Exception ex) {
+                    Logger.getLogger(PlayerDetails.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidParameters_Exception ex) {
+                    Logger.getLogger(PlayerDetails.class.getName()).log(Level.SEVERE, null, ex);
+                }    
+            }
+            Gson gson = new Gson();
                 String jsonResponse = gson.toJson(Player);
                 out.print(jsonResponse);
                 out.flush();
-                System.out.println(PlayerByID.getFirstBetWage());
-                
-            } catch (GameDoesNotExists_Exception ex) {
-                Logger.getLogger(PlayerDetails.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvalidParameters_Exception ex) {
-                Logger.getLogger(PlayerDetails.class.getName()).log(Level.SEVERE, null, ex);
-            }    
         }
     }
 
