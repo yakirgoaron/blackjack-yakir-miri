@@ -226,7 +226,7 @@ public class GameEngine
             {
                 DoPlayerMove(EnumAction, CurrentPlayer, CurrentBid);
                 commInterface.ActionOK();
-                if(EnumAction.equals(PlayerAction.HIT))
+                if(EnumAction.equals(PlayerAction.HIT) || EnumAction.equals(PlayerAction.SPLIT))
                     continue;
                 ActionInvalid = false;
             } 
