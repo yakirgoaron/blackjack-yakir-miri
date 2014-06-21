@@ -23,6 +23,7 @@ var HIT = "Hit";
 var SPLIT = "Split";
 var STAND = "Stand";
 var refreshRate = 2000;
+var valuepg = 100;
 
 function refreshPlayers(users) {
     RemovePlayers();  
@@ -150,7 +151,7 @@ function CardsDealt(event)
     });
     PlayerCards.show(
                 function(){
-                  $(this).animate({right: $(this).offset().left - card.offset().left ,bot:$(this).offset().top - card.offset().top }, 3000,function(){
+                    $(this).animate({right: $(this).offset().left - card.offset().left ,bot:$(this).offset().top - card.offset().top }, 3000,function(){
                            
                             CardsTag.empty();
                             $(this).children().appendTo(CardsTag);
@@ -160,6 +161,27 @@ function CardsDealt(event)
                     
                     });*/
     
+}
+
+
+function ChangeProgressDown()
+{
+    setTimeout(ProgressBarUpdate, 1000);
+}
+
+function ProgressBarUpdate()
+{
+       valuepg -= 10;
+       $('#ValuePrg').css('width', valuepg+'%').attr('aria-valuenow', valuepg);
+       if(valuepg < 40)
+       {
+           $('#ValuePrg').attr('class', 'progress-bar progress-bar-danger');
+       }
+       else if(valuepg < 80)
+       {
+           $('#ValuePrg').attr('class', 'progress-bar progress-bar-warning');
+       }
+       ChangeProgressDown();
 }
 function DealWithEvents(events) {
     
@@ -204,6 +226,7 @@ function DealWithEvents(events) {
                 break;
             case "PROMPT_PLAYER_TO_TAKE_ACTION":                
                 ajaxCurrPlayer();
+                ChangeProgressDown();
                 if(val.playerName === CurrPlayer.name)
                 {
                     // TODO TIMER
@@ -343,7 +366,7 @@ $(function()
 
             $("#PlaceBetfrm").hide();
             // by default - we'll always return false so it doesn't redirect the user.
-            
+            $('#ValuePrg').css('width', 100+'%').attr('aria-valuenow', 100);
             return false;
         });
         
@@ -372,6 +395,7 @@ function DoPlayerAction() {
     });
 
     $("#DoAction").hide();
+    $('#ValuePrg').css('width', 100+'%').attr('aria-valuenow', 100);
     // by default - we'll always return false so it doesn't redirect the user.
 
     return false;
