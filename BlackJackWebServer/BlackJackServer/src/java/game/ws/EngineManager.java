@@ -118,7 +118,7 @@ public class EngineManager {
         return gm.GetEvents().subList(eventId, gm.GetEvents().size() );
     }
     
-    private static void CreateServerGame(String GameName,GameDetails gmDetail) throws DuplicateGameName_Exception, InvalidParameters_Exception
+    private static void CreateServerGame(String GameName,GameManager gmDetail) throws DuplicateGameName_Exception, InvalidParameters_Exception
     {
         if(gamemanager.containsKey(GameName))
         {
@@ -127,9 +127,9 @@ public class EngineManager {
             throw new DuplicateGameName_Exception("Error Duplicate name",faultinfo);
         }
         
-        GameManager newGame = new GameManager();
-        newGame.setGmDetails(gmDetail);
-        gamemanager.put(GameName, newGame);
+        /*GameManager newGame = new GameManager();
+        newGame.setGmDetails(gmDetail);*/
+        gamemanager.put(GameName, gmDetail);
     }
     
     
@@ -171,8 +171,9 @@ public class EngineManager {
         Dealer.setMoney(0);
         playerManager.put(uniqePlayerID, Dealer);
         IdToGame.put(uniqePlayerID, name);
-          
-        CreateServerGame(name,gmDetail);
+        GameManager temp = new GameManager();
+        temp.setGmDetails(gmDetail);
+        CreateServerGame(name,temp);
         
         try 
         {
@@ -392,7 +393,8 @@ public class EngineManager {
             gmDetail.setName(Game.getEngine().GetGameName());
             gmDetail.setStatus(GameStatus.WAITING);
             gmDetail.setLoadedFromXML(true);
-            CreateServerGame(Game.getEngine().GetGameName(),gmDetail);
+            Game.setGmDetails(gmDetail);
+            CreateServerGame(Game.getEngine().GetGameName(),Game);
             Game.getEngine().CreatePlayerDetailsEngMng(Game.getEngine().GetGameName());
             GameName = Game.getEngine().GetGameName();
         }
