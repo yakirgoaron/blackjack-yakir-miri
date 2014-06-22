@@ -48,7 +48,7 @@ function refreshPlayers(users) {
 }
 
 function RemovePlayer(name){
-    $('"#"'+name);
+    $('#'+name).empty();
 }
 
 function AddEffect(playerName){
@@ -166,7 +166,7 @@ function CardsDealt(event)
 
 function ChangeProgressDown()
 {
-    setTimeout(ProgressBarUpdate, 1000);
+    setTimeout(ProgressBarUpdate, 2000);
 }
 
 function ProgressBarToNormal()
@@ -178,7 +178,7 @@ function ProgressBarToNormal()
 
 function ProgressBarUpdate()
 {
-       valuepg -= 10;
+       valuepg -= 20;
        $('#ValuePrg').css('width', valuepg+'%').attr('aria-valuenow', valuepg);
        if(valuepg < 40)
        {

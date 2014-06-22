@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
                     getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
             }           
            // request.getRequestDispatcher("CreateGame.html").forward(request, response);
-            response.sendRedirect("CreateGame.html");
+            response.sendRedirect("JoinOrCreateGame.html");
         }
         
         
