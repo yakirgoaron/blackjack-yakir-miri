@@ -25,6 +25,7 @@ var SPLIT = "Split";
 var STAND = "Stand";
 var refreshRate = 2000;
 var valuepg = 100;
+var timers = new Array();
 
 function refreshPlayers(users) {
     RemovePlayers();  
@@ -188,7 +189,7 @@ function CardsDealt(event)
 
 function ChangeProgressDown()
 {
-    setTimeout(ProgressBarUpdate, 2000);
+    timers.push(setTimeout(ProgressBarUpdate, 1000));
 }
 
 function ProgressBarToNormal()
@@ -198,9 +199,27 @@ function ProgressBarToNormal()
     $('#ValuePrg').attr('class', 'rogress-bar progress-bar-success');
 }
 
+
+function ProgressBarForAction()
+{
+    $('#ValuePrg').css('width', '180%').attr('aria-valuenow', 110);
+    valuepg = 110;
+    $('#ValuePrg').attr('class', 'rogress-bar progress-bar-success');
+    ChangeProgressDown();
+}
+
 function ProgressBarUpdate()
 {
-       valuepg -= 20;
+       valuepg -= 10;
+       for (var i = 0; i < timers.length; i++)
+       {
+           clearTimeout(timers[i]);
+       }
+       if(valuepg === 100)
+       {
+           
+           $('#ValuePrg').attr('class', 'progress-bar progress-bar-success');
+       }
        $('#ValuePrg').css('width', valuepg+'%').attr('aria-valuenow', valuepg);
        if(valuepg < 40)
        {
@@ -210,7 +229,17 @@ function ProgressBarUpdate()
        {
            $('#ValuePrg').attr('class', 'progress-bar progress-bar-warning');
        }
-       ChangeProgressDown();
+       console.log(valuepg);
+       if(valuepg > 0)
+           ChangeProgressDown();
+       else
+       {
+           for (var i = 0; i < timers.length; i++)
+           {
+                clearTimeout(timers[i]);
+           }
+           ProgressBarToNormal();
+       }
 }
 function DealWithEvents(events) {
     
@@ -255,19 +284,20 @@ function DealWithEvents(events) {
                 break;
             case "PROMPT_PLAYER_TO_TAKE_ACTION":                
                 ajaxCurrPlayer();
-                ChangeProgressDown();
+                
                 if(val.playerName === CurrPlayer.name)
                 {
                     // TODO TIMER
                     console.log(CurrPlayer.Bets[0].BetWage);
                     if(CurrPlayer.Bets[0].BetWage === 0)
                     {
-                        $("#PlaceBetfrm").show();
+                        $("#PlaceBetfrm").show(ChangeProgressDown());
+                        
                         
                     }
                     else
                     {
-                        $("#DoAction").show();
+                        $("#DoAction").show(ProgressBarForAction());
                         
                     }
                     IsTrriger = false;
@@ -405,6 +435,7 @@ $(function()
         $("#ActionDouble").submit(DoPlayerAction);
         $("#ActionSplit").submit(DoPlayerAction);
         $("#ActionStand").submit(DoPlayerAction);
+         
     }
 );
 function DoPlayerAction() {
