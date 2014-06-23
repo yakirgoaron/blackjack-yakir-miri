@@ -55,7 +55,10 @@ public class GamePlayers extends HttpServlet {
             }
             for (PlayerDetails playerDetails : GamePlayers) 
             {
-                 Players.add(new PlayerInfo(playerDetails.getName(), playerDetails.getStatus().name(),playerDetails.getType().name()));
+                 Players.add(new PlayerInfo(playerDetails.getName(), 
+                                            playerDetails.getStatus().name(),
+                                            playerDetails.getType().name(), 
+                                            (double)playerDetails.getMoney()));
             }
             Gson gson = new Gson();
             String jsonResponse = gson.toJson(Players);
@@ -69,10 +72,12 @@ public class GamePlayers extends HttpServlet {
         final private String Name;
         final private String Status;
         final private String Type;
-        public PlayerInfo(String Name,String Status,String Type) {
+        final private Double Money;
+        public PlayerInfo(String Name,String Status,String Type, Double Money) {
             this.Name = Name;
             this.Status = Status;
             this.Type = Type;
+            this.Money = Money;
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

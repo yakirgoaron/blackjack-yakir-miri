@@ -7,6 +7,7 @@ var CurrPlayer;
 var IsResigned = false;
 var IsSplitChosen = false;
 var HandToTake = 1;
+var FirstDealCards = true;
 
 var GAME_START = "GameStart";
 var GAME_OVER = "GameOver";
@@ -39,7 +40,9 @@ function refreshPlayers(users) {
            image = 'HumanPlayer.png';
         $('<div class="row" id="'+val.Name+'">' + 
                 '<div class="col-md-8 col-xs-8"><div class="col-md-1 col-xs-1"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div>'+
-                  '<div class="col-md-7 col-xs-7"><div class="row Bet1"><div class="Cards"></div></div><div class="row Bet2"><div class="Cards"></div></div></div></div>').appendTo($("#players")).fadeIn(4000);
+                  '<div class="col-md-7 col-xs-7"><div class="row Bet1"><div class="col-md-1 col-xs-1 TotalBet"></div><div class="Cards"></div></div>'+
+                  '<div class="row Bet2"><div class="col-md-1 col-xs-1 TotalMoney"><label>Money:'+val.Money+'</label></div><div class="col-md-1 col-xs-1 TotalBet"></div><div class="Cards">'+
+                  '</div></div></div></div>').appendTo($("#players")).fadeIn(4000);
         
      //   $('<div class="row Bet1"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
       //  $('<div class="row Bet2"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
@@ -53,13 +56,15 @@ function RemovePlayer(name){
 
 function AddEffect(playerName){
  
+    $("div").removeClass("Effect");
+    $("img").removeClass("Effect");
     $('#img'+playerName).addClass("Effect");
-    var player  = $('#'+playerName).children(".Bet"+HandToTake);
+    var player  = $('#'+playerName).children().children().children(".Bet"+HandToTake);
     console.log("player");
     console.log(player);
     console.log(player.offset());
     
-    $('#'+playerName).children(".Bet"+HandToTake).addClass("Effect");
+    player.addClass("Effect");
 }
 function RemoveDealerCards(){
     $("#DealerCards").empty();
@@ -79,7 +84,11 @@ function DisableResign(){
 }
 
 function ShowUserAction(Name, Action){
-    $('<div> action:'+Action+'</div>').appendTo('#'+Name);
+    $('<div class="PlayerAction"> action:'+Action+'</div>').appendTo('#'+Name);
+}
+
+function RemoveUserAction(){
+    $(".PlayerAction").empty();
 }
 
 function ShowDealtCards(playerName, CardsTag, arraycards, BetNum){
@@ -114,6 +123,19 @@ function ShowDealtCards(playerName, CardsTag, arraycards, BetNum){
                     });    
 }
 
+function UpdateBets(PlayerData){
+    var Bet1 = $("#"+PlayerData.name).children().children().children(".Bet1"); 
+    $(Bet1).children(".TotalBet").children().remove();
+    console.log($(Bet1).children(".TotalBet"));
+    $(Bet1).children(".TotalBet").append('<label>Bet:'+PlayerData.Bets[0].BetWage+'</label>');
+    
+    if (PlayerData.Bets[1].BetWage !== 0)
+    {
+        var Bet2 = $("#"+PlayerData.name).children().children().children(".Bet2");
+        $(Bet2).children(".TotalBet").children().remove();
+        $(Bet2).children(".TotalBet").append('<label>Bet:'+PlayerData.Bets[1].BetWage+'</label>');
+    }
+}
 function CardsDealt(event)
 {
     var CardsTag;
@@ -122,7 +144,7 @@ function CardsDealt(event)
     if (event.playerName === "Dealer")   
         CardsTag = $("#Dealer").children(".Cards");
     else{
-        console.log($("#"+event.playerName).children());
+        UpdateBets(PlayerData);
         CardsTag = $("#"+event.playerName).children().children().children(".Bet1").children(".Cards");
         var CardsTag2 = $("#"+event.playerName).children().children().children(".Bet2").children(".Cards");
         arraycards = PlayerData.Bets[1].BetCards;
@@ -197,9 +219,8 @@ function DealWithEvents(events) {
     $.each(events|| [], function(index,val){
     console.log(val.type);
         switch(val.type){
-            case "CARDS_DEALT":
+            case "CARDS_DEALT":                
                 CardsDealt(val);
-               
                 break;
             case "GAME_OVER":
                 GameOver();
@@ -213,6 +234,7 @@ function DealWithEvents(events) {
             case "NEW_ROUND":
                 RemovePlayers();
                 RemoveDealerCards();
+                RemoveUserAction();
                 ajaxShowPlayers();
                 HandToTake = 1;
                 IsSplitChosen = false;
@@ -254,8 +276,10 @@ function DealWithEvents(events) {
             case "USER_ACTION":               
                 if(val.playerName === CurrPlayer.name)
                 {
-                    if (val.playerAction === "SPLIT")
+                    if (val.playerAction === "SPLIT"){
                         IsSplitChosen = true;
+                        UpdateBets(ajaxPlayerDetails(event.playerName));
+                    }
                     else if ((IsSplitChosen === true) && 
                              (val.playerAction !== "HIT") && (HandToTake < 2))
                         HandToTake++;
