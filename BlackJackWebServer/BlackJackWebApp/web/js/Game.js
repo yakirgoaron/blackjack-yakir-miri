@@ -40,9 +40,9 @@ function refreshPlayers(users) {
        else
            image = 'HumanPlayer.png';
         $('<div class="row" id="'+val.Name+'">' + 
-                '<div class="col-md-8 col-xs-8"><div class="col-md-1 col-xs-1"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div>'+
-                  '<div class="col-md-7 col-xs-7"><div class="row Bet1"><div class="col-md-1 col-xs-1 TotalBet"></div><div class="Cards"></div></div>'+
-                  '<div class="row Bet2"><div class="col-md-1 col-xs-1 TotalMoney"><label>Money:'+val.Money+'</label></div><div class="col-md-1 col-xs-1 TotalBet"></div><div class="Cards">'+
+                '<div class="col-md-8 col-xs-8"><div class="col-md-3 col-xs-3"><div class ="row"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div><div class="row"><label>Money:'+val.Money+'</label></div></div>'+
+                  '<div class="col-md-7 col-xs-7"><div class="row Bet1"><div class="col-md-3 col-xs-3 TotalBet"></div><div class="Cards"></div></div>'+
+                  '<div class="row Bet2"><div class="col-md-3 col-xs-3 TotalBet"></div><div class="Cards">'+
                   '</div></div></div></div>').appendTo($("#players")).fadeIn(4000);
         
      //   $('<div class="row Bet1"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
@@ -241,6 +241,15 @@ function ProgressBarUpdate()
            ProgressBarToNormal();
        }
 }
+
+function HideResign(){
+    $("#Resign").hide();
+}
+
+function ShowResign(){
+   $("#Resign").show(); 
+}
+
 function DealWithEvents(events) {
     
     
@@ -289,6 +298,7 @@ function DealWithEvents(events) {
                 {
                     // TODO TIMER
                     console.log(CurrPlayer.Bets[0].BetWage);
+                    HideResign();
                     if(CurrPlayer.Bets[0].BetWage === 0)
                     {
                         $("#PlaceBetfrm").show(ChangeProgressDown());
@@ -306,6 +316,7 @@ function DealWithEvents(events) {
             case "USER_ACTION":               
                 if(val.playerName === CurrPlayer.name)
                 {
+                    ShowResign();
                     if (val.playerAction === "SPLIT"){
                         IsSplitChosen = true;
                         UpdateBets(ajaxPlayerDetails(event.playerName));
@@ -421,6 +432,7 @@ $(function()
                     //do not add the user string to the chat area
                     //since it's going to be retrieved from the server
                     //$("#result h1").text(r);
+                    ShowResign();
                     triggerAjaxHandleEvents();
                 }
             });
@@ -430,7 +442,8 @@ $(function()
             ProgressBarToNormal();
             return false;
         });
-        
+        window.onunload = Resign;
+      //  $("#Resign").submit(Resign);
         $("#ActionHit").submit(DoPlayerAction);
         $("#ActionDouble").submit(DoPlayerAction);
         $("#ActionSplit").submit(DoPlayerAction);
@@ -438,6 +451,25 @@ $(function()
          
     }
 );
+function Resign(){
+    jQuery.ajax({
+        data: $(this).serialize(),
+        async: false,
+        url: "PlayerResign?CloseApp=true",
+        timeout: 2000,
+        error: function() {
+            console.log("Failed to submit");
+        },
+        success: function(r) {
+            //do not add the user string to the chat area
+            //since it's going to be retrieved from the server
+            //$("#result h1").text(r);
+            HideResign();
+        }
+    });
+    
+    return false;
+}
 function DoPlayerAction() {
     jQuery.ajax({
         data: $(this).serialize(),

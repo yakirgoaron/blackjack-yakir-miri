@@ -32,6 +32,10 @@
         <servlet-name>PlayerActions</servlet-name>
         <servlet-class>game.servlets.PlayerActions</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlayerResign</servlet-name>
+        <servlet-class>game.servlets.PlayerResign</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>PlayerActions</servlet-name>
         <url-pattern>/PlayerActions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlayerResign</servlet-name>
+        <url-pattern>/PlayerResign</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
