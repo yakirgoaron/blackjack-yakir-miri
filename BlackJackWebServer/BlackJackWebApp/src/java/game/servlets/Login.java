@@ -46,12 +46,13 @@ public class Login extends HttpServlet {
                 url = new URL("http://" + Host + ":" + Port + "/bjwebapi/BlackJackWebService");
                 request.getSession(true).setAttribute("GameWS", url);
                 SessionUtils.getBJWSClient(request);
-            } catch (IOException ex) {
+                response.sendRedirect("JoinOrCreateGame.html");
+            } catch (Exception ex) {
                 request.setAttribute("LoginError", "Cannot connect");
                     getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
             }           
            // request.getRequestDispatcher("CreateGame.html").forward(request, response);
-            response.sendRedirect("JoinOrCreateGame.html");
+            
         }
         
         
