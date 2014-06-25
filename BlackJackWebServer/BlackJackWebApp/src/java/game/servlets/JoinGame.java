@@ -37,6 +37,7 @@ public class JoinGame extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String Message = "";
         try (PrintWriter out = response.getWriter()) {
            
             BlackJackWebService GameWS = SessionUtils.getBJWSClient(request);
@@ -50,12 +51,17 @@ public class JoinGame extends HttpServlet {
                 int PlayerID = GameWS.joinGame(GameName,PlayerName,1000);
                 request.getSession().setAttribute("PlayerID",PlayerID );
                 request.getSession().setAttribute("GameName", GameName);
+                response.sendRedirect("Game.html");
             } catch (GameDoesNotExists_Exception ex) {
-                Logger.getLogger(JoinGame.class.getName()).log(Level.SEVERE, null, ex);
+                Message = ex.getMessage();
+                request.setAttribute("Error", Message);
+                getServletContext().getRequestDispatcher("/GameList.jsp").forward(request, response);
             } catch (InvalidParameters_Exception ex) {
-                Logger.getLogger(JoinGame.class.getName()).log(Level.SEVERE, null, ex);
+                Message = ex.getMessage();
+                request.setAttribute("Error", Message);
+                getServletContext().getRequestDispatcher("/GameList.jsp").forward(request, response);
             }
-            response.sendRedirect("Game.html");
+            
         }
     }
 

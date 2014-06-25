@@ -39,7 +39,7 @@ function refreshPlayers(users) {
            image = 'CompPlayer.png';
        else
            image = 'HumanPlayer.png';
-        $('<div class="row" id="'+val.Name+'">' + 
+        $('<div class="row spacer" id="'+val.Name+'">' + 
                 '<div class="col-md-8 col-xs-8"><div class="col-md-3 col-xs-3"><div class ="row"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div><div class="row"><label>Money:'+val.Money+'</label></div></div>'+
                   '<div class="col-md-7 col-xs-7"><div class="row Bet1"><div class="col-md-3 col-xs-3 TotalBet"></div><div class="Cards"></div></div>'+
                   '<div class="row Bet2"><div class="col-md-3 col-xs-3 TotalBet"></div><div class="Cards">'+
@@ -295,6 +295,7 @@ function DealWithEvents(events) {
                     console.log(CurrPlayer.Bets[0].BetWage);
                     HideResign();
                     valuepg = val.timeout/100;
+                    $('#ValuePrg').attr('class', 'rogress-bar progress-bar-success');
                     if(CurrPlayer.Bets[0].BetWage === 0)
                     {
                         $("#PlaceBetfrm").show(ChangeProgressDown());                       
@@ -325,6 +326,7 @@ function DealWithEvents(events) {
                     else if ((IsSplitChosen === true) && 
                              (val.playerAction !== "HIT") && (HandToTake < 2))
                         HandToTake++;
+                    $('#Error').fadeOut(function(){$('#Error').hide()});
                 }
                 
                 ShowUserAction(val.playerName, val.playerAction);
@@ -483,7 +485,12 @@ function DoPlayerAction() {
             //do not add the user string to the chat area
             //since it's going to be retrieved from the server
             //$("#result h1").text(r);
-             console.log($(this).serialize());
+             
+            if(r !== undefined)
+            {
+                $('#Error').show().fadeIn();
+                $('#errormessage').text(r);
+            }
             triggerAjaxHandleEvents();
         }
 

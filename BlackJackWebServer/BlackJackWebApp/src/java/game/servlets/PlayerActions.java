@@ -7,6 +7,7 @@
 package game.servlets;
 
 import BlackJack.Utils.SessionUtils;
+import com.google.gson.Gson;
 import game.ws.client.Action;
 import game.ws.client.BlackJackWebService;
 import game.ws.client.InvalidParameters_Exception;
@@ -42,19 +43,23 @@ public class PlayerActions extends HttpServlet {
              int PlayerId = (int)request.getSession().getAttribute("PlayerID");
              int EventId = (int)request.getSession().getAttribute("EventID");
              String Bet = request.getParameter("PlaceBet");
-             if(Bet != null && !Bet.equals(""))
-                GameWS.playerAction(PlayerId, EventId, Action.PLACE_BET, Integer.parseInt(Bet),1 );
-             else
-             {
-                 String PlayerAction = request.getParameter("Action");
-                 
-                 GameWS.playerAction(PlayerId, EventId, Action.fromValue(PlayerAction), 0,1 );
+             try {
+                if(Bet != null && !Bet.equals(""))
+                       GameWS.playerAction(PlayerId, EventId, Action.PLACE_BET, Integer.parseInt(Bet),1 );
+                else
+                {
+                    String PlayerAction = request.getParameter("Action");
+
+                    GameWS.playerAction(PlayerId, EventId, Action.fromValue(PlayerAction), 0,1 );
+                }
+             }catch (InvalidParameters_Exception ex) {
+             out.print(ex.getMessage());
+             out.flush();
              }
              
-        } catch (InvalidParameters_Exception ex) {
-            Logger.getLogger(PlayerActions.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

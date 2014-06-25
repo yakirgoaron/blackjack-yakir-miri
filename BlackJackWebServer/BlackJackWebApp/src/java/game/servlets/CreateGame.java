@@ -70,7 +70,7 @@ public class CreateGame extends HttpServlet {
                 } catch (InvalidParameters_Exception ex) {
                     Message = ex.getMessage();
                     request.setAttribute("Error", Message);
-                    getServletContext().getRequestDispatcher("/GameList.jsp").forward(request, response);
+                    getServletContext().getRequestDispatcher("/CreateGame.jsp").forward(request, response);
                 }
 
                 
@@ -91,7 +91,7 @@ public class CreateGame extends HttpServlet {
                 } catch (InvalidParameters_Exception ex) {
                     Message = ex.getMessage();
                     request.setAttribute("Error", Message);
-                    getServletContext().getRequestDispatcher("/GameList.jsp").forward(request, response);
+                    getServletContext().getRequestDispatcher("/CreateGame.jsp").forward(request, response);
                 }
 
             }
