@@ -261,6 +261,10 @@ public class EngineManager {
             {
                 ThrowInvalidParameter("Error - the player is taken");
             }
+            else if(Game.getGmDetails().getJoinedHumanPlayers() == Game.getGmDetails().getHumanPlayers())
+            {
+                ThrowInvalidParameter("Too many players");
+            }
             else
             {
                 uniqePlayerID++;
