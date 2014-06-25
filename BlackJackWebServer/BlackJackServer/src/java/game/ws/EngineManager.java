@@ -434,6 +434,7 @@ public class EngineManager {
         playerAction.setId(Game.GetEvents().size()+1);
         playerAction.setPlayerName(playerManager.get(playerId).getName());
         playerAction.setPlayerAction(action);
+        Game.GetEvents().add(playerAction);
         
         
         if (action.equals(Action.PLACE_BET)){
