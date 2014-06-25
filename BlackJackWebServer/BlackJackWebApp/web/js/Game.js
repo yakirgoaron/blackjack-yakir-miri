@@ -239,6 +239,7 @@ function ProgressBarUpdate()
                 clearTimeout(timers[i]);
            }
            ProgressBarToNormal();
+           GameOver();
        }
 }
 
@@ -299,6 +300,7 @@ function DealWithEvents(events) {
                     // TODO TIMER
                     console.log(CurrPlayer.Bets[0].BetWage);
                     HideResign();
+                    valuepg = val.timeout/100;
                     if(CurrPlayer.Bets[0].BetWage === 0)
                     {
                         $("#PlaceBetfrm").show(ChangeProgressDown());
