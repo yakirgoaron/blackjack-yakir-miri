@@ -57,15 +57,10 @@ function RemovePlayer(name){
 
 function AddEffect(playerName){
  
-    $("div").removeClass("Effect");
+    
     $("img").removeClass("Effect");
     $('#img'+playerName).addClass("Effect");
-    var player  = $('#'+playerName).children().children().children(".Bet"+HandToTake);
-    console.log("player");
-    console.log(player);
-    console.log(player.offset());
     
-    player.addClass("Effect");
 }
 function RemoveDealerCards(){
     $("#DealerCards").empty();
@@ -127,7 +122,6 @@ function ShowDealtCards(playerName, CardsTag, arraycards, BetNum){
 function UpdateBets(PlayerData){
     var Bet1 = $("#"+PlayerData.name).children().children().children(".Bet1"); 
     $(Bet1).children(".TotalBet").children().remove();
-    console.log($(Bet1).children(".TotalBet"));
     $(Bet1).children(".TotalBet").append('<label>Bet:'+PlayerData.Bets[0].BetWage+'</label>');
     
     if (PlayerData.Bets[1].BetWage !== 0)
@@ -229,7 +223,7 @@ function ProgressBarUpdate()
        {
            $('#ValuePrg').attr('class', 'progress-bar progress-bar-warning');
        }
-       console.log(valuepg);
+      // console.log(valuepg);
        if(valuepg > 0)
            ChangeProgressDown();
        else
@@ -256,7 +250,7 @@ function DealWithEvents(events) {
     
     var IsTrriger = true;
     $.each(events|| [], function(index,val){
-    console.log(val.type);
+    console.log(val.type+" "+val.playerName);
         switch(val.type){
             case "CARDS_DEALT":                
                 CardsDealt(val);
@@ -303,25 +297,30 @@ function DealWithEvents(events) {
                     valuepg = val.timeout/100;
                     if(CurrPlayer.Bets[0].BetWage === 0)
                     {
-                        $("#PlaceBetfrm").show(ChangeProgressDown());
-                        
-                        
+                        $("#PlaceBetfrm").show(ChangeProgressDown());                       
                     }
                     else
                     {
+                        $("div").removeClass("Effect");
+                        console.log(HandToTake);
+                        var playerName = val.playerName;
+                        var Hand  = $('#'+playerName).children().children().children(".Bet"+HandToTake);
+    
+                        Hand.addClass("Effect");
+                        
                         $("#DoAction").show(ProgressBarForAction());
                         
                     }
                     IsTrriger = false;
                 }
                 break;
-            case "USER_ACTION":               
+            case "USER_ACTION":       
                 if(val.playerName === CurrPlayer.name)
                 {
                     ShowResign();
                     if (val.playerAction === "SPLIT"){
                         IsSplitChosen = true;
-                        UpdateBets(ajaxPlayerDetails(event.playerName));
+                        UpdateBets(ajaxPlayerDetails(val.playerName));
                     }
                     else if ((IsSplitChosen === true) && 
                              (val.playerAction !== "HIT") && (HandToTake < 2))
