@@ -24,7 +24,9 @@
             </form>
             <% Object errorMessage = request.getAttribute("LoginError");%>
             <% if (errorMessage != null) {%>
-            <span class="alert alert-danger"><%=errorMessage%></span>
+            <div class="alert alert-danger alert-dismissable">
+                <strong>Error!</strong> <%=errorMessage%>
+            </div>
             <% } %>
 
         </div>

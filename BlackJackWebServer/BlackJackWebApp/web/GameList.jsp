@@ -38,10 +38,13 @@
                    <button class="btn btn-lg btn-primary btn-block" type="submit" >Join</button>
                </form>
            </div>
-            <% Object errorMessage = request.getAttribute("Error");%>
-            <% if (errorMessage != null) {%>
-            <span class="alert alert-danger"><%=errorMessage%></span>
-            <% } %>
         </div>
+        <% Object errorMessage = request.getAttribute("Error");%>
+        <% if (errorMessage != null) {%>
+
+        <div class="alert alert-danger alert-dismissable">
+            <strong>Error!</strong> <%=errorMessage%>
+        </div>
+        <% } %>
     </body>
 </html>

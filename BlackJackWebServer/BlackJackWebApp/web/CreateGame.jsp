@@ -23,11 +23,16 @@
                 <li class>
                     <a href="#LoadGame" data-toggle="tab">Load Game</a>
                 </li>
+                <% Object errorMessage = request.getAttribute("Error");%>                                     
+                <% if (errorMessage != null) {%>
+                <li class>
+                    <div class="alert alert-danger alert-dismissable">
+                        <strong>Error!</strong> <%=errorMessage%>
+                    </div>
+                </li>
+                <% } %>
             </ul>
-            <% Object errorMessage = request.getAttribute("Error");%>                                     
-            <% if (errorMessage != null) {%>
-            <span class="alert alert-danger"><%=errorMessage%></span>
-            <% } %>
+            
             <div id="CreateGameTabsContent" class="tab-content">
                 <div class="tab-pane fade container" id="CreateGame">
                     <form class="form-signin-heading" action="CreateGame">
