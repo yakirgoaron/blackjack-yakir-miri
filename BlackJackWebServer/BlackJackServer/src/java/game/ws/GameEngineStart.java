@@ -49,7 +49,7 @@ public class GameEngineStart extends Thread implements Communicable
     private final Boolean WaitEnd = true;
     private Boolean isInEndRound = false;
     private PlayerDetails CurrPlayer;
-    private final int Timeout = 10000;
+    private final int Timeout = 40000;
     private ArrayList<Event> Events;
 
     
