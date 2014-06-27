@@ -40,7 +40,7 @@ function refreshPlayers(users) {
        else
            image = 'HumanPlayer.png';
         $('<div class="row spacer" id="'+val.Name+'">' + 
-                '<div class="col-md-8 col-xs-8"><div class="col-md-3 col-xs-3"><div class ="row"><img id="img'+val.Name+'" src="images/players/'+image+'"/></div><div class="row"><label>Money:'+val.Money+'</label></div></div>'+
+                '<div class="col-md-8 col-xs-8"><div class="col-md-3 col-xs-3"><div class ="row"><img class="img-responsive" id="img'+val.Name+'" src="images/players/'+image+'"/></div><div class="row"><label>Money:'+val.Money+'</label></div></div>'+
                   '<div class="col-md-7 col-xs-7"><div class="row Bet1"><div class="col-md-3 col-xs-3 TotalBet"></div><div class="Cards"></div></div>'+
                   '<div class="row Bet2"><div class="col-md-3 col-xs-3 TotalBet"></div><div class="Cards">'+
                   '</div></div></div></div>').appendTo($("#players")).fadeIn(4000);

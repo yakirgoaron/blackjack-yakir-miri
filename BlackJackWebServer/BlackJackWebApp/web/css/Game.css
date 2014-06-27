@@ -28,185 +28,185 @@ body {
    
 }
 .TENCLUBS{
- content: url('../images/Cards/10Clubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/10Clubs.png');   
 }
 
 .TENDIAMONDS{
- content: url('../images/Cards/10Dimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/10Dimond.png');   
 }
 
 .TENHEARTS{
- content: url('../images/Cards/10Hearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/10Hearts.png');   
 }
 
 .TENSPADES{
- content: url('../images/Cards/10Spades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/10Spades.png');   
 }
 
 .TWOCLUBS{
- content: url('../images/Cards/2Clubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/2Clubs.png');   
 }
 
 .TWODIAMONDS{
- content: url('../images/Cards/2Dimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/2Dimond.png');   
 }
 
 .TWOHEARTS{
- content: url('../images/Cards/2Hearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/2Hearts.png');   
 }
 
 .TWOSPADES{
- content: url('../images/Cards/2Spades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/2Spades.png');   
 }
 
 .THREECLUBS{
- content: url('../images/Cards/3Clubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/3Clubs.png');   
 }
 
 .THREEDIAMONDS{
- content: url('../images/Cards/3Dimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/3Dimond.png');   
 }
 
 .THREEHEARTS{
- content: url('../images/Cards/3Hearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/3Hearts.png');   
 }
 
 .THREESPADES{
- content: url('../images/Cards/3Spades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/3Spades.png');   
 }
 
 .FOURCLUBS{
- content: url('../images/Cards/4Clubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/4Clubs.png');   
 }
 .FOURDIAMONDS{
- content: url('../images/Cards/4Dimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/4Dimond.png');   
 }
 .FOURSPADES{
- content: url('../images/Cards/4Spades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/4Spades.png');   
 }
 .FOURHEARTS{
- content: url('../images/Cards/4Hearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/4Hearts.png');   
 }
 .FIVECLUBS{
- content: url('../images/Cards/5Clubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/5Clubs.png');   
 }
 
 .FIVEDIAMONDS{
- content: url('../images/Cards/5Dimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/5Dimond.png');   
 }
 
 .FIVEHEARTS{
- content: url('../images/Cards/5Hearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/5Hearts.png');   
 }
 .FIVESPADES{
- content: url('../images/Cards/5Spades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/5Spades.png');   
 }
 .SIXCLUBS{
- content: url('../images/Cards/6Clubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/6Clubs.png');   
 }
 .SIXDIAMONDS{
- content: url('../images/Cards/6Dimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/6Dimond.png');   
 }
 .SIXHEARTS{
- content: url('../images/Cards/6Hearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/6Hearts.png');   
 }
 
 .SIXSPADES{
- content: url('../images/Cards/6Spades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/6Spades.png');   
 }
 
 .SEVENCLUBS{
- content: url('../images/Cards/7Clubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/7Clubs.png');   
 }
 .SEVENDIAMONDS{
- content: url('../images/Cards/7Dimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/7Dimond.png');   
 }
 .SEVENHEARTS{
- content: url('../images/Cards/7Hearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/7Hearts.png');   
 }
 .SEVENSPADES{
- content: url('../images/Cards/7Spades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/7Spades.png');   
 }
 .EIGHTCLUBS{
- content: url('../images/Cards/8Clubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/8Clubs.png');   
 }
 
 .EIGHTDIAMONDS{
- content: url('../images/Cards/8Dimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/8Dimond.png');   
 }
 
 .EIGHTHEARTS{
- content: url('../images/Cards/8Hearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/8Hearts.png');   
 }
 .EIGHTSPADES{
- content: url('../images/Cards/8Spades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/8Spades.png');   
 }
 .NINECLUBS{
- content: url('../images/Cards/9Clubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/9Clubs.png');   
 }
 .NINEDIAMONDS{
- content: url('../images/Cards/9Dimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/9Dimond.png');   
 }
 .NINEHEARTS{
- content: url('../images/Cards/9Hearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/9Hearts.png');   
 }
 
 .NINESPADES{
- content: url('../images/Cards/9Spades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/9Spades.png');   
 }
 
 .JACKCLUBS{
- content: url('../images/Cards/JClubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/JClubs.png');   
 }
 .JACKDIAMONDS{
- content: url('../images/Cards/JDimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/JDimond.png');   
 }
 .JACKHEARTS{
- content: url('../images/Cards/JHearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/JHearts.png');   
 }
 .JACKSPADES{
- content: url('../images/Cards/JSpades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/JSpades.png');   
 }
 .QUEENCLUBS{
- content: url('../images/Cards/QClubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/QClubs.png');   
 }
 
 .QUEENDIAMONDS{
- content: url('../images/Cards/QDimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/QDimond.png');   
 }
 
 .QUEENHEARTS{
- content: url('../images/Cards/QHearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/QHearts.png');   
 }
 .QUEENSPADES{
- content: url('../images/Cards/QSpades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/QSpades.png');   
 }
 .KINGCLUBS{
- content: url('../images/Cards/KClubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/KClubs.png');   
 }
 .KINGDIAMONDS{
- content: url('../images/Cards/KDimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/KDimond.png');   
 }
 .KINGHEARTS
 {
- content: url('../images/Cards/KHearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/KHearts.png');   
 }
 
 .KINGSPADES
 {
- content: url('../images/Cards/KSpades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/KSpades.png');   
 }
 
 .ACECLUBS{
- content: url('../images/Cards/AceClubs.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/AceClubs.png');   
 }
 .ACEDIAMONDS{
- content: url('../images/Cards/AceDimond.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/AceDimond.png');   
 }
 .ACEHEARTS
 {
- content: url('../images/Cards/AceHearts.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/AceHearts.png');   
 }
 .ACESPADES{
- content: url('../images/Cards/AceSpades.png');   
+  display: block;  max-width: 100%;  height: auto;content: url('../images/Cards/AceSpades.png');   
 }
