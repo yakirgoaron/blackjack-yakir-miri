@@ -10,7 +10,9 @@ import EngineLogic.Exception.DuplicateCardException;
 import EngineLogic.Exception.TooManyPlayersException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import javax.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
@@ -52,12 +54,20 @@ public class EngineManager {
     private EngineManager()
     {
     }
-    /*public static void ClearData()
+    public static void ClearData(String GameName)
     {
-        IdToGame.clear();
-        gamemanager.clear();
-        uniqeEventID = 0;
-    }*/
+        Iterator<Map.Entry<Integer,String>> iter = IdToGame.entrySet().iterator();
+        
+        while (iter.hasNext()) {
+            Map.Entry<Integer,String> entry = iter.next();
+            if(entry.getValue().equals(GameName)){
+                iter.remove();
+                playerManager.remove(entry.getKey());
+            }
+        }
+    
+        gamemanager.remove(GameName);
+    }
     
     public static Boolean isStopWait() {
         return StopWait;

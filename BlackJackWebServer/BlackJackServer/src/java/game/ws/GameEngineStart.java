@@ -75,6 +75,9 @@ public class GameEngineStart extends Thread implements Communicable
         return Events;
     }
     
+    public void SetGameName(String GameName){
+        GameEngMang.setGameName(GameName);
+    }
     public int GetHumanPlayers()
     {
         int counter = 0;
@@ -460,7 +463,7 @@ public class GameEngineStart extends Thread implements Communicable
         evntGameEnded.setId(Events.size()+1);
         evntGameEnded.setType(EventType.GAME_OVER);
         Events.add(evntGameEnded);
-        //EngineManager.ClearData();
+        EngineManager.ClearData(GetGameName());
     }
 
     @Override

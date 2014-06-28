@@ -404,6 +404,10 @@ public class GameEngine
         return GameName;
     }
 
+    public void setGameName(String GameName) {
+        this.GameName = GameName;
+    }
+
     private int HumanPlayerCount() {
         int HumanCount = 0;
         

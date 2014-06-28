@@ -48,6 +48,7 @@ public class GameManager
 
     public void setGmDetails(GameDetails gmDetails) {
         this.gmDetails = gmDetails;
+        Engine.SetGameName(gmDetails.getName());
     }
     
     public GameEngineStart getEngine() {
