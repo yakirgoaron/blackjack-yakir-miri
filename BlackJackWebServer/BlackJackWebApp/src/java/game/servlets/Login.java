@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -44,6 +45,11 @@ public class Login extends HttpServlet {
             URL url;
             try {
                 url = new URL("http://" + Host + ":" + Port + "/bjwebapi/BlackJackWebService");
+                
+                HttpSession Session = request.getSession(false);
+                if (Session != null)
+                    Session.invalidate();
+                
                 request.getSession(true).setAttribute("GameWS", url);
                 SessionUtils.getBJWSClient(request);
                 response.sendRedirect("JoinOrCreateGame.html");
