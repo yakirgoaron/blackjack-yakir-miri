@@ -40,7 +40,8 @@ function refreshPlayers(users) {
        else
            image = 'HumanPlayer.png';
         $('<div class="row spacer" id="'+val.Name+'">' + 
-                '<div class="col-md-8 col-xs-8"><div class="col-md-3 col-xs-3"><div class ="row"><img class="img-responsive" id="img'+val.Name+'" src="images/players/'+image+'"/></div><div class="row"><label>Money:'+val.Money+'</label></div></div>'+
+                '<div class="col-md-8 col-xs-8"><div class="col-md-3 col-xs-3"><div class ="row"><img class="img-responsive" id="img'+val.Name+'" src="images/players/'+image+'"/></div><div class="row"><label>Name:'+val.Name+'</label><label>Money:'+val.Money+'</label></div></div>'+
+
                   '<div class="col-md-7 col-xs-7"><div class="row Bet1"><div class="col-md-3 col-xs-3 TotalBet"></div><div class="Cards"></div></div>'+
                   '<div class="row Bet2"><div class="col-md-3 col-xs-3 TotalBet"></div><div class="Cards">'+
                   '</div></div></div></div>').appendTo($("#players")).fadeIn(4000);
@@ -298,7 +299,11 @@ function DealWithEvents(events) {
                     $('#ValuePrg').attr('class', 'rogress-bar progress-bar-success');
                     if(CurrPlayer.Bets[0].BetWage === 0)
                     {
-                        $("#PlaceBetfrm").show(ChangeProgressDown());                       
+                        $("#PlaceBetfrm").show(ChangeProgressDown()); 
+                        $("#PlaceBet").attr('max', CurrPlayer.money);
+                        $("#BetLabel").show();
+                        $("#BetLabel").text($("#PlaceBet").val());
+                        
                     }
                     else
                     {
@@ -423,6 +428,9 @@ $(function()
     {        
         ajaxCurrPlayer();
         triggerAjaxHandleEvents();
+        $("#PlaceBet").change(function(){
+            $("#BetLabel").text($("#PlaceBet").val());
+        });
         $("#PlaceBetfrm").submit(function() {
             jQuery.ajax({
                 data: $(this).serialize(),
@@ -441,6 +449,7 @@ $(function()
             });
 
             $("#PlaceBetfrm").hide();
+            $("#BetLabel").hide();
             // by default - we'll always return false so it doesn't redirect the user.
             ProgressBarToNormal();
             return false;

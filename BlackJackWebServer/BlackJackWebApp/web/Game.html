@@ -24,6 +24,10 @@ and open the template in the editor.
                <div class="Cards" id="DealerCards">
                    
                </div>
+               <div class="row">
+                   <label> Name: Dealer
+                   </label>
+               </div>
              </div>
              <div id="players">
                <div class="row">
@@ -56,10 +60,12 @@ and open the template in the editor.
                 </div>
              </div>
              <div class="row">
+                 <label id="BetLabel" hidden></label>
                 <form id="PlaceBetfrm" class="form-signin-heading" method="post" action="PlayerActions" Hidden>
                        Place Bet: <input class="form-control" name="PlaceBet" id="PlaceBet" type="range" min="1" max="1000" autofocus ><br>
                       <button class="btn btn-lg btn-primary btn-block" type="submit" >Finish</button>
                 </form>
+                 
              </div>
              <div id="DoAction" class="row" Hidden>
                  <form id="ActionHit" class="form-signin-heading" method="post" action="PlayerActions" >                       
