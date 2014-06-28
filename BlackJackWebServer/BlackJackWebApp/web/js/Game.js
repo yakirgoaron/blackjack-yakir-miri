@@ -210,7 +210,7 @@ function ProgressBarUpdate()
        {
            clearTimeout(timers[i]);
        }
-       if(valuepg === 100)
+       if(valuepg === 100-Delta)
        {
            
            $('#ValuePrg').attr('class', 'progress-bar progress-bar-success');
