@@ -25,6 +25,7 @@ var SPLIT = "Split";
 var STAND = "Stand";
 var refreshRate = 2000;
 var valuepg = 100;
+var Delta = 10;
 var timers = new Array();
 
 function refreshPlayers(users) {
@@ -205,7 +206,7 @@ function ProgressBarForAction()
 
 function ProgressBarUpdate()
 {
-       valuepg -= 10;
+       valuepg -= Delta;
        for (var i = 0; i < timers.length; i++)
        {
            clearTimeout(timers[i]);
@@ -295,7 +296,7 @@ function DealWithEvents(events) {
                     // TODO TIMER
                     console.log(CurrPlayer.Bets[0].BetWage);
                     HideResign();
-                    valuepg = val.timeout/100;
+                    Delta = 100/(val.timeout/1000);
                     $('#ValuePrg').attr('class', 'rogress-bar progress-bar-success');
                     if(CurrPlayer.Bets[0].BetWage === 0)
                     {
