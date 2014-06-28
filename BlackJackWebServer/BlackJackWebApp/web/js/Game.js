@@ -5,6 +5,7 @@
  */
 var CurrPlayer;
 var IsResigned = false;
+var CallResignFlag = true;
 var IsSplitChosen = false;
 var HandToTake = 1;
 var FirstDealCards = true;
@@ -235,6 +236,7 @@ function ProgressBarUpdate()
            }
            ProgressBarToNormal();
            GameOver();
+           CallResignFlag = false;
        }
 }
 
@@ -258,6 +260,7 @@ function DealWithEvents(events) {
                 break;
             case "GAME_OVER":
                 GameOver();
+                CallResignFlag = false;
                 break;
             case "GAME_START":
                 ajaxShowPlayers();
@@ -464,23 +467,25 @@ $(function()
     }
 );
 function Resign(){
-    jQuery.ajax({
-        data: $(this).serialize(),
-        async: false,
-        url: "PlayerResign?CloseApp=true",
-        timeout: 2000,
-        error: function() {
-            console.log("Failed to submit");
-        },
-        success: function(r) {
-            //do not add the user string to the chat area
-            //since it's going to be retrieved from the server
-            //$("#result h1").text(r);
-            HideResign();
-        }
-    });
-    
-    return false;
+    if (CallResignFlag === true){
+        jQuery.ajax({
+            data: $(this).serialize(),
+            async: false,
+            url: "PlayerResign?CloseApp=true",
+            timeout: 2000,
+            error: function() {
+                console.log("Failed to submit");
+            },
+            success: function(r) {
+                //do not add the user string to the chat area
+                //since it's going to be retrieved from the server
+                //$("#result h1").text(r);
+                HideResign();
+            }
+        });
+
+        return false;
+    }
 }
 function DoPlayerAction() {
     jQuery.ajax({
