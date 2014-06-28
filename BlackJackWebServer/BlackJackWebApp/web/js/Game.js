@@ -105,8 +105,7 @@ function ShowDealtCards(playerName, CardsTag, arraycards, BetNum){
     var card = $("#"+playerName);
     $.each(arraycards || [], function(index, val)
     {   
-        $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(PlayerCards);        
-        
+        $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(PlayerCards);           
     });
     PlayerCards.show(
                 function(){
