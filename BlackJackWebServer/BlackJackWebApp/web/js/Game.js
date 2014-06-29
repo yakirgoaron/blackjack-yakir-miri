@@ -36,7 +36,7 @@ function refreshPlayers(users) {
     {
         var image;
         
-       if (val.Name !== "Dealer"){
+       if ((val.Name !== "Dealer") && (val.Status !== "RETIRED")){
         if(val.Type === 'COMPUTER')
            image = 'CompPlayer.png';
        else
