@@ -375,7 +375,7 @@ public class EngineManager {
             PlayerDetails player = playerManager.get(PlayerId);
             player.setStatus(PlayerStatus.RETIRED);
             String Game = IdToGame.get(PlayerId);
-            IdToGame.remove(PlayerId);
+           // IdToGame.remove(PlayerId);
             
             Event playerResign  = new Event();
             playerResign.setId(gamemanager.get(Game).GetEvents().size()+1);          
