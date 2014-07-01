@@ -282,7 +282,7 @@ function DealWithEvents(events) {
                               
                 if (Name === CurrPlayer.name){
                         IsResigned = true;
-                        DisableResign(); 
+                        HideResign(); 
                         //todo: handle
                         GameOver();
                  }
@@ -363,6 +363,8 @@ function ajaxShowPlayers() {
             timeout: 2000,
             error: function() {
                 console.log("Failed to submit");
+                CallResignFlag = false;
+                GameOver();
             },
             success: function(data) 
             {
@@ -379,6 +381,8 @@ function ajaxHandleEvents() {
             timeout: 2000,
             error: function() {
                 console.log("Failed to submit");
+                CallResignFlag = false;
+                GameOver();
             },
             success: function(events) 
             {
@@ -403,6 +407,8 @@ var Temp;
             timeout: 2000,
             error: function() {
                 console.log("Failed to submit");
+                CallResignFlag = false;
+                GameOver();
             },
             success: function(Player) 
             {
@@ -420,6 +426,8 @@ function ajaxCurrPlayer() {
             timeout: 2000,
             error: function() {
                 console.log("Failed to submit");
+                CallResignFlag = false;
+                GameOver();
             },
             success: function(PlayerName) 
             {
@@ -441,6 +449,8 @@ $(function()
                 timeout: 2000,
                 error: function() {
                     console.log("Failed to submit");
+                    CallResignFlag = false;
+                    GameOver();
                 },
                 success: function(r) {
                     //do not add the user string to the chat area
@@ -475,6 +485,8 @@ function Resign(){
             timeout: 2000,
             error: function() {
                 console.log("Failed to submit");
+                CallResignFlag = false;
+                GameOver();
             },
             success: function(r) {
                 //do not add the user string to the chat area
@@ -494,6 +506,8 @@ function DoPlayerAction() {
         timeout: 2000,
         error: function() {
             console.log("Failed to submit");
+            CallResignFlag = false;
+                GameOver();
         },
         success: function(r) {
             //do not add the user string to the chat area
