@@ -73,7 +73,7 @@ function GameOver(){
 }
 
 function GameWinner(Name){
-    $('<div> winner is: '+ Name+'</div>').appendTo('#'+Name);
+    $('<div class="Winner"> winner is: '+ Name+'</div>').appendTo('#'+Name);
 }
 function RemovePlayers(){
     $("#players").empty();

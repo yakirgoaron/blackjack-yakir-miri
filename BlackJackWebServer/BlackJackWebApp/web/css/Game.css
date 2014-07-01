@@ -19,6 +19,11 @@ body {
  color: white;
 }
 
+.Winner{
+    color:red;
+    font-size: 18px;
+}
+
 .spacer {
     margin-top: 40px; /* define margin as you see fit */
 }
