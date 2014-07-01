@@ -34,90 +34,67 @@ body {
 }
 .TENCLUBS{
   background: url('../images/Cards/10Clubs.png');   
-width:60px;
-  /*height:84px;*/
-  
-  max-width: 100%;
+  width:60px;
   height: 84px;
 }
 
 .TENDIAMONDS{
   background: url('../images/Cards/10Dimond.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .TENHEARTS{
   background: url('../images/Cards/10Hearts.png');  
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .TENSPADES{
   background: url('../images/Cards/10Spades.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .TWOCLUBS{
   background: url('../images/Cards/2Clubs.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .TWODIAMONDS{
   background: url('../images/Cards/2Dimond.png');  
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .TWOHEARTS{
   background: url('../images/Cards/2Hearts.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .TWOSPADES{
   background: url('../images/Cards/2Spades.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .THREECLUBS{
   background: url('../images/Cards/3Clubs.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .THREEDIAMONDS{
   background: url('../images/Cards/3Dimond.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .THREEHEARTS{
   background: url('../images/Cards/3Hearts.png');  
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
@@ -130,22 +107,16 @@ width:60px;
 .FOURCLUBS{
   background: url('../images/Cards/4Clubs.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .FOURDIAMONDS{
   background: url('../images/Cards/4Dimond.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .FOURSPADES{
   background: url('../images/Cards/4Spades.png');  
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .FOURHEARTS{
@@ -156,8 +127,6 @@ width:60px;
 .FIVECLUBS{
   background: url('../images/Cards/5Clubs.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
@@ -170,59 +139,43 @@ width:60px;
 .FIVEHEARTS{
   background: url('../images/Cards/5Hearts.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .FIVESPADES{
   background: url('../images/Cards/5Spades.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .SIXCLUBS{
   background: url('../images/Cards/6Clubs.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .SIXDIAMONDS{
   background: url('../images/Cards/6Dimond.png');  
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .SIXHEARTS{
   background: url('../images/Cards/6Hearts.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .SIXSPADES{
   background: url('../images/Cards/6Spades.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .SEVENCLUBS{
   background: url('../images/Cards/7Clubs.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .SEVENDIAMONDS{
   background: url('../images/Cards/7Dimond.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .SEVENHEARTS{
@@ -233,148 +186,108 @@ width:60px;
 .SEVENSPADES{
   background: url('../images/Cards/7Spades.png');  
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .EIGHTCLUBS{
   background: url('../images/Cards/8Clubs.png');  
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .EIGHTDIAMONDS{
   background: url('../images/Cards/8Dimond.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .EIGHTHEARTS{
   background: url('../images/Cards/8Hearts.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .EIGHTSPADES{
   background: url('../images/Cards/8Spades.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .NINECLUBS{
   background: url('../images/Cards/9Clubs.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .NINEDIAMONDS{
   background: url('../images/Cards/9Dimond.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .NINEHEARTS{
   background: url('../images/Cards/9Hearts.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .NINESPADES{
   background: url('../images/Cards/9Spades.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .JACKCLUBS{
   background: url('../images/Cards/JClubs.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .JACKDIAMONDS{
   background: url('../images/Cards/JDimond.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .JACKHEARTS{
   background: url('../images/Cards/JHearts.png');  
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .JACKSPADES{
   background: url('../images/Cards/JSpades.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .QUEENCLUBS{
   background: url('../images/Cards/QClubs.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .QUEENDIAMONDS{
   background: url('../images/Cards/QDimond.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .QUEENHEARTS{
   background: url('../images/Cards/QHearts.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .QUEENSPADES{
   background: url('../images/Cards/QSpades.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .KINGCLUBS{
   background: url('../images/Cards/KClubs.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .KINGDIAMONDS{
   background: url('../images/Cards/KDimond.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .KINGHEARTS
 {
   background: url('../images/Cards/KHearts.png');  
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
@@ -382,37 +295,27 @@ width:60px;
 {
   background: url('../images/Cards/KSpades.png'); 
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 
 .ACECLUBS{
   background: url('../images/Cards/AceClubs.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .ACEDIAMONDS{
   background: url('../images/Cards/AceDimond.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .ACEHEARTS
 {
   background: url('../images/Cards/AceHearts.png');  
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
 .ACESPADES{
   background: url('../images/Cards/AceSpades.png');   
   width:60px;
-  display: block;
-  max-width: 100%;
   height: 84px;
 }
