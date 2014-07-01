@@ -1,0 +1,51 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 01/07/2014, 20:16:24
+    Author     : miri
+*/
+
+body{
+     background: url("../images/Background/bj_background.jpg");
+ background-repeat:no-repeat;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+}
+
+.buttonHolder{
+    text-align: center;
+}
+
+.button{
+   height: 176px;
+   width: 125px;
+   background-image: url("../images/Cards/4HeartsBig.png");
+    background-repeat:no-repeat;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+ color:black;
+    
+}
+
+.button:hover{
+    color:brown;   
+}
+.spacer {
+    margin-top: 20%; /* define margin as you see fit */
+}
+
+.heading{
+  font-size: 100px;
+  color: #cc9900;  
+  text-align: center;
+}
+
+
+
