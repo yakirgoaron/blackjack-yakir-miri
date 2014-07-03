@@ -302,10 +302,13 @@ function DealWithEvents(events) {
                     $('#ValuePrg').attr('class', 'rogress-bar progress-bar-success');
                     if(CurrPlayer.Bets[0].BetWage === 0)
                     {
-                        $("#PlaceBetfrm").show(ChangeProgressDown()); 
                         $("#PlaceBet").attr('max', CurrPlayer.money);
+                        $("#PlaceBetfrm").show(ChangeProgressDown());                       
+                        $("#PlaceBet").val(1);
+                        console.log($("#PlaceBet").val());
+                       $("#BetLabel").text($("#PlaceBet").val());
                         $("#BetLabel").show();
-                        $("#BetLabel").text($("#PlaceBet").val());
+                        
                         
                     }
                     else

@@ -54,20 +54,23 @@ public class EventsHappened extends HttpServlet {
             if(request.getSession().getAttribute("EventID") != null)
                eventdId = (Integer)request.getSession().getAttribute("EventID") ;
             Integer PlayerId =  (Integer)request.getSession().getAttribute("PlayerID");
-            List<Event> EventsHappened = GameWS.getEvents(PlayerId, eventdId);
-            request.getSession().setAttribute("EventID", EventsHappened.size() + eventdId);
-            List<EventJson> ArrayOfEvents = new ArrayList<>();
-            for (Event event : EventsHappened) 
-            {
-                ArrayOfEvents.add(new EventJson(event));
-            }
-            
-            Gson gson = new Gson();
-            String jsonResponse = gson.toJson(ArrayOfEvents);
-            out.print(jsonResponse);
-            out.flush();
-        } catch (InvalidParameters_Exception ex) {
-            Logger.getLogger(EventsHappened.class.getName()).log(Level.SEVERE, null, ex);
+            List<Event> EventsHappened;
+            try {
+                EventsHappened = GameWS.getEvents(PlayerId, eventdId);
+                request.getSession().setAttribute("EventID", EventsHappened.size() + eventdId);
+                List<EventJson> ArrayOfEvents = new ArrayList<>();
+                for (Event event : EventsHappened) 
+                {
+                    ArrayOfEvents.add(new EventJson(event));
+                }
+
+                Gson gson = new Gson();
+                String jsonResponse = gson.toJson(ArrayOfEvents);
+                out.print(jsonResponse);
+                out.flush();
+            } catch (InvalidParameters_Exception ex) {
+                response.sendRedirect("GameOver.html");
+            }          
         }
     }
 
