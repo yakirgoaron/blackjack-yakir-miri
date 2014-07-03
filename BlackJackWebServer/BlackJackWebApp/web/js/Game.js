@@ -298,7 +298,7 @@ function DealWithEvents(events) {
                     // TODO TIMER
                     console.log(CurrPlayer.Bets[0].BetWage);
                     HideResign();
-                    Delta = 100/(val.timeout/1000);
+                    Delta = 100/((val.timeout - 3000)/1000);
                     $('#ValuePrg').attr('class', 'rogress-bar progress-bar-success');
                     if(CurrPlayer.Bets[0].BetWage === 0)
                     {
