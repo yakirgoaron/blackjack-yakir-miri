@@ -36,7 +36,7 @@ function refreshPlayers(users) {
     {
         var image;
         
-       if ((val.Name !== "Dealer") && (val.Status !== "RETIRED")){
+       if ((val.Name.indexOf("Dealer") < 0) && (val.Status !== "RETIRED")){
         if(val.Type === 'COMPUTER')
            image = 'CompPlayer.png';
        else
@@ -48,8 +48,6 @@ function refreshPlayers(users) {
                   '<div class="row Bet2"><div class="col-md-3 col-xs-3 TotalBet"></div><div class="Cards">'+
                   '</div></div></div></div>').appendTo($("#players")).fadeIn(4000);
         
-     //   $('<div class="row Bet1"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
-      //  $('<div class="row Bet2"><div class="Cards"></div></div>').appendTo($('#'+val.Name));
     }
     });
 }
@@ -83,7 +81,10 @@ function DisableResign(){
 }
 
 function ShowUserAction(Name, Action){
-    $('<div class="PlayerAction"> action:'+Action+'</div>').appendTo('#'+Name);
+    if(Name.indexOf("Dealer") >=0)
+        $('<div class="PlayerAction"> action:'+Action+'</div>').appendTo('#Dealer');
+    else
+        $('<div class="PlayerAction"> action:'+Action+'</div>').appendTo('#'+Name);
 }
 
 function RemoveUserAction(){
@@ -138,7 +139,7 @@ function CardsDealt(event)
     var CardsTag;
     var arraycards;
     var PlayerData = ajaxPlayerDetails(event.playerName);
-    if (event.playerName === "Dealer")   
+    if (event.playerName.indexOf("Dealer") >= 0)   
         CardsTag = $("#Dealer").children(".Cards");
     else{
         UpdateBets(PlayerData);
@@ -148,37 +149,10 @@ function CardsDealt(event)
         ShowDealtCards(event.playerName, CardsTag2, arraycards, "2");
     }
     arraycards = PlayerData.Bets[0].BetCards;
-    ShowDealtCards(event.playerName, CardsTag, arraycards, "1");
-    
-    /*
-    var PlayerCards;
-    if($('Deck'+event.playerName).length > 0)
-    {
-       PlayerCards = $('Deck'+event.playerName);
-       PlayerCards.empty();
-    }
+    if (event.playerName.indexOf("Dealer") >= 0)
+        ShowDealtCards("Dealer", CardsTag, arraycards, "1");
     else
-    {
-        PlayerCards = $('<div id="Deck'+event.playerName+'" class="col-md-1 col-xs-1"> </div>').appendTo($("#Deck"));
-    }
-    CardsTag.empty();
-    var card = $("#"+event.playerName);
-    $.each(arraycards || [], function(index, val)
-    {   
-        $('<div class="col-md-1 col-xs-1"><img class="'+val.rank+val.suit+'" /></div>').appendTo(PlayerCards);        
-        
-    });
-    PlayerCards.show(
-                function(){
-                    $(this).animate({right: $(this).offset().left - card.offset().left ,bot:$(this).offset().top - card.offset().top }, 3000,function(){
-                           
-                            CardsTag.empty();
-                            $(this).children().appendTo(CardsTag);
-                            $(this).remove();
-                             
-                        });
-                    
-                    });*/
+        ShowDealtCards(event.playerName, CardsTag, arraycards, "1");
     
 }
 
