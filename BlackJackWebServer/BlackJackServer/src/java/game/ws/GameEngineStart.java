@@ -489,7 +489,6 @@ public class GameEngineStart extends Thread implements Communicable
         evntGameEnded.setId(Events.size()+1);
         evntGameEnded.setType(EventType.GAME_OVER);
         Events.add(evntGameEnded);
-        System.out.println(GetGameName());
         EngineManager.ClearData(GetGameName());
     }
 

@@ -75,16 +75,7 @@ public class EngineManager {
 
     public static void setMoney(Double Money) {
         EngineManager.Money = Money;
-    }
-
-    
-    /*public static int getUniqeEventID() {
-        return uniqeEventID++;
-    }*/
-    
-    
-
-    
+    }    
     
     public static HashMap<Integer, PlayerDetails> getPlayerManager() {
         return playerManager;
@@ -129,8 +120,6 @@ public class EngineManager {
             throw new DuplicateGameName_Exception("Error Duplicate name",faultinfo);
         }
         
-        /*GameManager newGame = new GameManager();
-        newGame.setGmDetails(gmDetail);*/
         gamemanager.put(GameName, gmDetail);
     }
     
@@ -366,7 +355,6 @@ public class EngineManager {
             PlayerDetails player = playerManager.get(PlayerId);
             player.setStatus(PlayerStatus.RETIRED);
             String Game = IdToGame.get(PlayerId);
-           // IdToGame.remove(PlayerId);
             
             Event playerResign  = new Event();
             playerResign.setId(gamemanager.get(Game).GetEvents().size()+1);          
