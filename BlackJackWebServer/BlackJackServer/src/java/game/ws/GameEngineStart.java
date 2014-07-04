@@ -73,6 +73,7 @@ public class GameEngineStart extends Thread implements Communicable
         GameEngMang = new  GameEngine(File);  
         PlayerByName = new HashMap<>();
         Events = new ArrayList<>();
+        StopWait = new Boolean(true);
     }
 
     public PlayerDetails getCurrPlayer() {
