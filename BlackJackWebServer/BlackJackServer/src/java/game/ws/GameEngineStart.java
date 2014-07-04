@@ -51,7 +51,9 @@ public class GameEngineStart extends Thread implements Communicable
     private PlayerDetails CurrPlayer;
     private final int Timeout = 20000;
     private ArrayList<Event> Events;
+    private Boolean StopWait = false;
 
+    
     
     public GameEngineStart()
     {
@@ -75,6 +77,9 @@ public class GameEngineStart extends Thread implements Communicable
         return Events;
     }
     
+    public Boolean isStopWait() {
+        return StopWait;
+    }
     public void SetGameName(String GameName){
         GameEngMang.setGameName(GameName);
     }
@@ -295,12 +300,12 @@ public class GameEngineStart extends Thread implements Communicable
         envtBid.setTimeout(Timeout);
         Events.add(envtBid);
         Action act = EngineManager.getPlPlayerAction();
-        synchronized(EngineManager.isStopWait())
+        synchronized(StopWait)
         {
             try 
             {
                 if(act == null)
-                    EngineManager.isStopWait().wait(Timeout);
+                    StopWait.wait(Timeout);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -353,12 +358,12 @@ public class GameEngineStart extends Thread implements Communicable
         envtBid.setTimeout(Timeout);
         Events.add(envtBid);
         Double Money = EngineManager.getMoney();
-        synchronized(EngineManager.isStopWait())
+        synchronized(StopWait)
         {
             try 
             {
                 if(Money == null)
-                    EngineManager.isStopWait().wait(Timeout);
+                    StopWait.wait(Timeout);
             }
             catch (InterruptedException ex) 
             {
@@ -434,7 +439,10 @@ public class GameEngineStart extends Thread implements Communicable
     {
         Event evntAction = new Event();
         evntAction.setId(Events.size()+1);
-        evntAction.setPlayerName(PlayerAct.getName());
+        if(PlayerAct.getName().equals("Dealer"))
+            evntAction.setPlayerName(PlayerAct.getName() + GetGameName());
+        else
+            evntAction.setPlayerName(PlayerAct.getName());
         evntAction.setType(EventType.USER_ACTION);
         evntAction.setPlayerAction(synActionToAction(Action));
         Events.add(evntAction);

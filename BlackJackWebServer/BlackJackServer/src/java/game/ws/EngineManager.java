@@ -48,7 +48,7 @@ public class EngineManager {
     
     private static Double Money = null;
     private static Action plPlayerAction = null;
-    private static Boolean StopWait = false;
+    
 
               
     private EngineManager()
@@ -67,10 +67,6 @@ public class EngineManager {
         }
     
         gamemanager.remove(GameName);
-    }
-    
-    public static Boolean isStopWait() {
-        return StopWait;
     }
     
     public static Double getMoney() {
@@ -176,7 +172,7 @@ public class EngineManager {
         uniqePlayerID++;
         PlayerDetails Dealer = new PlayerDetails();
         Dealer.setStatus(PlayerStatus.ACTIVE);
-        Dealer.setName("Dealer");
+        Dealer.setName("Dealer" + name);
         Dealer.setType(PlayerType.COMPUTER);
         Dealer.setMoney(0);
         playerManager.put(uniqePlayerID, Dealer);
@@ -382,11 +378,11 @@ public class EngineManager {
             playerResign.setType(EventType.PLAYER_RESIGNED);
             gamemanager.get(Game).GetEvents().add(playerResign);
             
-            synchronized(StopWait)
+            synchronized(gamemanager.get(Game).getEngine().isStopWait())
             {
-                if(gamemanager.get(Game).getEngine().getCurrPlayer().equals(playerManager.get(PlayerId)))
-                    StopWait.notifyAll();
+                gamemanager.get(Game).getEngine().isStopWait().notifyAll();
             }
+            
         }
             
         
@@ -421,7 +417,7 @@ public class EngineManager {
             uniqePlayerID++;
             PlayerDetails Dealer = new PlayerDetails();
             Dealer.setStatus(PlayerStatus.ACTIVE);
-            Dealer.setName("Dealer");
+            Dealer.setName("Dealer" + GameName);
             Dealer.setType(PlayerType.COMPUTER);
             Dealer.setMoney(0);
             playerManager.put(uniqePlayerID, Dealer);
@@ -455,9 +451,9 @@ public class EngineManager {
         }
         
         plPlayerAction = action;
-        synchronized(StopWait)
+        synchronized(Game.getEngine().isStopWait())
         {
-            StopWait.notifyAll();
+            Game.getEngine().isStopWait().notifyAll();
         }
         synchronized(Game.getEngine().isWaitEnd())    
         {
