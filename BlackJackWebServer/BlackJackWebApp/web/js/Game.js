@@ -517,7 +517,7 @@ function DoPlayerAction() {
             //since it's going to be retrieved from the server
             //$("#result h1").text(r);
              
-            if(r !== undefined)
+            if((r !== undefined) && (r!=""))
             {
                 $('#Error').show().fadeIn();
                 $('#errormessage').text(r);
