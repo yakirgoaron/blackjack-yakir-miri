@@ -13,18 +13,13 @@ import game.ws.client.InvalidParameters_Exception;
 import game.ws.client.InvalidXML_Exception;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 /**
  *
  * @author Yakir
@@ -97,9 +92,6 @@ public class CreateGame extends HttpServlet {
             }
            
             out.write(Message);
-          //  out.flush();
-          //  request.getSession().setAttribute("GameName", Name);
-           // response.sendRedirect("GameList.html");
         }
         
     }

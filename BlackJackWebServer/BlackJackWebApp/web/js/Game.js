@@ -199,7 +199,6 @@ function ProgressBarUpdate()
        {
            $('#ValuePrg').attr('class', 'progress-bar progress-bar-warning');
        }
-      // console.log(valuepg);
        if(valuepg > 0)
            ChangeProgressDown();
        else
@@ -257,7 +256,6 @@ function DealWithEvents(events) {
                 if (Name === CurrPlayer.name){
                         IsResigned = true;
                         HideResign(); 
-                        //todo: handle
                         GameOver();
                  }
                 break;
@@ -269,7 +267,6 @@ function DealWithEvents(events) {
                 
                 if(val.playerName === CurrPlayer.name)
                 {
-                    // TODO TIMER
                     console.log(CurrPlayer.Bets[0].BetWage);
                     HideResign();
                     Delta = 100/((val.timeout - 3000)/1000);
@@ -430,9 +427,6 @@ $(function()
                     GameOver();
                 },
                 success: function(r) {
-                    //do not add the user string to the chat area
-                    //since it's going to be retrieved from the server
-                    //$("#result h1").text(r);
                     ShowResign();
                     triggerAjaxHandleEvents();
                 }
@@ -440,12 +434,10 @@ $(function()
 
             $("#PlaceBetfrm").hide();
             $("#BetLabel").hide();
-            // by default - we'll always return false so it doesn't redirect the user.
             ProgressBarToNormal();
             return false;
         });
         window.onunload = Resign;
-      //  $("#Resign").submit(Resign);
         $("#ActionHit").submit(DoPlayerAction);
         $("#ActionDouble").submit(DoPlayerAction);
         $("#ActionSplit").submit(DoPlayerAction);
@@ -466,9 +458,6 @@ function Resign(){
                 GameOver();
             },
             success: function(r) {
-                //do not add the user string to the chat area
-                //since it's going to be retrieved from the server
-                //$("#result h1").text(r);
                 HideResign();
             }
         });
@@ -487,9 +476,6 @@ function DoPlayerAction() {
                 GameOver();
         },
         success: function(r) {
-            //do not add the user string to the chat area
-            //since it's going to be retrieved from the server
-            //$("#result h1").text(r);
              
             if((r !== undefined) && (r!=""))
             {
@@ -503,7 +489,6 @@ function DoPlayerAction() {
 
     $("#DoAction").hide();
     ProgressBarToNormal();
-    // by default - we'll always return false so it doesn't redirect the user.
 
     return false;
 }

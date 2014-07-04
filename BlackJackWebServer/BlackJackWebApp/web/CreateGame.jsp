@@ -40,8 +40,7 @@
                         Game Name: <input class="form-control" type="text" name="GameName" autofocus required><br>
                         Comp Players: <input class="form-control" type="number" name="CompPlayersNumber"  max="5" value = "1" min="0" required><br>
                         Human Players: <input class="form-control" type="number" name="HumanPlayers" max="6" value = "1" min="1" required><br>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit" >Create</button>
-                        <!-- input type="submit" value="Submit" -->                                    
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" >Create</button>                                
                     </form>
                 </div>
                 <div class="tab-pane fade container" id="LoadGame">
@@ -49,7 +48,6 @@
                         <input type="hidden" name="tab" value="0" />
                         <input type="file" class="form-control" name="XMLFile" required><br /><br />
                         <button class="btn btn-lg btn-primary btn-block" type="submit" >Create</button>
-                        <!-- input type="submit" name="submit" value="Submit" -->
                    </form>
                 </div>
             </div>

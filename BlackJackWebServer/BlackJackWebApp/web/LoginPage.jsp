@@ -20,7 +20,6 @@
                 Host: <input type="text" class="form-control" name="Host" value="localhost" required autofocus>
                 Port: <input type="number" class="form-control" name="Port" value="8080" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit" >Login</button>
-                <!-- input type="submit" value="Login"/ -->
             </form>
             <% Object errorMessage = request.getAttribute("LoginError");%>
             <% if (errorMessage != null) {%>

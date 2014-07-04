@@ -7,14 +7,11 @@
 package game.servlets;
 
 import BlackJack.Utils.SessionUtils;
-import com.google.gson.Gson;
 import game.ws.client.Action;
 import game.ws.client.BlackJackWebService;
 import game.ws.client.InvalidParameters_Exception;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

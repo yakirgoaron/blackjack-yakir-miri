@@ -29,8 +29,6 @@ $(function() { // onload...do
             }
         });
 
-                // $("#userstring").val("");
-        // by default - we'll always return false so it doesn't redirect the user.
         return Success;
     });
 });
