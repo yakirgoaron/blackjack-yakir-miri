@@ -103,8 +103,6 @@ public class PlayerDetails extends HttpServlet{
                     game.ws.client.PlayerDetails PlayerByID= GameWS.getPlayerDetails(PlayerID);
                     Player = new PlayerData(PlayerByID);
 
-                    System.out.println(PlayerByID.getFirstBetWage());
-
                 } catch (GameDoesNotExists_Exception ex) {
                     Logger.getLogger(PlayerDetails.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InvalidParameters_Exception ex) {
