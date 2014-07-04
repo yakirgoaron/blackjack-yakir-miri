@@ -234,7 +234,6 @@ public class EngineManager {
                 if (players.getValue().equals(GameName)){             
                     ID = players.getKey();
                     playersDetails.add(playerManager.get(ID));
-                    System.out.println("GAME IS "+ GameName +" PLAYER IS " + playerManager.get(ID).getName());
                 }
             }
 
