@@ -47,7 +47,7 @@ public class EngineManager {
     private static HashMap<Integer, String> IdToGame = new HashMap<>();
     
     private static Double Money = null;
-    private static Action plPlayerAction = null;
+    
     
 
               
@@ -65,7 +65,7 @@ public class EngineManager {
                 playerManager.remove(entry.getKey());
             }
         }
-    
+        
         gamemanager.remove(GameName);
     }
     
@@ -82,13 +82,9 @@ public class EngineManager {
         return uniqeEventID++;
     }*/
     
-    public static Action getPlPlayerAction() {
-        return plPlayerAction;
-    }
+    
 
-    public static void setPlPlayerAction(Action plPlayerAction) {
-        EngineManager.plPlayerAction = plPlayerAction;
-    }
+    
     
     public static HashMap<Integer, PlayerDetails> getPlayerManager() {
         return playerManager;
@@ -450,25 +446,11 @@ public class EngineManager {
             Money = (double) money;
         }
         
-        plPlayerAction = action;
+        Game.setPlPlayerAction(action);
+        
         synchronized(Game.getEngine().isStopWait())
         {
             Game.getEngine().isStopWait().notifyAll();
-        }
-        synchronized(Game.getEngine().isWaitEnd())    
-        {
-            try 
-            {
-                Game.getEngine().isWaitEnd().wait();
-            }
-            catch (InterruptedException ex) 
-            {
-                ThrowInvalidParameter("Action chosen was not valid");
-            }
-            if(Game.getEngine().isErrorFound())
-            {
-                ThrowInvalidParameter("Action chosen was not valid");
-            }
         }
     }
     

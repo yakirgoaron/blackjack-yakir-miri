@@ -51,15 +51,21 @@ public class GameEngineStart extends Thread implements Communicable
     private PlayerDetails CurrPlayer;
     private final int Timeout = 20000;
     private ArrayList<Event> Events;
-    private Boolean StopWait = false;
+    private Boolean StopWait;
+    private GameManager MyManager;
 
-    
+      
     
     public GameEngineStart()
     {
         GameEngMang = new GameEngine();
         PlayerByName = new HashMap<>();
         Events = new ArrayList<>();
+        StopWait = new Boolean(true);
+    }
+    
+    public void setMyManager(GameManager MyManager) {
+        this.MyManager = MyManager;
     }
     
     public GameEngineStart(String File) throws DuplicateCardException, SAXException, TooManyPlayersException, JAXBException
@@ -307,7 +313,7 @@ public class GameEngineStart extends Thread implements Communicable
         envtBid.setType(EventType.PROMPT_PLAYER_TO_TAKE_ACTION);
         envtBid.setTimeout(Timeout);
         Events.add(envtBid);
-        Action act = EngineManager.getPlPlayerAction();
+        Action act = MyManager.getPlPlayerAction();
         synchronized(StopWait)
         {
             try 
@@ -317,14 +323,14 @@ public class GameEngineStart extends Thread implements Communicable
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameEngineStart.class.getName()).log(Level.SEVERE, null, ex);
             }
-            act = EngineManager.getPlPlayerAction();
+            act = MyManager.getPlPlayerAction();
             
             if (act == null){
                 RemovePlayer(CurrentPlayer);
                 throw new PlayerResigned();
             }
         }
-        EngineManager.setPlPlayerAction(null);
+        MyManager.setPlPlayerAction(null);
         return PlayerAction.valueOf(act.name());
     }
 
@@ -386,7 +392,7 @@ public class GameEngineStart extends Thread implements Communicable
         }
             
         EngineManager.setMoney(null);
-        EngineManager.setPlPlayerAction(null);
+        MyManager.setPlPlayerAction(null);
         if(PlayerByName.get(BettingPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
             throw new PlayerResigned();
         return Money;
@@ -483,6 +489,7 @@ public class GameEngineStart extends Thread implements Communicable
         evntGameEnded.setId(Events.size()+1);
         evntGameEnded.setType(EventType.GAME_OVER);
         Events.add(evntGameEnded);
+        System.out.println(GetGameName());
         EngineManager.ClearData(GetGameName());
     }
 
