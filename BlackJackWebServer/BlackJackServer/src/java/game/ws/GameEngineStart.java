@@ -179,7 +179,11 @@ public class GameEngineStart extends Thread implements Communicable
                 if(playerDetails.getName().equals(currentPlayer.getName()))
                 {
                     PlayerByName.put(currentPlayer.getName(), playerDetails);
-                }                
+                }
+                else if(playerDetails.getName().equals(currentPlayer.getName() +GetGameName()))
+                {
+                    PlayerByName.put(currentPlayer.getName()+GetGameName(), playerDetails);
+                }
             }
         }
     }
@@ -225,7 +229,11 @@ public class GameEngineStart extends Thread implements Communicable
                                                  GameParticipant ParPlayer){
     
         SynchronyizeContiner(ParPlayer);
-        PlayerDetails playerDetails = PlayerByName.get(ParPlayer.getName());
+        PlayerDetails playerDetails = null;
+        if(ParPlayer.getName().equals("Dealer"))
+            playerDetails = PlayerByName.get(ParPlayer.getName() + GetGameName());
+        else
+            playerDetails = PlayerByName.get(ParPlayer.getName());
         SynchronyizeHandAndCards(HandToSync, playerDetails.getFirstBet());      
     }
     
@@ -418,12 +426,16 @@ public class GameEngineStart extends Thread implements Communicable
     public void PrintHandInfo(Hand HandForPrint, GameParticipant ParPlayer) throws PlayerResigned{
         SynchronyizeHandToPlayerDetails(HandForPrint, ParPlayer);
         isInEndRound = false;
-        if(PlayerByName.get(ParPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
+        
+        if(!ParPlayer.getName().equals("Dealer") && PlayerByName.get(ParPlayer.getName()).getStatus().equals(PlayerStatus.RETIRED))
             throw new PlayerResigned();
                 
         Event CardsDealt = new Event();
         CardsDealt.setId(Events.size()+1);
-        CardsDealt.setPlayerName(ParPlayer.getName());
+        if(ParPlayer.getName().equals("Dealer"))
+            CardsDealt.setPlayerName(ParPlayer.getName()+ GetGameName());
+        else
+            CardsDealt.setPlayerName(ParPlayer.getName());
         CardsDealt.setType(EventType.CARDS_DEALT);
         CardsDealt.getCards().addAll(ConvertCardsFromEngineToWSDL(HandForPrint.getCards()));
         Events.add(CardsDealt);
