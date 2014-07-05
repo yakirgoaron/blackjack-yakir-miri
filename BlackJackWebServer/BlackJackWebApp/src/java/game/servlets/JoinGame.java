@@ -43,21 +43,26 @@ public class JoinGame extends HttpServlet {
             String PlayerName = request.getParameter("PlayerName");
             if(PlayerName == null || PlayerName.equals(""))
                 PlayerName = request.getParameter("PlayerNameTxT");
-            
-            try
-            {
-                int PlayerID = GameWS.joinGame(GameName,PlayerName,1000);
-                request.getSession().setAttribute("PlayerID",PlayerID );
-                request.getSession().setAttribute("GameName", GameName);
-                response.sendRedirect("Game.html");
-            } catch (GameDoesNotExists_Exception ex) {
-                Message = ex.getMessage();
-                request.setAttribute("Error", Message);
+            if (GameName == null || GameName.equals("")){
+                request.setAttribute("Error", "Select Game!");
                 getServletContext().getRequestDispatcher("/GameList.jsp").forward(request, response);
-            } catch (InvalidParameters_Exception ex) {
-                Message = ex.getMessage();
-                request.setAttribute("Error", Message);
-                getServletContext().getRequestDispatcher("/GameList.jsp").forward(request, response);
+            }
+            else{               
+                try
+                {
+                    int PlayerID = GameWS.joinGame(GameName,PlayerName,1000);
+                    request.getSession().setAttribute("PlayerID",PlayerID );
+                    request.getSession().setAttribute("GameName", GameName);
+                    response.sendRedirect("Game.html");
+                } catch (GameDoesNotExists_Exception ex) {
+                    Message = ex.getMessage();
+                    request.setAttribute("Error", Message);
+                    getServletContext().getRequestDispatcher("/GameList.jsp").forward(request, response);
+                } catch (InvalidParameters_Exception ex) {
+                    Message = ex.getMessage();
+                    request.setAttribute("Error", Message);
+                    getServletContext().getRequestDispatcher("/GameList.jsp").forward(request, response);
+                }
             }
             
         }

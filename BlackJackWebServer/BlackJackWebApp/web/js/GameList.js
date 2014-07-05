@@ -9,7 +9,7 @@ function refreshWaitingGames(users) {
     $("#Gamelist").empty();
     $.each(users || [], function(index, val) 
     {
-        $('<tr><td><input id="'+index+'" type="radio" name="1"></td><td>' + 
+        $('<tr><td><input id="'+index+'" type="radio" name="1" ></td><td>' + 
                 val.Name + '</td><td>' +  val.HumanPlayers + '</td><td>' +  val.JoinedPlayers + '</td>'+
                 '<input type="hidden" value="'+val.Loaded+'" /></tr>').
                 appendTo($("#Gamelist"));

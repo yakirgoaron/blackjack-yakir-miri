@@ -60,6 +60,8 @@ function AddEffect(playerName){
  
     
     $("img").removeClass("Effect");
+    $(".Bet1").removeClass("Effect");
+    $(".Bet2").removeClass("Effect");
     $('#img'+playerName).addClass("Effect");
     
 }

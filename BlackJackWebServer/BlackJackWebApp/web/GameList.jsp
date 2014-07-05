@@ -33,7 +33,7 @@
            <div class="container">
                <form class="form-signin-heading" >
                     Player Name: <input class="form-control" id="PlayerName" type="text" name="PlayerNameTxT" autofocus required><br>
-                     <select id="dataCombo" class="selectpicker">
+                    <select id="dataCombo" class="selectpicker">
                      </select>
                     <input type="hidden" name="GameName" id="GameName" >
                    <button class="btn btn-lg btn-primary btn-block" type="submit" >Join</button>
