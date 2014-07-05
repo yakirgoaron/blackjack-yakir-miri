@@ -167,6 +167,10 @@ function ProgressBarToNormal()
     $('#ValuePrg').css('width', '100%').attr('aria-valuenow', 100);
     valuepg = 100;
     $('#ValuePrg').attr('class', 'rogress-bar progress-bar-success');
+    for (var i = 0; i < timers.length; i++)
+    {
+        clearTimeout(timers[i]);
+    }
 }
 
 
@@ -320,14 +324,6 @@ function DealWithEvents(events) {
     {
         triggerAjaxHandleEvents();
     }
-}
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
 }
 function ajaxShowPlayers() {
     jQuery.ajax({
