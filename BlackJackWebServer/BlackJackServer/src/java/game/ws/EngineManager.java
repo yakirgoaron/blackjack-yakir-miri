@@ -305,7 +305,7 @@ public class EngineManager {
         
         return -1;
     }
-    private static PlayerDetails CheckIfNameExists(String PlayerName) {
+    public static PlayerDetails CheckIfNameExists(String PlayerName) {
        
         
         for (Entry<Integer, PlayerDetails> entry : playerManager.entrySet()) {
@@ -387,9 +387,10 @@ public class EngineManager {
             gmDetail.setStatus(GameStatus.WAITING);
             gmDetail.setLoadedFromXML(true);
             Game.setGmDetails(gmDetail);
+            GameName = Game.getEngine().GetGameName();
             CreateServerGame(Game.getEngine().GetGameName(),Game);
             Game.getEngine().CreatePlayerDetailsEngMng(Game.getEngine().GetGameName());
-            GameName = Game.getEngine().GetGameName();
+            
         }
         catch (DuplicateCardException | SAXException | TooManyPlayersException | JAXBException ex) 
         {

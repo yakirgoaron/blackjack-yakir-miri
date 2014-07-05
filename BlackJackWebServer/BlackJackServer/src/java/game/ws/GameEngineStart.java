@@ -31,6 +31,8 @@ import org.xml.sax.SAXException;
 import ws.blackjack.Action;
 import ws.blackjack.Event;
 import ws.blackjack.EventType;
+import ws.blackjack.InvalidXML;
+import ws.blackjack.InvalidXML_Exception;
 import ws.blackjack.PlayerDetails;
 import ws.blackjack.PlayerStatus;
 import ws.blackjack.PlayerType;
@@ -129,10 +131,16 @@ public class GameEngineStart extends Thread implements Communicable
         }
     }
     
-    public void CreatePlayerDetailsEngMng(String GameName)
+    public void CreatePlayerDetailsEngMng(String GameName) throws InvalidXML_Exception
     {
         for (Player curr : GameEngMang.getGamePlayers())
         {
+           if(EngineManager.CheckIfNameExists(curr.getName()) != null)
+           {
+               InvalidXML exXml = new InvalidXML();
+               EngineManager.ClearData(GameName);
+               throw new InvalidXML_Exception("Player already exsists in another game", exXml);
+           }
            PlayerDetails player = new PlayerDetails();
            player.setMoney(curr.getMoney().floatValue());
            if (curr instanceof HumanPlayer)
