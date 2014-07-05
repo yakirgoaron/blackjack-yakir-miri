@@ -274,10 +274,10 @@ function DealWithEvents(events) {
                     if(CurrPlayer.Bets[0].BetWage === 0)
                     {
                         $("#PlaceBet").attr('max', CurrPlayer.money);
-                        $("#PlaceBetfrm").show(ChangeProgressDown());                       
+                        $("#PlaceBetfrm").show(ProgressBarForAction());                       
                         $("#PlaceBet").val(1);
                         console.log($("#PlaceBet").val());
-                       $("#BetLabel").text($("#PlaceBet").val());
+                        $("#BetLabel").text($("#PlaceBet").val());
                         $("#BetLabel").show();
                         
                         

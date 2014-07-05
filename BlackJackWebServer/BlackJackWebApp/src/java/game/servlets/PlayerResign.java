@@ -44,7 +44,7 @@ public class PlayerResign extends HttpServlet {
             try {
                 GameWS.resign(PlayerId);
             } catch (InvalidParameters_Exception ex) {
-                Logger.getLogger(PlayerResign.class.getName()).log(Level.SEVERE, null, ex);
+                response.sendRedirect("GameOver.html");
             }
             
             String IsClosed = request.getParameter("CloseApp");
